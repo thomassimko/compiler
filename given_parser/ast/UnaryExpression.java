@@ -1,5 +1,7 @@
 package ast;
 
+import java.util.HashMap;
+
 public class UnaryExpression
    extends AbstractExpression
 {
@@ -33,8 +35,19 @@ public class UnaryExpression
    private static final String NOT_OPERATOR = "!";
    private static final String MINUS_OPERATOR = "-";
 
-   public static enum Operator
+   public enum Operator
    {
       NOT, MINUS
+   }
+
+   public Type getType(HashMap<String, Type> globalTable, HashMap<String, HashMap<String, Type>> structTable, String currentFunctionName) {
+      Type operandType = operand.getType(globalTable, structTable, currentFunctionName);
+      if (operator == Operator.NOT) {
+         assert operandType instanceof BoolType : "Operator is not of Bool type on line " + lineNum;
+         return new BoolType();
+      } else {
+         assert operandType instanceof IntType : "Operator is not of Int type on line " + lineNum;
+         return new IntType();
+      }
    }
 }

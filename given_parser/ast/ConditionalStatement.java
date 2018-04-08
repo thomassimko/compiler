@@ -1,7 +1,8 @@
 package ast;
 
-public class ConditionalStatement
-   extends AbstractStatement
+import java.util.HashMap;
+
+public class ConditionalStatement extends AbstractStatement
 {
    private final Expression guard;
    private final Statement thenBlock;
@@ -14,5 +15,14 @@ public class ConditionalStatement
       this.guard = guard;
       this.thenBlock = thenBlock;
       this.elseBlock = elseBlock;
+   }
+
+   @Override
+   public boolean checkTypes(HashMap<String, Type> globalTable, HashMap<String, HashMap<String, Type>> structTable, String currentFunctionName) {
+      assert guard.getType(globalTable, structTable, currentFunctionName) instanceof BoolType : "Guard is not of type boolean : line " + lineNum;
+
+      return thenBlock.checkTypes(globalTable, structTable, currentFunctionName)
+              && elseBlock.checkTypes(globalTable, structTable, currentFunctionName);
+
    }
 }

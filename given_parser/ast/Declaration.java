@@ -16,6 +16,15 @@ public class Declaration
    }
    
    public void addToTable(HashMap<String, Type> table) {
-      table.add(name, type);
+      assert !table.containsKey(name) : "Variable " + name + " is already defined line : " + lineNum;
+      table.put(name, type);
+   }
+
+   public Type getType() {
+      return this.type;
+   }
+
+   public String getName() {
+      return name;
    }
 }

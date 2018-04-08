@@ -1,11 +1,17 @@
+import ast.Type;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
 import java.io.*;
+import java.util.HashMap;
 import javax.json.JsonValue;
 
 public class MiniCompiler
 {
+   public static HashMap<String, Type> globalTable = new HashMap<String, Type>();
+   public static HashMap<String, HashMap<String, Type>> structTable = new HashMap<String, HashMap<String, Type>>();
+
+
    public static void main(String[] args)
    {
       parseParameters(args);
@@ -34,6 +40,10 @@ public class MiniCompiler
          MiniToAstProgramVisitor programVisitor =
             new MiniToAstProgramVisitor();
          ast.Program program = programVisitor.visit(tree);
+
+         program.checkTypes(globalTable, structTable);
+
+
       }
    }
 

@@ -1,5 +1,7 @@
 package ast;
 
+import java.util.HashMap;
+
 public class BinaryExpression
    extends AbstractExpression
 {
@@ -63,8 +65,27 @@ public class BinaryExpression
    private static final String AND_OPERATOR = "&&";
    private static final String OR_OPERATOR = "||";
 
-   public static enum Operator
+   public enum Operator
    {
       TIMES, DIVIDE, PLUS, MINUS, LT, GT, LE, GE, EQ, NE, AND, OR
+   }
+
+   public Type getType(HashMap<String, Type> globalTable, HashMap<String, HashMap<String, Type>> structTable, String currentFunctionName) {
+      Type leftType = left.getType(globalTable, structTable, currentFunctionName);
+      Type rightType = right.getType(globalTable, structTable, currentFunctionName);
+
+      if (operator == Operator.AND || operator == Operator.OR) {
+         assert leftType instanceof BoolType : "Left hand operator does not match type Bool on line " + this.lineNum;
+         assert rightType instanceof BoolType : "Right hand operator does not match type Bool on line " + this.lineNum;
+         return leftType;
+      }
+      else {
+         assert leftType instanceof IntType : "Left hand operator does not match type Int on line " + this.lineNum;
+         assert rightType instanceof IntType : "Right hand operator does not match type Int on line " + this.lineNum;
+
+         if (operator == Operator.MINUS || operator == Operator.PLUS || operator == Operator.DIVIDE || operator == Operator.TIMES)
+            return leftType;
+         return new BoolType();
+      }
    }
 }
