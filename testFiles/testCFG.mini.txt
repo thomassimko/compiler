@@ -1,0 +1,26 @@
+fun main() int
+{
+   int i, j, k;
+   bool b;
+   int h;
+   if (i < 1)
+   {
+      print 1;
+   }
+
+   if (i > 2)
+   {
+      return 1;
+   }
+   else
+   {
+      print 3 endl;
+   }
+   while (true)
+   {
+      print 7;
+   }
+   print 1;
+   print 2;
+   return 0;
+}

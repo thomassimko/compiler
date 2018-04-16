@@ -1,6 +1,9 @@
 package ast;
 
+import cfg.Block;
+
 import java.util.HashMap;
+import java.util.List;
 
 public class ReturnStatement
    extends AbstractStatement
@@ -21,5 +24,11 @@ public class ReturnStatement
       assert expression.getType(globalTable, structTable, currentFunctionName).getClass() == fType.getReturnType().getClass()
               : "Return type does not match value returned : line " + lineNum;
       return true;
+   }
+
+   @Override
+   public Block getCFG(Block curNode, Block endNode, List<Block> blockList) {
+      curNode.addSuccessor(endNode);
+      return curNode;
    }
 }

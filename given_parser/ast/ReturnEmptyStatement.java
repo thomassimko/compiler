@@ -1,6 +1,9 @@
 package ast;
 
+import cfg.Block;
+
 import java.util.HashMap;
+import java.util.List;
 
 public class ReturnEmptyStatement
    extends AbstractStatement
@@ -17,5 +20,11 @@ public class ReturnEmptyStatement
       assert ((FunctionType) globalTable.get(currentFunctionName)).getReturnType() instanceof VoidType
               : "Return type does not match value returned : line " + lineNum;
       return true;
+   }
+
+   @Override
+   public Block getCFG(Block curNode, Block endNode, List<Block> blockList) {
+      curNode.addSuccessor(endNode);
+      return curNode;
    }
 }

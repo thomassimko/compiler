@@ -1,5 +1,7 @@
 package ast;
 
+import cfg.Block;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
@@ -28,4 +30,14 @@ public class BlockStatement extends AbstractStatement
       }
       return willReturn;
    }
+
+   @Override
+   public Block getCFG(Block curNode, Block endNode, List<Block> blockList) {
+      Block curBlockNode = curNode;
+      for(Statement stmt: statements) {
+         curBlockNode = stmt.getCFG(curBlockNode, endNode, blockList);
+      }
+      return curBlockNode;
+   }
+
 }

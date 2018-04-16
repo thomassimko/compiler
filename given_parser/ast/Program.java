@@ -1,7 +1,12 @@
 package ast;
 
+import cfg.Block;
+import cfg.StartBlock;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class Program
@@ -40,4 +45,9 @@ public class Program
       assert mainFunc.getReturnType() instanceof IntType : "main does not return type Int";
       assert mainFunc.getParamTypes().size() == 0 : "main cannot take parameters";
    }
+
+   public StartBlock[] getCFG(List<Block> blockList) {
+      return funcs.stream().map(func -> func.getCFG(blockList)).toArray(StartBlock[]::new);
+   }
+
 }

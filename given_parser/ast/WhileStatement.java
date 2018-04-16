@@ -1,6 +1,11 @@
 package ast;
 
+import cfg.BasicBlock;
+import cfg.Block;
+import cfg.WhileBlock;
+
 import java.util.HashMap;
+import java.util.List;
 
 public class WhileStatement
    extends AbstractStatement
@@ -20,5 +25,23 @@ public class WhileStatement
       assert guard.getType(globalTable, structTable, currentFunctionName) instanceof BoolType : "Guard is not of type boolean : line " + lineNum;
       body.checkTypes(globalTable, structTable, currentFunctionName);
       return false;
+   }
+
+   @Override
+   public Block getCFG(Block curNode, Block endNode, List<Block> blockList) {
+
+      Block whileBlock = new WhileBlock("whileBlock" + lineNum);
+      curNode.addSuccessor(whileBlock);
+      whileBlock.addSuccessor(whileBlock);
+
+      Block lastBlock = body.getCFG(whileBlock, endNode, blockList);
+      Block exitBlock = new BasicBlock("whileExitBlock" + lineNum);
+
+      //blockList.add(whileBlock);
+      blockList.add(lastBlock);
+      blockList.add(exitBlock);
+
+      lastBlock.addSuccessor(exitBlock);
+      return exitBlock;
    }
 }

@@ -1,5 +1,10 @@
 package ast;
 
+import cfg.BasicBlock;
+import cfg.Block;
+import cfg.EndBlock;
+import cfg.StartBlock;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,5 +47,24 @@ public class Function implements Type
       if (!(retType instanceof VoidType)) {
          assert doesReturn : "Function " + name + " does not return along all paths";
       }
+   }
+
+   public StartBlock getCFG(List<Block> blockList) {
+      StartBlock start = new StartBlock(this.name);
+      BasicBlock block = new BasicBlock(this.name + "Block1");
+      start.addSuccessor(block);
+      EndBlock end = new EndBlock(this.name);
+
+      blockList.add(start);
+      blockList.add(block);
+      blockList.add(end);
+
+      Block lastNode = body.getCFG(block, end, blockList);
+
+      if(!lastNode.hasEndBlockSuccessor()) {
+         lastNode.addSuccessor(end);
+      }
+
+      return start;
    }
 }

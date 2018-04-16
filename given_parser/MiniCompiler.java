@@ -1,10 +1,14 @@
 import ast.Type;
+import cfg.Block;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
-import javax.json.JsonValue;
+import java.util.List;
 
 public class MiniCompiler
 {
@@ -20,28 +24,32 @@ public class MiniCompiler
       MiniParser parser = new MiniParser(tokens);
       ParseTree tree = parser.program();
 
-      if (parser.getNumberOfSyntaxErrors() == 0)
-      {
-         /*
-            This visitor will create a JSON representation of the AST.
-            This is primarily intended to allow use of languages other
-            than Java.  The parser can thusly be used to generate JSON
-            and the next phase of the compiler can read the JSON to build
-            a language-specific AST representation.
-         */
-         MiniToJsonVisitor jsonVisitor = new MiniToJsonVisitor();
-         JsonValue json = jsonVisitor.visit(tree);
-         System.out.println(json);
-
-         /*
-            This visitor will build an object representation of the AST
-            in Java using the provided classes.
-         */
+      if (parser.getNumberOfSyntaxErrors() == 0) {
          MiniToAstProgramVisitor programVisitor =
-            new MiniToAstProgramVisitor();
+                 new MiniToAstProgramVisitor();
          ast.Program program = programVisitor.visit(tree);
 
          program.checkTypes(globalTable, structTable);
+
+         List<Block> blockList = new ArrayList<Block>();
+
+         Block[] cfg = program.getCFG(blockList);
+
+         try {
+            FileWriter writer = new FileWriter(new File("../cfg.gv"));
+            writer.write("digraph G {\n");
+            writer.write("size =\"8.5,11\";");
+
+            for (Block block : blockList) {
+               writer.write(block.getGraphVisFormat());
+            }
+            writer.write("}");
+
+            writer.flush();
+            writer.close();
+         } catch (IOException ex) {
+            System.err.println(ex);
+         }
 
 
       }
