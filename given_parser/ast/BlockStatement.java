@@ -32,10 +32,10 @@ public class BlockStatement extends AbstractStatement
    }
 
    @Override
-   public Block getCFG(Block curNode, Block endNode, List<Block> blockList) {
+   public Block getCFG(Block curNode, Block endNode, List<Block> blockList, HashMap<String, HashMap<String, Type>> structTable) {
       Block curBlockNode = curNode;
       for(Statement stmt: statements) {
-         curBlockNode = stmt.getCFG(curBlockNode, endNode, blockList);
+         curBlockNode = stmt.getCFG(curBlockNode, endNode, blockList, structTable);
       }
       return curBlockNode;
    }

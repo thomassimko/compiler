@@ -7,5 +7,6 @@ make clean
 make
 java -ea MiniCompiler $1
 cd ..
-dot -Tps cfg.gv -o cfg.ps
-open cfg.ps
+dot -Tpng cfg.gv -o cfg.png
+open cfg.png
+open -a "Xcode" output.ll

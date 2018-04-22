@@ -1,6 +1,11 @@
 package ast;
 
+import llvm.Instruction;
+import llvm.value.Value;
+import llvm.value.ValueLiteral;
+
 import java.util.HashMap;
+import java.util.List;
 
 public class IntegerExpression
    extends AbstractExpression {
@@ -13,5 +18,10 @@ public class IntegerExpression
 
    public Type getType(HashMap<String, Type> globalTable, HashMap<String, HashMap<String, Type>> structTable, String currentFunctionName) {
       return new IntType();
+   }
+
+   @Override
+   public Value getCFGValue(List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
+      return new ValueLiteral(value);
    }
 }

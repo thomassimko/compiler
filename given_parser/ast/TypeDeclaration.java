@@ -1,5 +1,17 @@
 package ast;
 
+import llvm.ArithmeticBool.ExclusiveOr;
+import llvm.ArithmeticBool.Subtract;
+import llvm.Instruction;
+import llvm.Truncate;
+import llvm.declarations.StructDeclaration;
+import llvm.value.Register;
+import llvm.value.RegisterCounter;
+import llvm.value.Value;
+import llvm.value.ValueLiteral;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.HashMap;
 
@@ -24,5 +36,12 @@ public class TypeDeclaration
          field.addToTable(newStruct);
       }
       structTable.put(name, newStruct);
+   }
+
+   public Instruction getCFGValue() {
+
+      Collections.sort(fields);
+      String[] fieldArray = fields.stream().map(field -> field.getLLVMType()).toArray(String[]::new);
+      return new StructDeclaration(name, fieldArray);
    }
 }

@@ -15,4 +15,9 @@ public class StructType
    public String getName() {
       return name;
    }
+
+   @Override
+   public String getCFGType() {
+      return "%struct." + name + "*";
+   }
 }

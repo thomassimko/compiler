@@ -1,6 +1,16 @@
 package ast;
 
+import llvm.ArithmeticBool.ExclusiveOr;
+import llvm.ArithmeticBool.Subtract;
+import llvm.Instruction;
+import llvm.Truncate;
+import llvm.value.Register;
+import llvm.value.RegisterCounter;
+import llvm.value.Value;
+import llvm.value.ValueLiteral;
+
 import java.util.HashMap;
+import java.util.List;
 
 public class UnaryExpression
    extends AbstractExpression
@@ -49,5 +59,20 @@ public class UnaryExpression
          assert operandType instanceof IntType : "Operator is not of Int type on line " + lineNum;
          return new IntType();
       }
+   }
+
+   @Override
+   public Value getCFGValue(List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
+      Value stored = operand.getCFGValue(instructionList, structTable);
+      Register finalReg = RegisterCounter.getNextRegister();
+      if (operator == Operator.NOT) {
+         ExclusiveOr xor = new ExclusiveOr(stored, new ValueLiteral("1"), finalReg);
+         instructionList.add(xor);
+      }
+      else {
+         Subtract sub = new Subtract(new ValueLiteral("0"), stored, finalReg);
+         instructionList.add(sub);
+      }
+      return finalReg;
    }
 }

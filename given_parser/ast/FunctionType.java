@@ -36,4 +36,8 @@ public class FunctionType implements Type {
         return this.localScope;
     }
 
+    @Override
+    public String getCFGType() {
+        return retType.getCFGType();
+    }
 }

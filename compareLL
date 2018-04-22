@@ -1,0 +1,16 @@
+#!/bin/bash
+
+for d in benchmarks/* ;do
+   
+   echo "RUNNING $d Regular"
+   clang -m32  -o ${d}/exe ${d}/`basename ${d}`.ll
+   ${d}/./exe <  ${d}/input > ${d}/ourOutput
+   diff ${d}/ourOutput ${d}/output 
+
+   echo "RUNNING $d Longer"
+   clang -m32  -o ${d}/exeLonger ${d}/`basename ${d}`.ll
+   ${d}/./exeLonger <  ${d}/input.longer > ${d}/ourOutputLonger
+   diff ${d}/ourOutputLonger ${d}/output.longer
+
+done
+

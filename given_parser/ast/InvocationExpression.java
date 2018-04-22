@@ -1,17 +1,27 @@
 package ast;
 
+import llvm.Instruction;
+import llvm.InvocationCall;
+import llvm.value.Register;
+import llvm.value.RegisterCounter;
+import llvm.value.Value;
+import llvm.value.ValueLiteral;
+
 import java.util.HashMap;
 import java.util.List;
 
 public class InvocationExpression extends AbstractExpression {
    private final String name;
    private final List<Expression> arguments;
+   private FunctionType retType;
+   private boolean isStatement;
 
    public InvocationExpression(int lineNum, String name,
                                List<Expression> arguments) {
       super(lineNum);
       this.name = name;
       this.arguments = arguments;
+      this.isStatement = false;
    }
 
    public Type getType(HashMap<String, Type> globalTable, HashMap<String, HashMap<String, Type>> structTable, String currentFunctionName) {
@@ -26,10 +36,36 @@ public class InvocationExpression extends AbstractExpression {
                  || (argType instanceof VoidType && parameterTypes.get(i) instanceof StructType)
                  : "Parameter and argument types don't match : line " + lineNum;
       }
+      this.retType = fType;
       return fType.getReturnType();
    }
 
    public String getName() {
       return this.name;
+   }
+
+   @Override
+   public Value getCFGValue(List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
+
+      InvocationCall call;
+      Value[] argVals = this.arguments.stream().map(arg -> arg.getCFGValue(instructionList, structTable)).toArray(Value[]::new);
+      List<Type> paramTypes = this.retType.getParamTypes();
+      String[] argTypes = paramTypes.stream().map(param -> param.getCFGType()).toArray(String[]::new);
+
+      if (!isStatement) {
+         Register r1 = RegisterCounter.getNextRegister();
+         call = new InvocationCall(r1, this.retType.getCFGType(), this.name, argVals, argTypes);
+         instructionList.add(call);
+         return r1;
+      }
+      else {
+         call = new InvocationCall(this.retType.getCFGType(), this.name, argVals, argTypes);
+         instructionList.add(call);
+         return new ValueLiteral("void");
+      }
+   }
+
+   public void setIsStatement() {
+      this.isStatement = true;
    }
 }

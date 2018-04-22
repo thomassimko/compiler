@@ -2,11 +2,12 @@ package ast;
 
 import cfg.Block;
 import cfg.StartBlock;
+import llvm.Instruction;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public class Program
@@ -46,8 +47,13 @@ public class Program
       assert mainFunc.getParamTypes().size() == 0 : "main cannot take parameters";
    }
 
-   public StartBlock[] getCFG(List<Block> blockList) {
-      return funcs.stream().map(func -> func.getCFG(blockList)).toArray(StartBlock[]::new);
+   public StartBlock[] getCFG(List<Block> blockList, HashMap<String, HashMap<String, Type>> structTable) {
+      return funcs.stream().map(func -> func.getCFG(blockList, structTable)).toArray(StartBlock[]::new);
+   }
+
+   public Instruction[] getDeclarationFunctions() {
+      return Stream.concat(types.stream().map(type -> type.getCFGValue()),
+              decls.stream().map(decl -> decl.getGlobalCFGValue())).toArray(Instruction[]::new);
    }
 
 }
