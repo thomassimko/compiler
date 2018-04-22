@@ -2,33 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ac72790-8120-4f98-850c-126db2944bd4" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/BenchMarkishTopics/BenchMarkishTopics.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/BenchMarkishTopics/BenchMarkishTopics.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/Fibonacci/Fibonacci.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/Fibonacci/Fibonacci.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/GeneralFunctAndOptimize/GeneralFunctAndOptimize.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/GeneralFunctAndOptimize/GeneralFunctAndOptimize.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/OptimizationBenchmark/OptimizationBenchmark.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/OptimizationBenchmark/OptimizationBenchmark.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/TicTac/TicTac.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/TicTac/TicTac.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/bert/bert.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/bert/bert.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/biggest/biggest.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/biggest/biggest.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/binaryConverter/binaryConverter.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/binaryConverter/binaryConverter.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/brett/brett.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/brett/brett.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/creativeBenchMarkName/creativeBenchMarkName.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/creativeBenchMarkName/creativeBenchMarkName.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/fact_sum/fact_sum.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/fact_sum/fact_sum.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/hailstone/hailstone.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/hailstone/hailstone.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/hanoi_benchmark/hanoi_benchmark.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/hanoi_benchmark/hanoi_benchmark.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/killerBubbles/killerBubbles.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/killerBubbles/killerBubbles.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/mile1/mile1.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/mile1/mile1.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/mixed/mixed.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/mixed/mixed.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/primes/primes.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/primes/primes.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/programBreaker/programBreaker.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/programBreaker/programBreaker.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/stats/stats.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/stats/stats.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/wasteOfCycles/wasteOfCycles.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/wasteOfCycles/wasteOfCycles.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg.png" beforeDir="false" afterPath="$PROJECT_DIR$/cfg.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compareLL" beforeDir="false" afterPath="$PROJECT_DIR$/compareLL" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/given_parser/MiniBaseListener.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/given_parser/MiniBaseVisitor.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/given_parser/MiniCompiler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/MiniCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/MiniCompiler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/given_parser/MiniLexer.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/given_parser/MiniListener.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$ArgumentsContext.class" beforeDir="false" />
@@ -127,15 +103,49 @@
       <change beforePath="$PROJECT_DIR$/given_parser/ast/UnaryExpression.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/given_parser/ast/VoidType.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/given_parser/ast/WhileStatement.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/llvm/GetElementPointer.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/GetElementPointer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/llvm/GetElementPointer.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/GetElementPointer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/llvm/Load.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/Load.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/llvm/Load.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/Load.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/llvm/Print.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/Print.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/llvm/Print.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/Print.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/llvm/Read.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/Read.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/llvm/Read.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/Read.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output.ll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/cfg/BasicBlock.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/cfg/Block.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/cfg/BlockCounter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/cfg/EndBlock.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/cfg/FakeBlock.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/cfg/StartBlock.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/cfg/WhileBlock.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/Allocation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/Add.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/And.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/ArithmeticBoolOp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/Divide.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/ExclusiveOr.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/Multiply.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/Or.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/Subtract.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/BitCast.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/Branch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/Comparison.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/FunctionDefine.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/FunctionEnd.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/GetElementPointer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/Instruction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/InvocationCall.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/Load.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/Malloc.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/Print.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/Read.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/ReturnValue.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/ReturnVoid.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/Store.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/Truncate.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/UnconditionalBranch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/ZExtend.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/declarations/GlobalDeclaration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/declarations/LocalDeclaration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/declarations/ParameterDeclaration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/declarations/StructDeclaration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/value/Global.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/value/Register.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/value/RegisterCounter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/value/Value.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/value/ValueLiteral.class" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -701,12 +711,12 @@
       <workItem from="1524026930138" duration="7000" />
       <workItem from="1524078467796" duration="9605000" />
       <workItem from="1524156133547" duration="5603000" />
-      <workItem from="1524175163145" duration="33448000" />
+      <workItem from="1524175163145" duration="33754000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="107364000" />
+    <option name="totallyTimeSpent" value="107670000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -719,7 +729,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="830" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3287858" />
@@ -730,8 +739,8 @@
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3287858" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.3287858" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3287858" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.3287858" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.3104435" />
