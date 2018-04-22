@@ -17,6 +17,6 @@ public class Load implements Instruction {
 
     @Override
     public String toLLVM() {
-        return storedRegister.toLLVM() + " = load " + type + "* " + value.toLLVM();
+        return storedRegister.toLLVM() + " = load " + type +", " + type + "* " + value.toLLVM();
     }
 }

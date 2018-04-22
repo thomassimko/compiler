@@ -2,130 +2,140 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ac72790-8120-4f98-850c-126db2944bd4" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/given_parser/cfg/BlockCounter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/cfg/FakeBlock.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/Allocation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/Add.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/And.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/ArithmeticBoolOp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/Divide.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/ExclusiveOr.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/Multiply.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/Or.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/Subtract.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/BitCast.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/Branch.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/Comparison.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/FunctionDefine.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/FunctionEnd.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/GetElementPointer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/Instruction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/InvocationCall.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/Load.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/Malloc.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/Print.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/Read.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/ReturnValue.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/ReturnVoid.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/Store.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/Truncate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/UnconditionalBranch.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/ZExtend.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/declarations/GlobalDeclaration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/declarations/LocalDeclaration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/declarations/ParameterDeclaration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/declarations/StructDeclaration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/value/Global.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/value/Register.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/value/RegisterCounter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/value/Value.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/value/ValueLiteral.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg.gv" beforeDir="false" afterPath="$PROJECT_DIR$/cfg.gv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg.ps" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/MiniCompiler.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/MiniCompiler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarks/BenchMarkishTopics/BenchMarkishTopics.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/BenchMarkishTopics/BenchMarkishTopics.ll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarks/Fibonacci/Fibonacci.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/Fibonacci/Fibonacci.ll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarks/GeneralFunctAndOptimize/GeneralFunctAndOptimize.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/GeneralFunctAndOptimize/GeneralFunctAndOptimize.ll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarks/OptimizationBenchmark/OptimizationBenchmark.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/OptimizationBenchmark/OptimizationBenchmark.ll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarks/TicTac/TicTac.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/TicTac/TicTac.ll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarks/bert/bert.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/bert/bert.ll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarks/biggest/biggest.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/biggest/biggest.ll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarks/binaryConverter/binaryConverter.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/binaryConverter/binaryConverter.ll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarks/brett/brett.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/brett/brett.ll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarks/creativeBenchMarkName/creativeBenchMarkName.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/creativeBenchMarkName/creativeBenchMarkName.ll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarks/fact_sum/fact_sum.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/fact_sum/fact_sum.ll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarks/hailstone/hailstone.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/hailstone/hailstone.ll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarks/hanoi_benchmark/hanoi_benchmark.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/hanoi_benchmark/hanoi_benchmark.ll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarks/killerBubbles/killerBubbles.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/killerBubbles/killerBubbles.ll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarks/mile1/mile1.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/mile1/mile1.ll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarks/mixed/mixed.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/mixed/mixed.ll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarks/primes/primes.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/primes/primes.ll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarks/programBreaker/programBreaker.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/programBreaker/programBreaker.ll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarks/stats/stats.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/stats/stats.ll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarks/wasteOfCycles/wasteOfCycles.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/wasteOfCycles/wasteOfCycles.ll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cfg.png" beforeDir="false" afterPath="$PROJECT_DIR$/cfg.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compareLL" beforeDir="false" afterPath="$PROJECT_DIR$/compareLL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniBaseListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniBaseVisitor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniCompiler.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/given_parser/MiniCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/MiniCompiler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/AbstractExpression.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/AbstractExpression.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/AbstractExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/AbstractExpression.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/AbstractStatement.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/AbstractStatement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/AbstractStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/AbstractStatement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/AssignmentStatement.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/AssignmentStatement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/AssignmentStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/AssignmentStatement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/BinaryExpression$Operator.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/BinaryExpression$Operator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/BinaryExpression.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/BinaryExpression.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/BinaryExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/BinaryExpression.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/BlockStatement.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/BlockStatement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/BlockStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/BlockStatement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/BoolType.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/BoolType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/BoolType.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/BoolType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/ConditionalStatement.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/ConditionalStatement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/ConditionalStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/ConditionalStatement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/Declaration.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/Declaration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/Declaration.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/Declaration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/DeleteStatement.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/DeleteStatement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/DeleteStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/DeleteStatement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/DotExpression.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/DotExpression.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/DotExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/DotExpression.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/Expression.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/Expression.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/Expression.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/Expression.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/FalseExpression.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/FalseExpression.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/FalseExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/FalseExpression.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/Function.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/Function.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/Function.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/Function.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/FunctionType.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/FunctionType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/FunctionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/FunctionType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/IdentifierExpression.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/IdentifierExpression.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/IdentifierExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/IdentifierExpression.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/IntType.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/IntType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/IntType.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/IntType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/IntegerExpression.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/IntegerExpression.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/IntegerExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/IntegerExpression.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/InvocationExpression.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/InvocationExpression.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/InvocationExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/InvocationExpression.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/InvocationStatement.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/InvocationStatement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/InvocationStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/InvocationStatement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/Lvalue.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/Lvalue.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/Lvalue.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/Lvalue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/LvalueDot.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/LvalueDot.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/LvalueDot.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/LvalueDot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/LvalueId.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/LvalueId.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/LvalueId.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/LvalueId.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/NewExpression.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/NewExpression.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/NewExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/NewExpression.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/NullExpression.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/NullExpression.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/NullExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/NullExpression.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/PrintLnStatement.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/PrintLnStatement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/PrintLnStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/PrintLnStatement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/PrintStatement.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/PrintStatement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/PrintStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/PrintStatement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/Program.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/Program.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/Program.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/ReadExpression.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/ReadExpression.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/ReadExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/ReadExpression.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/ReturnEmptyStatement.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/ReturnEmptyStatement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/ReturnEmptyStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/ReturnEmptyStatement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/ReturnStatement.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/ReturnStatement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/ReturnStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/ReturnStatement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/Statement.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/Statement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/Statement.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/Statement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/StructType.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/StructType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/StructType.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/StructType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/TrueExpression.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/TrueExpression.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/TrueExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/TrueExpression.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/Type.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/Type.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/Type.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/TypeDeclaration.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/TypeDeclaration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/TypeDeclaration.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/TypeDeclaration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/UnaryExpression$Operator.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/UnaryExpression$Operator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/UnaryExpression.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/UnaryExpression.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/UnaryExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/UnaryExpression.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/VoidType.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/VoidType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/VoidType.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/VoidType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/WhileStatement.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/WhileStatement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/WhileStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/WhileStatement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/cfg/Block.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/cfg/Block.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/cfg/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/cfg/Block.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runTest.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runTest.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniLexer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$ArgumentsContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$AssignmentContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$BinaryExprContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$BlockContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$BoolTypeContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$ConditionalContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$DeclContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$DeclarationContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$DeclarationsContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$DeleteContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$DotExprContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$ExpressionContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$FalseExprContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$FunctionContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$FunctionsContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$IdentifierExprContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$IntTypeContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$IntegerExprContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$InvocationContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$InvocationExprContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$LvalueContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$LvalueDotContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$LvalueIdContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$NestedBlockContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$NestedDeclContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$NestedExprContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$NewExprContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$NullExprContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$ParametersContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$PrintContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$PrintLnContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$ProgramContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$ReturnContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$ReturnTypeContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$ReturnTypeRealContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$ReturnTypeVoidContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$StatementContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$StatementListContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$StructTypeContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$TrueExprContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$TypeContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$TypeDeclarationContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$TypesContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$UnaryExprContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser$WhileContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniParser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniToAstDeclarationsVisitor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniToAstExpressionVisitor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniToAstFunctionVisitor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniToAstProgramVisitor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniToAstStatementVisitor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniToAstTypeDeclarationVisitor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniToAstTypeVisitor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniToJsonVisitor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/MiniVisitor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/AbstractExpression.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/AbstractStatement.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/AssignmentStatement.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/BinaryExpression$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/BinaryExpression$Operator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/BinaryExpression.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/BlockStatement.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/BoolType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/ConditionalStatement.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/Declaration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/DeleteStatement.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/DotExpression.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/Expression.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/FalseExpression.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/Function.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/FunctionType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/IdentifierExpression.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/IntType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/IntegerExpression.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/InvocationExpression.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/InvocationStatement.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/Lvalue.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/LvalueDot.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/LvalueId.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/NewExpression.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/NullExpression.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/PrintLnStatement.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/PrintStatement.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/Program.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/ReadExpression.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/ReturnEmptyStatement.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/ReturnStatement.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/Statement.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/StructType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/TrueExpression.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/Type.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/TypeDeclaration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/UnaryExpression$Operator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/UnaryExpression.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/VoidType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/ast/WhileStatement.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/GetElementPointer.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/GetElementPointer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/GetElementPointer.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/GetElementPointer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/Load.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/Load.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/Load.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/Load.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/Print.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/Print.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/Print.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/Print.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/Read.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/Read.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/Read.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/Read.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output.ll" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -146,33 +156,60 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Or.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/Or.java">
+      <file leaf-file-name="Function.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/given_parser/ast/Function.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+            <state relative-caret-position="428">
+              <caret line="91" selection-start-line="91" selection-end-line="91" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MiniCompiler.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/given_parser/MiniCompiler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="62" selection-start-line="62" selection-end-line="62" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Load.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/given_parser/llvm/Load.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="19" column="61" selection-start-line="19" selection-start-column="61" selection-end-line="19" selection-end-column="61" />
               <folding>
-                <element signature="e#195#196#0" expanded="true" />
-                <element signature="e#254#255#0" expanded="true" />
+                <element signature="e#418#419#0" expanded="true" />
+                <element signature="e#521#522#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UnaryExpression.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/given_parser/ast/UnaryExpression.java">
+      <file leaf-file-name="Print.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/given_parser/llvm/Print.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
-              <caret line="65" column="33" selection-start-line="65" selection-start-column="33" selection-end-line="65" selection-end-column="33" />
+            <state relative-caret-position="240">
+              <caret line="16" column="35" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Function.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/given_parser/ast/Function.java">
+      <file leaf-file-name="GetElementPointer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/given_parser/llvm/GetElementPointer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="87" column="7" selection-start-line="87" selection-start-column="7" selection-end-line="87" selection-end-column="7" />
+            <state relative-caret-position="285">
+              <caret line="20" column="94" selection-start-line="20" selection-start-column="94" selection-end-line="20" selection-end-column="94" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Read.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/given_parser/llvm/Read.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -193,7 +230,7 @@
       <file leaf-file-name="ReturnEmptyStatement.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/given_parser/ast/ReturnEmptyStatement.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9">
+            <state relative-caret-position="-5">
               <caret line="3" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
@@ -202,35 +239,8 @@
       <file leaf-file-name="ReturnStatement.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/given_parser/ast/ReturnStatement.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="60" column="6" selection-start-line="60" selection-start-column="6" selection-end-line="60" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WhileStatement.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/given_parser/ast/WhileStatement.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="71">
-              <caret line="46" column="8" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Program.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/given_parser/ast/Program.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MiniCompiler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/given_parser/MiniCompiler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="57" column="55" selection-start-line="57" selection-start-column="55" selection-end-line="57" selection-end-column="55" />
+            <state relative-caret-position="247">
+              <caret line="56" column="12" selection-start-line="56" selection-start-column="12" selection-end-line="56" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -266,7 +276,6 @@
         <option value="$PROJECT_DIR$/given_parser/ast/Lvalue.java" />
         <option value="$PROJECT_DIR$/given_parser/cfg/BlockCounter.java" />
         <option value="$PROJECT_DIR$/given_parser/llvm/PrintLine.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/Print.java" />
         <option value="$PROJECT_DIR$/given_parser/llvm/declarations/ParameterDeclaration.java" />
         <option value="$PROJECT_DIR$/given_parser/ast/InvocationStatement.java" />
         <option value="$PROJECT_DIR$/given_parser/llvm/Truncate.java" />
@@ -286,8 +295,6 @@
         <option value="$PROJECT_DIR$/given_parser/ast/FalseExpression.java" />
         <option value="$PROJECT_DIR$/given_parser/ast/IntegerExpression.java" />
         <option value="$PROJECT_DIR$/given_parser/ast/InvocationExpression.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/GetElementPointer.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/Load.java" />
         <option value="$PROJECT_DIR$/given_parser/cfg/FakeBlock.java" />
         <option value="$PROJECT_DIR$/given_parser/ast/ConditionalStatement.java" />
         <option value="$PROJECT_DIR$/given_parser/cfg/Block.java" />
@@ -300,18 +307,21 @@
         <option value="$PROJECT_DIR$/given_parser/ast/PrintStatement.java" />
         <option value="$PROJECT_DIR$/given_parser/ast/PrintLnStatement.java" />
         <option value="$PROJECT_DIR$/given_parser/ast/DotExpression.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/Read.java" />
         <option value="$PROJECT_DIR$/given_parser/ast/AssignmentStatement.java" />
         <option value="$PROJECT_DIR$/given_parser/llvm/declarations/GlobalDeclaration.java" />
         <option value="$PROJECT_DIR$/given_parser/ast/Declaration.java" />
         <option value="$PROJECT_DIR$/given_parser/llvm/ReturnVoid.java" />
         <option value="$PROJECT_DIR$/given_parser/ast/Program.java" />
-        <option value="$PROJECT_DIR$/given_parser/MiniCompiler.java" />
         <option value="$PROJECT_DIR$/given_parser/ast/UnaryExpression.java" />
         <option value="$PROJECT_DIR$/given_parser/ast/WhileStatement.java" />
         <option value="$PROJECT_DIR$/given_parser/ast/BinaryExpression.java" />
         <option value="$PROJECT_DIR$/given_parser/ast/ReturnEmptyStatement.java" />
         <option value="$PROJECT_DIR$/given_parser/ast/Function.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/Load.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/GetElementPointer.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/Print.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/Read.java" />
+        <option value="$PROJECT_DIR$/given_parser/MiniCompiler.java" />
       </list>
     </option>
   </component>
@@ -435,7 +445,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Bash.RunHailstone">
+  <component name="RunManager" selected="Bash.RunAndTestBenchmarks">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
     </configuration>
@@ -449,6 +459,15 @@
       <option name="PARENT_ENVS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/runTest.sh" />
       <option name="PARAMETERS" value="../testFiles/testCFG.mini.txt" />
+      <module name="" />
+    </configuration>
+    <configuration name="RunAndTestBenchmarks" type="BashConfigurationType" factoryName="Bash">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="INTERPRETER_PATH" value="/bin/bash" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/runBenchmarks.sh" />
+      <option name="PARAMETERS" value="" />
       <module name="" />
     </configuration>
     <configuration name="RunBenchmarkish" type="BashConfigurationType" factoryName="Bash">
@@ -644,6 +663,7 @@
       <item itemvalue="Bash.CFGTest1" />
       <item itemvalue="Bash.RunSimple" />
       <item itemvalue="Bash.RunBenchmarkish" />
+      <item itemvalue="Bash.RunAndTestBenchmarks" />
       <item itemvalue="Bash.RunBert" />
       <item itemvalue="Bash.RunTicTac" />
       <item itemvalue="Bash.RunBiggest" />
@@ -681,12 +701,12 @@
       <workItem from="1524026930138" duration="7000" />
       <workItem from="1524078467796" duration="9605000" />
       <workItem from="1524156133547" duration="5603000" />
-      <workItem from="1524175163145" duration="30228000" />
+      <workItem from="1524175163145" duration="33448000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104144000" />
+    <option name="totallyTimeSpent" value="107364000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -858,20 +878,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/GetElementPointer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="20" column="76" selection-start-line="20" selection-start-column="76" selection-end-line="20" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Load.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="19" column="63" selection-start-line="19" selection-start-column="63" selection-end-line="19" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/given_parser/cfg/ConditionalBlock.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -943,13 +949,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="212">
           <caret line="38" column="8" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Print.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1031,13 +1030,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Read.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="13" column="109" selection-start-line="13" selection-start-column="109" selection-end-line="13" selection-end-column="109" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/given_parser/ast/AssignmentStatement.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -1095,35 +1087,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/ast/ReturnStatement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="60" column="6" selection-start-line="60" selection-start-column="6" selection-end-line="60" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/ReturnVoid.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="24" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
-          <folding>
-            <element signature="e#105#106#0" expanded="true" />
-            <element signature="e#132#133#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/given_parser/ast/Program.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/MiniCompiler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="57" column="55" selection-start-line="57" selection-start-column="55" selection-end-line="57" selection-end-column="55" />
         </state>
       </provider>
     </entry>
@@ -1159,17 +1126,74 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/ReturnVoid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="24" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
+          <folding>
+            <element signature="e#105#106#0" expanded="true" />
+            <element signature="e#132#133#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/given_parser/ast/ReturnEmptyStatement.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9">
+        <state relative-caret-position="-5">
           <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/ast/ReturnStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="56" column="12" selection-start-line="56" selection-start-column="12" selection-end-line="56" selection-end-column="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/given_parser/ast/Function.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="87" column="7" selection-start-line="87" selection-start-column="7" selection-end-line="87" selection-end-column="7" />
+        <state relative-caret-position="428">
+          <caret line="91" selection-start-line="91" selection-end-line="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/GetElementPointer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="20" column="94" selection-start-line="20" selection-start-column="94" selection-end-line="20" selection-end-column="94" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Load.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="19" column="61" selection-start-line="19" selection-start-column="61" selection-end-line="19" selection-end-column="61" />
+          <folding>
+            <element signature="e#418#419#0" expanded="true" />
+            <element signature="e#521#522#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Print.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="35" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Read.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/MiniCompiler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="62" selection-start-line="62" selection-end-line="62" />
         </state>
       </provider>
     </entry>

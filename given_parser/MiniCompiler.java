@@ -44,48 +44,14 @@ public class MiniCompiler
 
          printCFG(blockList);
 
-         try {
-            String outputPath = "../output.ll";
-            FileWriter writer = new FileWriter(outputPath);
-            writer.write("target triple=\"i686\"\n\n");
-
-            writer.write(String.join("\n",
-                    Arrays.stream(program.getDeclarationFunctions()).map(instruction -> instruction.toLLVM()).toArray(String[]::new)));
-
-             writer.write("\n\n");
-            for(Block block:blockList) {
-
-               if (!(block instanceof StartBlock) && !(block instanceof FakeBlock))
-                  writer.write(block.getLlvmLabel() + ":\n");
-
-               for(Instruction instruction: block.getLLVM()) {
-                  if(!(instruction instanceof FunctionDefine) && !(instruction instanceof FunctionEnd)) {
-                     writer.write('\t');
-                  }
-                  writer.write(instruction.toLLVM() + "\n");
-               }
-            }
-
-            writer.write("declare i8* @malloc(i32)\n" +
-                    "declare void @free(i8*)\n" +
-                    "declare i32 @printf(i8*, ...)\n" +
-                    "declare i32 @scanf(i8*, ...)\n" +
-                    "@.println = private unnamed_addr constant [5 x i8] c\"%ld\\0A\\00\", align 1\n" +
-                    "@.print = private unnamed_addr constant [5 x i8] c\"%ld \\00\", align 1\n" +
-                    "@.read = private unnamed_addr constant [4 x i8] c\"%ld\\00\", align 1\n" +
-                    "@.read_scratch = common global i32 0, align 8");
-            writer.close();
-         } catch (IOException ex) {
-            System.err.println(ex);
+         if (stack) {
+            printStackLLVM(program, blockList);
          }
-
-
-
-
       }
    }
 
    private static String _inputFile = null;
+   private static boolean stack = false;
 
    private static void parseParameters(String [] args)
    {
@@ -93,8 +59,13 @@ public class MiniCompiler
       {
          if (args[i].charAt(0) == '-')
          {
-            System.err.println("unexpected option: " + args[i]);
-            System.exit(1);
+            if(args[i].equals("-stack")) {
+               stack = true;
+            }
+            else {
+               System.err.println("unexpected option: " + args[i]);
+               System.exit(1);
+            }
          }
          else if (_inputFile != null)
          {
@@ -153,5 +124,43 @@ public class MiniCompiler
       } catch (IOException ex) {
          System.err.println(ex);
       }
+   }
+
+   private static void printStackLLVM(ast.Program program, List<Block> blockList) {
+      try {
+         String outputPath = "../output.ll";
+         FileWriter writer = new FileWriter(outputPath);
+         writer.write("target triple=\"i686\"\n\n");
+
+         writer.write(String.join("\n",
+                 Arrays.stream(program.getDeclarationFunctions()).map(instruction -> instruction.toLLVM()).toArray(String[]::new)));
+
+         writer.write("\n\n");
+         for(Block block:blockList) {
+
+            if (!(block instanceof StartBlock) && !(block instanceof FakeBlock))
+               writer.write(block.getLlvmLabel() + ":\n");
+
+            for(Instruction instruction: block.getLLVM()) {
+               if(!(instruction instanceof FunctionDefine) && !(instruction instanceof FunctionEnd)) {
+                  writer.write('\t');
+               }
+               writer.write(instruction.toLLVM() + "\n");
+            }
+         }
+
+         writer.write("declare i8* @malloc(i32)\n" +
+                 "declare void @free(i8*)\n" +
+                 "declare i32 @printf(i8*, ...)\n" +
+                 "declare i32 @scanf(i8*, ...)\n" +
+                 "@.println = private unnamed_addr constant [5 x i8] c\"%ld\\0A\\00\", align 1\n" +
+                 "@.print = private unnamed_addr constant [5 x i8] c\"%ld \\00\", align 1\n" +
+                 "@.read = private unnamed_addr constant [4 x i8] c\"%ld\\00\", align 1\n" +
+                 "@.read_scratch = common global i32 0, align 8");
+         writer.close();
+      } catch (IOException ex) {
+         System.err.println(ex);
+      }
+
    }
 }

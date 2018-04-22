@@ -18,6 +18,6 @@ public class GetElementPointer implements Instruction {
     }
     @Override
     public String toLLVM() {
-        return this.storedRegister.toLLVM() + " = getelementptr " + type + " " + source.toLLVM() + ", i1 0, i32 " + arrLoc;
+        return this.storedRegister.toLLVM() + " = getelementptr " + type.replace('*', ' ') + ", " + type + " " + source.toLLVM() + ", i1 0, i32 " + arrLoc;
     }
 }
