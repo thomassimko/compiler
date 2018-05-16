@@ -7,7 +7,7 @@ target triple="i686"
 define i32 @constantFolding()
 {
 
-L2:
+L1:
 	%_retval_ = alloca i32
 	%a = alloca i32
 	%r0 = mul i32 8, 9
@@ -27,8 +27,8 @@ L2:
 	store i32 %r13, i32* %a
 	%r14 = load i32, i32* %a
 	store i32 %r14, i32* %_retval_
-	br label %L3
-L3:
+	br label %L2
+L2:
 	%r15 = load i32, i32* %_retval_
 	ret i32 %r15
 }
@@ -36,7 +36,7 @@ L3:
 define i32 @constantPropagation()
 {
 
-L5:
+L4:
 	%_retval_ = alloca i32
 	%a = alloca i32
 	%b = alloca i32
@@ -222,8 +222,8 @@ L5:
 	store i32 %r145, i32* %z
 	%r146 = load i32, i32* %z
 	store i32 %r146, i32* %_retval_
-	br label %L6
-L6:
+	br label %L5
+L5:
 	%r147 = load i32, i32* %_retval_
 	ret i32 %r147
 }
@@ -231,7 +231,7 @@ L6:
 define i32 @deadCodeElimination()
 {
 
-L8:
+L7:
 	%_retval_ = alloca i32
 	%a = alloca i32
 	%b = alloca i32
@@ -267,8 +267,8 @@ L8:
 	%r155 = load i32, i32* %e
 	%r156 = add i32 %r154, %r155
 	store i32 %r156, i32* %_retval_
-	br label %L9
-L9:
+	br label %L8
+L8:
 	%r157 = load i32, i32* %_retval_
 	ret i32 %r157
 }
@@ -276,7 +276,7 @@ L9:
 define i32 @sum(i32 %_P_number)
 {
 
-L11:
+L10:
 	%_retval_ = alloca i32
 	%number = alloca i32
 	store i32 %_P_number, i32* %number
@@ -286,9 +286,9 @@ L11:
 	%r164 = icmp sgt i32 %r163, 0
 	%r165 = zext i1 %r164 to i32
 	%r166 = trunc i32 %r165 to i1
-	br i1 %r166, label %L13, label %L14
+	br i1 %r166, label %L12, label %L13
 
-L13:
+L12:
 	%r158 = load i32, i32* %total
 	%r159 = load i32, i32* %number
 	%r160 = add i32 %r158, %r159
@@ -300,13 +300,13 @@ L13:
 	%r168 = icmp sgt i32 %r167, 0
 	%r169 = zext i1 %r168 to i32
 	%r170 = trunc i32 %r169 to i1
-	br i1 %r170, label %L13, label %L14
+	br i1 %r170, label %L12, label %L13
 
-L14:
+L13:
 	%r171 = load i32, i32* %total
 	store i32 %r171, i32* %_retval_
-	br label %L12
-L12:
+	br label %L11
+L11:
 	%r172 = load i32, i32* %_retval_
 	ret i32 %r172
 }
@@ -314,7 +314,7 @@ L12:
 define i32 @doesntModifyGlobals()
 {
 
-L16:
+L15:
 	%_retval_ = alloca i32
 	%a = alloca i32
 	%b = alloca i32
@@ -324,8 +324,8 @@ L16:
 	%r174 = load i32, i32* %b
 	%r175 = add i32 %r173, %r174
 	store i32 %r175, i32* %_retval_
-	br label %L17
-L17:
+	br label %L16
+L16:
 	%r176 = load i32, i32* %_retval_
 	ret i32 %r176
 }
@@ -333,7 +333,7 @@ L17:
 define i32 @interProceduralOptimization()
 {
 
-L19:
+L18:
 	%_retval_ = alloca i32
 	%a = alloca i32
 	store i32 1, i32* @global1
@@ -345,45 +345,45 @@ L19:
 	%r179 = icmp eq i32 %r178, 1
 	%r180 = zext i1 %r179 to i32
 	%r181 = trunc i32 %r180 to i1
-	br i1 %r181, label %L21, label %L22
+	br i1 %r181, label %L20, label %L21
 
-L21:
+L20:
 	%r182 = call i32 @sum(i32 10000 )
 	store i32 %r182, i32* %a
-	br label %L23
-L22:
+	br label %L22
+L21:
 	%r183 = load i32, i32* @global2
 	%r184 = icmp eq i32 %r183, 2
 	%r185 = zext i1 %r184 to i32
 	%r186 = trunc i32 %r185 to i1
-	br i1 %r186, label %L24, label %L25
+	br i1 %r186, label %L23, label %L24
 
-L23:
+L22:
 	%r193 = load i32, i32* %a
 	store i32 %r193, i32* %_retval_
-	br label %L20
-L24:
+	br label %L19
+L23:
 	%r187 = call i32 @sum(i32 20000 )
 	store i32 %r187, i32* %a
-	br label %L26
+	br label %L25
+L24:
+	br label %L25
 L25:
-	br label %L26
-L26:
 	%r188 = load i32, i32* @global3
 	%r189 = icmp eq i32 %r188, 3
 	%r190 = zext i1 %r189 to i32
 	%r191 = trunc i32 %r190 to i1
-	br i1 %r191, label %L27, label %L28
+	br i1 %r191, label %L26, label %L27
 
-L27:
+L26:
 	%r192 = call i32 @sum(i32 30000 )
 	store i32 %r192, i32* %a
-	br label %L29
+	br label %L28
+L27:
+	br label %L28
 L28:
-	br label %L29
-L29:
-	br label %L23
-L20:
+	br label %L22
+L19:
 	%r194 = load i32, i32* %_retval_
 	ret i32 %r194
 }
@@ -391,7 +391,7 @@ L20:
 define i32 @commonSubexpressionElimination()
 {
 
-L31:
+L30:
 	%_retval_ = alloca i32
 	%a = alloca i32
 	%b = alloca i32
@@ -714,8 +714,8 @@ L31:
 	%r461 = load i32, i32* %z
 	%r462 = add i32 %r460, %r461
 	store i32 %r462, i32* %_retval_
-	br label %L32
-L32:
+	br label %L31
+L31:
 	%r463 = load i32, i32* %_retval_
 	ret i32 %r463
 }
@@ -723,7 +723,7 @@ L32:
 define i32 @hoisting()
 {
 
-L34:
+L33:
 	%_retval_ = alloca i32
 	%a = alloca i32
 	%b = alloca i32
@@ -743,9 +743,9 @@ L34:
 	%r477 = icmp slt i32 %r476, 1000000
 	%r478 = zext i1 %r477 to i32
 	%r479 = trunc i32 %r478 to i1
-	br i1 %r479, label %L36, label %L37
+	br i1 %r479, label %L35, label %L36
 
-L36:
+L35:
 	store i32 5, i32* %e
 	%r464 = load i32, i32* %a
 	%r465 = load i32, i32* %b
@@ -766,13 +766,13 @@ L36:
 	%r481 = icmp slt i32 %r480, 1000000
 	%r482 = zext i1 %r481 to i32
 	%r483 = trunc i32 %r482 to i1
-	br i1 %r483, label %L36, label %L37
+	br i1 %r483, label %L35, label %L36
 
-L37:
+L36:
 	%r484 = load i32, i32* %b
 	store i32 %r484, i32* %_retval_
-	br label %L35
-L35:
+	br label %L34
+L34:
 	%r485 = load i32, i32* %_retval_
 	ret i32 %r485
 }
@@ -780,7 +780,7 @@ L35:
 define i32 @doubleIf()
 {
 
-L39:
+L38:
 	%_retval_ = alloca i32
 	%a = alloca i32
 	%b = alloca i32
@@ -794,35 +794,35 @@ L39:
 	%r487 = icmp eq i32 %r486, 1
 	%r488 = zext i1 %r487 to i32
 	%r489 = trunc i32 %r488 to i1
-	br i1 %r489, label %L41, label %L42
+	br i1 %r489, label %L40, label %L41
 
-L41:
+L40:
 	store i32 20, i32* %b
 	%r490 = load i32, i32* %a
 	%r491 = icmp eq i32 %r490, 1
 	%r492 = zext i1 %r491 to i32
 	%r493 = trunc i32 %r492 to i1
-	br i1 %r493, label %L44, label %L45
+	br i1 %r493, label %L43, label %L44
 
+L41:
+	br label %L42
 L42:
-	br label %L43
-L43:
 	%r494 = load i32, i32* %d
 	store i32 %r494, i32* %_retval_
-	br label %L40
-L44:
+	br label %L39
+L43:
 	store i32 200, i32* %b
 	store i32 300, i32* %c
-	br label %L46
-L45:
+	br label %L45
+L44:
 	store i32 1, i32* %a
 	store i32 2, i32* %b
 	store i32 3, i32* %c
-	br label %L46
-L46:
+	br label %L45
+L45:
 	store i32 50, i32* %d
-	br label %L43
-L40:
+	br label %L42
+L39:
 	%r495 = load i32, i32* %_retval_
 	ret i32 %r495
 }
@@ -830,7 +830,7 @@ L40:
 define i32 @integerDivide()
 {
 
-L48:
+L47:
 	%_retval_ = alloca i32
 	%a = alloca i32
 	store i32 3000, i32* %a
@@ -860,8 +860,8 @@ L48:
 	store i32 %r511, i32* %a
 	%r512 = load i32, i32* %a
 	store i32 %r512, i32* %_retval_
-	br label %L49
-L49:
+	br label %L48
+L48:
 	%r513 = load i32, i32* %_retval_
 	ret i32 %r513
 }
@@ -869,7 +869,7 @@ L49:
 define i32 @association()
 {
 
-L51:
+L50:
 	%_retval_ = alloca i32
 	%a = alloca i32
 	store i32 10, i32* %a
@@ -905,8 +905,8 @@ L51:
 	store i32 %r533, i32* %a
 	%r534 = load i32, i32* %a
 	store i32 %r534, i32* %_retval_
-	br label %L52
-L52:
+	br label %L51
+L51:
 	%r535 = load i32, i32* %_retval_
 	ret i32 %r535
 }
@@ -914,7 +914,7 @@ L52:
 define i32 @tailRecursionHelper(i32 %_P_value, i32 %_P_sum)
 {
 
-L54:
+L53:
 	%_retval_ = alloca i32
 	%value = alloca i32
 	store i32 %_P_value, i32* %value
@@ -924,13 +924,13 @@ L54:
 	%r537 = icmp eq i32 %r536, 0
 	%r538 = zext i1 %r537 to i32
 	%r539 = trunc i32 %r538 to i1
-	br i1 %r539, label %L56, label %L57
+	br i1 %r539, label %L55, label %L56
 
-L56:
+L55:
 	%r540 = load i32, i32* %sum
 	store i32 %r540, i32* %_retval_
-	br label %L55
-L57:
+	br label %L54
+L56:
 	%r542 = load i32, i32* %value
 	%r543 = sub i32 %r542, 1
 	%r544 = load i32, i32* %sum
@@ -938,10 +938,10 @@ L57:
 	%r546 = add i32 %r544, %r545
 	%r547 = call i32 @tailRecursionHelper(i32 %r543, i32 %r546 )
 	store i32 %r547, i32* %_retval_
-	br label %L55
-L58:
-	br label %L55
-L55:
+	br label %L54
+L57:
+	br label %L54
+L54:
 	%r541 = load i32, i32* %_retval_
 	ret i32 %r541
 }
@@ -949,15 +949,15 @@ L55:
 define i32 @tailRecursion(i32 %_P_value)
 {
 
-L62:
+L61:
 	%_retval_ = alloca i32
 	%value = alloca i32
 	store i32 %_P_value, i32* %value
 	%r549 = load i32, i32* %value
 	%r550 = call i32 @tailRecursionHelper(i32 %r549, i32 0 )
 	store i32 %r550, i32* %_retval_
-	br label %L63
-L63:
+	br label %L62
+L62:
 	%r551 = load i32, i32* %_retval_
 	ret i32 %r551
 }
@@ -965,7 +965,7 @@ L63:
 define i32 @unswitching()
 {
 
-L65:
+L64:
 	%_retval_ = alloca i32
 	%a = alloca i32
 	%b = alloca i32
@@ -975,37 +975,37 @@ L65:
 	%r561 = icmp slt i32 %r560, 1000000
 	%r562 = zext i1 %r561 to i32
 	%r563 = trunc i32 %r562 to i1
-	br i1 %r563, label %L67, label %L71
+	br i1 %r563, label %L66, label %L70
 
-L68:
+L67:
 	%r556 = load i32, i32* %a
 	%r557 = add i32 %r556, 1
 	store i32 %r557, i32* %a
-	br label %L70
-L69:
+	br label %L69
+L68:
 	%r558 = load i32, i32* %a
 	%r559 = add i32 %r558, 2
 	store i32 %r559, i32* %a
-	br label %L70
-L70:
+	br label %L69
+L69:
 	%r564 = load i32, i32* %a
 	%r565 = icmp slt i32 %r564, 1000000
 	%r566 = zext i1 %r565 to i32
 	%r567 = trunc i32 %r566 to i1
-	br i1 %r567, label %L67, label %L71
+	br i1 %r567, label %L66, label %L70
 
-L67:
+L66:
 	%r552 = load i32, i32* %b
 	%r553 = icmp eq i32 %r552, 2
 	%r554 = zext i1 %r553 to i32
 	%r555 = trunc i32 %r554 to i1
-	br i1 %r555, label %L68, label %L69
+	br i1 %r555, label %L67, label %L68
 
-L71:
+L70:
 	%r568 = load i32, i32* %a
 	store i32 %r568, i32* %_retval_
-	br label %L66
-L66:
+	br label %L65
+L65:
 	%r569 = load i32, i32* %_retval_
 	ret i32 %r569
 }
@@ -1013,7 +1013,7 @@ L66:
 define i32 @randomCalculation(i32 %_P_number)
 {
 
-L73:
+L72:
 	%_retval_ = alloca i32
 	%number = alloca i32
 	store i32 %_P_number, i32* %number
@@ -1031,9 +1031,9 @@ L73:
 	%r595 = icmp slt i32 %r593, %r594
 	%r596 = zext i1 %r595 to i32
 	%r597 = trunc i32 %r596 to i1
-	br i1 %r597, label %L75, label %L76
+	br i1 %r597, label %L74, label %L75
 
-L75:
+L74:
 	store i32 4, i32* %a
 	store i32 7, i32* %b
 	store i32 8, i32* %c
@@ -1075,13 +1075,13 @@ L75:
 	%r600 = icmp slt i32 %r598, %r599
 	%r601 = zext i1 %r600 to i32
 	%r602 = trunc i32 %r601 to i1
-	br i1 %r602, label %L75, label %L76
+	br i1 %r602, label %L74, label %L75
 
-L76:
+L75:
 	%r603 = load i32, i32* %sum
 	store i32 %r603, i32* %_retval_
-	br label %L74
-L74:
+	br label %L73
+L73:
 	%r604 = load i32, i32* %_retval_
 	ret i32 %r604
 }
@@ -1089,7 +1089,7 @@ L74:
 define i32 @iterativeFibonacci(i32 %_P_number)
 {
 
-L78:
+L77:
 	%_retval_ = alloca i32
 	%number = alloca i32
 	store i32 %_P_number, i32* %number
@@ -1107,9 +1107,9 @@ L78:
 	%r615 = icmp slt i32 %r613, %r614
 	%r616 = zext i1 %r615 to i32
 	%r617 = trunc i32 %r616 to i1
-	br i1 %r617, label %L80, label %L81
+	br i1 %r617, label %L79, label %L80
 
-L80:
+L79:
 	%r606 = load i32, i32* %result
 	%r607 = load i32, i32* %previous
 	%r608 = add i32 %r606, %r607
@@ -1126,13 +1126,13 @@ L80:
 	%r620 = icmp slt i32 %r618, %r619
 	%r621 = zext i1 %r620 to i32
 	%r622 = trunc i32 %r621 to i1
-	br i1 %r622, label %L80, label %L81
+	br i1 %r622, label %L79, label %L80
 
-L81:
+L80:
 	%r623 = load i32, i32* %result
 	store i32 %r623, i32* %_retval_
-	br label %L79
-L79:
+	br label %L78
+L78:
 	%r624 = load i32, i32* %_retval_
 	ret i32 %r624
 }
@@ -1140,7 +1140,7 @@ L79:
 define i32 @recursiveFibonacci(i32 %_P_number)
 {
 
-L83:
+L82:
 	%_retval_ = alloca i32
 	%number = alloca i32
 	store i32 %_P_number, i32* %number
@@ -1152,13 +1152,13 @@ L83:
 	%r630 = zext i1 %r629 to i32
 	%r631 = or i32 %r627, %r630
 	%r632 = trunc i32 %r631 to i1
-	br i1 %r632, label %L85, label %L86
+	br i1 %r632, label %L84, label %L85
 
-L85:
+L84:
 	%r633 = load i32, i32* %number
 	store i32 %r633, i32* %_retval_
-	br label %L84
-L86:
+	br label %L83
+L85:
 	%r635 = load i32, i32* %number
 	%r636 = sub i32 %r635, 1
 	%r637 = call i32 @recursiveFibonacci(i32 %r636 )
@@ -1167,10 +1167,10 @@ L86:
 	%r640 = call i32 @recursiveFibonacci(i32 %r639 )
 	%r641 = add i32 %r637, %r640
 	store i32 %r641, i32* %_retval_
-	br label %L84
-L87:
-	br label %L84
-L84:
+	br label %L83
+L86:
+	br label %L83
+L83:
 	%r634 = load i32, i32* %_retval_
 	ret i32 %r634
 }
@@ -1178,7 +1178,7 @@ L84:
 define i32 @main()
 {
 
-L91:
+L90:
 	%_retval_ = alloca i32
 	%input = alloca i32
 	%result = alloca i32
@@ -1190,9 +1190,9 @@ L91:
 	%r682 = icmp slt i32 %r680, %r681
 	%r683 = zext i1 %r682 to i32
 	%r684 = trunc i32 %r683 to i1
-	br i1 %r684, label %L93, label %L94
+	br i1 %r684, label %L92, label %L93
 
-L93:
+L92:
 	%r643 = call i32 @constantFolding()
 	store i32 %r643, i32* %result
 	%r644 = load i32, i32* %result
@@ -1264,13 +1264,13 @@ L93:
 	%r687 = icmp slt i32 %r685, %r686
 	%r688 = zext i1 %r687 to i32
 	%r689 = trunc i32 %r688 to i1
-	br i1 %r689, label %L93, label %L94
+	br i1 %r689, label %L92, label %L93
 
-L94:
+L93:
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 9999)
 	store i32 0, i32* %_retval_
-	br label %L92
-L92:
+	br label %L91
+L91:
 	%r690 = load i32, i32* %_retval_
 	ret i32 %r690
 }

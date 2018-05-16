@@ -1,9 +1,11 @@
 package cfg;
 
+import arm.ArmInstruction;
+import arm.ArmValue.ArmRegister;
+import arm.ArmValue.ArmValue;
+import arm.ArmValue.FinalRegisters.NotInterferingRegister;
 import llvm.Instruction;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public abstract class Block {
 
@@ -13,6 +15,10 @@ public abstract class Block {
     private List<Instruction> llvmCode;
     private String llvmLabel;
     private boolean hasReturn;
+    private List<ArmInstruction> armCode;
+    private Set<ArmRegister> liveOut;
+    private Set<ArmRegister> genSet;
+    private Set<ArmRegister> killSet;
 
 
     public Block(String label) {
@@ -21,6 +27,9 @@ public abstract class Block {
         this.predecessors = new ArrayList<Block>();
         llvmCode = new ArrayList<Instruction>();
         this.llvmLabel = BlockCounter.getNextBlockLabel();
+        liveOut = new HashSet<ArmRegister>();
+        genSet = new HashSet<ArmRegister>();
+        killSet = new HashSet<ArmRegister>();
     }
 
     public List<Block> getSuccessors() {
@@ -34,7 +43,7 @@ public abstract class Block {
     public String getGraphVisFormat() {
         StringBuilder output = new StringBuilder();
         for (Block successor: successors) {
-                output.append(this.label + " -> " + successor.getLabel() + "\n");
+            output.append(this.label + " -> " + successor.getLabel() + "\n");
         }
         for (Block predecessor: predecessors) {
             output.append(this.label + " -> " + predecessor.getLabel() + " [style=dashed]\n");
@@ -61,7 +70,6 @@ public abstract class Block {
     }
 
     public List<Instruction> getLLVM() {
-
         return llvmCode;
     }
 
@@ -83,6 +91,152 @@ public abstract class Block {
 
     public void setHasReturn() {
         hasReturn = true;
+    }
+
+    public void setArmCode(List<ArmInstruction> armCode) {
+        this.armCode = armCode;
+    }
+
+    public Set<ArmRegister> getLiveOut() {
+        return this.liveOut;
+    }
+
+    public Set<ArmRegister> getGenSet() {
+        return this.genSet;
+    }
+
+    public Set<ArmRegister> getKillSet() {
+        return this.killSet;
+    }
+
+
+
+    public void setGenKillSets() {
+        for(ArmInstruction instruction : this.armCode) {
+            for(ArmValue value: instruction.getSources()) {
+                if(value instanceof ArmRegister) {
+                    ArmRegister register = (ArmRegister) value;
+                    if(!register.existsInSet(killSet)
+                            && !register.existsInSet(genSet)
+                            && !(register instanceof NotInterferingRegister)) {
+                        genSet.add(register);
+                    }
+                }
+            }
+            for(ArmRegister register:instruction.getTargets()) {
+                if (!register.existsInSet(killSet)
+                        && !(register instanceof NotInterferingRegister)) {
+
+                    killSet.add(register);
+                }
+            }
+        }
+    }
+
+    public boolean setLiveOut() {
+        Set<ArmRegister> newLiveOut = new HashSet<>();
+
+        for(Block successor: successors) {
+            Set<ArmRegister> tempSet = new HashSet<>();
+            tempSet.addAll(successor.getLiveOut());
+            tempSet.removeAll(successor.getKillSet());
+            tempSet.addAll(successor.getGenSet());
+            newLiveOut.addAll(tempSet);
+        }
+
+        boolean equals = newLiveOut.size() == liveOut.size();
+
+        if(equals) {
+            String[] liveOutArr = liveOut.stream().map(armRegister -> armRegister.toArm()).toArray(String[]::new);
+            String[] newLiveOutArr = newLiveOut.stream().map(armRegister -> armRegister.toArm()).toArray(String[]::new);
+            Arrays.sort(liveOutArr);
+            Arrays.sort(newLiveOutArr);
+
+            for(int i = 0; i < liveOutArr.length; i++) {
+                if (!liveOutArr[i].equals(newLiveOutArr[i])) {
+                    equals = false;
+                }
+            }
+        }
+
+        if(!equals) {
+            this.liveOut.addAll(newLiveOut);
+            return true;
+        }
+        return false;
+    }
+
+    public void buildInterferenceGraph(Set<ArmRegister> registers) {
+//        System.out.println(label);
+//        System.out.println("gen: " + String.join(", ", genSet.stream().map(armRegister -> armRegister.toArm()).toArray(String[]::new)));
+//        System.out.println("kill: " + String.join(", ", killSet.stream().map(armRegister -> armRegister.toArm()).toArray(String[]::new)));
+//        System.out.println("live: " + String.join(", ", liveOut.stream().map(armRegister -> armRegister.toArm()).toArray(String[]::new)));
+//        System.out.println();
+        for(int i = armCode.size() - 1; i >= 0; i--) {
+            ArmInstruction curInstruction = armCode.get(i);
+
+            for(ArmRegister curTarget:curInstruction.getTargets()) {
+
+                ArmRegister curRegister = curTarget;
+
+//                System.out.println("curInst: " + curInstruction.getTargets().toArm());
+//                System.out.println("curLive: " + String.join(", ", liveOut.stream().map(armRegister -> armRegister.toArm()).toArray(String[]::new)));
+                liveOut = curRegister.removeFromSet(liveOut);
+                if(!curRegister.existsInSet(registers))
+                    registers.add(curRegister);
+                else {
+                    //string exists find current
+                    curRegister = registers.stream().filter(armRegister -> armRegister.stringEquals(curTarget)).toArray(ArmRegister[]::new)[0];
+
+                }
+
+                for (ArmRegister reg : this.liveOut) {
+                    ArmRegister setReg = reg;
+                    if(!reg.existsInSet(registers))
+                        registers.add(reg);
+                    else {
+                        setReg = registers.stream().filter(armRegister -> armRegister.stringEquals(reg)).toArray(ArmRegister[]::new)[0];
+                    }
+
+                    if(!this.checkifEdgeExists(registers, curRegister, setReg)
+                            && !curRegister.hasInterference(setReg)) {
+                        curRegister.addInterference(setReg);
+                        setReg.addInterference(curRegister);
+                    }
+                }
+            }
+
+
+            for(ArmValue value: curInstruction.getSources()) {
+                if (value instanceof ArmRegister) {
+                    ArmRegister register = (ArmRegister) value;
+                    if(!register.existsInSet(liveOut)) {
+                        liveOut.add(register);
+                    }
+                }
+            }
+
+        }
+
+    }
+
+    private boolean checkifEdgeExists(Set<ArmRegister> registers, ArmRegister reg1, ArmRegister reg2) {
+        Iterator<ArmRegister> iter = registers.iterator();
+        while(iter.hasNext()) {
+            ArmRegister current = iter.next();
+            if(current.stringEquals(reg1)) {
+                if(current.hasInterference(reg2)) {
+                    return true;
+                }
+            }
+//            if(current.stringEquals(reg2)) {
+//                if(current.hasInterference(reg1)) {
+//                    return true;
+//                }
+//            }
+        }
+        return false;
+
     }
 
 }

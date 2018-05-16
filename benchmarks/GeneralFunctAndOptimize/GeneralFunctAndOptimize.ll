@@ -7,7 +7,7 @@ target triple="i686"
 define i32 @multBy4xTimes(%struct.IntHolder* %_P_num, i32 %_P_timesLeft)
 {
 
-L2:
+L1:
 	%_retval_ = alloca i32
 	%num = alloca %struct.IntHolder*
 	store %struct.IntHolder* %_P_num, %struct.IntHolder** %num
@@ -17,17 +17,17 @@ L2:
 	%r1 = icmp sle i32 %r0, 0
 	%r2 = zext i1 %r1 to i32
 	%r3 = trunc i32 %r2 to i1
-	br i1 %r3, label %L4, label %L5
+	br i1 %r3, label %L3, label %L4
 
-L4:
+L3:
 	%r4 = load %struct.IntHolder*, %struct.IntHolder** %num
 	%r5 = getelementptr %struct.IntHolder , %struct.IntHolder* %r4, i1 0, i32 0
 	%r6 = load i32, i32* %r5
 	store i32 %r6, i32* %_retval_
-	br label %L3
+	br label %L2
+L4:
+	br label %L5
 L5:
-	br label %L6
-L6:
 	%r8 = load %struct.IntHolder*, %struct.IntHolder** %num
 	%r9 = getelementptr %struct.IntHolder , %struct.IntHolder* %r8, i1 0, i32 0
 	%r10 = load %struct.IntHolder*, %struct.IntHolder** %num
@@ -43,8 +43,8 @@ L6:
 	%r18 = getelementptr %struct.IntHolder , %struct.IntHolder* %r17, i1 0, i32 0
 	%r19 = load i32, i32* %r18
 	store i32 %r19, i32* %_retval_
-	br label %L3
-L3:
+	br label %L2
+L2:
 	%r7 = load i32, i32* %_retval_
 	ret i32 %r7
 }
@@ -52,7 +52,7 @@ L3:
 define void @divideBy8(%struct.IntHolder* %_P_num)
 {
 
-L9:
+L8:
 	%num = alloca %struct.IntHolder*
 	store %struct.IntHolder* %_P_num, %struct.IntHolder** %num
 	%r21 = load %struct.IntHolder*, %struct.IntHolder** %num
@@ -76,15 +76,15 @@ L9:
 	%r37 = load i32, i32* %r36
 	%r38 = sdiv i32 %r37, 2
 	store i32 %r38, i32* %r34
-	br label %L10
-L10:
+	br label %L9
+L9:
 	ret void
 }
 
 define i32 @main()
 {
 
-L12:
+L11:
 	%_retval_ = alloca i32
 	%start = alloca i32
 	%countOuter = alloca i32
@@ -112,14 +112,14 @@ L12:
 	%r88 = icmp slt i32 %r87, 50
 	%r89 = zext i1 %r88 to i32
 	%r90 = trunc i32 %r89 to i1
-	br i1 %r90, label %L14, label %L20
+	br i1 %r90, label %L13, label %L19
 
-L16:
+L15:
 	store i32 1, i32* %tempInterval
-	br label %L18
+	br label %L17
+L16:
+	br label %L17
 L17:
-	br label %L18
-L18:
 	%r72 = load i32, i32* %countInner
 	%r73 = load i32, i32* %tempInterval
 	%r74 = add i32 %r72, %r73
@@ -129,9 +129,9 @@ L18:
 	%r82 = icmp sle i32 %r80, %r81
 	%r83 = zext i1 %r82 to i32
 	%r84 = trunc i32 %r83 to i1
-	br i1 %r84, label %L15, label %L19
+	br i1 %r84, label %L14, label %L18
 
-L15:
+L14:
 	%r43 = mul i32 1, 2
 	%r44 = mul i32 %r43, 3
 	%r45 = mul i32 %r44, 4
@@ -169,9 +169,9 @@ L15:
 	%r69 = icmp sle i32 %r68, 0
 	%r70 = zext i1 %r69 to i32
 	%r71 = trunc i32 %r70 to i1
-	br i1 %r71, label %L16, label %L17
+	br i1 %r71, label %L15, label %L16
 
-L19:
+L18:
 	%r85 = load i32, i32* %countOuter
 	%r86 = add i32 %r85, 1
 	store i32 %r86, i32* %countOuter
@@ -179,25 +179,25 @@ L19:
 	%r92 = icmp slt i32 %r91, 50
 	%r93 = zext i1 %r92 to i32
 	%r94 = trunc i32 %r93 to i1
-	br i1 %r94, label %L14, label %L20
+	br i1 %r94, label %L13, label %L19
 
-L14:
+L13:
 	store i32 0, i32* %countInner
 	%r75 = load i32, i32* %countInner
 	%r76 = load i32, i32* @end
 	%r77 = icmp sle i32 %r75, %r76
 	%r78 = zext i1 %r77 to i32
 	%r79 = trunc i32 %r78 to i1
-	br i1 %r79, label %L15, label %L19
+	br i1 %r79, label %L14, label %L18
 
-L20:
+L19:
 	%r95 = load i32, i32* %countInner
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r95)
 	%r96 = load i32, i32* %calc
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r96)
 	store i32 0, i32* %_retval_
-	br label %L13
-L13:
+	br label %L12
+L12:
 	%r97 = load i32, i32* %_retval_
 	ret i32 %r97
 }

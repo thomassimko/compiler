@@ -1,3 +1,5 @@
+import arm.*;
+import arm.ArmValue.ArmRegister;
 import ast.Type;
 import cfg.Block;
 import cfg.EndBlock;
@@ -12,10 +14,7 @@ import org.antlr.v4.runtime.tree.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class MiniCompiler
 {
@@ -42,11 +41,78 @@ public class MiniCompiler
 
          Block[] cfg = program.getCFG(blockList, structTable);
 
-         printCFG(blockList);
+         List<ArmInstruction> armInstructions = new ArrayList<>();
+         HashMap<String, Integer> armOffsets = new HashMap<>();
+         ArmStackAllocation stackAlloc = new ArmStackAllocation(false, 0);
+
+         for(Block block:blockList) {
+            List<ArmInstruction> blockArmInstructions = new ArrayList<>();
+            if(block instanceof StartBlock) {
+               stackAlloc = new ArmStackAllocation(false, 0);
+               armOffsets = new HashMap<>();
+            }
+            else if(block instanceof EndBlock) {
+               stackAlloc.setStackSize(armOffsets.size());
+            }
+            if (!(block instanceof StartBlock) && !(block instanceof FakeBlock))
+               blockArmInstructions.add(new ArmLabel(block.getLlvmLabel()));
+
+            for(Instruction instruction: block.getLLVM()) {
+
+               if (instruction instanceof FunctionEnd) {
+                  blockArmInstructions.add(new ArmStackAllocation(true, armOffsets.size()));
+               }
+
+               instruction.toArm(blockArmInstructions, armOffsets);
+
+               if(instruction instanceof FunctionDefine) {
+                  blockArmInstructions.add(stackAlloc);
+               }
+            }
+
+            block.setArmCode(blockArmInstructions);
+            armInstructions.addAll(blockArmInstructions);
+
+
+         }
+         for (Block block : blockList) {
+            block.setGenKillSets();
+         }
+         for (Block block : blockList) {
+            block.setLiveOut();
+         }
+
+         boolean changed = true;
+         while(changed) {
+            changed = false;
+            for (Block block : blockList) {
+               if (block.setLiveOut()) {
+                  changed = true;
+               }
+            }
+         }
+
+
+         Set<ArmRegister> interferenceNodeSet = new HashSet<>();
+         for(Block block: blockList) {
+            block.buildInterferenceGraph(interferenceNodeSet);
+         }
+
+         printInterferenceGraph(interferenceNodeSet);
+
+         Map<String, String> colorMaps = GraphColorer.allocateRegisters(interferenceNodeSet);
+
+         for(ArmInstruction instruction: armInstructions) {
+            instruction.replaceRegisters(colorMaps);
+         }
+
+         //printCFG(blockList);
 
          if (stack) {
             printStackLLVM(program, blockList);
          }
+
+         printArm(program, armInstructions);
       }
    }
 
@@ -59,12 +125,13 @@ public class MiniCompiler
       {
          if (args[i].charAt(0) == '-')
          {
-            if(args[i].equals("-stack")) {
-               stack = true;
-            }
-            else {
-               System.err.println("unexpected option: " + args[i]);
-               System.exit(1);
+            switch(args[i]) {
+               case "-stack":
+                  stack = true;
+                  break;
+               default:
+                  System.err.println("unexpected option: " + args[i]);
+                  System.exit(1);
             }
          }
          else if (_inputFile != null)
@@ -162,5 +229,74 @@ public class MiniCompiler
          System.err.println(ex);
       }
 
+   }
+
+   private static void printArm(ast.Program program, List<ArmInstruction> armInstructions) {
+
+      try {
+         String outputPath = "../output.s";
+         FileWriter writer = new FileWriter(outputPath);
+
+         writer.write("\t.arch armv7-a\n");
+
+         List<ArmInstruction> globalDecs = new ArrayList<>();
+
+         Arrays.stream(program.getDeclarationFunctions()).forEach(instruction -> instruction.toArm(globalDecs, null));
+         for(ArmInstruction instruction : globalDecs) {
+            writer.write(instruction.toArm() + "\n");
+         }
+
+         writer.write("\n\n.text\n");
+
+         for(ArmInstruction instruction : armInstructions) {
+            if (!(instruction instanceof ArmFunction) && !(instruction instanceof ArmLabel))
+               writer.write('\t');
+            writer.write(instruction.toArm() + "\n");
+
+            if(instruction instanceof ArmFunctionEnd) {
+               writer.write("\n\n");
+            }
+         }
+
+
+
+
+         writer.write("\t.section\t.rodata\n" +
+                 "\t.align\t2\n.PRINTLN_FMT:\n" +
+                 "\t.asciz\t\"%ld\\n\"\n" +
+                 "\t.align\t2\n" +
+                 ".PRINT_FMT:\n" +
+                 "\t.asciz\t\"%ld \"\n" +
+                 "\t.align\t2\n" +
+                 ".READ_FMT:\n" +
+                 "\t.asciz\t\"%ld\"\n" +
+                 "\t.comm\t.read_scratch,4,4\n" +
+                 "\t.global\t__aeabi_idiv");
+         writer.close();
+      } catch (IOException ex) {
+         System.err.println(ex);
+      }
+   }
+
+   private static void printInterferenceGraph(Set<ArmRegister> nodes) {
+      try {
+         FileWriter writer = new FileWriter(new File("../interference.gv"));
+         writer.write("graph G {\n");
+         writer.write("size =\"8.5,11\";\n");
+         writer.write("graph [ dpi = 500 ];\n");
+
+         for (ArmRegister node : nodes) {
+            for(ArmRegister interferenceNode : node.getInterferences()) {
+               writer.write(node.toArm().replace('%', 'v') +
+                       " -- " + interferenceNode.toArm().replace('%', 'v') + ";\n");
+            }
+         }
+         writer.write("}");
+
+         writer.flush();
+         writer.close();
+      } catch (IOException ex) {
+         System.err.println(ex);
+      }
    }
 }

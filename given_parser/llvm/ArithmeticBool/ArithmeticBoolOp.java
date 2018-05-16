@@ -1,14 +1,22 @@
 package llvm.ArithmeticBool;
 
+import arm.ArithInstructionType;
+import arm.ArithmeticInstruction;
+import arm.ArmInstruction;
+import arm.ArmValue.ArmVirtualRegister;
 import llvm.Instruction;
 import llvm.value.Register;
 import llvm.value.Value;
+import llvm.value.ValueToArm;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class ArithmeticBoolOp implements Instruction {
-    private Value value1;
-    private Value value2;
-    private Register storedRegister;
-    private String instruction;
+    protected Value value1;
+    protected Value value2;
+    protected Register storedRegister;
+    protected String instruction;
 
 
     public ArithmeticBoolOp(Value value1, Value value2, String instruction, Register storedRegister) {
@@ -20,5 +28,39 @@ public class ArithmeticBoolOp implements Instruction {
 
     public String toLLVM() {
         return storedRegister.toLLVM() + " = " + instruction + " i32 " + value1.toLLVM() + ", " + value2.toLLVM();
+    }
+
+    @Override
+    public void toArm(List<ArmInstruction> instructions, HashMap<String, Integer> offsets) {
+        ArmVirtualRegister armReg1 = ValueToArm.convertValueToArm(value1, instructions);
+        ArmVirtualRegister armReg2 = ValueToArm.convertValueToArm(value2, instructions);
+        ArmVirtualRegister storeReg = ValueToArm.convertValueToArm(storedRegister, instructions);
+
+        switch (instruction) {
+            case "add":
+                instructions.add(new ArithmeticInstruction(ArithInstructionType.ADD, storeReg, armReg1, armReg2));
+                break;
+            case "mul":
+                instructions.add(new ArithmeticInstruction(ArithInstructionType.MUL, storeReg, armReg1, armReg2));
+                break;
+            case "sub":
+                instructions.add(new ArithmeticInstruction(ArithInstructionType.SUB, storeReg, armReg1, armReg2));
+                break;
+            case "sdiv":
+                //todo: this
+                break;
+            case "and":
+                instructions.add(new ArithmeticInstruction(ArithInstructionType.AND, storeReg, armReg1, armReg2));
+                break;
+            case "or":
+                instructions.add(new ArithmeticInstruction(ArithInstructionType.OR, storeReg, armReg1, armReg2));
+                break;
+            case "xor":
+                instructions.add(new ArithmeticInstruction(ArithInstructionType.XOR, storeReg, armReg1, armReg2));
+                break;
+            default:
+                System.err.println("No case for instruction: " + instruction);
+                System.exit(1);
+        }
     }
 }

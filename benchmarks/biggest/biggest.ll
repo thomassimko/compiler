@@ -5,7 +5,7 @@ target triple="i686"
 define %struct.IntList* @getIntList()
 {
 
-L2:
+L1:
 	%_retval_ = alloca %struct.IntList*
 	%list = alloca %struct.IntList*
 	%next = alloca i32
@@ -18,9 +18,9 @@ L2:
 	%r4 = icmp eq i32 %r2, %r3
 	%r5 = zext i1 %r4 to i32
 	%r6 = trunc i32 %r5 to i1
-	br i1 %r6, label %L4, label %L5
+	br i1 %r6, label %L3, label %L4
 
-L4:
+L3:
 	%r7 = load %struct.IntList*, %struct.IntList** %list
 	%r8 = getelementptr %struct.IntList , %struct.IntList* %r7, i1 0, i32 0
 	%r9 = load i32, i32* %next
@@ -30,8 +30,8 @@ L4:
 	store %struct.IntList* null, %struct.IntList** %r11
 	%r12 = load %struct.IntList*, %struct.IntList** %list
 	store %struct.IntList* %r12, %struct.IntList** %_retval_
-	br label %L3
-L5:
+	br label %L2
+L4:
 	%r14 = load %struct.IntList*, %struct.IntList** %list
 	%r15 = getelementptr %struct.IntList , %struct.IntList* %r14, i1 0, i32 0
 	%r16 = load i32, i32* %next
@@ -42,10 +42,10 @@ L5:
 	store %struct.IntList* %r19, %struct.IntList** %r18
 	%r20 = load %struct.IntList*, %struct.IntList** %list
 	store %struct.IntList* %r20, %struct.IntList** %_retval_
-	br label %L3
-L6:
-	br label %L3
-L3:
+	br label %L2
+L5:
+	br label %L2
+L2:
 	%r13 = load %struct.IntList*, %struct.IntList** %_retval_
 	ret %struct.IntList* %r13
 }
@@ -53,7 +53,7 @@ L3:
 define i32 @biggest(i32 %_P_num1, i32 %_P_num2)
 {
 
-L10:
+L9:
 	%_retval_ = alloca i32
 	%num1 = alloca i32
 	store i32 %_P_num1, i32* %num1
@@ -64,19 +64,19 @@ L10:
 	%r24 = icmp sgt i32 %r22, %r23
 	%r25 = zext i1 %r24 to i32
 	%r26 = trunc i32 %r25 to i1
-	br i1 %r26, label %L12, label %L13
+	br i1 %r26, label %L11, label %L12
 
-L12:
+L11:
 	%r27 = load i32, i32* %num1
 	store i32 %r27, i32* %_retval_
-	br label %L11
-L13:
+	br label %L10
+L12:
 	%r29 = load i32, i32* %num2
 	store i32 %r29, i32* %_retval_
-	br label %L11
-L14:
-	br label %L11
-L11:
+	br label %L10
+L13:
+	br label %L10
+L10:
 	%r28 = load i32, i32* %_retval_
 	ret i32 %r28
 }
@@ -84,7 +84,7 @@ L11:
 define i32 @biggestInList(%struct.IntList* %_P_list)
 {
 
-L18:
+L17:
 	%_retval_ = alloca i32
 	%list = alloca %struct.IntList*
 	store %struct.IntList* %_P_list, %struct.IntList** %list
@@ -99,9 +99,9 @@ L18:
 	%r45 = icmp ne %struct.IntList* %r44, null
 	%r46 = zext i1 %r45 to i32
 	%r47 = trunc i32 %r46 to i1
-	br i1 %r47, label %L20, label %L21
+	br i1 %r47, label %L19, label %L20
 
-L20:
+L19:
 	%r34 = load i32, i32* %big
 	%r35 = load %struct.IntList*, %struct.IntList** %list
 	%r36 = getelementptr %struct.IntList , %struct.IntList* %r35, i1 0, i32 0
@@ -118,13 +118,13 @@ L20:
 	%r51 = icmp ne %struct.IntList* %r50, null
 	%r52 = zext i1 %r51 to i32
 	%r53 = trunc i32 %r52 to i1
-	br i1 %r53, label %L20, label %L21
+	br i1 %r53, label %L19, label %L20
 
-L21:
+L20:
 	%r54 = load i32, i32* %big
 	store i32 %r54, i32* %_retval_
-	br label %L19
-L19:
+	br label %L18
+L18:
 	%r55 = load i32, i32* %_retval_
 	ret i32 %r55
 }
@@ -132,7 +132,7 @@ L19:
 define i32 @main()
 {
 
-L23:
+L22:
 	%_retval_ = alloca i32
 	%list = alloca %struct.IntList*
 	%r56 = call %struct.IntList* @getIntList()
@@ -141,8 +141,8 @@ L23:
 	%r58 = call i32 @biggestInList(%struct.IntList* %r57 )
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r58)
 	store i32 0, i32* %_retval_
-	br label %L24
-L24:
+	br label %L23
+L23:
 	%r59 = load i32, i32* %_retval_
 	ret i32 %r59
 }

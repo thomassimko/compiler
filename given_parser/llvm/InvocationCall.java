@@ -1,7 +1,17 @@
 package llvm;
 
+import arm.*;
+import arm.ArmValue.ArmValue;
+import arm.ArmValue.ArmVirtualRegister;
+import arm.ArmValue.FinalRegisters.ArmFinalRegister;
+import arm.Branch;
 import llvm.value.Register;
 import llvm.value.Value;
+import llvm.value.ValueToArm;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class InvocationCall implements Instruction {
 
@@ -41,5 +51,35 @@ public class InvocationCall implements Instruction {
             output.deleteCharAt(output.lastIndexOf(","));
         output.append(')');
         return output.toString();
+    }
+
+    @Override
+    public void toArm(List<ArmInstruction> instructions, HashMap<String, Integer> offsets) {
+        for(int i = 0; i<args.length; i++) {
+            if (i < 4) {
+                ArmFinalRegister reg = new ArmFinalRegister("r" + i);
+                ArmValue valueReg = ValueToArm.convertValueToArm(args[i], instructions);
+                ArmInstruction move = new Move(MoveType.DEFAULT, reg, valueReg, 0, true);
+                instructions.add(move);
+
+                //if(this.functionName.equals("placePiece"))
+                    //System.out.println(args[i].toLLVM());
+                    //System.out.println(move.toArm());
+            }
+            else {
+                throw new RuntimeException("spill");
+                //todo: use stack
+            }
+        }
+        ArmInstruction branch = new Branch(BranchType.L, functionName, args.length);
+        instructions.add(branch);
+
+        ArmInstruction move = new Move(
+                MoveType.DEFAULT,
+                ValueToArm.convertValueToArm(storedRegister, instructions),
+                new ArmFinalRegister("r0"),
+                0,
+                false);
+        instructions.add(move);
     }
 }

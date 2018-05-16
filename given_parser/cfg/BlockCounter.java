@@ -9,6 +9,6 @@ public class BlockCounter {
     public static String getNextBlockLabel() {
         int block = currentBlock;
         currentBlock++;
-        return "L" + currentBlock;
+        return "L" + block;
     }
 }

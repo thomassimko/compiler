@@ -1,7 +1,6 @@
 package llvm.ArithmeticBool;
 
-import llvm.value.Register;
-import llvm.value.Value;
+import llvm.value.*;
 
 public class Add extends ArithmeticBoolOp {
 

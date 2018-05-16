@@ -7,32 +7,32 @@ target triple="i686"
 define void @tailrecursive(i32 %_P_num)
 {
 
-L2:
+L1:
 	%num = alloca i32
 	store i32 %_P_num, i32* %num
 	%r0 = load i32, i32* %num
 	%r1 = icmp sle i32 %r0, 0
 	%r2 = zext i1 %r1 to i32
 	%r3 = trunc i32 %r2 to i1
-	br i1 %r3, label %L4, label %L5
+	br i1 %r3, label %L3, label %L4
 
+L3:
+	br label %L2
 L4:
-	br label %L3
+	br label %L5
 L5:
-	br label %L6
-L6:
 	%r4 = load i32, i32* %num
 	%r5 = sub i32 %r4, 1
 	call void @tailrecursive(i32 %r5 )
-	br label %L3
-L3:
+	br label %L2
+L2:
 	ret void
 }
 
 define i32 @add(i32 %_P_x, i32 %_P_y)
 {
 
-L9:
+L8:
 	%_retval_ = alloca i32
 	%x = alloca i32
 	store i32 %_P_x, i32* %x
@@ -42,8 +42,8 @@ L9:
 	%r7 = load i32, i32* %y
 	%r8 = add i32 %r6, %r7
 	store i32 %r8, i32* %_retval_
-	br label %L10
-L10:
+	br label %L9
+L9:
 	%r9 = load i32, i32* %_retval_
 	ret i32 %r9
 }
@@ -51,7 +51,7 @@ L10:
 define void @domath(i32 %_P_num)
 {
 
-L12:
+L11:
 	%num = alloca i32
 	store i32 %_P_num, i32* %num
 	%math1 = alloca %struct.foo*
@@ -100,9 +100,9 @@ L12:
 	%r78 = icmp sgt i32 %r77, 0
 	%r79 = zext i1 %r78 to i32
 	%r80 = trunc i32 %r79 to i1
-	br i1 %r80, label %L14, label %L15
+	br i1 %r80, label %L13, label %L14
 
-L14:
+L13:
 	%r41 = load %struct.foo*, %struct.foo** %math1
 	%r42 = getelementptr %struct.foo , %struct.foo* %r41, i1 0, i32 0
 	%r43 = load i32, i32* %r42
@@ -148,24 +148,24 @@ L14:
 	%r82 = icmp sgt i32 %r81, 0
 	%r83 = zext i1 %r82 to i32
 	%r84 = trunc i32 %r83 to i1
-	br i1 %r84, label %L14, label %L15
+	br i1 %r84, label %L13, label %L14
 
-L15:
+L14:
 	%r86 = load %struct.foo*, %struct.foo** %math1
 	%r85 = bitcast %struct.foo* %r86 to i8*
 	call void @free(i8* %r85 )
 	%r88 = load %struct.foo*, %struct.foo** %math2
 	%r87 = bitcast %struct.foo* %r88 to i8*
 	call void @free(i8* %r87 )
-	br label %L13
-L13:
+	br label %L12
+L12:
 	ret void
 }
 
 define void @objinstantiation(i32 %_P_num)
 {
 
-L17:
+L16:
 	%num = alloca i32
 	store i32 %_P_num, i32* %num
 	%tmp = alloca %struct.foo*
@@ -173,9 +173,9 @@ L17:
 	%r96 = icmp sgt i32 %r95, 0
 	%r97 = zext i1 %r96 to i32
 	%r98 = trunc i32 %r97 to i1
-	br i1 %r98, label %L19, label %L20
+	br i1 %r98, label %L18, label %L19
 
-L19:
+L18:
 	%r89 = call i8* @malloc(i32 24)
 	%r90 = bitcast i8* %r89 to %struct.foo*
 	store %struct.foo* %r90, %struct.foo** %tmp
@@ -189,18 +189,18 @@ L19:
 	%r100 = icmp sgt i32 %r99, 0
 	%r101 = zext i1 %r100 to i32
 	%r102 = trunc i32 %r101 to i1
-	br i1 %r102, label %L19, label %L20
+	br i1 %r102, label %L18, label %L19
 
-L20:
-	br label %L18
-L18:
+L19:
+	br label %L17
+L17:
 	ret void
 }
 
 define i32 @ackermann(i32 %_P_m, i32 %_P_n)
 {
 
-L22:
+L21:
 	%_retval_ = alloca i32
 	%m = alloca i32
 	store i32 %_P_m, i32* %m
@@ -210,29 +210,29 @@ L22:
 	%r104 = icmp eq i32 %r103, 0
 	%r105 = zext i1 %r104 to i32
 	%r106 = trunc i32 %r105 to i1
-	br i1 %r106, label %L24, label %L25
+	br i1 %r106, label %L23, label %L24
 
-L24:
+L23:
 	%r107 = load i32, i32* %n
 	%r108 = add i32 %r107, 1
 	store i32 %r108, i32* %_retval_
-	br label %L23
+	br label %L22
+L24:
+	br label %L25
 L25:
-	br label %L26
-L26:
 	%r110 = load i32, i32* %n
 	%r111 = icmp eq i32 %r110, 0
 	%r112 = zext i1 %r111 to i32
 	%r113 = trunc i32 %r112 to i1
-	br i1 %r113, label %L28, label %L29
+	br i1 %r113, label %L27, label %L28
 
-L28:
+L27:
 	%r114 = load i32, i32* %m
 	%r115 = sub i32 %r114, 1
 	%r116 = call i32 @ackermann(i32 %r115, i32 1 )
 	store i32 %r116, i32* %_retval_
-	br label %L23
-L29:
+	br label %L22
+L28:
 	%r118 = load i32, i32* %m
 	%r119 = sub i32 %r118, 1
 	%r120 = load i32, i32* %m
@@ -241,10 +241,10 @@ L29:
 	%r123 = call i32 @ackermann(i32 %r120, i32 %r122 )
 	%r124 = call i32 @ackermann(i32 %r119, i32 %r123 )
 	store i32 %r124, i32* %_retval_
-	br label %L23
-L30:
-	br label %L23
-L23:
+	br label %L22
+L29:
+	br label %L22
+L22:
 	%r109 = load i32, i32* %_retval_
 	ret i32 %r109
 }
@@ -252,7 +252,7 @@ L23:
 define i32 @main()
 {
 
-L34:
+L33:
 	%_retval_ = alloca i32
 	%a = alloca i32
 	%b = alloca i32
@@ -281,8 +281,8 @@ L34:
 	%r134 = call i32 @ackermann(i32 %r132, i32 %r133 )
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r134)
 	store i32 0, i32* %_retval_
-	br label %L35
-L35:
+	br label %L34
+L34:
 	%r135 = load i32, i32* %_retval_
 	ret i32 %r135
 }

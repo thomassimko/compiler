@@ -1,8 +1,13 @@
 package llvm.declarations;
 
+import arm.ArmInstruction;
+import arm.ArmValue.ArmGlobalDeclaration;
 import ast.StructType;
 import ast.Type;
 import llvm.Instruction;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class GlobalDeclaration implements Instruction {
     private String name;
@@ -17,5 +22,10 @@ public class GlobalDeclaration implements Instruction {
     public String toLLVM() {
         String defaultVal = (type instanceof StructType) ? "null" : "0";
         return "@" + name + " = common global " + type.getCFGType() + " " + defaultVal + ", align 8";
+    }
+
+    @Override
+    public void toArm(List<ArmInstruction> instructions, HashMap<String, Integer> offsets) {
+        instructions.add(new ArmGlobalDeclaration(name));
     }
 }

@@ -95,7 +95,7 @@ public class Function /*implements Type*/
 
       blockList.add(end);
 
-      end.addInstructionToLLVM(new FunctionEnd());
+      end.addInstructionToLLVM(new FunctionEnd(name));
 
       return start;
    }

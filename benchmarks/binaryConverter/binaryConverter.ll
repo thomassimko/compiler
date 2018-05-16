@@ -5,7 +5,7 @@ target triple="i686"
 define i32 @wait(i32 %_P_waitTime)
 {
 
-L2:
+L1:
 	%_retval_ = alloca i32
 	%waitTime = alloca i32
 	store i32 %_P_waitTime, i32* %waitTime
@@ -13,9 +13,9 @@ L2:
 	%r3 = icmp sgt i32 %r2, 0
 	%r4 = zext i1 %r3 to i32
 	%r5 = trunc i32 %r4 to i1
-	br i1 %r5, label %L4, label %L5
+	br i1 %r5, label %L3, label %L4
 
-L4:
+L3:
 	%r0 = load i32, i32* %waitTime
 	%r1 = sub i32 %r0, 1
 	store i32 %r1, i32* %waitTime
@@ -23,12 +23,12 @@ L4:
 	%r7 = icmp sgt i32 %r6, 0
 	%r8 = zext i1 %r7 to i32
 	%r9 = trunc i32 %r8 to i1
-	br i1 %r9, label %L4, label %L5
+	br i1 %r9, label %L3, label %L4
 
-L5:
+L4:
 	store i32 0, i32* %_retval_
-	br label %L3
-L3:
+	br label %L2
+L2:
 	%r10 = load i32, i32* %_retval_
 	ret i32 %r10
 }
@@ -36,7 +36,7 @@ L3:
 define i32 @power(i32 %_P_base, i32 %_P_exponent)
 {
 
-L7:
+L6:
 	%_retval_ = alloca i32
 	%base = alloca i32
 	store i32 %_P_base, i32* %base
@@ -48,9 +48,9 @@ L7:
 	%r17 = icmp sgt i32 %r16, 0
 	%r18 = zext i1 %r17 to i32
 	%r19 = trunc i32 %r18 to i1
-	br i1 %r19, label %L9, label %L10
+	br i1 %r19, label %L8, label %L9
 
-L9:
+L8:
 	%r11 = load i32, i32* %product
 	%r12 = load i32, i32* %base
 	%r13 = mul i32 %r11, %r12
@@ -62,13 +62,13 @@ L9:
 	%r21 = icmp sgt i32 %r20, 0
 	%r22 = zext i1 %r21 to i32
 	%r23 = trunc i32 %r22 to i1
-	br i1 %r23, label %L9, label %L10
+	br i1 %r23, label %L8, label %L9
 
-L10:
+L9:
 	%r24 = load i32, i32* %product
 	store i32 %r24, i32* %_retval_
-	br label %L8
-L8:
+	br label %L7
+L7:
 	%r25 = load i32, i32* %_retval_
 	ret i32 %r25
 }
@@ -76,7 +76,7 @@ L8:
 define i32 @recursiveDecimalSum(i32 %_P_binaryNum, i32 %_P_decimalSum, i32 %_P_recursiveDepth)
 {
 
-L12:
+L11:
 	%_retval_ = alloca i32
 	%binaryNum = alloca i32
 	store i32 %_P_binaryNum, i32* %binaryNum
@@ -91,9 +91,9 @@ L12:
 	%r27 = icmp sgt i32 %r26, 0
 	%r28 = zext i1 %r27 to i32
 	%r29 = trunc i32 %r28 to i1
-	br i1 %r29, label %L14, label %L15
+	br i1 %r29, label %L13, label %L14
 
-L14:
+L13:
 	store i32 2, i32* %base
 	%r30 = load i32, i32* %binaryNum
 	%r31 = sdiv i32 %r30, 10
@@ -109,25 +109,25 @@ L14:
 	%r38 = icmp eq i32 %r37, 1
 	%r39 = zext i1 %r38 to i32
 	%r40 = trunc i32 %r39 to i1
-	br i1 %r40, label %L17, label %L18
+	br i1 %r40, label %L16, label %L17
 
+L14:
+	br label %L15
 L15:
-	br label %L16
-L16:
 	%r53 = load i32, i32* %decimalSum
 	store i32 %r53, i32* %_retval_
-	br label %L13
-L17:
+	br label %L12
+L16:
 	%r41 = load i32, i32* %decimalSum
 	%r42 = load i32, i32* %base
 	%r43 = load i32, i32* %recursiveDepth
 	%r44 = call i32 @power(i32 %r42, i32 %r43 )
 	%r45 = add i32 %r41, %r44
 	store i32 %r45, i32* %decimalSum
-	br label %L19
+	br label %L18
+L17:
+	br label %L18
 L18:
-	br label %L19
-L19:
 	%r46 = load i32, i32* %binaryNum
 	%r47 = sdiv i32 %r46, 10
 	%r48 = load i32, i32* %decimalSum
@@ -135,8 +135,8 @@ L19:
 	%r50 = add i32 %r49, 1
 	%r51 = call i32 @recursiveDecimalSum(i32 %r47, i32 %r48, i32 %r50 )
 	store i32 %r51, i32* %_retval_
-	br label %L13
-L13:
+	br label %L12
+L12:
 	%r52 = load i32, i32* %_retval_
 	ret i32 %r52
 }
@@ -144,7 +144,7 @@ L13:
 define i32 @convertToDecimal(i32 %_P_binaryNum)
 {
 
-L22:
+L21:
 	%_retval_ = alloca i32
 	%binaryNum = alloca i32
 	store i32 %_P_binaryNum, i32* %binaryNum
@@ -157,8 +157,8 @@ L22:
 	%r57 = load i32, i32* %recursiveDepth
 	%r58 = call i32 @recursiveDecimalSum(i32 %r55, i32 %r56, i32 %r57 )
 	store i32 %r58, i32* %_retval_
-	br label %L23
-L23:
+	br label %L22
+L22:
 	%r59 = load i32, i32* %_retval_
 	ret i32 %r59
 }
@@ -166,7 +166,7 @@ L23:
 define i32 @main()
 {
 
-L25:
+L24:
 	%_retval_ = alloca i32
 	%number = alloca i32
 	%waitTime = alloca i32
@@ -182,9 +182,9 @@ L25:
 	%r69 = icmp sgt i32 %r68, 0
 	%r70 = zext i1 %r69 to i32
 	%r71 = trunc i32 %r70 to i1
-	br i1 %r71, label %L27, label %L28
+	br i1 %r71, label %L26, label %L27
 
-L27:
+L26:
 	%r65 = load i32, i32* %waitTime
 	call i32 @wait(i32 %r65 )
 	%r66 = load i32, i32* %waitTime
@@ -194,14 +194,14 @@ L27:
 	%r73 = icmp sgt i32 %r72, 0
 	%r74 = zext i1 %r73 to i32
 	%r75 = trunc i32 %r74 to i1
-	br i1 %r75, label %L27, label %L28
+	br i1 %r75, label %L26, label %L27
 
-L28:
+L27:
 	%r76 = load i32, i32* %number
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r76)
 	store i32 0, i32* %_retval_
-	br label %L26
-L26:
+	br label %L25
+L25:
 	%r77 = load i32, i32* %_retval_
 	ret i32 %r77
 }

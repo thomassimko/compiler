@@ -1,26 +1,9 @@
-digraph G {
-size ="8.5,11";functionStartBlock -> functionBlock1
-functionBlock1 -> thenBlock4
-functionBlock1 -> elseBlock4
-functionBlock1 -> functionStartBlock [style=dashed]
-thenBlock4 -> functionEndBlock
-thenBlock4 -> functionBlock1 [style=dashed]
-elseBlock4 -> joinBlock4
-elseBlock4 -> functionBlock1 [style=dashed]
-joinBlock4 -> whileBlock9
-joinBlock4 -> fakefakeThenBlock4 [style=dashed]
-joinBlock4 -> elseBlock4 [style=dashed]
-fakefakeThenBlock4 -> joinBlock4
-whileBlock9 -> whileBlock9
-whileBlock9 -> whileExitBlock9
-whileBlock9 -> joinBlock4 [style=dashed]
-whileBlock9 -> whileBlock9 [style=dashed]
-whileExitBlock9 -> functionEndBlock
-whileExitBlock9 -> whileBlock9 [style=dashed]
-functionEndBlock -> thenBlock4 [style=dashed]
-functionEndBlock -> whileExitBlock9 [style=dashed]
-mainStartBlock -> mainBlock1
-mainBlock1 -> mainEndBlock
-mainBlock1 -> mainStartBlock [style=dashed]
-mainEndBlock -> mainBlock1 [style=dashed]
+graph G {
+size ="8.5,11";
+vr6 -- sp;
+vr10 -- sp;
+vr7 -- vr6;
+vr0 -- sp;
+vr8 -- vr1;
+vr2 -- vr8;
 }

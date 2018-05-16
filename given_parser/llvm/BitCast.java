@@ -1,6 +1,14 @@
 package llvm;
 
+import arm.ArmInstruction;
+import arm.ArmValue.ArmVirtualRegister;
+import arm.Move;
+import arm.MoveType;
 import llvm.value.Value;
+import llvm.value.ValueToArm;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class BitCast implements Instruction {
 
@@ -19,5 +27,14 @@ public class BitCast implements Instruction {
     @Override
     public String toLLVM() {
         return storedRegister.toLLVM() + " = bitcast " + sourceType + " " + sourceRegister.toLLVM() + " to " + targetType;
+    }
+
+    @Override
+    public void toArm(List<ArmInstruction> instructions, HashMap<String, Integer> offsets) {
+        ArmVirtualRegister source = ValueToArm.convertValueToArm(sourceRegister, instructions);
+        ArmVirtualRegister target = ValueToArm.convertValueToArm(storedRegister, instructions);
+
+        ArmInstruction move = new Move(MoveType.DEFAULT, target, source, 0, false);
+        instructions.add(move);
     }
 }

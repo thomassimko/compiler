@@ -1,6 +1,10 @@
 package llvm.declarations;
 
+import arm.ArmInstruction;
 import llvm.Instruction;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class StructDeclaration implements Instruction {
 
@@ -15,5 +19,10 @@ public class StructDeclaration implements Instruction {
     @Override
     public String toLLVM() {
         return "%struct." + name + " = type {" + String.join(", ", typeList) + "}";
+    }
+
+    @Override
+    public void toArm(List<ArmInstruction> instructions, HashMap<String, Integer> offsets) {
+        //todo: this
     }
 }

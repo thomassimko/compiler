@@ -6,7 +6,7 @@ target triple="i686"
 define i32 @compare(%struct.Node* %_P_a, %struct.Node* %_P_b)
 {
 
-L2:
+L1:
 	%_retval_ = alloca i32
 	%a = alloca %struct.Node*
 	store %struct.Node* %_P_a, %struct.Node** %a
@@ -20,8 +20,8 @@ L2:
 	%r5 = load i32, i32* %r4
 	%r6 = sub i32 %r2, %r5
 	store i32 %r6, i32* %_retval_
-	br label %L3
-L3:
+	br label %L2
+L2:
 	%r7 = load i32, i32* %_retval_
 	ret i32 %r7
 }
@@ -29,7 +29,7 @@ L3:
 define void @deathSort(%struct.Node* %_P_head)
 {
 
-L5:
+L4:
 	%head = alloca %struct.Node*
 	store %struct.Node* %_P_head, %struct.Node** %head
 	%swapped = alloca i32
@@ -40,9 +40,9 @@ L5:
 	%r50 = icmp eq i32 %r49, 1
 	%r51 = zext i1 %r50 to i32
 	%r52 = trunc i32 %r51 to i1
-	br i1 %r52, label %L7, label %L13
+	br i1 %r52, label %L6, label %L12
 
-L9:
+L8:
 	%r17 = load %struct.Node*, %struct.Node** %currNode
 	%r18 = getelementptr %struct.Node , %struct.Node* %r17, i1 0, i32 2
 	%r19 = load i32, i32* %r18
@@ -62,10 +62,10 @@ L9:
 	%r31 = load i32, i32* %swap
 	store i32 %r31, i32* %r30
 	store i32 1, i32* %swapped
-	br label %L11
+	br label %L10
+L9:
+	br label %L10
 L10:
-	br label %L11
-L11:
 	%r32 = load %struct.Node*, %struct.Node** %currNode
 	%r33 = getelementptr %struct.Node , %struct.Node* %r32, i1 0, i32 0
 	%r34 = load %struct.Node*, %struct.Node** %r33
@@ -77,9 +77,9 @@ L11:
 	%r46 = icmp ne %struct.Node* %r44, %r45
 	%r47 = zext i1 %r46 to i32
 	%r48 = trunc i32 %r47 to i1
-	br i1 %r48, label %L8, label %L12
+	br i1 %r48, label %L7, label %L11
 
-L8:
+L7:
 	%r9 = load %struct.Node*, %struct.Node** %currNode
 	%r10 = load %struct.Node*, %struct.Node** %currNode
 	%r11 = getelementptr %struct.Node , %struct.Node* %r10, i1 0, i32 0
@@ -88,16 +88,16 @@ L8:
 	%r14 = icmp sgt i32 %r13, 0
 	%r15 = zext i1 %r14 to i32
 	%r16 = trunc i32 %r15 to i1
-	br i1 %r16, label %L9, label %L10
+	br i1 %r16, label %L8, label %L9
 
-L12:
+L11:
 	%r53 = load i32, i32* %swapped
 	%r54 = icmp eq i32 %r53, 1
 	%r55 = zext i1 %r54 to i32
 	%r56 = trunc i32 %r55 to i1
-	br i1 %r56, label %L7, label %L13
+	br i1 %r56, label %L6, label %L12
 
-L7:
+L6:
 	store i32 0, i32* %swapped
 	%r8 = load %struct.Node*, %struct.Node** %head
 	store %struct.Node* %r8, %struct.Node** %currNode
@@ -108,18 +108,18 @@ L7:
 	%r39 = icmp ne %struct.Node* %r37, %r38
 	%r40 = zext i1 %r39 to i32
 	%r41 = trunc i32 %r40 to i1
-	br i1 %r41, label %L8, label %L12
+	br i1 %r41, label %L7, label %L11
 
-L13:
-	br label %L6
-L6:
+L12:
+	br label %L5
+L5:
 	ret void
 }
 
 define void @printEVILList(%struct.Node* %_P_head)
 {
 
-L15:
+L14:
 	%head = alloca %struct.Node*
 	store %struct.Node* %_P_head, %struct.Node** %head
 	%currNode = alloca %struct.Node*
@@ -140,9 +140,9 @@ L15:
 	%r76 = icmp ne %struct.Node* %r74, %r75
 	%r77 = zext i1 %r76 to i32
 	%r78 = trunc i32 %r77 to i1
-	br i1 %r78, label %L17, label %L18
+	br i1 %r78, label %L16, label %L17
 
-L17:
+L16:
 	%r65 = load %struct.Node*, %struct.Node** %currNode
 	store %struct.Node* %r65, %struct.Node** %toFree
 	%r66 = load %struct.Node*, %struct.Node** %currNode
@@ -161,18 +161,18 @@ L17:
 	%r81 = icmp ne %struct.Node* %r79, %r80
 	%r82 = zext i1 %r81 to i32
 	%r83 = trunc i32 %r82 to i1
-	br i1 %r83, label %L17, label %L18
+	br i1 %r83, label %L16, label %L17
 
-L18:
-	br label %L16
-L16:
+L17:
+	br label %L15
+L15:
 	ret void
 }
 
 define i32 @main()
 {
 
-L20:
+L19:
 	%_retval_ = alloca i32
 	%numNodes = alloca i32
 	%counter = alloca i32
@@ -185,17 +185,17 @@ L20:
 	%r85 = icmp sle i32 %r84, 0
 	%r86 = zext i1 %r85 to i32
 	%r87 = trunc i32 %r86 to i1
-	br i1 %r87, label %L22, label %L23
+	br i1 %r87, label %L21, label %L22
 
-L22:
+L21:
 	%r88 = sub i32 0, 1
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r88)
 	%r89 = sub i32 0, 1
 	store i32 %r89, i32* %_retval_
-	br label %L21
+	br label %L20
+L22:
+	br label %L23
 L23:
-	br label %L24
-L24:
 	%r91 = load i32, i32* %numNodes
 	%r92 = mul i32 %r91, 1000
 	store i32 %r92, i32* %numNodes
@@ -225,9 +225,9 @@ L24:
 	%r126 = icmp sgt i32 %r125, 0
 	%r127 = zext i1 %r126 to i32
 	%r128 = trunc i32 %r127 to i1
-	br i1 %r128, label %L26, label %L27
+	br i1 %r128, label %L25, label %L26
 
-L26:
+L25:
 	%r108 = call i8* @malloc(i32 24)
 	%r109 = bitcast i8* %r108 to %struct.Node*
 	store %struct.Node* %r109, %struct.Node** %currNode
@@ -256,16 +256,16 @@ L26:
 	%r130 = icmp sgt i32 %r129, 0
 	%r131 = zext i1 %r130 to i32
 	%r132 = trunc i32 %r131 to i1
-	br i1 %r132, label %L26, label %L27
+	br i1 %r132, label %L25, label %L26
 
-L27:
+L26:
 	%r133 = load %struct.Node*, %struct.Node** %head
 	call void @deathSort(%struct.Node* %r133 )
 	%r134 = load %struct.Node*, %struct.Node** %head
 	call void @printEVILList(%struct.Node* %r134 )
 	store i32 0, i32* %_retval_
-	br label %L21
-L21:
+	br label %L20
+L20:
 	%r90 = load i32, i32* %_retval_
 	ret i32 %r90
 }

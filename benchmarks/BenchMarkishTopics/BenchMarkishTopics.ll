@@ -6,7 +6,7 @@ target triple="i686"
 define i32 @length(%struct.intList* %_P_list)
 {
 
-L2:
+L1:
 	%_retval_ = alloca i32
 	%list = alloca %struct.intList*
 	store %struct.intList* %_P_list, %struct.intList** %list
@@ -14,22 +14,22 @@ L2:
 	%r1 = icmp eq %struct.intList* %r0, null
 	%r2 = zext i1 %r1 to i32
 	%r3 = trunc i32 %r2 to i1
-	br i1 %r3, label %L4, label %L5
+	br i1 %r3, label %L3, label %L4
 
-L4:
+L3:
 	store i32 0, i32* %_retval_
-	br label %L3
+	br label %L2
+L4:
+	br label %L5
 L5:
-	br label %L6
-L6:
 	%r5 = load %struct.intList*, %struct.intList** %list
 	%r6 = getelementptr %struct.intList , %struct.intList* %r5, i1 0, i32 1
 	%r7 = load %struct.intList*, %struct.intList** %r6
 	%r8 = call i32 @length(%struct.intList* %r7 )
 	%r9 = add i32 1, %r8
 	store i32 %r9, i32* %_retval_
-	br label %L3
-L3:
+	br label %L2
+L2:
 	%r4 = load i32, i32* %_retval_
 	ret i32 %r4
 }
@@ -37,7 +37,7 @@ L3:
 define %struct.intList* @addToFront(%struct.intList* %_P_list, i32 %_P_element)
 {
 
-L9:
+L8:
 	%_retval_ = alloca %struct.intList*
 	%list = alloca %struct.intList*
 	store %struct.intList* %_P_list, %struct.intList** %list
@@ -48,9 +48,9 @@ L9:
 	%r12 = icmp eq %struct.intList* %r11, null
 	%r13 = zext i1 %r12 to i32
 	%r14 = trunc i32 %r13 to i1
-	br i1 %r14, label %L11, label %L12
+	br i1 %r14, label %L10, label %L11
 
-L11:
+L10:
 	%r15 = call i8* @malloc(i32 16)
 	%r16 = bitcast i8* %r15 to %struct.intList*
 	store %struct.intList* %r16, %struct.intList** %list
@@ -63,10 +63,10 @@ L11:
 	store %struct.intList* null, %struct.intList** %r21
 	%r22 = load %struct.intList*, %struct.intList** %list
 	store %struct.intList* %r22, %struct.intList** %_retval_
-	br label %L10
+	br label %L9
+L11:
+	br label %L12
 L12:
-	br label %L13
-L13:
 	%r24 = call i8* @malloc(i32 16)
 	%r25 = bitcast i8* %r24 to %struct.intList*
 	store %struct.intList* %r25, %struct.intList** %front
@@ -80,8 +80,8 @@ L13:
 	store %struct.intList* %r31, %struct.intList** %r30
 	%r32 = load %struct.intList*, %struct.intList** %front
 	store %struct.intList* %r32, %struct.intList** %_retval_
-	br label %L10
-L10:
+	br label %L9
+L9:
 	%r23 = load %struct.intList*, %struct.intList** %_retval_
 	ret %struct.intList* %r23
 }
@@ -89,7 +89,7 @@ L10:
 define %struct.intList* @deleteFirst(%struct.intList* %_P_list)
 {
 
-L16:
+L15:
 	%_retval_ = alloca %struct.intList*
 	%list = alloca %struct.intList*
 	store %struct.intList* %_P_list, %struct.intList** %list
@@ -98,14 +98,14 @@ L16:
 	%r35 = icmp eq %struct.intList* %r34, null
 	%r36 = zext i1 %r35 to i32
 	%r37 = trunc i32 %r36 to i1
-	br i1 %r37, label %L18, label %L19
+	br i1 %r37, label %L17, label %L18
 
-L18:
+L17:
 	store %struct.intList* null, %struct.intList** %_retval_
-	br label %L17
+	br label %L16
+L18:
+	br label %L19
 L19:
-	br label %L20
-L20:
 	%r39 = load %struct.intList*, %struct.intList** %list
 	store %struct.intList* %r39, %struct.intList** %first
 	%r40 = load %struct.intList*, %struct.intList** %list
@@ -117,8 +117,8 @@ L20:
 	call void @free(i8* %r43 )
 	%r45 = load %struct.intList*, %struct.intList** %list
 	store %struct.intList* %r45, %struct.intList** %_retval_
-	br label %L17
-L17:
+	br label %L16
+L16:
 	%r38 = load %struct.intList*, %struct.intList** %_retval_
 	ret %struct.intList* %r38
 }
@@ -126,7 +126,7 @@ L17:
 define i32 @main()
 {
 
-L23:
+L22:
 	%_retval_ = alloca i32
 	%list = alloca %struct.intList*
 	%sum = alloca i32
@@ -137,9 +137,9 @@ L23:
 	%r56 = icmp sgt i32 %r55, 0
 	%r57 = zext i1 %r56 to i32
 	%r58 = trunc i32 %r57 to i1
-	br i1 %r58, label %L25, label %L26
+	br i1 %r58, label %L24, label %L25
 
-L25:
+L24:
 	%r47 = load %struct.intList*, %struct.intList** %list
 	%r48 = load i32, i32* @intList
 	%r49 = call %struct.intList* @addToFront(%struct.intList* %r47, i32 %r48 )
@@ -155,9 +155,9 @@ L25:
 	%r60 = icmp sgt i32 %r59, 0
 	%r61 = zext i1 %r60 to i32
 	%r62 = trunc i32 %r61 to i1
-	br i1 %r62, label %L25, label %L26
+	br i1 %r62, label %L24, label %L25
 
-L26:
+L25:
 	%r63 = load %struct.intList*, %struct.intList** %list
 	%r64 = call i32 @length(%struct.intList* %r63 )
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.print, i32 0, i32 0), i32 %r64)
@@ -166,9 +166,9 @@ L26:
 	%r76 = icmp sgt i32 %r75, 0
 	%r77 = zext i1 %r76 to i32
 	%r78 = trunc i32 %r77 to i1
-	br i1 %r78, label %L27, label %L28
+	br i1 %r78, label %L26, label %L27
 
-L27:
+L26:
 	%r65 = load i32, i32* %sum
 	%r66 = load %struct.intList*, %struct.intList** %list
 	%r67 = getelementptr %struct.intList , %struct.intList* %r66, i1 0, i32 0
@@ -186,14 +186,14 @@ L27:
 	%r81 = icmp sgt i32 %r80, 0
 	%r82 = zext i1 %r81 to i32
 	%r83 = trunc i32 %r82 to i1
-	br i1 %r83, label %L27, label %L28
+	br i1 %r83, label %L26, label %L27
 
-L28:
+L27:
 	%r84 = load i32, i32* %sum
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r84)
 	store i32 0, i32* %_retval_
-	br label %L24
-L24:
+	br label %L23
+L23:
 	%r85 = load i32, i32* %_retval_
 	ret i32 %r85
 }
