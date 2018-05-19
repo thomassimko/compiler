@@ -28,8 +28,8 @@ public class ZExtend implements Instruction {
 
     @Override
     public void toArm(List<ArmInstruction> instructions, HashMap<String, Integer> offsets) {
-        ArmVirtualRegister r1 = ValueToArm.convertValueToArm(target, instructions);
-        ArmVirtualRegister r2 = ValueToArm.convertValueToArm(source, instructions);
+        ArmVirtualRegister r1 = target.toArmRegister(instructions);
+        ArmVirtualRegister r2 = source.toArmRegister(instructions);
         ArmInstruction move = new Move(MoveType.DEFAULT, r1, r2, 0, false);
         instructions.add(move);
     }

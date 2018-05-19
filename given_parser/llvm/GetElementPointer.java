@@ -30,8 +30,8 @@ public class GetElementPointer implements Instruction {
 
     @Override
     public void toArm(List<ArmInstruction> instructions, HashMap<String, Integer> offsets) {
-        ArmVirtualRegister r1 = ValueToArm.convertValueToArm(storedRegister, instructions);
-        ArmVirtualRegister r2 = ValueToArm.convertValueToArm(source, instructions);
+        ArmVirtualRegister r1 = storedRegister.toArmRegister(instructions);
+        ArmVirtualRegister r2 = source.toArmRegister(instructions);
         ArmImmediate r3 = new ArmImmediate(arrLoc * 4 + "");
         ArmInstruction add = new ArithmeticInstruction(ArithInstructionType.ADD, r1, r2, r3);
 

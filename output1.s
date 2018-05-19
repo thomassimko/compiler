@@ -398,12 +398,12 @@ main:
 	mov r1, r0
 	movw r0, #:lower16:.PRINTLN_FMT
 	movt r0, #:upper16:.PRINTLN_FMT
+	mov r1, #0
+	mov r4, r1
 	bl printf
-	mov r0, #0
-	mov r0, r0
 	b .L30
 .L30:
-	mov r0, r0
+	mov r0, r4
 	mov r0, r0
 	add sp, sp, #0
 	pop {r4, r5, r6, r7, r8, r9, r10}

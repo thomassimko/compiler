@@ -28,8 +28,8 @@ public class Truncate implements Instruction {
 
     @Override
     public void toArm(List<ArmInstruction> instructions, HashMap<String, Integer> offsets) {
-        ArmVirtualRegister r1 = ValueToArm.convertValueToArm(saveReg, instructions);
-        ArmVirtualRegister r2 = ValueToArm.convertValueToArm(value, instructions);
+        ArmVirtualRegister r1 = saveReg.toArmRegister(instructions);
+        ArmVirtualRegister r2 = value.toArmRegister(instructions);
         ArmInstruction move = new Move(MoveType.DEFAULT, r1, r2, 0, false);
         instructions.add(move);
     }

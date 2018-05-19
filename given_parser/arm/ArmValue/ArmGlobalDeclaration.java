@@ -16,8 +16,8 @@ public class ArmGlobalDeclaration extends AbstractArmInstruction {
     }
 
     @Override
-    public ArmRegister getTargets() {
-        return null;
+    public ArmRegister[] getTargets() {
+        return new ArmRegister[0];
     }
 
     @Override

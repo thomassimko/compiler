@@ -27,7 +27,7 @@ public class ReturnValue implements Instruction {
 
     @Override
     public void toArm(List<ArmInstruction> instructions, HashMap<String, Integer> offsets) {
-        ArmVirtualRegister reg = ValueToArm.convertValueToArm(value, instructions);
+        ArmVirtualRegister reg = value.toArmRegister(instructions);
         ArmFinalRegister r0 = new ArmFinalRegister("r0");
         Move move = new Move(MoveType.DEFAULT, r0, reg, 0, false);
         instructions.add(move);

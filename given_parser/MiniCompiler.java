@@ -11,6 +11,7 @@ import llvm.Instruction;
 import llvm.Phi;
 import llvm.value.SSA;
 import llvm.value.Value;
+import llvm.value.ValueToArm;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
@@ -44,7 +45,7 @@ public class MiniCompiler
 
          Block[] cfg = program.getCFG(blockList, structTable);
 
-         //convertToArm(blockList, program);
+         convertToArm(blockList, program);
 
          printCFG(blockList);
 
@@ -258,13 +259,6 @@ public class MiniCompiler
 
             if (instruction instanceof FunctionEnd) {
                blockArmInstructions.add(new ArmStackAllocation(true, armOffsets.size()));
-            } else if(instruction instanceof Phi) {
-               Phi phi = (Phi) instruction;
-               List<Value> operands = phi.getOperands();
-               List<Block> operandBlock = phi.getOperandFrom();
-               for (int i = 0; i < operands.size(); i++) {
-                  List<ArmInstruction> succArm = operandBlock.get(i).getArmCode();
-               }
             }
 
             instruction.toArm(blockArmInstructions, armOffsets);
@@ -275,9 +269,31 @@ public class MiniCompiler
          }
 
          block.setArmCode(blockArmInstructions);
-         armInstructions.addAll(blockArmInstructions);
 
+      }
+      for (Block block : blockList) {
+         for(Instruction instruction: block.getFinalLLVM()) {
+            if(instruction instanceof Phi) {
+               Phi phi = (Phi) instruction;
+               List<Value> operands = phi.getOperands();
+               List<Block> operandBlock = phi.getOperandFrom();
+               for (int i = 0; i < operands.size(); i++) {
+                  List<ArmInstruction> succArm = /*new ArrayList<>();//*/operandBlock.get(i).getArmCode();
+                  List<ArmInstruction> phiInst = new ArrayList<>();
+                  //System.out.println("adding move from " + operands.get(i).toArmRegister(succArm).toArm() + " to " + phi.getPhiValue().toArm() + " in block " + operandBlock.get(i).getLlvmLabel());
+                  Move phiMove = new Move(MoveType.DEFAULT, phi.getPhiValue(), operands.get(i).toArmRegister(phiInst), 0, false);
+                  //succArm.add(phiMove);
+                  phiInst.add(phiMove);
+                  operandBlock.get(i).addPhiMove(phiInst);
+                  //succArm.add(phiMove);
+                  //operandBlock.get(i).setArmCode(succArm);
+               }
+            }
+         }
+      }
 
+      for (Block block : blockList) {
+         armInstructions.addAll(block.getArmCode());
       }
       for (Block block : blockList) {
          block.setGenKillSets();

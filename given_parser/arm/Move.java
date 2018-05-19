@@ -67,6 +67,8 @@ public class Move extends AbstractArmInstruction {
             default:
                 secondVal = source.toArm();
         }
+        //System.err.println(secondVal);
+        //System.err.println(target.toArm());
 
         return "mov" + this.moveString + " " + target.toArm() + ", " + secondVal;
     }

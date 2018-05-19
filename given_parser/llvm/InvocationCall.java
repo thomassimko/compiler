@@ -58,7 +58,7 @@ public class InvocationCall implements Instruction {
         for(int i = 0; i<args.length; i++) {
             if (i < 4) {
                 ArmFinalRegister reg = new ArmFinalRegister("r" + i);
-                ArmValue valueReg = ValueToArm.convertValueToArm(args[i], instructions);
+                ArmValue valueReg = args[i].toArmRegister(instructions);
                 ArmInstruction move = new Move(MoveType.DEFAULT, reg, valueReg, 0, true);
                 instructions.add(move);
 
@@ -74,12 +74,14 @@ public class InvocationCall implements Instruction {
         ArmInstruction branch = new Branch(BranchType.L, functionName, args.length);
         instructions.add(branch);
 
-        ArmInstruction move = new Move(
-                MoveType.DEFAULT,
-                ValueToArm.convertValueToArm(storedRegister, instructions),
-                new ArmFinalRegister("r0"),
-                0,
-                false);
-        instructions.add(move);
+        if (storedRegister != null) {
+            ArmInstruction move = new Move(
+                    MoveType.DEFAULT,
+                    storedRegister.toArmRegister(instructions),
+                    new ArmFinalRegister("r0"),
+                    0,
+                    false);
+            instructions.add(move);
+        }
     }
 }

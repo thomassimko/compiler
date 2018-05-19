@@ -29,7 +29,7 @@ public class Branch implements Instruction {
 
     @Override
     public void toArm(List<ArmInstruction> instructions, HashMap<String, Integer> offsets) {
-        ArmVirtualRegister checkReg = ValueToArm.convertValueToArm(check, instructions);
+        ArmVirtualRegister checkReg = check.toArmRegister(instructions);
         ArmCompare compare = new ArmCompare(checkReg, new ArmImmediate("1"));
         arm.Branch branchTrue = new arm.Branch(BranchType.EQ, "." + trueLabel, 0);
         arm.Branch branchFalse = new arm.Branch(BranchType.DEFAULT, "." + falseLabel, 0);

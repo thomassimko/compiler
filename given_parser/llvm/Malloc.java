@@ -43,7 +43,7 @@ public class Malloc implements Instruction {
             instructions.add(moveArgT);
         }
 
-        ArmVirtualRegister target = ValueToArm.convertValueToArm(storedReg, instructions);
+        ArmVirtualRegister target = storedReg.toArmRegister(instructions);
         instructions.add(new Branch(BranchType.L, "malloc", 0));
         ArmInstruction move = new Move(MoveType.DEFAULT, target, new ArmFinalRegister("r0"), 0, false);
         instructions.add(move);

@@ -31,7 +31,7 @@ public class Load implements Instruction {
 
     @Override
     public void toArm(List<ArmInstruction> instructions, HashMap<String, Integer> offsets) {
-        ArmVirtualRegister store = ValueToArm.convertValueToArm(storedRegister, instructions);
+        ArmVirtualRegister store = storedRegister.toArmRegister(instructions);
         String valueAsString = value.toLLVM().replace("%", "");
 
         ArmInstruction load;
@@ -40,7 +40,7 @@ public class Load implements Instruction {
             load = new ArmLoad(store, StackPointer.getInstance(), new ArmImmediate(offsets.get(valueAsString) + ""));
         }
         else {
-            ArmVirtualRegister valueReg = ValueToArm.convertValueToArm(value, instructions);
+            ArmVirtualRegister valueReg = value.toArmRegister(instructions);
             load = new ArmLoad(store, valueReg);
         }
         instructions.add(load);

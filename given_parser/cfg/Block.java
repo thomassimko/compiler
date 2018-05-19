@@ -4,6 +4,8 @@ import arm.ArmInstruction;
 import arm.ArmValue.ArmRegister;
 import arm.ArmValue.ArmValue;
 import arm.ArmValue.FinalRegisters.NotInterferingRegister;
+import arm.Branch;
+import arm.BranchType;
 import llvm.Instruction;
 import llvm.Phi;
 import llvm.value.Value;
@@ -290,5 +292,26 @@ public abstract class Block {
 
     public void addIncompletePhi(Phi phi) {
         incompletePhis.add(phi);
+    }
+
+    public void addPhiMove(List<ArmInstruction> inst) {
+        boolean set = false;
+        for(int i = this.armCode.size() - 1; i >= 0 && !set ; i--) {
+            ArmInstruction curInst = this.armCode.get(i);
+//            for(ArmRegister reg:curInst.getTargets()) {
+//                if(inst.getSources()[0].equals(reg)) {
+//                    set = true;
+//                    this.armCode.add(i, inst);
+//                    break;
+//                }
+//            }
+            if((!(curInst instanceof Branch)) || ((curInst instanceof Branch) && ((Branch) curInst).getBranchType() == BranchType.L)) {
+                set = true;
+                this.armCode.addAll(i + 1, inst);
+            }
+        }
+        if(!set) {
+            this.armCode.addAll(0, inst);
+        }
     }
 }

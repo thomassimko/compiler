@@ -34,7 +34,7 @@ public class Print implements Instruction {
 //        bl printf
         String printType = this.printLine ? ".PRINTLN_FMT": ".PRINT_FMT";
 
-        ArmInstruction moveVal = new Move(MoveType.DEFAULT, new ArmFinalRegister("r1"), ValueToArm.convertValueToArm(value, instructions), 0, false);
+        ArmInstruction moveVal = new Move(MoveType.DEFAULT, new ArmFinalRegister("r1"), value.toArmRegister(instructions), 0, false);
         ArmInstruction movw = new Move(MoveType.W, new ArmFinalRegister("r0"), new ArmImmediate(printType), 1, false);
         ArmInstruction movt = new Move(MoveType.T, new ArmFinalRegister("r0"), new ArmImmediate(printType), 2, false);
         ArmInstruction branch = new Branch(BranchType.L, "printf", 1);

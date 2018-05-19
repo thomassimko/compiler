@@ -31,8 +31,8 @@ public class BitCast implements Instruction {
 
     @Override
     public void toArm(List<ArmInstruction> instructions, HashMap<String, Integer> offsets) {
-        ArmVirtualRegister source = ValueToArm.convertValueToArm(sourceRegister, instructions);
-        ArmVirtualRegister target = ValueToArm.convertValueToArm(storedRegister, instructions);
+        ArmVirtualRegister source = sourceRegister.toArmRegister(instructions);
+        ArmVirtualRegister target = storedRegister.toArmRegister(instructions);
 
         ArmInstruction move = new Move(MoveType.DEFAULT, target, source, 0, false);
         instructions.add(move);

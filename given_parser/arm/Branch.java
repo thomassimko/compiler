@@ -81,4 +81,8 @@ public class Branch extends AbstractArmInstruction {
         }
         return sources;
     }
+
+    public BranchType getBranchType() {
+        return branchType;
+    }
 }

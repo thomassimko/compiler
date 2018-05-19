@@ -10,3 +10,4 @@ cd ..
 dot -Tpng cfg.gv -o cfg.png
 open cfg.png
 open -a "Xcode" output.ll
+open -a "Xcode" output.s

@@ -2,6 +2,7 @@ package llvm;
 
 import arm.ArmInstruction;
 import arm.ArmValue.ArmRegister;
+import arm.ArmValue.ArmVirtualRegister;
 import arm.ArmValue.PhiCounter;
 import arm.Move;
 import arm.MoveType;
@@ -24,7 +25,7 @@ public class Phi implements Instruction {
     private List<Block> operandFrom;
     private String name;
     private Type type;
-    private ArmRegister phiValue;
+    private ArmVirtualRegister phiValue;
 
     public Phi(Block block, String name, Type type) {
 
@@ -52,7 +53,9 @@ public class Phi implements Instruction {
 
     @Override
     public void toArm(List<ArmInstruction> instructions, HashMap<String, Integer> offsets) {
-        ArmRegister store = ValueToArm.convertValueToArm(target, instructions);
+//        System.out.println(target.toLLVM());
+        ArmVirtualRegister store = target.toArmRegister(instructions);
+//        System.out.println(store.toArm());
         instructions.add(new Move(MoveType.DEFAULT, store, phiValue, 0, false));
     }
 
@@ -85,7 +88,7 @@ public class Phi implements Instruction {
         return type;
     }
 
-    public ArmRegister getPhiValue() {
+    public ArmVirtualRegister getPhiValue() {
         return phiValue;
     }
 }

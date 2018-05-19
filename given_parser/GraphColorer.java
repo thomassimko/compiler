@@ -47,6 +47,10 @@ public class GraphColorer {
 
             colors.removeAll(curReg.findInterferenceColors(regColors));
 
+            if(colors.size() == 0) {
+                throw new RuntimeException("Spill");
+            }
+
             regColors.put(curReg.toArm(), colors.iterator().next());
 
             //System.out.println(curReg.toArm() + " -- color : " + regColors.get(curReg.toArm()));

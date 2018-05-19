@@ -39,8 +39,8 @@ public class Comparison implements Instruction {
 
     @Override
     public void toArm(List<ArmInstruction> instructions, HashMap<String, Integer> offsets) {
-        ArmVirtualRegister armStore = ValueToArm.convertValueToArm(storedRegister, instructions);
-        ArmVirtualRegister reg1 = ValueToArm.convertValueToArm(value1, instructions);
+        ArmVirtualRegister armStore = storedRegister.toArmRegister(instructions);
+        ArmVirtualRegister reg1 = value1.toArmRegister(instructions);
         ArmValue reg2;
         if(value2 instanceof ValueLiteral && !value2.toLLVM().equals("null")) {
             try {
@@ -48,12 +48,12 @@ public class Comparison implements Instruction {
                 if(value < 127 && value > -128)
                     reg2 = new ArmImmediate(value2.toLLVM());
                 else
-                    reg2 = ValueToArm.convertValueToArm(value2, instructions);
+                    reg2 = value2.toArmRegister(instructions);
             } catch (Exception e) {
-                reg2 = ValueToArm.convertValueToArm(value2, instructions);
+                reg2 = value2.toArmRegister(instructions);
             }
         } else {
-            reg2 = ValueToArm.convertValueToArm(value2, instructions);
+            reg2 = value2.toArmRegister(instructions);
         }
         ArmInstruction move = new Move(MoveType.DEFAULT, armStore, new ArmImmediate("0"), 0, false);
         ArmInstruction compare = new ArmCompare(reg1, reg2);

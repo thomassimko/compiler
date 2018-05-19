@@ -3,6 +3,7 @@ package llvm.value;
 import arm.ArmInstruction;
 import arm.ArmLoad;
 import arm.ArmValue.ArmImmediate;
+import arm.ArmValue.ArmRegister;
 import arm.ArmValue.ArmVirtualRegister;
 import arm.Move;
 import arm.MoveType;
@@ -19,11 +20,11 @@ public class ValueToArm {
 //            movt %r136, #:upper16:0
 //            load %r137, [%r136]
             Global global = (Global) val;
-            ArmVirtualRegister tempReg = convertValueToArm(RegisterCounter.getNextRegister(), armInstructionList);
-            ArmVirtualRegister tempSaveReg = convertValueToArm(RegisterCounter.getNextRegister(), armInstructionList);
+            ArmVirtualRegister tempReg = RegisterCounter.getNextRegister().toArmRegister(armInstructionList);
+            //ArmRegister tempSaveReg = RegisterCounter.getNextRegister().toArmRegister(armInstructionList);
             Move movew = new Move(MoveType.W, tempReg, global.armDeclaration(), 1, false);
             Move movet = new Move(MoveType.T, tempReg, global.armDeclaration(), 2, false);
-            ArmLoad globalLoad = new ArmLoad(tempSaveReg, tempReg);
+            //ArmLoad globalLoad = new ArmLoad(tempSaveReg, tempReg);
 
             armInstructionList.add(movew);
             armInstructionList.add(movet);

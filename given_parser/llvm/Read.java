@@ -44,7 +44,7 @@ public class Read implements Instruction {
         Branch branch = new Branch(BranchType.L, "scanf", 2);
 
         Register tempReg = RegisterCounter.getNextRegister();
-        ArmVirtualRegister tempArmReg = ValueToArm.convertValueToArm(tempReg, instructions);
+        ArmVirtualRegister tempArmReg = tempReg.toArmRegister(instructions);
 
         Move movwr6 = new Move(MoveType.W, tempArmReg, new ArmImmediate(".read_scratch"), 1, false);
         Move movtr6 = new Move(MoveType.T, tempArmReg, new ArmImmediate(".read_scratch"), 2, false);
@@ -68,7 +68,7 @@ public class Read implements Instruction {
         ArmRegister storeLoc;
 
         if(target instanceof Global) {
-            storeLoc = ValueToArm.convertValueToArm(target, instructions);
+            storeLoc = target.toArmRegister(instructions);
         }
         else {
             String key = target.toLLVM().replace("%", "");
@@ -78,7 +78,7 @@ public class Read implements Instruction {
                 immediate = new ArmImmediate(offsets.get(key) + "");
             }
             else {
-                storeLoc = ValueToArm.convertValueToArm(target, instructions);
+                storeLoc = target.toArmRegister(instructions);
             }
         }
 

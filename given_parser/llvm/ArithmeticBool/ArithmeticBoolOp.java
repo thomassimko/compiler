@@ -3,6 +3,7 @@ package llvm.ArithmeticBool;
 import arm.ArithInstructionType;
 import arm.ArithmeticInstruction;
 import arm.ArmInstruction;
+import arm.ArmValue.ArmRegister;
 import arm.ArmValue.ArmVirtualRegister;
 import llvm.Instruction;
 import llvm.value.Register;
@@ -32,9 +33,9 @@ public class ArithmeticBoolOp implements Instruction {
 
     @Override
     public void toArm(List<ArmInstruction> instructions, HashMap<String, Integer> offsets) {
-        ArmVirtualRegister armReg1 = ValueToArm.convertValueToArm(value1, instructions);
-        ArmVirtualRegister armReg2 = ValueToArm.convertValueToArm(value2, instructions);
-        ArmVirtualRegister storeReg = ValueToArm.convertValueToArm(storedRegister, instructions);
+        ArmRegister armReg1 = value1.toArmRegister(instructions);
+        ArmRegister armReg2 = value2.toArmRegister(instructions);
+        ArmRegister storeReg = storedRegister.toArmRegister(instructions);
 
         switch (instruction) {
             case "add":

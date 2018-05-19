@@ -29,8 +29,8 @@ public class Store implements Instruction {
 
     @Override
     public void toArm(List<ArmInstruction> instructions, HashMap<String, Integer> offsets) {
-        ArmVirtualRegister r1 = ValueToArm.convertValueToArm(targetPtr, instructions);
-        ArmVirtualRegister r2 = ValueToArm.convertValueToArm(source, instructions);
+        ArmVirtualRegister r1 = targetPtr.toArmRegister(instructions);
+        ArmVirtualRegister r2 = source.toArmRegister(instructions);
         if (offsets.containsKey(targetPtr.toLLVM().replace("%", ""))) {
             instructions.add(new ArmStore(r2, StackPointer.getInstance(),
                     new ArmImmediate("" + offsets.get(targetPtr.toLLVM().replace("%", "")))));
