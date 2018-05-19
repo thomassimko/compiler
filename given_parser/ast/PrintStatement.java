@@ -26,7 +26,7 @@ public class PrintStatement
 
    @Override
    public Block getCFG(Block curNode, Block endNode, List<Block> blockList, HashMap<String, HashMap<String, Type>> structTable) {
-      Value val = expression.getCFGValue(curNode.getInstructionList(), structTable);
+      Value val = expression.getCFGValue(curNode, curNode.getLLVM(), structTable);
       curNode.addInstructionToLLVM(new Print(val, false));
       return curNode;
    }

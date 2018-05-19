@@ -2,226 +2,148 @@ target triple="i686"
 
 %struct.linkedNums = type {%struct.linkedNums*, i32}
 
-define %struct.linkedNums* @getRands(i32 %_P_seed, i32 %_P_num)
+define %struct.linkedNums* @getRands(i32 %seed, i32 %num)
 {
 
 L1:
-	%_retval_ = alloca %struct.linkedNums*
-	%seed = alloca i32
-	store i32 %_P_seed, i32* %seed
-	%num = alloca i32
-	store i32 %_P_num, i32* %num
-	%cur = alloca i32
-	%prev = alloca i32
-	%curNode = alloca %struct.linkedNums*
-	%prevNode = alloca %struct.linkedNums*
-	store %struct.linkedNums* null, %struct.linkedNums** %curNode
-	%r0 = load i32, i32* %seed
-	%r1 = load i32, i32* %seed
-	%r2 = mul i32 %r0, %r1
-	store i32 %r2, i32* %cur
-	%r3 = call i8* @malloc(i32 16)
-	%r4 = bitcast i8* %r3 to %struct.linkedNums*
-	store %struct.linkedNums* %r4, %struct.linkedNums** %prevNode
-	%r5 = load %struct.linkedNums*, %struct.linkedNums** %prevNode
-	%r6 = getelementptr %struct.linkedNums , %struct.linkedNums* %r5, i1 0, i32 1
-	%r7 = load i32, i32* %cur
-	store i32 %r7, i32* %r6
-	%r8 = load %struct.linkedNums*, %struct.linkedNums** %prevNode
-	%r9 = getelementptr %struct.linkedNums , %struct.linkedNums* %r8, i1 0, i32 0
-	store %struct.linkedNums* null, %struct.linkedNums** %r9
-	%r10 = load i32, i32* %num
-	%r11 = sub i32 %r10, 1
-	store i32 %r11, i32* %num
-	%r12 = load i32, i32* %cur
-	store i32 %r12, i32* %prev
-	%r34 = load i32, i32* %num
-	%r35 = icmp sgt i32 %r34, 0
-	%r36 = zext i1 %r35 to i32
-	%r37 = trunc i32 %r36 to i1
-	br i1 %r37, label %L3, label %L4
+	%r0 = mul i32 %seed, %seed
+	%r1 = call i8* @malloc(i32 16)
+	%r2 = bitcast i8* %r1 to %struct.linkedNums*
+	%r3 = getelementptr %struct.linkedNums , %struct.linkedNums* %r2, i1 0, i32 1
+	store i32 %r0, i32* %r3
+	%r4 = getelementptr %struct.linkedNums , %struct.linkedNums* %r2, i1 0, i32 0
+	store %struct.linkedNums* null, %struct.linkedNums** %r4
+	%r5 = sub i32 %num, 1
+	%r6 = icmp sgt i32 %r5, 0
+	%r7 = zext i1 %r6 to i32
+	%r8 = trunc i32 %r7 to i1
+	br i1 %r8, label %L3, label %L4
 
 L3:
-	%r13 = load i32, i32* %prev
-	%r14 = load i32, i32* %prev
-	%r15 = mul i32 %r13, %r14
-	%r16 = load i32, i32* %seed
-	%r17 = sdiv i32 %r15, %r16
-	%r18 = load i32, i32* %seed
-	%r19 = sdiv i32 %r18, 2
-	%r20 = mul i32 %r17, %r19
-	%r21 = add i32 %r20, 1
-	store i32 %r21, i32* %cur
-	%r22 = call i8* @malloc(i32 16)
-	%r23 = bitcast i8* %r22 to %struct.linkedNums*
-	store %struct.linkedNums* %r23, %struct.linkedNums** %curNode
-	%r24 = load %struct.linkedNums*, %struct.linkedNums** %curNode
-	%r25 = getelementptr %struct.linkedNums , %struct.linkedNums* %r24, i1 0, i32 1
-	%r26 = load i32, i32* %cur
-	store i32 %r26, i32* %r25
-	%r27 = load %struct.linkedNums*, %struct.linkedNums** %curNode
-	%r28 = getelementptr %struct.linkedNums , %struct.linkedNums* %r27, i1 0, i32 0
-	%r29 = load %struct.linkedNums*, %struct.linkedNums** %prevNode
-	store %struct.linkedNums* %r29, %struct.linkedNums** %r28
-	%r30 = load %struct.linkedNums*, %struct.linkedNums** %curNode
-	store %struct.linkedNums* %r30, %struct.linkedNums** %prevNode
-	%r31 = load i32, i32* %num
-	%r32 = sub i32 %r31, 1
-	store i32 %r32, i32* %num
-	%r33 = load i32, i32* %cur
-	store i32 %r33, i32* %prev
-	%r38 = load i32, i32* %num
-	%r39 = icmp sgt i32 %r38, 0
-	%r40 = zext i1 %r39 to i32
-	%r41 = trunc i32 %r40 to i1
-	br i1 %r41, label %L3, label %L4
+	%phi0 = phi i32 [%r0, %L1], [%r13, %L3]
+	%phi1 = phi i32 [%seed, %L1], [%phi1, %L3]
+	%phi2 = phi %struct.linkedNums* [%r2, %L1], [%r15, %L3]
+	%phi3 = phi i32 [%r5, %L1], [%r18, %L3]
+	%r9 = mul i32 %phi0, %phi0
+	%r10 = sdiv i32 %r9, %phi1
+	%r11 = sdiv i32 %phi1, 2
+	%r12 = mul i32 %r10, %r11
+	%r13 = add i32 %r12, 1
+	%r14 = call i8* @malloc(i32 16)
+	%r15 = bitcast i8* %r14 to %struct.linkedNums*
+	%r16 = getelementptr %struct.linkedNums , %struct.linkedNums* %r15, i1 0, i32 1
+	store i32 %r13, i32* %r16
+	%r17 = getelementptr %struct.linkedNums , %struct.linkedNums* %r15, i1 0, i32 0
+	store %struct.linkedNums* %phi2, %struct.linkedNums** %r17
+	%r18 = sub i32 %phi3, 1
+	%r19 = icmp sgt i32 %r18, 0
+	%r20 = zext i1 %r19 to i32
+	%r21 = trunc i32 %r20 to i1
+	br i1 %r21, label %L3, label %L4
 
 L4:
-	%r42 = load %struct.linkedNums*, %struct.linkedNums** %curNode
-	store %struct.linkedNums* %r42, %struct.linkedNums** %_retval_
+	%phi4 = phi %struct.linkedNums* [null, %L1], [%r15, %L3]
 	br label %L2
 L2:
-	%r43 = load %struct.linkedNums*, %struct.linkedNums** %_retval_
-	ret %struct.linkedNums* %r43
+	%phi5 = phi %struct.linkedNums* [%phi4, %L4]
+	ret %struct.linkedNums* %phi5
 }
 
-define i32 @calcMean(%struct.linkedNums* %_P_nums)
+define i32 @calcMean(%struct.linkedNums* %nums)
 {
 
 L6:
-	%_retval_ = alloca i32
-	%nums = alloca %struct.linkedNums*
-	store %struct.linkedNums* %_P_nums, %struct.linkedNums** %nums
-	%sum = alloca i32
-	%num = alloca i32
-	%mean = alloca i32
-	store i32 0, i32* %sum
-	store i32 0, i32* %num
-	store i32 0, i32* %mean
-	%r54 = load %struct.linkedNums*, %struct.linkedNums** %nums
-	%r55 = icmp ne %struct.linkedNums* %r54, null
-	%r56 = zext i1 %r55 to i32
-	%r57 = trunc i32 %r56 to i1
-	br i1 %r57, label %L8, label %L9
+	%r22 = icmp ne %struct.linkedNums* %nums, null
+	%r23 = zext i1 %r22 to i32
+	%r24 = trunc i32 %r23 to i1
+	br i1 %r24, label %L8, label %L9
 
 L8:
-	%r44 = load i32, i32* %num
-	%r45 = add i32 %r44, 1
-	store i32 %r45, i32* %num
-	%r46 = load i32, i32* %sum
-	%r47 = load %struct.linkedNums*, %struct.linkedNums** %nums
-	%r48 = getelementptr %struct.linkedNums , %struct.linkedNums* %r47, i1 0, i32 1
-	%r49 = load i32, i32* %r48
-	%r50 = add i32 %r46, %r49
-	store i32 %r50, i32* %sum
-	%r51 = load %struct.linkedNums*, %struct.linkedNums** %nums
-	%r52 = getelementptr %struct.linkedNums , %struct.linkedNums* %r51, i1 0, i32 0
-	%r53 = load %struct.linkedNums*, %struct.linkedNums** %r52
-	store %struct.linkedNums* %r53, %struct.linkedNums** %nums
-	%r58 = load %struct.linkedNums*, %struct.linkedNums** %nums
-	%r59 = icmp ne %struct.linkedNums* %r58, null
-	%r60 = zext i1 %r59 to i32
-	%r61 = trunc i32 %r60 to i1
-	br i1 %r61, label %L8, label %L9
+	%phi6 = phi i32 [0, %L6], [%r25, %L8]
+	%phi7 = phi i32 [0, %L6], [%r28, %L8]
+	%phi8 = phi %struct.linkedNums* [%nums, %L6], [%r30, %L8]
+	%phi13 = phi i32 [0, %L6], [%phi13, %L8]
+	%r25 = add i32 %phi6, 1
+	%r26 = getelementptr %struct.linkedNums , %struct.linkedNums* %phi8, i1 0, i32 1
+	%r27 = load i32, i32* %r26
+	%r28 = add i32 %phi7, %r27
+	%r29 = getelementptr %struct.linkedNums , %struct.linkedNums* %phi8, i1 0, i32 0
+	%r30 = load %struct.linkedNums*, %struct.linkedNums** %r29
+	%r31 = icmp ne %struct.linkedNums* %r30, null
+	%r32 = zext i1 %r31 to i32
+	%r33 = trunc i32 %r32 to i1
+	br i1 %r33, label %L8, label %L9
 
 L9:
-	%r62 = load i32, i32* %num
-	%r63 = icmp ne i32 %r62, 0
-	%r64 = zext i1 %r63 to i32
-	%r65 = trunc i32 %r64 to i1
-	br i1 %r65, label %L10, label %L11
+	%phi9 = phi i32 [0, %L6], [%r25, %L8]
+	%phi10 = phi i32 [0, %L6], [%r28, %L8]
+	%phi12 = phi i32 [0, %L6], [%phi13, %L8]
+	%r34 = icmp ne i32 %phi9, 0
+	%r35 = zext i1 %r34 to i32
+	%r36 = trunc i32 %r35 to i1
+	br i1 %r36, label %L10, label %L11
 
 L10:
-	%r66 = load i32, i32* %sum
-	%r67 = load i32, i32* %num
-	%r68 = sdiv i32 %r66, %r67
-	store i32 %r68, i32* %mean
+	%r37 = sdiv i32 %phi10, %phi9
 	br label %L12
 L11:
 	br label %L12
 L12:
-	%r69 = load i32, i32* %mean
-	store i32 %r69, i32* %_retval_
+	%phi11 = phi i32 [%r37, %L10], [%phi12, %L11]
 	br label %L7
 L7:
-	%r70 = load i32, i32* %_retval_
-	ret i32 %r70
+	%phi14 = phi i32 [%phi11, %L12]
+	ret i32 %phi14
 }
 
-define i32 @approxSqrt(i32 %_P_num)
+define i32 @approxSqrt(i32 %num)
 {
 
 L14:
-	%_retval_ = alloca i32
-	%num = alloca i32
-	store i32 %_P_num, i32* %num
-	%guess = alloca i32
-	%result = alloca i32
-	%prev = alloca i32
-	store i32 1, i32* %guess
-	%r71 = load i32, i32* %guess
-	store i32 %r71, i32* %prev
-	store i32 0, i32* %result
-	%r78 = load i32, i32* %result
-	%r79 = load i32, i32* %num
-	%r80 = icmp slt i32 %r78, %r79
-	%r81 = zext i1 %r80 to i32
-	%r82 = trunc i32 %r81 to i1
-	br i1 %r82, label %L16, label %L17
+	%r38 = icmp slt i32 0, %num
+	%r39 = zext i1 %r38 to i32
+	%r40 = trunc i32 %r39 to i1
+	br i1 %r40, label %L16, label %L17
 
 L16:
-	%r72 = load i32, i32* %guess
-	%r73 = load i32, i32* %guess
-	%r74 = mul i32 %r72, %r73
-	store i32 %r74, i32* %result
-	%r75 = load i32, i32* %guess
-	store i32 %r75, i32* %prev
-	%r76 = load i32, i32* %guess
-	%r77 = add i32 %r76, 1
-	store i32 %r77, i32* %guess
-	%r83 = load i32, i32* %result
-	%r84 = load i32, i32* %num
-	%r85 = icmp slt i32 %r83, %r84
-	%r86 = zext i1 %r85 to i32
-	%r87 = trunc i32 %r86 to i1
-	br i1 %r87, label %L16, label %L17
+	%phi15 = phi i32 [1, %L14], [%r42, %L16]
+	%phi16 = phi i32 [%num, %L14], [%phi16, %L16]
+	%r41 = mul i32 %phi15, %phi15
+	%r42 = add i32 %phi15, 1
+	%r43 = icmp slt i32 %r41, %phi16
+	%r44 = zext i1 %r43 to i32
+	%r45 = trunc i32 %r44 to i1
+	br i1 %r45, label %L16, label %L17
 
 L17:
-	%r88 = load i32, i32* %prev
-	store i32 %r88, i32* %_retval_
+	%phi17 = phi i32 [1, %L14], [%phi15, %L16]
 	br label %L15
 L15:
-	%r89 = load i32, i32* %_retval_
-	ret i32 %r89
+	%phi18 = phi i32 [%phi17, %L17]
+	ret i32 %phi18
 }
 
-define void @approxSqrtAll(%struct.linkedNums* %_P_nums)
+define void @approxSqrtAll(%struct.linkedNums* %nums)
 {
 
 L19:
-	%nums = alloca %struct.linkedNums*
-	store %struct.linkedNums* %_P_nums, %struct.linkedNums** %nums
-	%r97 = load %struct.linkedNums*, %struct.linkedNums** %nums
-	%r98 = icmp ne %struct.linkedNums* %r97, null
-	%r99 = zext i1 %r98 to i32
-	%r100 = trunc i32 %r99 to i1
-	br i1 %r100, label %L21, label %L22
+	%r46 = icmp ne %struct.linkedNums* %nums, null
+	%r47 = zext i1 %r46 to i32
+	%r48 = trunc i32 %r47 to i1
+	br i1 %r48, label %L21, label %L22
 
 L21:
-	%r90 = load %struct.linkedNums*, %struct.linkedNums** %nums
-	%r91 = getelementptr %struct.linkedNums , %struct.linkedNums* %r90, i1 0, i32 1
-	%r92 = load i32, i32* %r91
-	%r93 = call i32 @approxSqrt(i32 %r92 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r93)
-	%r94 = load %struct.linkedNums*, %struct.linkedNums** %nums
-	%r95 = getelementptr %struct.linkedNums , %struct.linkedNums* %r94, i1 0, i32 0
-	%r96 = load %struct.linkedNums*, %struct.linkedNums** %r95
-	store %struct.linkedNums* %r96, %struct.linkedNums** %nums
-	%r101 = load %struct.linkedNums*, %struct.linkedNums** %nums
-	%r102 = icmp ne %struct.linkedNums* %r101, null
-	%r103 = zext i1 %r102 to i32
-	%r104 = trunc i32 %r103 to i1
-	br i1 %r104, label %L21, label %L22
+	%phi19 = phi %struct.linkedNums* [%nums, %L19], [%r53, %L21]
+	%r49 = getelementptr %struct.linkedNums , %struct.linkedNums* %phi19, i1 0, i32 1
+	%r50 = load i32, i32* %r49
+	%r51 = call i32 @approxSqrt(i32 %r50 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r51)
+	%r52 = getelementptr %struct.linkedNums , %struct.linkedNums* %phi19, i1 0, i32 0
+	%r53 = load %struct.linkedNums*, %struct.linkedNums** %r52
+	%r54 = icmp ne %struct.linkedNums* %r53, null
+	%r55 = zext i1 %r54 to i32
+	%r56 = trunc i32 %r55 to i1
+	br i1 %r56, label %L21, label %L22
 
 L22:
 	br label %L20
@@ -229,96 +151,86 @@ L20:
 	ret void
 }
 
-define void @range(%struct.linkedNums* %_P_nums)
+define void @range(%struct.linkedNums* %nums)
 {
 
 L24:
-	%nums = alloca %struct.linkedNums*
-	store %struct.linkedNums* %_P_nums, %struct.linkedNums** %nums
-	%min = alloca i32
-	%max = alloca i32
-	%first = alloca i32
-	store i32 0, i32* %min
-	store i32 0, i32* %max
-	%r105 = zext i1 1 to i32
-	store i32 %r105, i32* %first
-	%r138 = load %struct.linkedNums*, %struct.linkedNums** %nums
-	%r139 = icmp ne %struct.linkedNums* %r138, null
-	%r140 = zext i1 %r139 to i32
-	%r141 = trunc i32 %r140 to i1
-	br i1 %r141, label %L26, label %L36
+	%r57 = zext i1 1 to i32
+	%r58 = icmp ne %struct.linkedNums* %nums, null
+	%r59 = zext i1 %r58 to i32
+	%r60 = trunc i32 %r59 to i1
+	br i1 %r60, label %L26, label %L27
 
-L27:
-	%r108 = load %struct.linkedNums*, %struct.linkedNums** %nums
-	%r109 = getelementptr %struct.linkedNums , %struct.linkedNums* %r108, i1 0, i32 1
-	%r110 = load i32, i32* %r109
-	store i32 %r110, i32* %min
-	%r111 = load %struct.linkedNums*, %struct.linkedNums** %nums
-	%r112 = getelementptr %struct.linkedNums , %struct.linkedNums* %r111, i1 0, i32 1
-	%r113 = load i32, i32* %r112
-	store i32 %r113, i32* %max
-	%r114 = zext i1 0 to i32
-	store i32 %r114, i32* %first
-	br label %L29
+L26:
+	%phi20 = phi i32 [%r57, %L24], [%phi27, %L30]
+	%phi21 = phi %struct.linkedNums* [%nums, %L24], [%r82, %L30]
+	%phi22 = phi i32 [0, %L24], [%phi30, %L30]
+	%phi23 = phi i32 [0, %L24], [%phi33, %L30]
+	%r61 = trunc i32 %phi20 to i1
+	br i1 %r61, label %L28, label %L29
+
 L28:
-	%r115 = load %struct.linkedNums*, %struct.linkedNums** %nums
-	%r116 = getelementptr %struct.linkedNums , %struct.linkedNums* %r115, i1 0, i32 1
-	%r117 = load i32, i32* %r116
-	%r118 = load i32, i32* %min
-	%r119 = icmp slt i32 %r117, %r118
-	%r120 = zext i1 %r119 to i32
-	%r121 = trunc i32 %r120 to i1
-	br i1 %r121, label %L30, label %L31
-
+	%r62 = getelementptr %struct.linkedNums , %struct.linkedNums* %phi21, i1 0, i32 1
+	%r63 = load i32, i32* %r62
+	%r64 = getelementptr %struct.linkedNums , %struct.linkedNums* %phi21, i1 0, i32 1
+	%r65 = load i32, i32* %r64
+	%r66 = zext i1 0 to i32
+	br label %L30
 L29:
-	%r135 = load %struct.linkedNums*, %struct.linkedNums** %nums
-	%r136 = getelementptr %struct.linkedNums , %struct.linkedNums* %r135, i1 0, i32 0
-	%r137 = load %struct.linkedNums*, %struct.linkedNums** %r136
-	store %struct.linkedNums* %r137, %struct.linkedNums** %nums
-	%r142 = load %struct.linkedNums*, %struct.linkedNums** %nums
-	%r143 = icmp ne %struct.linkedNums* %r142, null
-	%r144 = zext i1 %r143 to i32
-	%r145 = trunc i32 %r144 to i1
-	br i1 %r145, label %L26, label %L36
+	%r67 = getelementptr %struct.linkedNums , %struct.linkedNums* %phi21, i1 0, i32 1
+	%r68 = load i32, i32* %r67
+	%r69 = icmp slt i32 %r68, %phi22
+	%r70 = zext i1 %r69 to i32
+	%r71 = trunc i32 %r70 to i1
+	br i1 %r71, label %L31, label %L32
 
 L30:
-	%r122 = load %struct.linkedNums*, %struct.linkedNums** %nums
-	%r123 = getelementptr %struct.linkedNums , %struct.linkedNums* %r122, i1 0, i32 1
-	%r124 = load i32, i32* %r123
-	store i32 %r124, i32* %min
-	br label %L32
+	%phi24 = phi %struct.linkedNums* [%phi21, %L28], [%phi25, %L33]
+	%phi27 = phi i32 [%r66, %L28], [%phi28, %L33]
+	%phi30 = phi i32 [%r63, %L28], [%phi31, %L33]
+	%phi33 = phi i32 [%r65, %L28], [%phi34, %L33]
+	%r81 = getelementptr %struct.linkedNums , %struct.linkedNums* %phi24, i1 0, i32 0
+	%r82 = load %struct.linkedNums*, %struct.linkedNums** %r81
+	%r83 = icmp ne %struct.linkedNums* %r82, null
+	%r84 = zext i1 %r83 to i32
+	%r85 = trunc i32 %r84 to i1
+	br i1 %r85, label %L26, label %L27
+
 L31:
-	%r125 = load %struct.linkedNums*, %struct.linkedNums** %nums
-	%r126 = getelementptr %struct.linkedNums , %struct.linkedNums* %r125, i1 0, i32 1
-	%r127 = load i32, i32* %r126
-	%r128 = load i32, i32* %max
-	%r129 = icmp sgt i32 %r127, %r128
-	%r130 = zext i1 %r129 to i32
-	%r131 = trunc i32 %r130 to i1
-	br i1 %r131, label %L33, label %L34
-
+	%r72 = getelementptr %struct.linkedNums , %struct.linkedNums* %phi21, i1 0, i32 1
+	%r73 = load i32, i32* %r72
+	br label %L33
 L32:
-	br label %L29
-L33:
-	%r132 = load %struct.linkedNums*, %struct.linkedNums** %nums
-	%r133 = getelementptr %struct.linkedNums , %struct.linkedNums* %r132, i1 0, i32 1
-	%r134 = load i32, i32* %r133
-	store i32 %r134, i32* %max
-	br label %L35
-L34:
-	br label %L35
-L35:
-	br label %L32
-L26:
-	%r106 = load i32, i32* %first
-	%r107 = trunc i32 %r106 to i1
-	br i1 %r107, label %L27, label %L28
+	%r74 = getelementptr %struct.linkedNums , %struct.linkedNums* %phi21, i1 0, i32 1
+	%r75 = load i32, i32* %r74
+	%r76 = icmp sgt i32 %r75, %phi23
+	%r77 = zext i1 %r76 to i32
+	%r78 = trunc i32 %r77 to i1
+	br i1 %r78, label %L34, label %L35
 
+L33:
+	%phi25 = phi %struct.linkedNums* [%phi21, %L31], [%phi26, %L36]
+	%phi28 = phi i32 [%phi20, %L31], [%phi29, %L36]
+	%phi31 = phi i32 [%r73, %L31], [%phi32, %L36]
+	%phi34 = phi i32 [%phi23, %L31], [%phi35, %L36]
+	br label %L30
+L34:
+	%r79 = getelementptr %struct.linkedNums , %struct.linkedNums* %phi21, i1 0, i32 1
+	%r80 = load i32, i32* %r79
+	br label %L36
+L35:
+	br label %L36
 L36:
-	%r146 = load i32, i32* %min
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r146)
-	%r147 = load i32, i32* %max
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r147)
+	%phi26 = phi %struct.linkedNums* [%phi21, %L34], [%phi21, %L35]
+	%phi29 = phi i32 [%phi20, %L34], [%phi20, %L35]
+	%phi32 = phi i32 [%phi22, %L34], [%phi22, %L35]
+	%phi35 = phi i32 [%r80, %L34], [%phi23, %L35]
+	br label %L33
+L27:
+	%phi36 = phi i32 [0, %L24], [%phi30, %L30]
+	%phi37 = phi i32 [0, %L24], [%phi33, %L30]
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %phi36)
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %phi37)
 	br label %L25
 L25:
 	ret void
@@ -328,31 +240,19 @@ define i32 @main()
 {
 
 L38:
-	%_retval_ = alloca i32
-	%seed = alloca i32
-	%num = alloca i32
-	%mean = alloca i32
-	%nums = alloca %struct.linkedNums*
-	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* %seed)
-	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* %num)
-	%r148 = load i32, i32* %seed
-	%r149 = load i32, i32* %num
-	%r150 = call %struct.linkedNums* @getRands(i32 %r148, i32 %r149 )
-	store %struct.linkedNums* %r150, %struct.linkedNums** %nums
-	%r151 = load %struct.linkedNums*, %struct.linkedNums** %nums
-	%r152 = call i32 @calcMean(%struct.linkedNums* %r151 )
-	store i32 %r152, i32* %mean
-	%r153 = load i32, i32* %mean
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r153)
-	%r154 = load %struct.linkedNums*, %struct.linkedNums** %nums
-	call void @range(%struct.linkedNums* %r154 )
-	%r155 = load %struct.linkedNums*, %struct.linkedNums** %nums
-	call void @approxSqrtAll(%struct.linkedNums* %r155 )
-	store i32 0, i32* %_retval_
+	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* @.read_scratch)
+	%r86 = load i32, i32* @.read_scratch
+	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* @.read_scratch)
+	%r87 = load i32, i32* @.read_scratch
+	%r88 = call %struct.linkedNums* @getRands(i32 %r86, i32 %r87 )
+	%r89 = call i32 @calcMean(%struct.linkedNums* %r88 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r89)
+	call void @range(%struct.linkedNums* %r88 )
+	call void @approxSqrtAll(%struct.linkedNums* %r88 )
 	br label %L39
 L39:
-	%r156 = load i32, i32* %_retval_
-	ret i32 %r156
+	%phi38 = phi i32 [0, %L38]
+	ret i32 %phi38
 }
 
 declare i8* @malloc(i32)

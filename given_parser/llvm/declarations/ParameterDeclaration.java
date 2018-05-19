@@ -5,6 +5,7 @@ import llvm.Allocation;
 import llvm.Instruction;
 import llvm.Store;
 import llvm.value.Register;
+import llvm.value.SSA;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,9 @@ public class ParameterDeclaration implements Instruction {
 
     @Override
     public String toLLVM() {
+        if (SSA.isSSA) {
+            return type + " %" + name;
+        }
         return type + " %_P_" + name;
     }
 
@@ -37,6 +41,9 @@ public class ParameterDeclaration implements Instruction {
     }
 
     public String getName() {
+        if (SSA.isSSA) {
+            return "%" + name;
+        }
         return "%_P_" + name;
     }
 }

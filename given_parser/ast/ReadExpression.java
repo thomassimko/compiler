@@ -1,7 +1,10 @@
 package ast;
 
+import cfg.Block;
 import llvm.Instruction;
+import llvm.Load;
 import llvm.Read;
+import llvm.value.Global;
 import llvm.value.Register;
 import llvm.value.RegisterCounter;
 import llvm.value.Value;
@@ -20,10 +23,13 @@ public class ReadExpression
    }
 
    @Override
-   public Value getCFGValue(List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
+   public Value getCFGValue(Block block, List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
       Register r1 = RegisterCounter.getNextRegister();
-      Read read = new Read(r1);
+      Global scratch = new Global(".read_scratch");
+      Read read = new Read(scratch);
+      Load load = new Load(r1, "i32", scratch);
       instructionList.add(read);
+      instructionList.add(load);
       return r1;
    }
 }

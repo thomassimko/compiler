@@ -3,6 +3,7 @@ package ast;
 import cfg.Block;
 import llvm.ReturnVoid;
 import llvm.UnconditionalBranch;
+import llvm.value.SSA;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,8 @@ public class ReturnEmptyStatement
 
    @Override
    public Block getCFG(Block curNode, Block endNode, List<Block> blockList, HashMap<String, HashMap<String, Type>> structTable) {
+      //System.err.println("1 branching to " + endNode.getLlvmLabel() + " from " + curNode.getLlvmLabel());
+
       curNode.addSuccessor(endNode);
       curNode.addInstructionToLLVM(new UnconditionalBranch(endNode.getLlvmLabel()));
       if(!endNode.getHasReturn()) {

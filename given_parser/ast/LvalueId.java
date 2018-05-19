@@ -1,8 +1,10 @@
 package ast;
 
+import cfg.Block;
 import llvm.Instruction;
 import llvm.value.Global;
 import llvm.value.Register;
+import llvm.value.SSA;
 import llvm.value.Value;
 
 import java.util.HashMap;
@@ -36,12 +38,22 @@ public class LvalueId implements Lvalue {
     }
 
     @Override
-    public Value getCFGValue(List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
+    public Value getCFGValue(Block block, List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
+        Value val;
         if (isLocal) {
-            return new Register(id);
+            val = new Register(id);
         }
         else {
-            return new Global(id);
+            val = new Global(id);
         }
+//        if(SSA.isSSA) {
+//            System.out.println(val.toLLVM() + " : " + this.lineNum);
+//            SSA.writeVariable(block, id, val);
+//        }
+        return val;
+    }
+
+    public boolean isLocal() {
+        return isLocal;
     }
 }

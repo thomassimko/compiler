@@ -1,5 +1,6 @@
 package ast;
 
+import cfg.Block;
 import llvm.BitCast;
 import llvm.Instruction;
 import llvm.Malloc;
@@ -27,7 +28,7 @@ public class NewExpression
    }
 
    @Override
-   public Value getCFGValue(List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
+   public Value getCFGValue(Block block, List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
       Register reg1 = RegisterCounter.getNextRegister();
       Register reg2 = RegisterCounter.getNextRegister();
 

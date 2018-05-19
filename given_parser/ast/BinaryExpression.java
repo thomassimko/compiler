@@ -1,5 +1,6 @@
 package ast;
 
+import cfg.Block;
 import llvm.ArithmeticBool.*;
 import llvm.Comparison;
 import llvm.Instruction;
@@ -125,9 +126,9 @@ public class BinaryExpression
    }
 
    @Override
-   public Value getCFGValue(List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
-      Value leftCFGValue = left.getCFGValue(instructionList, structTable);
-      Value rightCFGValue = right.getCFGValue(instructionList, structTable);
+   public Value getCFGValue(Block block, List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
+      Value leftCFGValue = left.getCFGValue(block, instructionList, structTable);
+      Value rightCFGValue = right.getCFGValue(block, instructionList, structTable);
 
       Register storeRegister = RegisterCounter.getNextRegister();
       Register storedTempResult;

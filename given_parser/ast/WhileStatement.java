@@ -7,6 +7,7 @@ import llvm.Branch;
 import llvm.Truncate;
 import llvm.value.Register;
 import llvm.value.RegisterCounter;
+import llvm.value.SSA;
 import llvm.value.Value;
 
 import java.util.HashMap;
@@ -36,27 +37,31 @@ public class WhileStatement
    public Block getCFG(Block curNode, Block endNode, List<Block> blockList, HashMap<String, HashMap<String, Type>> structTable) {
 
       Block whileBlock = new WhileBlock("whileBlock" + lineNum);
+      Block exitBlock = new BasicBlock("whileExitBlock" + lineNum);
+
+      evaluateCondition(curNode, structTable, whileBlock.getLlvmLabel(), exitBlock.getLlvmLabel());
       curNode.addSuccessor(whileBlock);
+      curNode.addSuccessor(exitBlock);
+
+      blockList.add(whileBlock);
 
       Block lastBlock = body.getCFG(whileBlock, endNode, blockList, structTable);
 
-      whileBlock.addSuccessor(lastBlock);
+      //changed this from whileBlock.addSuccessor(lastBlock)
 
-      Block exitBlock = new BasicBlock("whileExitBlock" + lineNum);
-
-      blockList.add(whileBlock);
-      //blockList.add(lastBlock);
       blockList.add(exitBlock);
 
-      evaluateCondition(curNode, structTable, whileBlock.getLlvmLabel(), exitBlock.getLlvmLabel());
       evaluateCondition(lastBlock, structTable, whileBlock.getLlvmLabel(), exitBlock.getLlvmLabel());
+      lastBlock.addSuccessor(whileBlock);
+
+      SSA.sealBlock(whileBlock);
 
       lastBlock.addSuccessor(exitBlock);
       return exitBlock;
    }
 
    private void evaluateCondition(Block block, HashMap<String, HashMap<String, Type>> structTable, String trueLabel, String falseLabel) {
-      Value val1 = guard.getCFGValue(block.getInstructionList(), structTable);
+      Value val1 = guard.getCFGValue(block, block.getLLVM(), structTable);
       Register reg1 = RegisterCounter.getNextRegister();
       Truncate trunc = new Truncate(val1, reg1);
       Branch branch = new Branch(reg1, trueLabel, falseLabel);

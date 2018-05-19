@@ -1,5 +1,6 @@
 package ast;
 
+import cfg.Block;
 import llvm.Instruction;
 import llvm.value.Value;
 
@@ -17,7 +18,7 @@ public abstract class AbstractExpression
    }
 
    @Override
-   public Value getCFGValue(List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
+   public Value getCFGValue(Block block, List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
       return null;
    }
 }

@@ -4,6 +4,7 @@ public class BasicBlock extends Block {
 
     public BasicBlock(String label) {
         super(label);
+        super.sealBlock();
     }
 
 }

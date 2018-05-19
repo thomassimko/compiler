@@ -5,6 +5,9 @@ import arm.ArmValue.ArmRegister;
 import arm.ArmValue.ArmValue;
 import arm.ArmValue.FinalRegisters.NotInterferingRegister;
 import llvm.Instruction;
+import llvm.Phi;
+import llvm.value.Value;
+
 import java.util.*;
 
 public abstract class Block {
@@ -19,17 +22,25 @@ public abstract class Block {
     private Set<ArmRegister> liveOut;
     private Set<ArmRegister> genSet;
     private Set<ArmRegister> killSet;
+    private HashMap<String, Value> currentDef;
+    private boolean sealed;
+    private List<Phi> incompletePhis;
+    private List<Phi> completedPhis;
 
 
     public Block(String label) {
         this.label = label;
-        this.successors = new ArrayList<Block>();
-        this.predecessors = new ArrayList<Block>();
-        llvmCode = new ArrayList<Instruction>();
+        this.successors = new ArrayList<>();
+        this.predecessors = new ArrayList<>();
+        llvmCode = new ArrayList<>();
         this.llvmLabel = BlockCounter.getNextBlockLabel();
-        liveOut = new HashSet<ArmRegister>();
-        genSet = new HashSet<ArmRegister>();
-        killSet = new HashSet<ArmRegister>();
+        liveOut = new HashSet<>();
+        genSet = new HashSet<>();
+        killSet = new HashSet<>();
+        currentDef = new HashMap<>();
+        sealed = false;
+        incompletePhis = new ArrayList<>();
+        completedPhis = new ArrayList<>();
     }
 
     public List<Block> getSuccessors() {
@@ -71,14 +82,26 @@ public abstract class Block {
 
     public List<Instruction> getLLVM() {
         return llvmCode;
+//        List<Instruction> finalList = new ArrayList<>();
+//        finalList.addAll(this.completedPhis);
+//        finalList.addAll(llvmCode);
+//
+//        for(Instruction inst : llvmCode) {
+//            System.out.println(inst.toLLVM());
+//        }
+//
+//        return finalList;
+    }
+
+    public List<Instruction> getFinalLLVM() {
+        List<Instruction> finalList = new ArrayList<>();
+        finalList.addAll(this.completedPhis);
+        finalList.addAll(llvmCode);
+        return finalList;
     }
 
     public void addInstructionToLLVM(Instruction instruction) {
         llvmCode.add(instruction);
-    }
-
-    public List<Instruction> getInstructionList() {
-        return this.llvmCode;
     }
 
     public String getLlvmLabel() {
@@ -95,6 +118,10 @@ public abstract class Block {
 
     public void setArmCode(List<ArmInstruction> armCode) {
         this.armCode = armCode;
+    }
+
+    public List<ArmInstruction> getArmCode() {
+        return armCode;
     }
 
     public Set<ArmRegister> getLiveOut() {
@@ -198,7 +225,7 @@ public abstract class Block {
                         setReg = registers.stream().filter(armRegister -> armRegister.stringEquals(reg)).toArray(ArmRegister[]::new)[0];
                     }
 
-                    if(!this.checkifEdgeExists(registers, curRegister, setReg)
+                    if(!this.checkIfEdgeExists(registers, curRegister, setReg)
                             && !curRegister.hasInterference(setReg)) {
                         curRegister.addInterference(setReg);
                         setReg.addInterference(curRegister);
@@ -220,7 +247,7 @@ public abstract class Block {
 
     }
 
-    private boolean checkifEdgeExists(Set<ArmRegister> registers, ArmRegister reg1, ArmRegister reg2) {
+    private boolean checkIfEdgeExists(Set<ArmRegister> registers, ArmRegister reg1, ArmRegister reg2) {
         Iterator<ArmRegister> iter = registers.iterator();
         while(iter.hasNext()) {
             ArmRegister current = iter.next();
@@ -229,14 +256,39 @@ public abstract class Block {
                     return true;
                 }
             }
-//            if(current.stringEquals(reg2)) {
-//                if(current.hasInterference(reg1)) {
-//                    return true;
-//                }
-//            }
         }
         return false;
 
     }
 
+    public HashMap<String, Value> getCurrentDef() {
+        return this.currentDef;
+    }
+
+    public void sealBlock() {
+        this.sealed = true;
+    }
+
+    public boolean isSealed() {
+        return sealed;
+    }
+
+    public List<Block> getPredecessors() {
+        return predecessors;
+    }
+
+    public List<Phi> incompletePhis() {
+        return incompletePhis;
+    }
+    public List<Phi> completedPhis() {
+        return completedPhis;
+    }
+
+    public void addCompletedPhi(Phi phi) {
+        completedPhis.add(phi);
+    }
+
+    public void addIncompletePhi(Phi phi) {
+        incompletePhis.add(phi);
+    }
 }

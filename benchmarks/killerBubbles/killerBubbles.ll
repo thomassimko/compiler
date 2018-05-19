@@ -3,165 +3,124 @@ target triple="i686"
 %struct.Node = type {%struct.Node*, %struct.Node*, i32}
 @swapped = common global i32 0, align 8
 
-define i32 @compare(%struct.Node* %_P_a, %struct.Node* %_P_b)
+define i32 @compare(%struct.Node* %a, %struct.Node* %b)
 {
 
 L1:
-	%_retval_ = alloca i32
-	%a = alloca %struct.Node*
-	store %struct.Node* %_P_a, %struct.Node** %a
-	%b = alloca %struct.Node*
-	store %struct.Node* %_P_b, %struct.Node** %b
-	%r0 = load %struct.Node*, %struct.Node** %a
-	%r1 = getelementptr %struct.Node , %struct.Node* %r0, i1 0, i32 2
-	%r2 = load i32, i32* %r1
-	%r3 = load %struct.Node*, %struct.Node** %b
-	%r4 = getelementptr %struct.Node , %struct.Node* %r3, i1 0, i32 2
-	%r5 = load i32, i32* %r4
-	%r6 = sub i32 %r2, %r5
-	store i32 %r6, i32* %_retval_
+	%r0 = getelementptr %struct.Node , %struct.Node* %a, i1 0, i32 2
+	%r1 = load i32, i32* %r0
+	%r2 = getelementptr %struct.Node , %struct.Node* %b, i1 0, i32 2
+	%r3 = load i32, i32* %r2
+	%r4 = sub i32 %r1, %r3
 	br label %L2
 L2:
-	%r7 = load i32, i32* %_retval_
-	ret i32 %r7
+	%phi0 = phi i32 [%r4, %L1]
+	ret i32 %phi0
 }
 
-define void @deathSort(%struct.Node* %_P_head)
+define void @deathSort(%struct.Node* %head)
 {
 
 L4:
-	%head = alloca %struct.Node*
-	store %struct.Node* %_P_head, %struct.Node** %head
-	%swapped = alloca i32
-	%swap = alloca i32
-	%currNode = alloca %struct.Node*
-	store i32 1, i32* %swapped
-	%r49 = load i32, i32* %swapped
-	%r50 = icmp eq i32 %r49, 1
-	%r51 = zext i1 %r50 to i32
-	%r52 = trunc i32 %r51 to i1
-	br i1 %r52, label %L6, label %L12
-
-L8:
-	%r17 = load %struct.Node*, %struct.Node** %currNode
-	%r18 = getelementptr %struct.Node , %struct.Node* %r17, i1 0, i32 2
-	%r19 = load i32, i32* %r18
-	store i32 %r19, i32* %swap
-	%r20 = load %struct.Node*, %struct.Node** %currNode
-	%r21 = getelementptr %struct.Node , %struct.Node* %r20, i1 0, i32 2
-	%r22 = load %struct.Node*, %struct.Node** %currNode
-	%r23 = getelementptr %struct.Node , %struct.Node* %r22, i1 0, i32 0
-	%r24 = load %struct.Node*, %struct.Node** %r23
-	%r25 = getelementptr %struct.Node , %struct.Node* %r24, i1 0, i32 2
-	%r26 = load i32, i32* %r25
-	store i32 %r26, i32* %r21
-	%r27 = load %struct.Node*, %struct.Node** %currNode
-	%r28 = getelementptr %struct.Node , %struct.Node* %r27, i1 0, i32 0
-	%r29 = load %struct.Node*, %struct.Node** %r28
-	%r30 = getelementptr %struct.Node , %struct.Node* %r29, i1 0, i32 2
-	%r31 = load i32, i32* %swap
-	store i32 %r31, i32* %r30
-	store i32 1, i32* %swapped
-	br label %L10
-L9:
-	br label %L10
-L10:
-	%r32 = load %struct.Node*, %struct.Node** %currNode
-	%r33 = getelementptr %struct.Node , %struct.Node* %r32, i1 0, i32 0
-	%r34 = load %struct.Node*, %struct.Node** %r33
-	store %struct.Node* %r34, %struct.Node** %currNode
-	%r42 = load %struct.Node*, %struct.Node** %currNode
-	%r43 = getelementptr %struct.Node , %struct.Node* %r42, i1 0, i32 0
-	%r44 = load %struct.Node*, %struct.Node** %r43
-	%r45 = load %struct.Node*, %struct.Node** %head
-	%r46 = icmp ne %struct.Node* %r44, %r45
-	%r47 = zext i1 %r46 to i32
-	%r48 = trunc i32 %r47 to i1
-	br i1 %r48, label %L7, label %L11
-
-L7:
-	%r9 = load %struct.Node*, %struct.Node** %currNode
-	%r10 = load %struct.Node*, %struct.Node** %currNode
-	%r11 = getelementptr %struct.Node , %struct.Node* %r10, i1 0, i32 0
-	%r12 = load %struct.Node*, %struct.Node** %r11
-	%r13 = call i32 @compare(%struct.Node* %r9, %struct.Node* %r12 )
-	%r14 = icmp sgt i32 %r13, 0
-	%r15 = zext i1 %r14 to i32
-	%r16 = trunc i32 %r15 to i1
-	br i1 %r16, label %L8, label %L9
-
-L11:
-	%r53 = load i32, i32* %swapped
-	%r54 = icmp eq i32 %r53, 1
-	%r55 = zext i1 %r54 to i32
-	%r56 = trunc i32 %r55 to i1
-	br i1 %r56, label %L6, label %L12
+	%r5 = icmp eq i32 1, 1
+	%r6 = zext i1 %r5 to i32
+	%r7 = trunc i32 %r6 to i1
+	br i1 %r7, label %L6, label %L7
 
 L6:
-	store i32 0, i32* %swapped
-	%r8 = load %struct.Node*, %struct.Node** %head
-	store %struct.Node* %r8, %struct.Node** %currNode
-	%r35 = load %struct.Node*, %struct.Node** %currNode
-	%r36 = getelementptr %struct.Node , %struct.Node* %r35, i1 0, i32 0
-	%r37 = load %struct.Node*, %struct.Node** %r36
-	%r38 = load %struct.Node*, %struct.Node** %head
-	%r39 = icmp ne %struct.Node* %r37, %r38
-	%r40 = zext i1 %r39 to i32
-	%r41 = trunc i32 %r40 to i1
-	br i1 %r41, label %L7, label %L11
+	%phi1 = phi %struct.Node* [%head, %L4], [%phi9, %L9]
+	%r8 = getelementptr %struct.Node , %struct.Node* %phi1, i1 0, i32 0
+	%r9 = load %struct.Node*, %struct.Node** %r8
+	%r10 = icmp ne %struct.Node* %r9, %phi1
+	%r11 = zext i1 %r10 to i32
+	%r12 = trunc i32 %r11 to i1
+	br i1 %r12, label %L8, label %L9
 
+L8:
+	%phi2 = phi %struct.Node* [%phi1, %L6], [%r30, %L12]
+	%phi5 = phi %struct.Node* [%phi1, %L6], [%phi4, %L12]
+	%phi8 = phi i32 [0, %L6], [%phi7, %L12]
+	%r13 = getelementptr %struct.Node , %struct.Node* %phi2, i1 0, i32 0
+	%r14 = load %struct.Node*, %struct.Node** %r13
+	%r15 = call i32 @compare(%struct.Node* %phi2, %struct.Node* %r14 )
+	%r16 = icmp sgt i32 %r15, 0
+	%r17 = zext i1 %r16 to i32
+	%r18 = trunc i32 %r17 to i1
+	br i1 %r18, label %L10, label %L11
+
+L10:
+	%r19 = getelementptr %struct.Node , %struct.Node* %phi2, i1 0, i32 2
+	%r20 = load i32, i32* %r19
+	%r21 = getelementptr %struct.Node , %struct.Node* %phi2, i1 0, i32 0
+	%r22 = load %struct.Node*, %struct.Node** %r21
+	%r23 = getelementptr %struct.Node , %struct.Node* %r22, i1 0, i32 2
+	%r24 = load i32, i32* %r23
+	%r25 = getelementptr %struct.Node , %struct.Node* %phi2, i1 0, i32 2
+	store i32 %r24, i32* %r25
+	%r26 = getelementptr %struct.Node , %struct.Node* %phi2, i1 0, i32 0
+	%r27 = load %struct.Node*, %struct.Node** %r26
+	%r28 = getelementptr %struct.Node , %struct.Node* %r27, i1 0, i32 2
+	store i32 %r20, i32* %r28
+	br label %L12
+L11:
+	br label %L12
 L12:
+	%phi3 = phi %struct.Node* [%phi2, %L10], [%phi2, %L11]
+	%phi4 = phi %struct.Node* [%phi5, %L10], [%phi5, %L11]
+	%phi7 = phi i32 [1, %L10], [%phi8, %L11]
+	%r29 = getelementptr %struct.Node , %struct.Node* %phi3, i1 0, i32 0
+	%r30 = load %struct.Node*, %struct.Node** %r29
+	%r31 = getelementptr %struct.Node , %struct.Node* %r30, i1 0, i32 0
+	%r32 = load %struct.Node*, %struct.Node** %r31
+	%r33 = icmp ne %struct.Node* %r32, %phi4
+	%r34 = zext i1 %r33 to i32
+	%r35 = trunc i32 %r34 to i1
+	br i1 %r35, label %L8, label %L9
+
+L9:
+	%phi6 = phi i32 [0, %L6], [%phi7, %L12]
+	%phi9 = phi %struct.Node* [%phi1, %L6], [%phi4, %L12]
+	%r36 = icmp eq i32 %phi6, 1
+	%r37 = zext i1 %r36 to i32
+	%r38 = trunc i32 %r37 to i1
+	br i1 %r38, label %L6, label %L7
+
+L7:
 	br label %L5
 L5:
 	ret void
 }
 
-define void @printEVILList(%struct.Node* %_P_head)
+define void @printEVILList(%struct.Node* %head)
 {
 
 L14:
-	%head = alloca %struct.Node*
-	store %struct.Node* %_P_head, %struct.Node** %head
-	%currNode = alloca %struct.Node*
-	%toFree = alloca %struct.Node*
-	%r57 = load %struct.Node*, %struct.Node** %head
-	%r58 = getelementptr %struct.Node , %struct.Node* %r57, i1 0, i32 0
-	%r59 = load %struct.Node*, %struct.Node** %r58
-	store %struct.Node* %r59, %struct.Node** %currNode
-	%r60 = load %struct.Node*, %struct.Node** %head
-	%r61 = getelementptr %struct.Node , %struct.Node* %r60, i1 0, i32 2
-	%r62 = load i32, i32* %r61
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r62)
-	%r64 = load %struct.Node*, %struct.Node** %head
-	%r63 = bitcast %struct.Node* %r64 to i8*
-	call void @free(i8* %r63 )
-	%r74 = load %struct.Node*, %struct.Node** %currNode
-	%r75 = load %struct.Node*, %struct.Node** %head
-	%r76 = icmp ne %struct.Node* %r74, %r75
-	%r77 = zext i1 %r76 to i32
-	%r78 = trunc i32 %r77 to i1
-	br i1 %r78, label %L16, label %L17
+	%r39 = getelementptr %struct.Node , %struct.Node* %head, i1 0, i32 0
+	%r40 = load %struct.Node*, %struct.Node** %r39
+	%r41 = getelementptr %struct.Node , %struct.Node* %head, i1 0, i32 2
+	%r42 = load i32, i32* %r41
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r42)
+	%r43 = bitcast %struct.Node* %head to i8*
+	call void @free(i8* %r43 )
+	%r44 = icmp ne %struct.Node* %r40, %head
+	%r45 = zext i1 %r44 to i32
+	%r46 = trunc i32 %r45 to i1
+	br i1 %r46, label %L16, label %L17
 
 L16:
-	%r65 = load %struct.Node*, %struct.Node** %currNode
-	store %struct.Node* %r65, %struct.Node** %toFree
-	%r66 = load %struct.Node*, %struct.Node** %currNode
-	%r67 = getelementptr %struct.Node , %struct.Node* %r66, i1 0, i32 2
-	%r68 = load i32, i32* %r67
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r68)
-	%r69 = load %struct.Node*, %struct.Node** %currNode
-	%r70 = getelementptr %struct.Node , %struct.Node* %r69, i1 0, i32 0
-	%r71 = load %struct.Node*, %struct.Node** %r70
-	store %struct.Node* %r71, %struct.Node** %currNode
-	%r73 = load %struct.Node*, %struct.Node** %toFree
-	%r72 = bitcast %struct.Node* %r73 to i8*
-	call void @free(i8* %r72 )
-	%r79 = load %struct.Node*, %struct.Node** %currNode
-	%r80 = load %struct.Node*, %struct.Node** %head
-	%r81 = icmp ne %struct.Node* %r79, %r80
-	%r82 = zext i1 %r81 to i32
-	%r83 = trunc i32 %r82 to i1
-	br i1 %r83, label %L16, label %L17
+	%phi10 = phi %struct.Node* [%r40, %L14], [%r50, %L16]
+	%phi11 = phi %struct.Node* [%head, %L14], [%phi11, %L16]
+	%r47 = getelementptr %struct.Node , %struct.Node* %phi10, i1 0, i32 2
+	%r48 = load i32, i32* %r47
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r48)
+	%r49 = getelementptr %struct.Node , %struct.Node* %phi10, i1 0, i32 0
+	%r50 = load %struct.Node*, %struct.Node** %r49
+	%r51 = bitcast %struct.Node* %phi10 to i8*
+	call void @free(i8* %r51 )
+	%r52 = icmp ne %struct.Node* %r50, %phi11
+	%r53 = zext i1 %r52 to i32
+	%r54 = trunc i32 %r53 to i1
+	br i1 %r54, label %L16, label %L17
 
 L17:
 	br label %L15
@@ -173,101 +132,65 @@ define i32 @main()
 {
 
 L19:
-	%_retval_ = alloca i32
-	%numNodes = alloca i32
-	%counter = alloca i32
-	%currNode = alloca %struct.Node*
-	%head = alloca %struct.Node*
-	%previous = alloca %struct.Node*
 	store i32 666, i32* @swapped
-	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* %numNodes)
-	%r84 = load i32, i32* %numNodes
-	%r85 = icmp sle i32 %r84, 0
-	%r86 = zext i1 %r85 to i32
-	%r87 = trunc i32 %r86 to i1
-	br i1 %r87, label %L21, label %L22
+	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* @.read_scratch)
+	%r55 = load i32, i32* @.read_scratch
+	%r56 = icmp sle i32 %r55, 0
+	%r57 = zext i1 %r56 to i32
+	%r58 = trunc i32 %r57 to i1
+	br i1 %r58, label %L21, label %L22
 
 L21:
-	%r88 = sub i32 0, 1
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r88)
-	%r89 = sub i32 0, 1
-	store i32 %r89, i32* %_retval_
+	%r59 = sub i32 0, 1
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r59)
+	%r60 = sub i32 0, 1
 	br label %L20
 L22:
 	br label %L23
 L23:
-	%r91 = load i32, i32* %numNodes
-	%r92 = mul i32 %r91, 1000
-	store i32 %r92, i32* %numNodes
-	%r93 = load i32, i32* %numNodes
-	store i32 %r93, i32* %counter
-	%r94 = call i8* @malloc(i32 24)
-	%r95 = bitcast i8* %r94 to %struct.Node*
-	store %struct.Node* %r95, %struct.Node** %head
-	%r96 = load %struct.Node*, %struct.Node** %head
-	%r97 = getelementptr %struct.Node , %struct.Node* %r96, i1 0, i32 2
-	%r98 = load i32, i32* %counter
-	store i32 %r98, i32* %r97
-	%r99 = load %struct.Node*, %struct.Node** %head
-	%r100 = getelementptr %struct.Node , %struct.Node* %r99, i1 0, i32 1
-	%r101 = load %struct.Node*, %struct.Node** %head
-	store %struct.Node* %r101, %struct.Node** %r100
-	%r102 = load %struct.Node*, %struct.Node** %head
-	%r103 = getelementptr %struct.Node , %struct.Node* %r102, i1 0, i32 0
-	%r104 = load %struct.Node*, %struct.Node** %head
-	store %struct.Node* %r104, %struct.Node** %r103
-	%r105 = load i32, i32* %counter
-	%r106 = sub i32 %r105, 1
-	store i32 %r106, i32* %counter
-	%r107 = load %struct.Node*, %struct.Node** %head
-	store %struct.Node* %r107, %struct.Node** %previous
-	%r125 = load i32, i32* %counter
-	%r126 = icmp sgt i32 %r125, 0
-	%r127 = zext i1 %r126 to i32
-	%r128 = trunc i32 %r127 to i1
-	br i1 %r128, label %L25, label %L26
+	%r61 = mul i32 %r55, 1000
+	%r62 = call i8* @malloc(i32 24)
+	%r63 = bitcast i8* %r62 to %struct.Node*
+	%r64 = getelementptr %struct.Node , %struct.Node* %r63, i1 0, i32 2
+	store i32 %r61, i32* %r64
+	%r65 = getelementptr %struct.Node , %struct.Node* %r63, i1 0, i32 1
+	store %struct.Node* %r63, %struct.Node** %r65
+	%r66 = getelementptr %struct.Node , %struct.Node* %r63, i1 0, i32 0
+	store %struct.Node* %r63, %struct.Node** %r66
+	%r67 = sub i32 %r61, 1
+	%r68 = icmp sgt i32 %r67, 0
+	%r69 = zext i1 %r68 to i32
+	%r70 = trunc i32 %r69 to i1
+	br i1 %r70, label %L24, label %L25
+
+L24:
+	%phi12 = phi i32 [%r67, %L23], [%r77, %L24]
+	%phi13 = phi %struct.Node* [%r63, %L23], [%r72, %L24]
+	%phi14 = phi %struct.Node* [%r63, %L23], [%phi14, %L24]
+	%r71 = call i8* @malloc(i32 24)
+	%r72 = bitcast i8* %r71 to %struct.Node*
+	%r73 = getelementptr %struct.Node , %struct.Node* %r72, i1 0, i32 2
+	store i32 %phi12, i32* %r73
+	%r74 = getelementptr %struct.Node , %struct.Node* %r72, i1 0, i32 1
+	store %struct.Node* %phi13, %struct.Node** %r74
+	%r75 = getelementptr %struct.Node , %struct.Node* %r72, i1 0, i32 0
+	store %struct.Node* %phi14, %struct.Node** %r75
+	%r76 = getelementptr %struct.Node , %struct.Node* %phi13, i1 0, i32 0
+	store %struct.Node* %r72, %struct.Node** %r76
+	%r77 = sub i32 %phi12, 1
+	%r78 = icmp sgt i32 %r77, 0
+	%r79 = zext i1 %r78 to i32
+	%r80 = trunc i32 %r79 to i1
+	br i1 %r80, label %L24, label %L25
 
 L25:
-	%r108 = call i8* @malloc(i32 24)
-	%r109 = bitcast i8* %r108 to %struct.Node*
-	store %struct.Node* %r109, %struct.Node** %currNode
-	%r110 = load %struct.Node*, %struct.Node** %currNode
-	%r111 = getelementptr %struct.Node , %struct.Node* %r110, i1 0, i32 2
-	%r112 = load i32, i32* %counter
-	store i32 %r112, i32* %r111
-	%r113 = load %struct.Node*, %struct.Node** %currNode
-	%r114 = getelementptr %struct.Node , %struct.Node* %r113, i1 0, i32 1
-	%r115 = load %struct.Node*, %struct.Node** %previous
-	store %struct.Node* %r115, %struct.Node** %r114
-	%r116 = load %struct.Node*, %struct.Node** %currNode
-	%r117 = getelementptr %struct.Node , %struct.Node* %r116, i1 0, i32 0
-	%r118 = load %struct.Node*, %struct.Node** %head
-	store %struct.Node* %r118, %struct.Node** %r117
-	%r119 = load %struct.Node*, %struct.Node** %previous
-	%r120 = getelementptr %struct.Node , %struct.Node* %r119, i1 0, i32 0
-	%r121 = load %struct.Node*, %struct.Node** %currNode
-	store %struct.Node* %r121, %struct.Node** %r120
-	%r122 = load %struct.Node*, %struct.Node** %currNode
-	store %struct.Node* %r122, %struct.Node** %previous
-	%r123 = load i32, i32* %counter
-	%r124 = sub i32 %r123, 1
-	store i32 %r124, i32* %counter
-	%r129 = load i32, i32* %counter
-	%r130 = icmp sgt i32 %r129, 0
-	%r131 = zext i1 %r130 to i32
-	%r132 = trunc i32 %r131 to i1
-	br i1 %r132, label %L25, label %L26
-
-L26:
-	%r133 = load %struct.Node*, %struct.Node** %head
-	call void @deathSort(%struct.Node* %r133 )
-	%r134 = load %struct.Node*, %struct.Node** %head
-	call void @printEVILList(%struct.Node* %r134 )
-	store i32 0, i32* %_retval_
+	%phi15 = phi %struct.Node* [%r63, %L23], [%phi14, %L24]
+	call void @deathSort(%struct.Node* %phi15 )
+	call void @printEVILList(%struct.Node* %phi15 )
 	br label %L20
 L20:
-	%r90 = load i32, i32* %_retval_
-	ret i32 %r90
+	%phi16 = phi i32 [%r60, %L21], [0, %L25]
+	ret i32 %phi16
 }
 
 declare i8* @malloc(i32)

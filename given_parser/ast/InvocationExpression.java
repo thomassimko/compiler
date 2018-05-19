@@ -1,5 +1,6 @@
 package ast;
 
+import cfg.Block;
 import llvm.Instruction;
 import llvm.InvocationCall;
 import llvm.value.Register;
@@ -45,10 +46,10 @@ public class InvocationExpression extends AbstractExpression {
    }
 
    @Override
-   public Value getCFGValue(List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
+   public Value getCFGValue(Block block, List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
 
       InvocationCall call;
-      Value[] argVals = this.arguments.stream().map(arg -> arg.getCFGValue(instructionList, structTable)).toArray(Value[]::new);
+      Value[] argVals = this.arguments.stream().map(arg -> arg.getCFGValue(block, instructionList, structTable)).toArray(Value[]::new);
       List<Type> paramTypes = this.retType.getParamTypes();
       String[] argTypes = paramTypes.stream().map(param -> param.getCFGType()).toArray(String[]::new);
 

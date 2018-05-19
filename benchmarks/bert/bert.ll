@@ -8,1012 +8,736 @@ target triple="i686"
 @b = common global i32 0, align 8
 @i = common global %struct.i* null, align 8
 
-define %struct.node* @concatLists(%struct.node* %_P_first, %struct.node* %_P_second)
+define %struct.node* @concatLists(%struct.node* %first, %struct.node* %second)
 {
 
 L1:
-	%_retval_ = alloca %struct.node*
-	%first = alloca %struct.node*
-	store %struct.node* %_P_first, %struct.node** %first
-	%second = alloca %struct.node*
-	store %struct.node* %_P_second, %struct.node** %second
-	%temp = alloca %struct.node*
-	%r0 = load %struct.node*, %struct.node** %first
-	store %struct.node* %r0, %struct.node** %temp
-	%r1 = load %struct.node*, %struct.node** %first
-	%r2 = icmp eq %struct.node* %r1, null
-	%r3 = zext i1 %r2 to i32
-	%r4 = trunc i32 %r3 to i1
-	br i1 %r4, label %L3, label %L4
+	%r0 = icmp eq %struct.node* %first, null
+	%r1 = zext i1 %r0 to i32
+	%r2 = trunc i32 %r1 to i1
+	br i1 %r2, label %L3, label %L4
 
 L3:
-	%r5 = load %struct.node*, %struct.node** %second
-	store %struct.node* %r5, %struct.node** %_retval_
 	br label %L2
 L4:
 	br label %L5
 L5:
-	%r10 = load %struct.node*, %struct.node** %temp
-	%r11 = getelementptr %struct.node , %struct.node* %r10, i1 0, i32 1
-	%r12 = load %struct.node*, %struct.node** %r11
-	%r13 = icmp ne %struct.node* %r12, null
-	%r14 = zext i1 %r13 to i32
-	%r15 = trunc i32 %r14 to i1
-	br i1 %r15, label %L7, label %L8
+	%r3 = getelementptr %struct.node , %struct.node* %first, i1 0, i32 1
+	%r4 = load %struct.node*, %struct.node** %r3
+	%r5 = icmp ne %struct.node* %r4, null
+	%r6 = zext i1 %r5 to i32
+	%r7 = trunc i32 %r6 to i1
+	br i1 %r7, label %L6, label %L7
+
+L6:
+	%phi0 = phi %struct.node* [%first, %L5], [%r9, %L6]
+	%phi2 = phi %struct.node* [%second, %L5], [%phi2, %L6]
+	%phi5 = phi %struct.node* [%first, %L5], [%phi5, %L6]
+	%r8 = getelementptr %struct.node , %struct.node* %phi0, i1 0, i32 1
+	%r9 = load %struct.node*, %struct.node** %r8
+	%r10 = getelementptr %struct.node , %struct.node* %r9, i1 0, i32 1
+	%r11 = load %struct.node*, %struct.node** %r10
+	%r12 = icmp ne %struct.node* %r11, null
+	%r13 = zext i1 %r12 to i32
+	%r14 = trunc i32 %r13 to i1
+	br i1 %r14, label %L6, label %L7
 
 L7:
-	%r7 = load %struct.node*, %struct.node** %temp
-	%r8 = getelementptr %struct.node , %struct.node* %r7, i1 0, i32 1
-	%r9 = load %struct.node*, %struct.node** %r8
-	store %struct.node* %r9, %struct.node** %temp
-	%r16 = load %struct.node*, %struct.node** %temp
-	%r17 = getelementptr %struct.node , %struct.node* %r16, i1 0, i32 1
-	%r18 = load %struct.node*, %struct.node** %r17
-	%r19 = icmp ne %struct.node* %r18, null
-	%r20 = zext i1 %r19 to i32
-	%r21 = trunc i32 %r20 to i1
-	br i1 %r21, label %L7, label %L8
-
-L8:
-	%r22 = load %struct.node*, %struct.node** %temp
-	%r23 = getelementptr %struct.node , %struct.node* %r22, i1 0, i32 1
-	%r24 = load %struct.node*, %struct.node** %second
-	store %struct.node* %r24, %struct.node** %r23
-	%r25 = load %struct.node*, %struct.node** %first
-	store %struct.node* %r25, %struct.node** %_retval_
+	%phi1 = phi %struct.node* [%second, %L5], [%phi2, %L6]
+	%phi3 = phi %struct.node* [%first, %L5], [%r9, %L6]
+	%phi4 = phi %struct.node* [%first, %L5], [%phi5, %L6]
+	%r15 = getelementptr %struct.node , %struct.node* %phi3, i1 0, i32 1
+	store %struct.node* %phi1, %struct.node** %r15
 	br label %L2
 L2:
-	%r6 = load %struct.node*, %struct.node** %_retval_
-	ret %struct.node* %r6
+	%phi6 = phi %struct.node* [%second, %L3], [%phi4, %L7]
+	ret %struct.node* %phi6
 }
 
-define %struct.node* @add(%struct.node* %_P_list, i32 %_P_toAdd)
+define %struct.node* @add(%struct.node* %list, i32 %toAdd)
 {
 
+L9:
+	%r16 = call i8* @malloc(i32 16)
+	%r17 = bitcast i8* %r16 to %struct.node*
+	%r18 = getelementptr %struct.node , %struct.node* %r17, i1 0, i32 0
+	store i32 %toAdd, i32* %r18
+	%r19 = getelementptr %struct.node , %struct.node* %r17, i1 0, i32 1
+	store %struct.node* %list, %struct.node** %r19
+	br label %L10
 L10:
-	%_retval_ = alloca %struct.node*
-	%list = alloca %struct.node*
-	store %struct.node* %_P_list, %struct.node** %list
-	%toAdd = alloca i32
-	store i32 %_P_toAdd, i32* %toAdd
-	%newNode = alloca %struct.node*
-	%r27 = call i8* @malloc(i32 16)
-	%r28 = bitcast i8* %r27 to %struct.node*
-	store %struct.node* %r28, %struct.node** %newNode
-	%r29 = load %struct.node*, %struct.node** %newNode
-	%r30 = getelementptr %struct.node , %struct.node* %r29, i1 0, i32 0
-	%r31 = load i32, i32* %toAdd
-	store i32 %r31, i32* %r30
-	%r32 = load %struct.node*, %struct.node** %newNode
-	%r33 = getelementptr %struct.node , %struct.node* %r32, i1 0, i32 1
-	%r34 = load %struct.node*, %struct.node** %list
-	store %struct.node* %r34, %struct.node** %r33
-	%r35 = load %struct.node*, %struct.node** %newNode
-	store %struct.node* %r35, %struct.node** %_retval_
-	br label %L11
-L11:
-	%r36 = load %struct.node*, %struct.node** %_retval_
-	ret %struct.node* %r36
+	%phi7 = phi %struct.node* [%r17, %L9]
+	ret %struct.node* %phi7
 }
 
-define i32 @size(%struct.node* %_P_list)
+define i32 @size(%struct.node* %list)
 {
 
-L13:
-	%_retval_ = alloca i32
-	%list = alloca %struct.node*
-	store %struct.node* %_P_list, %struct.node** %list
-	%r37 = load %struct.node*, %struct.node** %list
-	%r38 = icmp eq %struct.node* %r37, null
-	%r39 = zext i1 %r38 to i32
-	%r40 = trunc i32 %r39 to i1
-	br i1 %r40, label %L15, label %L16
+L12:
+	%r20 = icmp eq %struct.node* %list, null
+	%r21 = zext i1 %r20 to i32
+	%r22 = trunc i32 %r21 to i1
+	br i1 %r22, label %L14, label %L15
 
-L15:
-	store i32 0, i32* %_retval_
-	br label %L14
-L16:
-	br label %L17
-L17:
-	%r42 = load %struct.node*, %struct.node** %list
-	%r43 = getelementptr %struct.node , %struct.node* %r42, i1 0, i32 1
-	%r44 = load %struct.node*, %struct.node** %r43
-	%r45 = call i32 @size(%struct.node* %r44 )
-	%r46 = add i32 1, %r45
-	store i32 %r46, i32* %_retval_
-	br label %L14
 L14:
-	%r41 = load i32, i32* %_retval_
-	ret i32 %r41
+	br label %L13
+L15:
+	br label %L16
+L16:
+	%r23 = getelementptr %struct.node , %struct.node* %list, i1 0, i32 1
+	%r24 = load %struct.node*, %struct.node** %r23
+	%r25 = call i32 @size(%struct.node* %r24 )
+	%r26 = add i32 1, %r25
+	br label %L13
+L13:
+	%phi8 = phi i32 [0, %L14], [%r26, %L16]
+	ret i32 %phi8
 }
 
-define i32 @get(%struct.node* %_P_list, i32 %_P_index)
+define i32 @get(%struct.node* %list, i32 %index)
 {
+
+L18:
+	%r27 = icmp eq i32 %index, 0
+	%r28 = zext i1 %r27 to i32
+	%r29 = trunc i32 %r28 to i1
+	br i1 %r29, label %L20, label %L21
 
 L20:
-	%_retval_ = alloca i32
-	%list = alloca %struct.node*
-	store %struct.node* %_P_list, %struct.node** %list
-	%index = alloca i32
-	store i32 %_P_index, i32* %index
-	%r48 = load i32, i32* %index
-	%r49 = icmp eq i32 %r48, 0
-	%r50 = zext i1 %r49 to i32
-	%r51 = trunc i32 %r50 to i1
-	br i1 %r51, label %L22, label %L23
-
-L22:
-	%r52 = load %struct.node*, %struct.node** %list
-	%r53 = getelementptr %struct.node , %struct.node* %r52, i1 0, i32 0
-	%r54 = load i32, i32* %r53
-	store i32 %r54, i32* %_retval_
-	br label %L21
-L23:
-	br label %L24
-L24:
-	%r56 = load %struct.node*, %struct.node** %list
-	%r57 = getelementptr %struct.node , %struct.node* %r56, i1 0, i32 1
-	%r58 = load %struct.node*, %struct.node** %r57
-	%r59 = load i32, i32* %index
-	%r60 = sub i32 %r59, 1
-	%r61 = call i32 @get(%struct.node* %r58, i32 %r60 )
-	store i32 %r61, i32* %_retval_
-	br label %L21
+	%r30 = getelementptr %struct.node , %struct.node* %list, i1 0, i32 0
+	%r31 = load i32, i32* %r30
+	br label %L19
 L21:
-	%r55 = load i32, i32* %_retval_
-	ret i32 %r55
+	br label %L22
+L22:
+	%r32 = getelementptr %struct.node , %struct.node* %list, i1 0, i32 1
+	%r33 = load %struct.node*, %struct.node** %r32
+	%r34 = sub i32 %index, 1
+	%r35 = call i32 @get(%struct.node* %r33, i32 %r34 )
+	br label %L19
+L19:
+	%phi9 = phi i32 [%r31, %L20], [%r35, %L22]
+	ret i32 %phi9
 }
 
-define %struct.node* @pop(%struct.node* %_P_list)
+define %struct.node* @pop(%struct.node* %list)
+{
+
+L24:
+	%r36 = getelementptr %struct.node , %struct.node* %list, i1 0, i32 1
+	%r37 = load %struct.node*, %struct.node** %r36
+	br label %L25
+L25:
+	%phi10 = phi %struct.node* [%r37, %L24]
+	ret %struct.node* %phi10
+}
+
+define void @printList(%struct.node* %list)
 {
 
 L27:
-	%_retval_ = alloca %struct.node*
-	%list = alloca %struct.node*
-	store %struct.node* %_P_list, %struct.node** %list
-	%r63 = load %struct.node*, %struct.node** %list
-	%r64 = getelementptr %struct.node , %struct.node* %r63, i1 0, i32 1
-	%r65 = load %struct.node*, %struct.node** %r64
-	store %struct.node* %r65, %struct.node** %list
-	%r66 = load %struct.node*, %struct.node** %list
-	store %struct.node* %r66, %struct.node** %_retval_
-	br label %L28
-L28:
-	%r67 = load %struct.node*, %struct.node** %_retval_
-	ret %struct.node* %r67
-}
+	%r38 = icmp ne %struct.node* %list, null
+	%r39 = zext i1 %r38 to i32
+	%r40 = trunc i32 %r39 to i1
+	br i1 %r40, label %L29, label %L30
 
-define void @printList(%struct.node* %_P_list)
-{
-
+L29:
+	%r41 = getelementptr %struct.node , %struct.node* %list, i1 0, i32 0
+	%r42 = load i32, i32* %r41
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r42)
+	%r43 = getelementptr %struct.node , %struct.node* %list, i1 0, i32 1
+	%r44 = load %struct.node*, %struct.node** %r43
+	call void @printList(%struct.node* %r44 )
+	br label %L31
 L30:
-	%list = alloca %struct.node*
-	store %struct.node* %_P_list, %struct.node** %list
-	%r68 = load %struct.node*, %struct.node** %list
-	%r69 = icmp ne %struct.node* %r68, null
-	%r70 = zext i1 %r69 to i32
-	%r71 = trunc i32 %r70 to i1
-	br i1 %r71, label %L32, label %L33
-
-L32:
-	%r72 = load %struct.node*, %struct.node** %list
-	%r73 = getelementptr %struct.node , %struct.node* %r72, i1 0, i32 0
-	%r74 = load i32, i32* %r73
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r74)
-	%r75 = load %struct.node*, %struct.node** %list
-	%r76 = getelementptr %struct.node , %struct.node* %r75, i1 0, i32 1
-	%r77 = load %struct.node*, %struct.node** %r76
-	call void @printList(%struct.node* %r77 )
-	br label %L34
-L33:
-	br label %L34
-L34:
 	br label %L31
 L31:
+	br label %L28
+L28:
 	ret void
 }
 
-define void @treeprint(%struct.tnode* %_P_root)
+define void @treeprint(%struct.tnode* %root)
 {
 
-L36:
-	%root = alloca %struct.tnode*
-	store %struct.tnode* %_P_root, %struct.tnode** %root
-	%r78 = load %struct.tnode*, %struct.tnode** %root
-	%r79 = icmp ne %struct.tnode* %r78, null
-	%r80 = zext i1 %r79 to i32
-	%r81 = trunc i32 %r80 to i1
-	br i1 %r81, label %L38, label %L39
+L33:
+	%r45 = icmp ne %struct.tnode* %root, null
+	%r46 = zext i1 %r45 to i32
+	%r47 = trunc i32 %r46 to i1
+	br i1 %r47, label %L35, label %L36
 
-L38:
-	%r82 = load %struct.tnode*, %struct.tnode** %root
-	%r83 = getelementptr %struct.tnode , %struct.tnode* %r82, i1 0, i32 1
-	%r84 = load %struct.tnode*, %struct.tnode** %r83
-	call void @treeprint(%struct.tnode* %r84 )
-	%r85 = load %struct.tnode*, %struct.tnode** %root
-	%r86 = getelementptr %struct.tnode , %struct.tnode* %r85, i1 0, i32 0
-	%r87 = load i32, i32* %r86
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r87)
-	%r88 = load %struct.tnode*, %struct.tnode** %root
-	%r89 = getelementptr %struct.tnode , %struct.tnode* %r88, i1 0, i32 2
-	%r90 = load %struct.tnode*, %struct.tnode** %r89
-	call void @treeprint(%struct.tnode* %r90 )
-	br label %L40
-L39:
-	br label %L40
-L40:
+L35:
+	%r48 = getelementptr %struct.tnode , %struct.tnode* %root, i1 0, i32 1
+	%r49 = load %struct.tnode*, %struct.tnode** %r48
+	call void @treeprint(%struct.tnode* %r49 )
+	%r50 = getelementptr %struct.tnode , %struct.tnode* %root, i1 0, i32 0
+	%r51 = load i32, i32* %r50
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r51)
+	%r52 = getelementptr %struct.tnode , %struct.tnode* %root, i1 0, i32 2
+	%r53 = load %struct.tnode*, %struct.tnode** %r52
+	call void @treeprint(%struct.tnode* %r53 )
+	br label %L37
+L36:
 	br label %L37
 L37:
+	br label %L34
+L34:
 	ret void
 }
 
-define void @freeList(%struct.node* %_P_list)
+define void @freeList(%struct.node* %list)
 {
 
-L42:
-	%list = alloca %struct.node*
-	store %struct.node* %_P_list, %struct.node** %list
-	%r91 = load %struct.node*, %struct.node** %list
-	%r92 = icmp ne %struct.node* %r91, null
-	%r93 = zext i1 %r92 to i32
-	%r94 = trunc i32 %r93 to i1
-	br i1 %r94, label %L44, label %L45
+L39:
+	%r54 = icmp ne %struct.node* %list, null
+	%r55 = zext i1 %r54 to i32
+	%r56 = trunc i32 %r55 to i1
+	br i1 %r56, label %L41, label %L42
 
-L44:
-	%r95 = load %struct.node*, %struct.node** %list
-	%r96 = getelementptr %struct.node , %struct.node* %r95, i1 0, i32 1
-	%r97 = load %struct.node*, %struct.node** %r96
-	call void @freeList(%struct.node* %r97 )
-	%r99 = load %struct.node*, %struct.node** %list
-	%r98 = bitcast %struct.node* %r99 to i8*
-	call void @free(i8* %r98 )
-	br label %L46
-L45:
-	br label %L46
-L46:
+L41:
+	%r57 = getelementptr %struct.node , %struct.node* %list, i1 0, i32 1
+	%r58 = load %struct.node*, %struct.node** %r57
+	call void @freeList(%struct.node* %r58 )
+	%r59 = bitcast %struct.node* %list to i8*
+	call void @free(i8* %r59 )
+	br label %L43
+L42:
 	br label %L43
 L43:
+	br label %L40
+L40:
 	ret void
 }
 
-define void @freeTree(%struct.tnode* %_P_root)
+define void @freeTree(%struct.tnode* %root)
 {
 
-L48:
-	%root = alloca %struct.tnode*
-	store %struct.tnode* %_P_root, %struct.tnode** %root
-	%r100 = load %struct.tnode*, %struct.tnode** %root
-	%r101 = icmp eq %struct.tnode* %r100, null
-	%r102 = zext i1 %r101 to i32
-	%r103 = xor i32 %r102, 1
-	%r104 = trunc i32 %r103 to i1
-	br i1 %r104, label %L50, label %L51
+L45:
+	%r60 = icmp eq %struct.tnode* %root, null
+	%r61 = zext i1 %r60 to i32
+	%r62 = xor i32 %r61, 1
+	%r63 = trunc i32 %r62 to i1
+	br i1 %r63, label %L47, label %L48
 
-L50:
-	%r105 = load %struct.tnode*, %struct.tnode** %root
-	%r106 = getelementptr %struct.tnode , %struct.tnode* %r105, i1 0, i32 1
-	%r107 = load %struct.tnode*, %struct.tnode** %r106
-	call void @freeTree(%struct.tnode* %r107 )
-	%r108 = load %struct.tnode*, %struct.tnode** %root
-	%r109 = getelementptr %struct.tnode , %struct.tnode* %r108, i1 0, i32 2
-	%r110 = load %struct.tnode*, %struct.tnode** %r109
-	call void @freeTree(%struct.tnode* %r110 )
-	%r112 = load %struct.tnode*, %struct.tnode** %root
-	%r111 = bitcast %struct.tnode* %r112 to i8*
-	call void @free(i8* %r111 )
-	br label %L52
-L51:
-	br label %L52
-L52:
+L47:
+	%r64 = getelementptr %struct.tnode , %struct.tnode* %root, i1 0, i32 1
+	%r65 = load %struct.tnode*, %struct.tnode** %r64
+	call void @freeTree(%struct.tnode* %r65 )
+	%r66 = getelementptr %struct.tnode , %struct.tnode* %root, i1 0, i32 2
+	%r67 = load %struct.tnode*, %struct.tnode** %r66
+	call void @freeTree(%struct.tnode* %r67 )
+	%r68 = bitcast %struct.tnode* %root to i8*
+	call void @free(i8* %r68 )
+	br label %L49
+L48:
 	br label %L49
 L49:
+	br label %L46
+L46:
 	ret void
 }
 
-define %struct.node* @postOrder(%struct.tnode* %_P_root)
+define %struct.node* @postOrder(%struct.tnode* %root)
 {
 
-L54:
-	%_retval_ = alloca %struct.node*
-	%root = alloca %struct.tnode*
-	store %struct.tnode* %_P_root, %struct.tnode** %root
-	%temp = alloca %struct.node*
-	%r113 = load %struct.tnode*, %struct.tnode** %root
-	%r114 = icmp ne %struct.tnode* %r113, null
-	%r115 = zext i1 %r114 to i32
-	%r116 = trunc i32 %r115 to i1
-	br i1 %r116, label %L56, label %L57
+L51:
+	%r69 = icmp ne %struct.tnode* %root, null
+	%r70 = zext i1 %r69 to i32
+	%r71 = trunc i32 %r70 to i1
+	br i1 %r71, label %L53, label %L54
 
-L56:
-	%r117 = call i8* @malloc(i32 16)
-	%r118 = bitcast i8* %r117 to %struct.node*
-	store %struct.node* %r118, %struct.node** %temp
-	%r119 = load %struct.node*, %struct.node** %temp
-	%r120 = getelementptr %struct.node , %struct.node* %r119, i1 0, i32 0
-	%r121 = load %struct.tnode*, %struct.tnode** %root
-	%r122 = getelementptr %struct.tnode , %struct.tnode* %r121, i1 0, i32 0
-	%r123 = load i32, i32* %r122
-	store i32 %r123, i32* %r120
-	%r124 = load %struct.node*, %struct.node** %temp
-	%r125 = getelementptr %struct.node , %struct.node* %r124, i1 0, i32 1
-	store %struct.node* null, %struct.node** %r125
-	%r126 = load %struct.tnode*, %struct.tnode** %root
-	%r127 = getelementptr %struct.tnode , %struct.tnode* %r126, i1 0, i32 1
-	%r128 = load %struct.tnode*, %struct.tnode** %r127
-	%r129 = call %struct.node* @postOrder(%struct.tnode* %r128 )
-	%r130 = load %struct.tnode*, %struct.tnode** %root
-	%r131 = getelementptr %struct.tnode , %struct.tnode* %r130, i1 0, i32 2
-	%r132 = load %struct.tnode*, %struct.tnode** %r131
-	%r133 = call %struct.node* @postOrder(%struct.tnode* %r132 )
-	%r134 = call %struct.node* @concatLists(%struct.node* %r129, %struct.node* %r133 )
-	%r135 = load %struct.node*, %struct.node** %temp
-	%r136 = call %struct.node* @concatLists(%struct.node* %r134, %struct.node* %r135 )
-	store %struct.node* %r136, %struct.node** %_retval_
-	br label %L55
-L57:
-	br label %L58
-L58:
-	store %struct.node* null, %struct.node** %_retval_
+L53:
+	%r72 = call i8* @malloc(i32 16)
+	%r73 = bitcast i8* %r72 to %struct.node*
+	%r74 = getelementptr %struct.tnode , %struct.tnode* %root, i1 0, i32 0
+	%r75 = load i32, i32* %r74
+	%r76 = getelementptr %struct.node , %struct.node* %r73, i1 0, i32 0
+	store i32 %r75, i32* %r76
+	%r77 = getelementptr %struct.node , %struct.node* %r73, i1 0, i32 1
+	store %struct.node* null, %struct.node** %r77
+	%r78 = getelementptr %struct.tnode , %struct.tnode* %root, i1 0, i32 1
+	%r79 = load %struct.tnode*, %struct.tnode** %r78
+	%r80 = call %struct.node* @postOrder(%struct.tnode* %r79 )
+	%r81 = getelementptr %struct.tnode , %struct.tnode* %root, i1 0, i32 2
+	%r82 = load %struct.tnode*, %struct.tnode** %r81
+	%r83 = call %struct.node* @postOrder(%struct.tnode* %r82 )
+	%r84 = call %struct.node* @concatLists(%struct.node* %r80, %struct.node* %r83 )
+	%r85 = call %struct.node* @concatLists(%struct.node* %r84, %struct.node* %r73 )
+	br label %L52
+L54:
 	br label %L55
 L55:
-	%r137 = load %struct.node*, %struct.node** %_retval_
-	ret %struct.node* %r137
+	br label %L52
+L52:
+	%phi11 = phi %struct.node* [%r85, %L53], [null, %L55]
+	ret %struct.node* %phi11
 }
 
-define %struct.tnode* @treeadd(%struct.tnode* %_P_root, i32 %_P_toAdd)
+define %struct.tnode* @treeadd(%struct.tnode* %root, i32 %toAdd)
 {
 
+L57:
+	%r86 = icmp eq %struct.tnode* %root, null
+	%r87 = zext i1 %r86 to i32
+	%r88 = trunc i32 %r87 to i1
+	br i1 %r88, label %L59, label %L60
+
+L59:
+	%r89 = call i8* @malloc(i32 24)
+	%r90 = bitcast i8* %r89 to %struct.tnode*
+	%r91 = getelementptr %struct.tnode , %struct.tnode* %r90, i1 0, i32 0
+	store i32 %toAdd, i32* %r91
+	%r92 = getelementptr %struct.tnode , %struct.tnode* %r90, i1 0, i32 1
+	store %struct.tnode* null, %struct.tnode** %r92
+	%r93 = getelementptr %struct.tnode , %struct.tnode* %r90, i1 0, i32 2
+	store %struct.tnode* null, %struct.tnode** %r93
+	br label %L58
+L60:
+	br label %L61
 L61:
-	%_retval_ = alloca %struct.tnode*
-	%root = alloca %struct.tnode*
-	store %struct.tnode* %_P_root, %struct.tnode** %root
-	%toAdd = alloca i32
-	store i32 %_P_toAdd, i32* %toAdd
-	%temp = alloca %struct.tnode*
-	%r139 = load %struct.tnode*, %struct.tnode** %root
-	%r140 = icmp eq %struct.tnode* %r139, null
-	%r141 = zext i1 %r140 to i32
-	%r142 = trunc i32 %r141 to i1
-	br i1 %r142, label %L63, label %L64
+	%r94 = getelementptr %struct.tnode , %struct.tnode* %root, i1 0, i32 0
+	%r95 = load i32, i32* %r94
+	%r96 = icmp slt i32 %toAdd, %r95
+	%r97 = zext i1 %r96 to i32
+	%r98 = trunc i32 %r97 to i1
+	br i1 %r98, label %L62, label %L63
 
-L63:
-	%r143 = call i8* @malloc(i32 24)
-	%r144 = bitcast i8* %r143 to %struct.tnode*
-	store %struct.tnode* %r144, %struct.tnode** %temp
-	%r145 = load %struct.tnode*, %struct.tnode** %temp
-	%r146 = getelementptr %struct.tnode , %struct.tnode* %r145, i1 0, i32 0
-	%r147 = load i32, i32* %toAdd
-	store i32 %r147, i32* %r146
-	%r148 = load %struct.tnode*, %struct.tnode** %temp
-	%r149 = getelementptr %struct.tnode , %struct.tnode* %r148, i1 0, i32 1
-	store %struct.tnode* null, %struct.tnode** %r149
-	%r150 = load %struct.tnode*, %struct.tnode** %temp
-	%r151 = getelementptr %struct.tnode , %struct.tnode* %r150, i1 0, i32 2
-	store %struct.tnode* null, %struct.tnode** %r151
-	%r152 = load %struct.tnode*, %struct.tnode** %temp
-	store %struct.tnode* %r152, %struct.tnode** %_retval_
-	br label %L62
-L64:
-	br label %L65
-L65:
-	%r154 = load i32, i32* %toAdd
-	%r155 = load %struct.tnode*, %struct.tnode** %root
-	%r156 = getelementptr %struct.tnode , %struct.tnode* %r155, i1 0, i32 0
-	%r157 = load i32, i32* %r156
-	%r158 = icmp slt i32 %r154, %r157
-	%r159 = zext i1 %r158 to i32
-	%r160 = trunc i32 %r159 to i1
-	br i1 %r160, label %L67, label %L68
-
-L67:
-	%r161 = load %struct.tnode*, %struct.tnode** %root
-	%r162 = getelementptr %struct.tnode , %struct.tnode* %r161, i1 0, i32 1
-	%r163 = load %struct.tnode*, %struct.tnode** %root
-	%r164 = getelementptr %struct.tnode , %struct.tnode* %r163, i1 0, i32 1
-	%r165 = load %struct.tnode*, %struct.tnode** %r164
-	%r166 = load i32, i32* %toAdd
-	%r167 = call %struct.tnode* @treeadd(%struct.tnode* %r165, i32 %r166 )
-	store %struct.tnode* %r167, %struct.tnode** %r162
-	br label %L69
-L68:
-	%r168 = load %struct.tnode*, %struct.tnode** %root
-	%r169 = getelementptr %struct.tnode , %struct.tnode* %r168, i1 0, i32 2
-	%r170 = load %struct.tnode*, %struct.tnode** %root
-	%r171 = getelementptr %struct.tnode , %struct.tnode* %r170, i1 0, i32 2
-	%r172 = load %struct.tnode*, %struct.tnode** %r171
-	%r173 = load i32, i32* %toAdd
-	%r174 = call %struct.tnode* @treeadd(%struct.tnode* %r172, i32 %r173 )
-	store %struct.tnode* %r174, %struct.tnode** %r169
-	br label %L69
-L69:
-	%r175 = load %struct.tnode*, %struct.tnode** %root
-	store %struct.tnode* %r175, %struct.tnode** %_retval_
-	br label %L62
 L62:
-	%r153 = load %struct.tnode*, %struct.tnode** %_retval_
-	ret %struct.tnode* %r153
+	%r99 = getelementptr %struct.tnode , %struct.tnode* %root, i1 0, i32 1
+	%r100 = load %struct.tnode*, %struct.tnode** %r99
+	%r101 = call %struct.tnode* @treeadd(%struct.tnode* %r100, i32 %toAdd )
+	%r102 = getelementptr %struct.tnode , %struct.tnode* %root, i1 0, i32 1
+	store %struct.tnode* %r101, %struct.tnode** %r102
+	br label %L64
+L63:
+	%r103 = getelementptr %struct.tnode , %struct.tnode* %root, i1 0, i32 2
+	%r104 = load %struct.tnode*, %struct.tnode** %r103
+	%r105 = call %struct.tnode* @treeadd(%struct.tnode* %r104, i32 %toAdd )
+	%r106 = getelementptr %struct.tnode , %struct.tnode* %root, i1 0, i32 2
+	store %struct.tnode* %r105, %struct.tnode** %r106
+	br label %L64
+L64:
+	%phi12 = phi %struct.tnode* [%root, %L62], [%root, %L63]
+	br label %L58
+L58:
+	%phi13 = phi %struct.tnode* [%r90, %L59], [%phi12, %L64]
+	ret %struct.tnode* %phi13
 }
 
-define %struct.node* @quickSort(%struct.node* %_P_list)
+define %struct.node* @quickSort(%struct.node* %list)
 {
+
+L66:
+	%r107 = call i32 @size(%struct.node* %list )
+	%r108 = icmp sle i32 %r107, 1
+	%r109 = zext i1 %r108 to i32
+	%r110 = trunc i32 %r109 to i1
+	br i1 %r110, label %L68, label %L69
+
+L68:
+	br label %L67
+L69:
+	br label %L70
+L70:
+	%r111 = call i32 @get(%struct.node* %list, i32 0 )
+	%r112 = call i32 @size(%struct.node* %list )
+	%r113 = sub i32 %r112, 1
+	%r114 = call i32 @get(%struct.node* %list, i32 %r113 )
+	%r115 = add i32 %r111, %r114
+	%r116 = sdiv i32 %r115, 2
+	%r117 = icmp ne %struct.node* %list, null
+	%r118 = zext i1 %r117 to i32
+	%r119 = trunc i32 %r118 to i1
+	br i1 %r119, label %L71, label %L72
 
 L71:
-	%_retval_ = alloca %struct.node*
-	%list = alloca %struct.node*
-	store %struct.node* %_P_list, %struct.node** %list
-	%pivot = alloca i32
-	%i = alloca i32
-	%less = alloca %struct.node*
-	%greater = alloca %struct.node*
-	%temp = alloca %struct.node*
-	store %struct.node* null, %struct.node** %less
-	store %struct.node* null, %struct.node** %greater
-	%r177 = load %struct.node*, %struct.node** %list
-	%r178 = call i32 @size(%struct.node* %r177 )
-	%r179 = icmp sle i32 %r178, 1
-	%r180 = zext i1 %r179 to i32
-	%r181 = trunc i32 %r180 to i1
-	br i1 %r181, label %L73, label %L74
+	%phi14 = phi %struct.node* [%list, %L70], [%phi22, %L75]
+	%phi15 = phi i32 [0, %L70], [%r130, %L75]
+	%phi16 = phi i32 [%r116, %L70], [%phi23, %L75]
+	%phi17 = phi %struct.node* [null, %L70], [%phi24, %L75]
+	%phi18 = phi %struct.node* [null, %L70], [%phi25, %L75]
+	%phi20 = phi %struct.node* [%list, %L70], [%r129, %L75]
+	%r120 = call i32 @get(%struct.node* %phi14, i32 %phi15 )
+	%r121 = icmp sgt i32 %r120, %phi16
+	%r122 = zext i1 %r121 to i32
+	%r123 = trunc i32 %r122 to i1
+	br i1 %r123, label %L73, label %L74
 
 L73:
-	%r182 = load %struct.node*, %struct.node** %list
-	store %struct.node* %r182, %struct.node** %_retval_
-	br label %L72
+	%r124 = call i32 @get(%struct.node* %phi14, i32 %phi15 )
+	%r125 = call %struct.node* @add(%struct.node* %phi17, i32 %r124 )
+	br label %L75
 L74:
+	%r126 = call i32 @get(%struct.node* %phi14, i32 %phi15 )
+	%r127 = call %struct.node* @add(%struct.node* %phi18, i32 %r126 )
 	br label %L75
 L75:
-	%r184 = load %struct.node*, %struct.node** %list
-	%r185 = call i32 @get(%struct.node* %r184, i32 0 )
-	%r186 = load %struct.node*, %struct.node** %list
-	%r187 = load %struct.node*, %struct.node** %list
-	%r188 = call i32 @size(%struct.node* %r187 )
-	%r189 = sub i32 %r188, 1
-	%r190 = call i32 @get(%struct.node* %r186, i32 %r189 )
-	%r191 = add i32 %r185, %r190
-	%r192 = sdiv i32 %r191, 2
-	store i32 %r192, i32* %pivot
-	%r193 = load %struct.node*, %struct.node** %list
-	store %struct.node* %r193, %struct.node** %temp
-	store i32 0, i32* %i
-	%r216 = load %struct.node*, %struct.node** %temp
-	%r217 = icmp ne %struct.node* %r216, null
-	%r218 = zext i1 %r217 to i32
-	%r219 = trunc i32 %r218 to i1
-	br i1 %r219, label %L77, label %L81
+	%phi19 = phi %struct.node* [%phi20, %L73], [%phi20, %L74]
+	%phi21 = phi i32 [%phi15, %L73], [%phi15, %L74]
+	%phi22 = phi %struct.node* [%phi14, %L73], [%phi14, %L74]
+	%phi23 = phi i32 [%phi16, %L73], [%phi16, %L74]
+	%phi24 = phi %struct.node* [%r125, %L73], [%phi17, %L74]
+	%phi25 = phi %struct.node* [%phi18, %L73], [%r127, %L74]
+	%r128 = getelementptr %struct.node , %struct.node* %phi19, i1 0, i32 1
+	%r129 = load %struct.node*, %struct.node** %r128
+	%r130 = add i32 %phi21, 1
+	%r131 = icmp ne %struct.node* %r129, null
+	%r132 = zext i1 %r131 to i32
+	%r133 = trunc i32 %r132 to i1
+	br i1 %r133, label %L71, label %L72
 
-L78:
-	%r201 = load %struct.node*, %struct.node** %greater
-	%r202 = load %struct.node*, %struct.node** %list
-	%r203 = load i32, i32* %i
-	%r204 = call i32 @get(%struct.node* %r202, i32 %r203 )
-	%r205 = call %struct.node* @add(%struct.node* %r201, i32 %r204 )
-	store %struct.node* %r205, %struct.node** %greater
-	br label %L80
-L79:
-	%r206 = load %struct.node*, %struct.node** %less
-	%r207 = load %struct.node*, %struct.node** %list
-	%r208 = load i32, i32* %i
-	%r209 = call i32 @get(%struct.node* %r207, i32 %r208 )
-	%r210 = call %struct.node* @add(%struct.node* %r206, i32 %r209 )
-	store %struct.node* %r210, %struct.node** %less
-	br label %L80
-L80:
-	%r211 = load %struct.node*, %struct.node** %temp
-	%r212 = getelementptr %struct.node , %struct.node* %r211, i1 0, i32 1
-	%r213 = load %struct.node*, %struct.node** %r212
-	store %struct.node* %r213, %struct.node** %temp
-	%r214 = load i32, i32* %i
-	%r215 = add i32 %r214, 1
-	store i32 %r215, i32* %i
-	%r220 = load %struct.node*, %struct.node** %temp
-	%r221 = icmp ne %struct.node* %r220, null
-	%r222 = zext i1 %r221 to i32
-	%r223 = trunc i32 %r222 to i1
-	br i1 %r223, label %L77, label %L81
+L72:
+	%phi26 = phi %struct.node* [%list, %L70], [%phi22, %L75]
+	%phi27 = phi %struct.node* [null, %L70], [%phi25, %L75]
+	%phi28 = phi %struct.node* [null, %L70], [%phi24, %L75]
+	call void @freeList(%struct.node* %phi26 )
+	%r134 = call %struct.node* @quickSort(%struct.node* %phi27 )
+	%r135 = call %struct.node* @quickSort(%struct.node* %phi28 )
+	%r136 = call %struct.node* @concatLists(%struct.node* %r134, %struct.node* %r135 )
+	br label %L67
+L67:
+	%phi29 = phi %struct.node* [%list, %L68], [%r136, %L72]
+	ret %struct.node* %phi29
+}
+
+define %struct.node* @quickSortMain(%struct.node* %list)
+{
 
 L77:
-	%r194 = load %struct.node*, %struct.node** %list
-	%r195 = load i32, i32* %i
-	%r196 = call i32 @get(%struct.node* %r194, i32 %r195 )
-	%r197 = load i32, i32* %pivot
-	%r198 = icmp sgt i32 %r196, %r197
-	%r199 = zext i1 %r198 to i32
-	%r200 = trunc i32 %r199 to i1
-	br i1 %r200, label %L78, label %L79
-
-L81:
-	%r224 = load %struct.node*, %struct.node** %list
-	call void @freeList(%struct.node* %r224 )
-	%r225 = load %struct.node*, %struct.node** %less
-	%r226 = call %struct.node* @quickSort(%struct.node* %r225 )
-	%r227 = load %struct.node*, %struct.node** %greater
-	%r228 = call %struct.node* @quickSort(%struct.node* %r227 )
-	%r229 = call %struct.node* @concatLists(%struct.node* %r226, %struct.node* %r228 )
-	store %struct.node* %r229, %struct.node** %_retval_
-	br label %L72
-L72:
-	%r183 = load %struct.node*, %struct.node** %_retval_
-	ret %struct.node* %r183
+	call void @printList(%struct.node* %list )
+	%r137 = sub i32 0, 999
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r137)
+	call void @printList(%struct.node* %list )
+	%r138 = sub i32 0, 999
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r138)
+	call void @printList(%struct.node* %list )
+	%r139 = sub i32 0, 999
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r139)
+	br label %L78
+L78:
+	%phi30 = phi %struct.node* [null, %L77]
+	ret %struct.node* %phi30
 }
 
-define %struct.node* @quickSortMain(%struct.node* %_P_list)
+define i32 @treesearch(%struct.tnode* %root, i32 %target)
 {
+
+L80:
+	%r140 = sub i32 0, 1
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r140)
+	%r141 = icmp ne %struct.tnode* %root, null
+	%r142 = zext i1 %r141 to i32
+	%r143 = trunc i32 %r142 to i1
+	br i1 %r143, label %L82, label %L83
+
+L82:
+	%r144 = getelementptr %struct.tnode , %struct.tnode* %root, i1 0, i32 0
+	%r145 = load i32, i32* %r144
+	%r146 = icmp eq i32 %r145, %target
+	%r147 = zext i1 %r146 to i32
+	%r148 = trunc i32 %r147 to i1
+	br i1 %r148, label %L85, label %L86
 
 L83:
-	%_retval_ = alloca %struct.node*
-	%list = alloca %struct.node*
-	store %struct.node* %_P_list, %struct.node** %list
-	%r231 = load %struct.node*, %struct.node** %list
-	call void @printList(%struct.node* %r231 )
-	%r232 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r232)
-	%r233 = load %struct.node*, %struct.node** %list
-	call void @printList(%struct.node* %r233 )
-	%r234 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r234)
-	%r235 = load %struct.node*, %struct.node** %list
-	call void @printList(%struct.node* %r235 )
-	%r236 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r236)
-	store %struct.node* null, %struct.node** %_retval_
 	br label %L84
 L84:
-	%r237 = load %struct.node*, %struct.node** %_retval_
-	ret %struct.node* %r237
-}
-
-define i32 @treesearch(%struct.tnode* %_P_root, i32 %_P_target)
-{
-
+	br label %L81
+L85:
+	br label %L81
 L86:
-	%_retval_ = alloca i32
-	%root = alloca %struct.tnode*
-	store %struct.tnode* %_P_root, %struct.tnode** %root
-	%target = alloca i32
-	store i32 %_P_target, i32* %target
-	%r238 = sub i32 0, 1
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r238)
-	%r239 = load %struct.tnode*, %struct.tnode** %root
-	%r240 = icmp ne %struct.tnode* %r239, null
-	%r241 = zext i1 %r240 to i32
-	%r242 = trunc i32 %r241 to i1
-	br i1 %r242, label %L88, label %L89
+	br label %L87
+L87:
+	%r149 = getelementptr %struct.tnode , %struct.tnode* %root, i1 0, i32 1
+	%r150 = load %struct.tnode*, %struct.tnode** %r149
+	%r151 = call i32 @treesearch(%struct.tnode* %r150, i32 %target )
+	%r152 = icmp eq i32 %r151, 1
+	%r153 = zext i1 %r152 to i32
+	%r154 = trunc i32 %r153 to i1
+	br i1 %r154, label %L88, label %L89
 
 L88:
-	%r243 = load %struct.tnode*, %struct.tnode** %root
-	%r244 = getelementptr %struct.tnode , %struct.tnode* %r243, i1 0, i32 0
-	%r245 = load i32, i32* %r244
-	%r246 = load i32, i32* %target
-	%r247 = icmp eq i32 %r245, %r246
-	%r248 = zext i1 %r247 to i32
-	%r249 = trunc i32 %r248 to i1
-	br i1 %r249, label %L91, label %L92
-
+	br label %L81
 L89:
 	br label %L90
 L90:
-	store i32 0, i32* %_retval_
-	br label %L87
+	%r155 = getelementptr %struct.tnode , %struct.tnode* %root, i1 0, i32 2
+	%r156 = load %struct.tnode*, %struct.tnode** %r155
+	%r157 = call i32 @treesearch(%struct.tnode* %r156, i32 %target )
+	%r158 = icmp eq i32 %r157, 1
+	%r159 = zext i1 %r158 to i32
+	%r160 = trunc i32 %r159 to i1
+	br i1 %r160, label %L91, label %L92
+
 L91:
-	store i32 1, i32* %_retval_
-	br label %L87
+	br label %L81
 L92:
-	br label %L93
-L93:
-	%r251 = load %struct.tnode*, %struct.tnode** %root
-	%r252 = getelementptr %struct.tnode , %struct.tnode* %r251, i1 0, i32 1
-	%r253 = load %struct.tnode*, %struct.tnode** %r252
-	%r254 = load i32, i32* %target
-	%r255 = call i32 @treesearch(%struct.tnode* %r253, i32 %r254 )
-	%r256 = icmp eq i32 %r255, 1
-	%r257 = zext i1 %r256 to i32
-	%r258 = trunc i32 %r257 to i1
-	br i1 %r258, label %L95, label %L96
-
-L95:
-	store i32 1, i32* %_retval_
-	br label %L87
-L96:
-	br label %L97
-L97:
-	%r260 = load %struct.tnode*, %struct.tnode** %root
-	%r261 = getelementptr %struct.tnode , %struct.tnode* %r260, i1 0, i32 2
-	%r262 = load %struct.tnode*, %struct.tnode** %r261
-	%r263 = load i32, i32* %target
-	%r264 = call i32 @treesearch(%struct.tnode* %r262, i32 %r263 )
-	%r265 = icmp eq i32 %r264, 1
-	%r266 = zext i1 %r265 to i32
-	%r267 = trunc i32 %r266 to i1
-	br i1 %r267, label %L99, label %L100
-
-L99:
-	store i32 1, i32* %_retval_
-	br label %L87
-L100:
-	store i32 0, i32* %_retval_
-	br label %L87
-L101:
-	br label %L90
-L87:
-	%r250 = load i32, i32* %_retval_
-	ret i32 %r250
+	br label %L81
+L81:
+	%phi31 = phi i32 [1, %L85], [1, %L88], [1, %L91], [0, %L92], [0, %L84]
+	ret i32 %phi31
 }
 
-define %struct.node* @inOrder(%struct.tnode* %_P_root)
+define %struct.node* @inOrder(%struct.tnode* %root)
 {
 
-L105:
-	%_retval_ = alloca %struct.node*
-	%root = alloca %struct.tnode*
-	store %struct.tnode* %_P_root, %struct.tnode** %root
-	%temp = alloca %struct.node*
-	%r271 = load %struct.tnode*, %struct.tnode** %root
-	%r272 = icmp ne %struct.tnode* %r271, null
-	%r273 = zext i1 %r272 to i32
-	%r274 = trunc i32 %r273 to i1
-	br i1 %r274, label %L107, label %L108
+L95:
+	%r161 = icmp ne %struct.tnode* %root, null
+	%r162 = zext i1 %r161 to i32
+	%r163 = trunc i32 %r162 to i1
+	br i1 %r163, label %L97, label %L98
 
-L107:
-	%r275 = call i8* @malloc(i32 16)
-	%r276 = bitcast i8* %r275 to %struct.node*
-	store %struct.node* %r276, %struct.node** %temp
-	%r277 = load %struct.node*, %struct.node** %temp
-	%r278 = getelementptr %struct.node , %struct.node* %r277, i1 0, i32 0
-	%r279 = load %struct.tnode*, %struct.tnode** %root
-	%r280 = getelementptr %struct.tnode , %struct.tnode* %r279, i1 0, i32 0
-	%r281 = load i32, i32* %r280
-	store i32 %r281, i32* %r278
-	%r282 = load %struct.node*, %struct.node** %temp
-	%r283 = getelementptr %struct.node , %struct.node* %r282, i1 0, i32 1
-	store %struct.node* null, %struct.node** %r283
-	%r284 = load %struct.tnode*, %struct.tnode** %root
-	%r285 = getelementptr %struct.tnode , %struct.tnode* %r284, i1 0, i32 1
-	%r286 = load %struct.tnode*, %struct.tnode** %r285
-	%r287 = call %struct.node* @inOrder(%struct.tnode* %r286 )
-	%r288 = load %struct.node*, %struct.node** %temp
-	%r289 = load %struct.tnode*, %struct.tnode** %root
-	%r290 = getelementptr %struct.tnode , %struct.tnode* %r289, i1 0, i32 2
-	%r291 = load %struct.tnode*, %struct.tnode** %r290
-	%r292 = call %struct.node* @inOrder(%struct.tnode* %r291 )
-	%r293 = call %struct.node* @concatLists(%struct.node* %r288, %struct.node* %r292 )
-	%r294 = call %struct.node* @concatLists(%struct.node* %r287, %struct.node* %r293 )
-	store %struct.node* %r294, %struct.node** %_retval_
-	br label %L106
-L108:
-	store %struct.node* null, %struct.node** %_retval_
-	br label %L106
-L109:
-	br label %L106
-L106:
-	%r295 = load %struct.node*, %struct.node** %_retval_
-	ret %struct.node* %r295
+L97:
+	%r164 = call i8* @malloc(i32 16)
+	%r165 = bitcast i8* %r164 to %struct.node*
+	%r166 = getelementptr %struct.tnode , %struct.tnode* %root, i1 0, i32 0
+	%r167 = load i32, i32* %r166
+	%r168 = getelementptr %struct.node , %struct.node* %r165, i1 0, i32 0
+	store i32 %r167, i32* %r168
+	%r169 = getelementptr %struct.node , %struct.node* %r165, i1 0, i32 1
+	store %struct.node* null, %struct.node** %r169
+	%r170 = getelementptr %struct.tnode , %struct.tnode* %root, i1 0, i32 1
+	%r171 = load %struct.tnode*, %struct.tnode** %r170
+	%r172 = call %struct.node* @inOrder(%struct.tnode* %r171 )
+	%r173 = getelementptr %struct.tnode , %struct.tnode* %root, i1 0, i32 2
+	%r174 = load %struct.tnode*, %struct.tnode** %r173
+	%r175 = call %struct.node* @inOrder(%struct.tnode* %r174 )
+	%r176 = call %struct.node* @concatLists(%struct.node* %r165, %struct.node* %r175 )
+	%r177 = call %struct.node* @concatLists(%struct.node* %r172, %struct.node* %r176 )
+	br label %L96
+L98:
+	br label %L96
+L96:
+	%phi32 = phi %struct.node* [%r177, %L97], [null, %L98]
+	ret %struct.node* %phi32
 }
 
-define i32 @bintreesearch(%struct.tnode* %_P_root, i32 %_P_target)
+define i32 @bintreesearch(%struct.tnode* %root, i32 %target)
+{
+
+L101:
+	%r178 = sub i32 0, 1
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r178)
+	%r179 = icmp ne %struct.tnode* %root, null
+	%r180 = zext i1 %r179 to i32
+	%r181 = trunc i32 %r180 to i1
+	br i1 %r181, label %L103, label %L104
+
+L103:
+	%r182 = getelementptr %struct.tnode , %struct.tnode* %root, i1 0, i32 0
+	%r183 = load i32, i32* %r182
+	%r184 = icmp eq i32 %r183, %target
+	%r185 = zext i1 %r184 to i32
+	%r186 = trunc i32 %r185 to i1
+	br i1 %r186, label %L106, label %L107
+
+L104:
+	br label %L105
+L105:
+	br label %L102
+L106:
+	br label %L102
+L107:
+	br label %L108
+L108:
+	%r187 = getelementptr %struct.tnode , %struct.tnode* %root, i1 0, i32 0
+	%r188 = load i32, i32* %r187
+	%r189 = icmp slt i32 %target, %r188
+	%r190 = zext i1 %r189 to i32
+	%r191 = trunc i32 %r190 to i1
+	br i1 %r191, label %L109, label %L110
+
+L109:
+	%r192 = getelementptr %struct.tnode , %struct.tnode* %root, i1 0, i32 1
+	%r193 = load %struct.tnode*, %struct.tnode** %r192
+	%r194 = call i32 @bintreesearch(%struct.tnode* %r193, i32 %target )
+	br label %L102
+L110:
+	%r195 = getelementptr %struct.tnode , %struct.tnode* %root, i1 0, i32 2
+	%r196 = load %struct.tnode*, %struct.tnode** %r195
+	%r197 = call i32 @bintreesearch(%struct.tnode* %r196, i32 %target )
+	br label %L102
+L102:
+	%phi33 = phi i32 [1, %L106], [%r194, %L109], [%r197, %L110], [0, %L105]
+	ret i32 %phi33
+}
+
+define %struct.tnode* @buildTree(%struct.node* %list)
 {
 
 L113:
-	%_retval_ = alloca i32
-	%root = alloca %struct.tnode*
-	store %struct.tnode* %_P_root, %struct.tnode** %root
-	%target = alloca i32
-	store i32 %_P_target, i32* %target
-	%r297 = sub i32 0, 1
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r297)
-	%r298 = load %struct.tnode*, %struct.tnode** %root
-	%r299 = icmp ne %struct.tnode* %r298, null
-	%r300 = zext i1 %r299 to i32
-	%r301 = trunc i32 %r300 to i1
-	br i1 %r301, label %L115, label %L116
+	%r198 = call i32 @size(%struct.node* %list )
+	%r199 = icmp slt i32 0, %r198
+	%r200 = zext i1 %r199 to i32
+	%r201 = trunc i32 %r200 to i1
+	br i1 %r201, label %L115, label %L116
 
 L115:
-	%r302 = load %struct.tnode*, %struct.tnode** %root
-	%r303 = getelementptr %struct.tnode , %struct.tnode* %r302, i1 0, i32 0
-	%r304 = load i32, i32* %r303
-	%r305 = load i32, i32* %target
-	%r306 = icmp eq i32 %r304, %r305
-	%r307 = zext i1 %r306 to i32
-	%r308 = trunc i32 %r307 to i1
-	br i1 %r308, label %L118, label %L119
+	%phi34 = phi %struct.tnode* [null, %L113], [%r203, %L115]
+	%phi35 = phi %struct.node* [%list, %L113], [%phi35, %L115]
+	%phi36 = phi i32 [0, %L113], [%r204, %L115]
+	%r202 = call i32 @get(%struct.node* %phi35, i32 %phi36 )
+	%r203 = call %struct.tnode* @treeadd(%struct.tnode* %phi34, i32 %r202 )
+	%r204 = add i32 %phi36, 1
+	%r205 = call i32 @size(%struct.node* %phi35 )
+	%r206 = icmp slt i32 %r204, %r205
+	%r207 = zext i1 %r206 to i32
+	%r208 = trunc i32 %r207 to i1
+	br i1 %r208, label %L115, label %L116
 
 L116:
-	br label %L117
-L117:
-	store i32 0, i32* %_retval_
+	%phi37 = phi %struct.tnode* [null, %L113], [%r203, %L115]
 	br label %L114
-L118:
-	store i32 1, i32* %_retval_
-	br label %L114
-L119:
-	br label %L120
-L120:
-	%r310 = load i32, i32* %target
-	%r311 = load %struct.tnode*, %struct.tnode** %root
-	%r312 = getelementptr %struct.tnode , %struct.tnode* %r311, i1 0, i32 0
-	%r313 = load i32, i32* %r312
-	%r314 = icmp slt i32 %r310, %r313
-	%r315 = zext i1 %r314 to i32
-	%r316 = trunc i32 %r315 to i1
-	br i1 %r316, label %L122, label %L123
-
-L122:
-	%r317 = load %struct.tnode*, %struct.tnode** %root
-	%r318 = getelementptr %struct.tnode , %struct.tnode* %r317, i1 0, i32 1
-	%r319 = load %struct.tnode*, %struct.tnode** %r318
-	%r320 = load i32, i32* %target
-	%r321 = call i32 @bintreesearch(%struct.tnode* %r319, i32 %r320 )
-	store i32 %r321, i32* %_retval_
-	br label %L114
-L123:
-	%r323 = load %struct.tnode*, %struct.tnode** %root
-	%r324 = getelementptr %struct.tnode , %struct.tnode* %r323, i1 0, i32 2
-	%r325 = load %struct.tnode*, %struct.tnode** %r324
-	%r326 = load i32, i32* %target
-	%r327 = call i32 @bintreesearch(%struct.tnode* %r325, i32 %r326 )
-	store i32 %r327, i32* %_retval_
-	br label %L114
-L124:
-	br label %L117
 L114:
-	%r309 = load i32, i32* %_retval_
-	ret i32 %r309
+	%phi38 = phi %struct.tnode* [%phi37, %L116]
+	ret %struct.tnode* %phi38
 }
 
-define %struct.tnode* @buildTree(%struct.node* %_P_list)
+define void @treeMain(%struct.node* %list)
 {
 
-L128:
-	%_retval_ = alloca %struct.tnode*
-	%list = alloca %struct.node*
-	store %struct.node* %_P_list, %struct.node** %list
-	%i = alloca i32
-	%root = alloca %struct.tnode*
-	store %struct.tnode* null, %struct.tnode** %root
-	store i32 0, i32* %i
-	%r337 = load i32, i32* %i
-	%r338 = load %struct.node*, %struct.node** %list
-	%r339 = call i32 @size(%struct.node* %r338 )
-	%r340 = icmp slt i32 %r337, %r339
-	%r341 = zext i1 %r340 to i32
-	%r342 = trunc i32 %r341 to i1
-	br i1 %r342, label %L130, label %L131
-
-L130:
-	%r330 = load %struct.tnode*, %struct.tnode** %root
-	%r331 = load %struct.node*, %struct.node** %list
-	%r332 = load i32, i32* %i
-	%r333 = call i32 @get(%struct.node* %r331, i32 %r332 )
-	%r334 = call %struct.tnode* @treeadd(%struct.tnode* %r330, i32 %r333 )
-	store %struct.tnode* %r334, %struct.tnode** %root
-	%r335 = load i32, i32* %i
-	%r336 = add i32 %r335, 1
-	store i32 %r336, i32* %i
-	%r343 = load i32, i32* %i
-	%r344 = load %struct.node*, %struct.node** %list
-	%r345 = call i32 @size(%struct.node* %r344 )
-	%r346 = icmp slt i32 %r343, %r345
-	%r347 = zext i1 %r346 to i32
-	%r348 = trunc i32 %r347 to i1
-	br i1 %r348, label %L130, label %L131
-
-L131:
-	%r349 = load %struct.tnode*, %struct.tnode** %root
-	store %struct.tnode* %r349, %struct.tnode** %_retval_
-	br label %L129
-L129:
-	%r350 = load %struct.tnode*, %struct.tnode** %_retval_
-	ret %struct.tnode* %r350
-}
-
-define void @treeMain(%struct.node* %_P_list)
-{
-
-L133:
-	%list = alloca %struct.node*
-	store %struct.node* %_P_list, %struct.node** %list
-	%root = alloca %struct.tnode*
-	%inList = alloca %struct.node*
-	%postList = alloca %struct.node*
-	%r351 = load %struct.node*, %struct.node** %list
-	%r352 = call %struct.tnode* @buildTree(%struct.node* %r351 )
-	store %struct.tnode* %r352, %struct.tnode** %root
-	%r353 = load %struct.tnode*, %struct.tnode** %root
-	call void @treeprint(%struct.tnode* %r353 )
-	%r354 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r354)
-	%r355 = load %struct.tnode*, %struct.tnode** %root
-	%r356 = call %struct.node* @inOrder(%struct.tnode* %r355 )
-	store %struct.node* %r356, %struct.node** %inList
-	%r357 = load %struct.node*, %struct.node** %inList
-	call void @printList(%struct.node* %r357 )
-	%r358 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r358)
-	%r359 = load %struct.node*, %struct.node** %inList
-	call void @freeList(%struct.node* %r359 )
-	%r360 = load %struct.tnode*, %struct.tnode** %root
-	%r361 = call %struct.node* @postOrder(%struct.tnode* %r360 )
-	store %struct.node* %r361, %struct.node** %postList
-	%r362 = load %struct.node*, %struct.node** %postList
-	call void @printList(%struct.node* %r362 )
-	%r363 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r363)
-	%r364 = load %struct.node*, %struct.node** %postList
-	call void @freeList(%struct.node* %r364 )
-	%r365 = load %struct.tnode*, %struct.tnode** %root
-	%r366 = call i32 @treesearch(%struct.tnode* %r365, i32 0 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r366)
-	%r367 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r367)
-	%r368 = load %struct.tnode*, %struct.tnode** %root
-	%r369 = call i32 @treesearch(%struct.tnode* %r368, i32 10 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r369)
-	%r370 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r370)
-	%r371 = load %struct.tnode*, %struct.tnode** %root
-	%r372 = sub i32 0, 2
-	%r373 = call i32 @treesearch(%struct.tnode* %r371, i32 %r372 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r373)
-	%r374 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r374)
-	%r375 = load %struct.tnode*, %struct.tnode** %root
-	%r376 = call i32 @treesearch(%struct.tnode* %r375, i32 2 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r376)
-	%r377 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r377)
-	%r378 = load %struct.tnode*, %struct.tnode** %root
-	%r379 = call i32 @treesearch(%struct.tnode* %r378, i32 3 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r379)
-	%r380 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r380)
-	%r381 = load %struct.tnode*, %struct.tnode** %root
-	%r382 = call i32 @treesearch(%struct.tnode* %r381, i32 9 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r382)
-	%r383 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r383)
-	%r384 = load %struct.tnode*, %struct.tnode** %root
-	%r385 = call i32 @treesearch(%struct.tnode* %r384, i32 1 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r385)
-	%r386 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r386)
-	%r387 = load %struct.tnode*, %struct.tnode** %root
-	%r388 = call i32 @bintreesearch(%struct.tnode* %r387, i32 0 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r388)
-	%r389 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r389)
-	%r390 = load %struct.tnode*, %struct.tnode** %root
-	%r391 = call i32 @bintreesearch(%struct.tnode* %r390, i32 10 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r391)
-	%r392 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r392)
-	%r393 = load %struct.tnode*, %struct.tnode** %root
-	%r394 = sub i32 0, 2
-	%r395 = call i32 @bintreesearch(%struct.tnode* %r393, i32 %r394 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r395)
-	%r396 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r396)
-	%r397 = load %struct.tnode*, %struct.tnode** %root
-	%r398 = call i32 @bintreesearch(%struct.tnode* %r397, i32 2 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r398)
-	%r399 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r399)
-	%r400 = load %struct.tnode*, %struct.tnode** %root
-	%r401 = call i32 @bintreesearch(%struct.tnode* %r400, i32 3 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r401)
-	%r402 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r402)
-	%r403 = load %struct.tnode*, %struct.tnode** %root
-	%r404 = call i32 @bintreesearch(%struct.tnode* %r403, i32 9 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r404)
-	%r405 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r405)
-	%r406 = load %struct.tnode*, %struct.tnode** %root
-	%r407 = call i32 @bintreesearch(%struct.tnode* %r406, i32 1 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r407)
-	%r408 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r408)
-	%r409 = load %struct.tnode*, %struct.tnode** %root
-	call void @freeTree(%struct.tnode* %r409 )
-	br label %L134
-L134:
+L118:
+	%r209 = call %struct.tnode* @buildTree(%struct.node* %list )
+	call void @treeprint(%struct.tnode* %r209 )
+	%r210 = sub i32 0, 999
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r210)
+	%r211 = call %struct.node* @inOrder(%struct.tnode* %r209 )
+	call void @printList(%struct.node* %r211 )
+	%r212 = sub i32 0, 999
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r212)
+	call void @freeList(%struct.node* %r211 )
+	%r213 = call %struct.node* @postOrder(%struct.tnode* %r209 )
+	call void @printList(%struct.node* %r213 )
+	%r214 = sub i32 0, 999
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r214)
+	call void @freeList(%struct.node* %r213 )
+	%r215 = call i32 @treesearch(%struct.tnode* %r209, i32 0 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r215)
+	%r216 = sub i32 0, 999
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r216)
+	%r217 = call i32 @treesearch(%struct.tnode* %r209, i32 10 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r217)
+	%r218 = sub i32 0, 999
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r218)
+	%r219 = sub i32 0, 2
+	%r220 = call i32 @treesearch(%struct.tnode* %r209, i32 %r219 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r220)
+	%r221 = sub i32 0, 999
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r221)
+	%r222 = call i32 @treesearch(%struct.tnode* %r209, i32 2 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r222)
+	%r223 = sub i32 0, 999
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r223)
+	%r224 = call i32 @treesearch(%struct.tnode* %r209, i32 3 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r224)
+	%r225 = sub i32 0, 999
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r225)
+	%r226 = call i32 @treesearch(%struct.tnode* %r209, i32 9 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r226)
+	%r227 = sub i32 0, 999
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r227)
+	%r228 = call i32 @treesearch(%struct.tnode* %r209, i32 1 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r228)
+	%r229 = sub i32 0, 999
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r229)
+	%r230 = call i32 @bintreesearch(%struct.tnode* %r209, i32 0 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r230)
+	%r231 = sub i32 0, 999
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r231)
+	%r232 = call i32 @bintreesearch(%struct.tnode* %r209, i32 10 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r232)
+	%r233 = sub i32 0, 999
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r233)
+	%r234 = sub i32 0, 2
+	%r235 = call i32 @bintreesearch(%struct.tnode* %r209, i32 %r234 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r235)
+	%r236 = sub i32 0, 999
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r236)
+	%r237 = call i32 @bintreesearch(%struct.tnode* %r209, i32 2 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r237)
+	%r238 = sub i32 0, 999
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r238)
+	%r239 = call i32 @bintreesearch(%struct.tnode* %r209, i32 3 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r239)
+	%r240 = sub i32 0, 999
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r240)
+	%r241 = call i32 @bintreesearch(%struct.tnode* %r209, i32 9 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r241)
+	%r242 = sub i32 0, 999
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r242)
+	%r243 = call i32 @bintreesearch(%struct.tnode* %r209, i32 1 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r243)
+	%r244 = sub i32 0, 999
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r244)
+	call void @freeTree(%struct.tnode* %r209 )
+	br label %L119
+L119:
 	ret void
 }
 
-define %struct.node* @myCopy(%struct.node* %_P_src)
+define %struct.node* @myCopy(%struct.node* %src)
 {
 
-L136:
-	%_retval_ = alloca %struct.node*
-	%src = alloca %struct.node*
-	store %struct.node* %_P_src, %struct.node** %src
-	%r410 = load %struct.node*, %struct.node** %src
-	%r411 = icmp eq %struct.node* %r410, null
-	%r412 = zext i1 %r411 to i32
-	%r413 = trunc i32 %r412 to i1
-	br i1 %r413, label %L138, label %L139
+L121:
+	%r245 = icmp eq %struct.node* %src, null
+	%r246 = zext i1 %r245 to i32
+	%r247 = trunc i32 %r246 to i1
+	br i1 %r247, label %L123, label %L124
 
-L138:
-	store %struct.node* null, %struct.node** %_retval_
-	br label %L137
-L139:
-	br label %L140
-L140:
-	%r415 = load %struct.node*, %struct.node** %src
-	%r416 = getelementptr %struct.node , %struct.node* %r415, i1 0, i32 0
-	%r417 = load i32, i32* %r416
-	%r418 = call %struct.node* @add(%struct.node* null, i32 %r417 )
-	%r419 = load %struct.node*, %struct.node** %src
-	%r420 = getelementptr %struct.node , %struct.node* %r419, i1 0, i32 1
-	%r421 = load %struct.node*, %struct.node** %r420
-	%r422 = call %struct.node* @myCopy(%struct.node* %r421 )
-	%r423 = call %struct.node* @concatLists(%struct.node* %r418, %struct.node* %r422 )
-	store %struct.node* %r423, %struct.node** %_retval_
-	br label %L137
-L137:
-	%r414 = load %struct.node*, %struct.node** %_retval_
-	ret %struct.node* %r414
+L123:
+	br label %L122
+L124:
+	br label %L125
+L125:
+	%r248 = getelementptr %struct.node , %struct.node* %src, i1 0, i32 0
+	%r249 = load i32, i32* %r248
+	%r250 = call %struct.node* @add(%struct.node* null, i32 %r249 )
+	%r251 = getelementptr %struct.node , %struct.node* %src, i1 0, i32 1
+	%r252 = load %struct.node*, %struct.node** %r251
+	%r253 = call %struct.node* @myCopy(%struct.node* %r252 )
+	%r254 = call %struct.node* @concatLists(%struct.node* %r250, %struct.node* %r253 )
+	br label %L122
+L122:
+	%phi39 = phi %struct.node* [null, %L123], [%r254, %L125]
+	ret %struct.node* %phi39
 }
 
 define i32 @main()
 {
 
-L143:
-	%_retval_ = alloca i32
-	%i = alloca i32
-	%element = alloca i32
-	%myList = alloca %struct.node*
-	%copyList1 = alloca %struct.node*
-	%copyList2 = alloca %struct.node*
-	%sortedList = alloca %struct.node*
-	store %struct.node* null, %struct.node** %myList
-	store %struct.node* null, %struct.node** %copyList1
-	store %struct.node* null, %struct.node** %copyList2
-	store i32 0, i32* %i
-	%r438 = load i32, i32* %i
-	%r439 = icmp slt i32 %r438, 10
-	%r440 = zext i1 %r439 to i32
-	%r441 = trunc i32 %r440 to i1
-	br i1 %r441, label %L145, label %L146
+L127:
+	%r255 = icmp slt i32 0, 10
+	%r256 = zext i1 %r255 to i32
+	%r257 = trunc i32 %r256 to i1
+	br i1 %r257, label %L129, label %L130
 
-L145:
-	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* %element)
-	%r425 = load %struct.node*, %struct.node** %myList
-	%r426 = load i32, i32* %element
-	%r427 = call %struct.node* @add(%struct.node* %r425, i32 %r426 )
-	store %struct.node* %r427, %struct.node** %myList
-	%r428 = load %struct.node*, %struct.node** %myList
-	%r429 = call %struct.node* @myCopy(%struct.node* %r428 )
-	store %struct.node* %r429, %struct.node** %copyList1
-	%r430 = load %struct.node*, %struct.node** %myList
-	%r431 = call %struct.node* @myCopy(%struct.node* %r430 )
-	store %struct.node* %r431, %struct.node** %copyList2
-	%r432 = load %struct.node*, %struct.node** %copyList1
-	%r433 = call %struct.node* @quickSortMain(%struct.node* %r432 )
-	store %struct.node* %r433, %struct.node** %sortedList
-	%r434 = load %struct.node*, %struct.node** %sortedList
-	call void @freeList(%struct.node* %r434 )
-	%r435 = load %struct.node*, %struct.node** %copyList2
-	call void @treeMain(%struct.node* %r435 )
-	%r436 = load i32, i32* %i
-	%r437 = add i32 %r436, 1
-	store i32 %r437, i32* %i
-	%r442 = load i32, i32* %i
-	%r443 = icmp slt i32 %r442, 10
-	%r444 = zext i1 %r443 to i32
-	%r445 = trunc i32 %r444 to i1
-	br i1 %r445, label %L145, label %L146
+L129:
+	%phi40 = phi %struct.node* [null, %L127], [%r259, %L129]
+	%phi41 = phi i32 [0, %L127], [%r263, %L129]
+	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* @.read_scratch)
+	%r258 = load i32, i32* @.read_scratch
+	%r259 = call %struct.node* @add(%struct.node* %phi40, i32 %r258 )
+	%r260 = call %struct.node* @myCopy(%struct.node* %r259 )
+	%r261 = call %struct.node* @myCopy(%struct.node* %r259 )
+	%r262 = call %struct.node* @quickSortMain(%struct.node* %r260 )
+	call void @freeList(%struct.node* %r262 )
+	call void @treeMain(%struct.node* %r261 )
+	%r263 = add i32 %phi41, 1
+	%r264 = icmp slt i32 %r263, 10
+	%r265 = zext i1 %r264 to i32
+	%r266 = trunc i32 %r265 to i1
+	br i1 %r266, label %L129, label %L130
 
-L146:
-	%r446 = load %struct.node*, %struct.node** %myList
-	call void @freeList(%struct.node* %r446 )
-	%r447 = load %struct.node*, %struct.node** %copyList1
-	call void @freeList(%struct.node* %r447 )
-	%r448 = load %struct.node*, %struct.node** %copyList2
-	call void @freeList(%struct.node* %r448 )
-	store i32 0, i32* %_retval_
-	br label %L144
-L144:
-	%r449 = load i32, i32* %_retval_
-	ret i32 %r449
+L130:
+	%phi42 = phi %struct.node* [null, %L127], [%r259, %L129]
+	%phi43 = phi %struct.node* [null, %L127], [%r260, %L129]
+	%phi44 = phi %struct.node* [null, %L127], [%r261, %L129]
+	call void @freeList(%struct.node* %phi42 )
+	call void @freeList(%struct.node* %phi43 )
+	call void @freeList(%struct.node* %phi44 )
+	br label %L128
+L128:
+	%phi45 = phi i32 [0, %L130]
+	ret i32 %phi45
 }
 
 declare i8* @malloc(i32)

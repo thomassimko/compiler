@@ -1,5 +1,6 @@
 package ast;
 
+import cfg.Block;
 import llvm.Instruction;
 import llvm.value.Value;
 import llvm.value.ValueLiteral;
@@ -18,7 +19,7 @@ public class NullExpression
    }
 
    @Override
-   public Value getCFGValue(List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
+   public Value getCFGValue(Block block, List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
       return new ValueLiteral("null");
    }
 }

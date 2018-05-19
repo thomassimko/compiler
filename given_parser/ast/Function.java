@@ -7,6 +7,9 @@ import cfg.StartBlock;
 import llvm.*;
 import llvm.declarations.ParameterDeclaration;
 import llvm.value.Register;
+import llvm.value.SSA;
+import llvm.value.Value;
+import llvm.value.ValueLiteral;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,31 +74,58 @@ public class Function /*implements Type*/
       start.addInstructionToLLVM(new FunctionDefine(this.name, paramInstr, this.retType.getCFGType()));
 
       if (!(this.retType instanceof VoidType))
-         block.addInstructionToLLVM(new Allocation(this.retType.getCFGType(), new Register("_retval_")));
+         if(!SSA.isSSA) {
+//            SSA.writeVariable(start, "_retval_", new ValueLiteral("void"));
+//         }
+//         else {
+            block.addInstructionToLLVM(new Allocation(this.retType.getCFGType(), new Register("_retval_")));
+         }
       for(Declaration decl: params) {
-         block.addInstructionToLLVM(decl.getParamCFGValue().getAllocation());
-         block.addInstructionToLLVM(decl.getParamCFGValue().getStore());
+         if (SSA.isSSA) {
+            Register reg = new Register(decl.getName());
+            SSA.writeVariable(start, decl.getName(), reg);
+         }
+         else {
+            block.addInstructionToLLVM(decl.getParamCFGValue().getAllocation());
+            block.addInstructionToLLVM(decl.getParamCFGValue().getStore());
+         }
       }
 
       for(Declaration decl: locals) {
-         block.addInstructionToLLVM(decl.getLocalCFGValue());
+         if (SSA.isSSA) {
+            Register reg = new Register(decl.getName());
+            SSA.writeVariable(start, "%" + decl.getName(), reg);
+            //Register reg = new Register(decl.getParamCFGValue().toLLVM());
+            //SSA.writeVariable(start, decl.getParamCFGValue().getName(), reg);
+         }
+         else {
+            block.addInstructionToLLVM(decl.getLocalCFGValue());
+         }
       }
 
 
       Block lastNode = body.getCFG(block, end, blockList, structTable);
-      if(!lastNode.hasEndBlockSuccessor()) {
+      if(!lastNode.hasEndBlockSuccessor() && lastNode != end) {
          lastNode.addSuccessor(end);
+         //System.err.println("4 branching to " + end.getLlvmLabel() + " from " + lastNode.getLlvmLabel());
+
          lastNode.addInstructionToLLVM(new UnconditionalBranch(end.getLlvmLabel()));
       }
 
-      if(!end.getHasReturn()) {
-         end.addInstructionToLLVM(new ReturnVoid());
-         end.setHasReturn();
+      if (SSA.isSSA && !(retType instanceof VoidType)) {
+         Value retVal = SSA.readVariable(end, "_retval_", retType);
+         ReturnValue ret = new ReturnValue(retType.getCFGType(), retVal);
+         end.addInstructionToLLVM(ret);
       }
+      else if(!end.getHasReturn()) {
+         end.addInstructionToLLVM(new ReturnVoid());
+      }
+      end.setHasReturn();
 
       blockList.add(end);
 
       end.addInstructionToLLVM(new FunctionEnd(name));
+      SSA.sealBlock(end);
 
       return start;
    }

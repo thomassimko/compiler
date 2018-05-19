@@ -1,10 +1,12 @@
 package ast;
 
+import cfg.Block;
 import llvm.GetElementPointer;
 import llvm.Instruction;
 import llvm.Load;
 import llvm.value.Register;
 import llvm.value.RegisterCounter;
+import llvm.value.SSA;
 import llvm.value.Value;
 
 import java.util.ArrayList;
@@ -36,8 +38,8 @@ public class DotExpression
    }
 
    @Override
-   public Value getCFGValue(List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
-      Value leftReg = left.getCFGValue(instructionList, structTable);
+   public Value getCFGValue(Block block, List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
+      Value leftReg = left.getCFGValue(block, instructionList, structTable);
       Register r1 = RegisterCounter.getNextRegister();
       Register r2 = RegisterCounter.getNextRegister();
 

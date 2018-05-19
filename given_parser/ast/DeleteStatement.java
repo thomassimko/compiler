@@ -3,7 +3,6 @@ package ast;
 import cfg.Block;
 import llvm.BitCast;
 import llvm.InvocationCall;
-import llvm.Load;
 import llvm.value.Register;
 import llvm.value.RegisterCounter;
 import llvm.value.Value;
@@ -37,7 +36,7 @@ public class DeleteStatement extends AbstractStatement
       //call void @free(i8* %u83)
       Register r1 = RegisterCounter.getNextRegister();
       //Register r2 = RegisterCounter.getNextRegister();
-      Value val = expression.getCFGValue(curNode.getInstructionList(), structTable);
+      Value val = expression.getCFGValue(curNode, curNode.getLLVM(), structTable);
       //Load load = new Load(r1, this.type.getCFGType(), val);
       BitCast bitcast = new BitCast(r1, val, this.type.getCFGType(), "i8*");
       Value[] valArr = {r1};

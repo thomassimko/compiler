@@ -1,5 +1,6 @@
 package ast;
 
+import cfg.Block;
 import llvm.Instruction;
 import llvm.ZExtend;
 import llvm.value.Register;
@@ -21,7 +22,7 @@ public class TrueExpression
    }
 
    @Override
-   public Value getCFGValue(List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
+   public Value getCFGValue(Block block, List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
       Value val = new ValueLiteral("1");
       Register r1 = RegisterCounter.getNextRegister();
       ZExtend extend = new ZExtend(val, r1);

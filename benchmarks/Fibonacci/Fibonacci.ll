@@ -2,66 +2,49 @@ target triple="i686"
 
 
 
-define i32 @computeFib(i32 %_P_input)
+define i32 @computeFib(i32 %input)
 {
 
 L1:
-	%_retval_ = alloca i32
-	%input = alloca i32
-	store i32 %_P_input, i32* %input
-	%r0 = load i32, i32* %input
-	%r1 = icmp eq i32 %r0, 0
-	%r2 = zext i1 %r1 to i32
-	%r3 = trunc i32 %r2 to i1
-	br i1 %r3, label %L3, label %L4
+	%r0 = icmp eq i32 %input, 0
+	%r1 = zext i1 %r0 to i32
+	%r2 = trunc i32 %r1 to i1
+	br i1 %r2, label %L3, label %L4
 
 L3:
-	store i32 0, i32* %_retval_
 	br label %L2
 L4:
-	%r5 = load i32, i32* %input
-	%r6 = icmp sle i32 %r5, 2
-	%r7 = zext i1 %r6 to i32
-	%r8 = trunc i32 %r7 to i1
-	br i1 %r8, label %L7, label %L8
+	%r3 = icmp sle i32 %input, 2
+	%r4 = zext i1 %r3 to i32
+	%r5 = trunc i32 %r4 to i1
+	br i1 %r5, label %L6, label %L7
 
-L5:
+L6:
 	br label %L2
 L7:
-	store i32 1, i32* %_retval_
+	%r6 = sub i32 %input, 1
+	%r7 = call i32 @computeFib(i32 %r6 )
+	%r8 = sub i32 %input, 2
+	%r9 = call i32 @computeFib(i32 %r8 )
+	%r10 = add i32 %r7, %r9
 	br label %L2
-L8:
-	%r10 = load i32, i32* %input
-	%r11 = sub i32 %r10, 1
-	%r12 = call i32 @computeFib(i32 %r11 )
-	%r13 = load i32, i32* %input
-	%r14 = sub i32 %r13, 2
-	%r15 = call i32 @computeFib(i32 %r14 )
-	%r16 = add i32 %r12, %r15
-	store i32 %r16, i32* %_retval_
-	br label %L2
-L9:
-	br label %L5
 L2:
-	%r4 = load i32, i32* %_retval_
-	ret i32 %r4
+	%phi0 = phi i32 [0, %L3], [1, %L6], [%r10, %L7]
+	ret i32 %phi0
 }
 
 define i32 @main()
 {
 
-L13:
-	%_retval_ = alloca i32
-	%input = alloca i32
-	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* %input)
-	%r18 = load i32, i32* %input
-	%r19 = call i32 @computeFib(i32 %r18 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r19)
-	store i32 0, i32* %_retval_
-	br label %L14
-L14:
-	%r20 = load i32, i32* %_retval_
-	ret i32 %r20
+L10:
+	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* @.read_scratch)
+	%r11 = load i32, i32* @.read_scratch
+	%r12 = call i32 @computeFib(i32 %r11 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r12)
+	br label %L11
+L11:
+	%phi1 = phi i32 [0, %L10]
+	ret i32 %phi1
 }
 
 declare i8* @malloc(i32)

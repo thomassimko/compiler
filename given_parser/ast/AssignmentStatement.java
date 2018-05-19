@@ -3,6 +3,7 @@ package ast;
 import cfg.Block;
 import llvm.Read;
 import llvm.Store;
+import llvm.value.SSA;
 import llvm.value.Value;
 
 import java.util.HashMap;
@@ -40,14 +41,22 @@ public class AssignmentStatement extends AbstractStatement
 
    @Override
    public Block getCFG(Block curNode, Block endNode, List<Block> blockList, HashMap<String, HashMap<String, Type>> structTable) {
-      Value lVal = target.getCFGValue(curNode.getInstructionList(), structTable);
+      Value val = source.getCFGValue(curNode, curNode.getLLVM(), structTable);
+      Value lVal = target.getCFGValue(curNode, curNode.getLLVM(), structTable);
 
-      if (source instanceof ReadExpression) {
-         curNode.addInstructionToLLVM(new Read(lVal));
-      } else {
-         Value val = source.getCFGValue(curNode.getInstructionList(), structTable);
-         curNode.addInstructionToLLVM(new Store(this.type.getCFGType(), lVal, val));
-      }
+//      if (source instanceof ReadExpression) {
+//         curNode.addInstructionToLLVM(new Read(lVal));
+//      }
+//      else {
+         if (SSA.isSSA && target instanceof LvalueId && ((LvalueId) target).isLocal()) {
+            SSA.writeVariable(curNode, lVal.toLLVM(), val);
+            //System.out.println(lVal.toLLVM() + " --- " + val.toLLVM());
+         }
+         else {
+//            System.out.println("lval..." + lVal.toLLVM());
+            curNode.addInstructionToLLVM(new Store(this.type.getCFGType(), lVal, val));
+         }
+      //}
       return curNode;
    }
 }

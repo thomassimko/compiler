@@ -1,11 +1,13 @@
 package ast;
 
+import cfg.Block;
 import llvm.GetElementPointer;
 import llvm.Instruction;
 import llvm.Load;
 import llvm.Store;
 import llvm.value.Register;
 import llvm.value.RegisterCounter;
+import llvm.value.SSA;
 import llvm.value.Value;
 
 import java.util.ArrayList;
@@ -43,20 +45,21 @@ public class LvalueDot implements Lvalue {
     }
 
     @Override
-    public Value getCFGValue(List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
-        Value leftReg = left.getCFGValue(instructionList, structTable);
+    public Value getCFGValue(Block block, List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
+        Value leftReg = left.getCFGValue(block, instructionList, structTable);
         Register r1 = RegisterCounter.getNextRegister();
-        //Register r2 = RegisterCounter.getNextRegister();
 
         List<String> sortedList = new ArrayList<>(structTable.get(type.getName()).keySet());
         Collections.sort(sortedList);
         int index = sortedList.indexOf(id);
 
-        GetElementPointer getElem = new GetElementPointer(r1, type.getCFGType(), leftReg, index);
-        //Load loadStruct = new Load(r2, type.getCFGType(), r1);
+        if(SSA.isSSA && left instanceof Lvalue) {
+            //System.out.println("left dot " + leftReg.toLLVM());
+            leftReg = SSA.readVariable(block, leftReg.toLLVM(), type);
+        }
 
+        GetElementPointer getElem = new GetElementPointer(r1, type.getCFGType(), leftReg, index);
         instructionList.add(getElem);
-        //instructionList.add(loadStruct);
 
         return r1;
 

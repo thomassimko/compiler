@@ -8,6 +8,9 @@ import cfg.StartBlock;
 import llvm.FunctionDefine;
 import llvm.FunctionEnd;
 import llvm.Instruction;
+import llvm.Phi;
+import llvm.value.SSA;
+import llvm.value.Value;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
@@ -41,78 +44,11 @@ public class MiniCompiler
 
          Block[] cfg = program.getCFG(blockList, structTable);
 
-         List<ArmInstruction> armInstructions = new ArrayList<>();
-         HashMap<String, Integer> armOffsets = new HashMap<>();
-         ArmStackAllocation stackAlloc = new ArmStackAllocation(false, 0);
+         //convertToArm(blockList, program);
 
-         for(Block block:blockList) {
-            List<ArmInstruction> blockArmInstructions = new ArrayList<>();
-            if(block instanceof StartBlock) {
-               stackAlloc = new ArmStackAllocation(false, 0);
-               armOffsets = new HashMap<>();
-            }
-            else if(block instanceof EndBlock) {
-               stackAlloc.setStackSize(armOffsets.size());
-            }
-            if (!(block instanceof StartBlock) && !(block instanceof FakeBlock))
-               blockArmInstructions.add(new ArmLabel(block.getLlvmLabel()));
+         printCFG(blockList);
 
-            for(Instruction instruction: block.getLLVM()) {
-
-               if (instruction instanceof FunctionEnd) {
-                  blockArmInstructions.add(new ArmStackAllocation(true, armOffsets.size()));
-               }
-
-               instruction.toArm(blockArmInstructions, armOffsets);
-
-               if(instruction instanceof FunctionDefine) {
-                  blockArmInstructions.add(stackAlloc);
-               }
-            }
-
-            block.setArmCode(blockArmInstructions);
-            armInstructions.addAll(blockArmInstructions);
-
-
-         }
-         for (Block block : blockList) {
-            block.setGenKillSets();
-         }
-         for (Block block : blockList) {
-            block.setLiveOut();
-         }
-
-         boolean changed = true;
-         while(changed) {
-            changed = false;
-            for (Block block : blockList) {
-               if (block.setLiveOut()) {
-                  changed = true;
-               }
-            }
-         }
-
-
-         Set<ArmRegister> interferenceNodeSet = new HashSet<>();
-         for(Block block: blockList) {
-            block.buildInterferenceGraph(interferenceNodeSet);
-         }
-
-         printInterferenceGraph(interferenceNodeSet);
-
-         Map<String, String> colorMaps = GraphColorer.allocateRegisters(interferenceNodeSet);
-
-         for(ArmInstruction instruction: armInstructions) {
-            instruction.replaceRegisters(colorMaps);
-         }
-
-         //printCFG(blockList);
-
-         if (stack) {
-            printStackLLVM(program, blockList);
-         }
-
-         printArm(program, armInstructions);
+         printLLVM(program, blockList);
       }
    }
 
@@ -128,6 +64,7 @@ public class MiniCompiler
             switch(args[i]) {
                case "-stack":
                   stack = true;
+                  SSA.isSSA = false;
                   break;
                default:
                   System.err.println("unexpected option: " + args[i]);
@@ -193,7 +130,7 @@ public class MiniCompiler
       }
    }
 
-   private static void printStackLLVM(ast.Program program, List<Block> blockList) {
+   private static void printLLVM(ast.Program program, List<Block> blockList) {
       try {
          String outputPath = "../output.ll";
          FileWriter writer = new FileWriter(outputPath);
@@ -208,7 +145,7 @@ public class MiniCompiler
             if (!(block instanceof StartBlock) && !(block instanceof FakeBlock))
                writer.write(block.getLlvmLabel() + ":\n");
 
-            for(Instruction instruction: block.getLLVM()) {
+            for(Instruction instruction: block.getFinalLLVM()) {
                if(!(instruction instanceof FunctionDefine) && !(instruction instanceof FunctionEnd)) {
                   writer.write('\t');
                }
@@ -298,5 +235,81 @@ public class MiniCompiler
       } catch (IOException ex) {
          System.err.println(ex);
       }
+   }
+
+   private static void convertToArm(List<Block> blockList, ast.Program program) {
+      List<ArmInstruction> armInstructions = new ArrayList<>();
+      HashMap<String, Integer> armOffsets = new HashMap<>();
+      ArmStackAllocation stackAlloc = new ArmStackAllocation(false, 0);
+
+      for(Block block:blockList) {
+         List<ArmInstruction> blockArmInstructions = new ArrayList<>();
+         if(block instanceof StartBlock) {
+            stackAlloc = new ArmStackAllocation(false, 0);
+            armOffsets = new HashMap<>();
+         }
+         else if(block instanceof EndBlock) {
+            stackAlloc.setStackSize(armOffsets.size());
+         }
+         if (!(block instanceof StartBlock) && !(block instanceof FakeBlock))
+            blockArmInstructions.add(new ArmLabel(block.getLlvmLabel()));
+
+         for(Instruction instruction: block.getFinalLLVM()) {
+
+            if (instruction instanceof FunctionEnd) {
+               blockArmInstructions.add(new ArmStackAllocation(true, armOffsets.size()));
+            } else if(instruction instanceof Phi) {
+               Phi phi = (Phi) instruction;
+               List<Value> operands = phi.getOperands();
+               List<Block> operandBlock = phi.getOperandFrom();
+               for (int i = 0; i < operands.size(); i++) {
+                  List<ArmInstruction> succArm = operandBlock.get(i).getArmCode();
+               }
+            }
+
+            instruction.toArm(blockArmInstructions, armOffsets);
+
+            if(instruction instanceof FunctionDefine) {
+               blockArmInstructions.add(stackAlloc);
+            }
+         }
+
+         block.setArmCode(blockArmInstructions);
+         armInstructions.addAll(blockArmInstructions);
+
+
+      }
+      for (Block block : blockList) {
+         block.setGenKillSets();
+      }
+      for (Block block : blockList) {
+         block.setLiveOut();
+      }
+
+      boolean changed = true;
+      while(changed) {
+         changed = false;
+         for (Block block : blockList) {
+            if (block.setLiveOut()) {
+               changed = true;
+            }
+         }
+      }
+
+
+      Set<ArmRegister> interferenceNodeSet = new HashSet<>();
+      for(Block block: blockList) {
+         block.buildInterferenceGraph(interferenceNodeSet);
+      }
+
+      printInterferenceGraph(interferenceNodeSet);
+
+      Map<String, String> colorMaps = GraphColorer.allocateRegisters(interferenceNodeSet);
+
+      for(ArmInstruction instruction: armInstructions) {
+         instruction.replaceRegisters(colorMaps);
+      }
+      printArm(program, armInstructions);
+
    }
 }

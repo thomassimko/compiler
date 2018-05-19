@@ -1,7 +1,6 @@
 package ast;
 
 import cfg.Block;
-import llvm.InvocationCall;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +26,7 @@ public class InvocationStatement extends AbstractStatement
    public Block getCFG(Block curNode, Block endNode, List<Block> blockList, HashMap<String, HashMap<String, Type>> structTable) {
       InvocationExpression exp = (InvocationExpression) expression;
       exp.setIsStatement();
-      exp.getCFGValue(curNode.getInstructionList(), structTable);
+      exp.getCFGValue(curNode, curNode.getLLVM(), structTable);
       return curNode;
    }
 }

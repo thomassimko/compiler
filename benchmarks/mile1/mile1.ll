@@ -2,116 +2,85 @@ target triple="i686"
 
 %struct.Power = type {i32, i32}
 
-define i32 @calcPower(i32 %_P_base, i32 %_P_exp)
+define i32 @calcPower(i32 %base, i32 %exp)
 {
 
 L1:
-	%_retval_ = alloca i32
-	%base = alloca i32
-	store i32 %_P_base, i32* %base
-	%exp = alloca i32
-	store i32 %_P_exp, i32* %exp
-	%result = alloca i32
-	store i32 1, i32* %result
-	%r5 = load i32, i32* %exp
-	%r6 = icmp sgt i32 %r5, 0
-	%r7 = zext i1 %r6 to i32
-	%r8 = trunc i32 %r7 to i1
-	br i1 %r8, label %L3, label %L4
+	%r0 = icmp sgt i32 %exp, 0
+	%r1 = zext i1 %r0 to i32
+	%r2 = trunc i32 %r1 to i1
+	br i1 %r2, label %L3, label %L4
 
 L3:
-	%r0 = load i32, i32* %result
-	%r1 = load i32, i32* %base
-	%r2 = mul i32 %r0, %r1
-	store i32 %r2, i32* %result
-	%r3 = load i32, i32* %exp
-	%r4 = sub i32 %r3, 1
-	store i32 %r4, i32* %exp
-	%r9 = load i32, i32* %exp
-	%r10 = icmp sgt i32 %r9, 0
-	%r11 = zext i1 %r10 to i32
-	%r12 = trunc i32 %r11 to i1
-	br i1 %r12, label %L3, label %L4
+	%phi0 = phi i32 [1, %L1], [%r3, %L3]
+	%phi1 = phi i32 [%base, %L1], [%phi1, %L3]
+	%phi2 = phi i32 [%exp, %L1], [%r4, %L3]
+	%r3 = mul i32 %phi0, %phi1
+	%r4 = sub i32 %phi2, 1
+	%r5 = icmp sgt i32 %r4, 0
+	%r6 = zext i1 %r5 to i32
+	%r7 = trunc i32 %r6 to i1
+	br i1 %r7, label %L3, label %L4
 
 L4:
-	%r13 = load i32, i32* %result
-	store i32 %r13, i32* %_retval_
+	%phi3 = phi i32 [1, %L1], [%r3, %L3]
 	br label %L2
 L2:
-	%r14 = load i32, i32* %_retval_
-	ret i32 %r14
+	%phi4 = phi i32 [%phi3, %L4]
+	ret i32 %phi4
 }
 
 define i32 @main()
 {
 
 L6:
-	%_retval_ = alloca i32
-	%power = alloca %struct.Power*
-	%input = alloca i32
-	%result = alloca i32
-	%exp = alloca i32
-	%i = alloca i32
-	store i32 0, i32* %result
-	%r15 = call i8* @malloc(i32 16)
-	%r16 = bitcast i8* %r15 to %struct.Power*
-	store %struct.Power* %r16, %struct.Power** %power
-	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* %input)
-	%r17 = load %struct.Power*, %struct.Power** %power
-	%r18 = getelementptr %struct.Power , %struct.Power* %r17, i1 0, i32 0
-	%r19 = load i32, i32* %input
-	store i32 %r19, i32* %r18
-	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* %input)
-	%r20 = load i32, i32* %input
-	%r21 = icmp slt i32 %r20, 0
-	%r22 = zext i1 %r21 to i32
-	%r23 = trunc i32 %r22 to i1
-	br i1 %r23, label %L8, label %L9
+	%r8 = call i8* @malloc(i32 16)
+	%r9 = bitcast i8* %r8 to %struct.Power*
+	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* @.read_scratch)
+	%r10 = load i32, i32* @.read_scratch
+	%r11 = getelementptr %struct.Power , %struct.Power* %r9, i1 0, i32 0
+	store i32 %r10, i32* %r11
+	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* @.read_scratch)
+	%r12 = load i32, i32* @.read_scratch
+	%r13 = icmp slt i32 %r12, 0
+	%r14 = zext i1 %r13 to i32
+	%r15 = trunc i32 %r14 to i1
+	br i1 %r15, label %L8, label %L9
 
 L8:
-	%r24 = sub i32 0, 1
-	store i32 %r24, i32* %_retval_
+	%r16 = sub i32 0, 1
 	br label %L7
 L9:
 	br label %L10
 L10:
-	%r26 = load %struct.Power*, %struct.Power** %power
-	%r27 = getelementptr %struct.Power , %struct.Power* %r26, i1 0, i32 1
-	%r28 = load i32, i32* %input
-	store i32 %r28, i32* %r27
-	store i32 0, i32* %i
-	%r38 = load i32, i32* %i
-	%r39 = icmp slt i32 %r38, 1000000
-	%r40 = zext i1 %r39 to i32
-	%r41 = trunc i32 %r40 to i1
-	br i1 %r41, label %L12, label %L13
+	%r17 = getelementptr %struct.Power , %struct.Power* %r9, i1 0, i32 1
+	store i32 %r12, i32* %r17
+	%r18 = icmp slt i32 0, 1000000
+	%r19 = zext i1 %r18 to i32
+	%r20 = trunc i32 %r19 to i1
+	br i1 %r20, label %L11, label %L12
+
+L11:
+	%phi5 = phi i32 [0, %L10], [%r21, %L11]
+	%phi6 = phi %struct.Power* [%r9, %L10], [%phi6, %L11]
+	%r21 = add i32 %phi5, 1
+	%r22 = getelementptr %struct.Power , %struct.Power* %phi6, i1 0, i32 0
+	%r23 = load i32, i32* %r22
+	%r24 = getelementptr %struct.Power , %struct.Power* %phi6, i1 0, i32 1
+	%r25 = load i32, i32* %r24
+	%r26 = call i32 @calcPower(i32 %r23, i32 %r25 )
+	%r27 = icmp slt i32 %r21, 1000000
+	%r28 = zext i1 %r27 to i32
+	%r29 = trunc i32 %r28 to i1
+	br i1 %r29, label %L11, label %L12
 
 L12:
-	%r29 = load i32, i32* %i
-	%r30 = add i32 %r29, 1
-	store i32 %r30, i32* %i
-	%r31 = load %struct.Power*, %struct.Power** %power
-	%r32 = getelementptr %struct.Power , %struct.Power* %r31, i1 0, i32 0
-	%r33 = load i32, i32* %r32
-	%r34 = load %struct.Power*, %struct.Power** %power
-	%r35 = getelementptr %struct.Power , %struct.Power* %r34, i1 0, i32 1
-	%r36 = load i32, i32* %r35
-	%r37 = call i32 @calcPower(i32 %r33, i32 %r36 )
-	store i32 %r37, i32* %result
-	%r42 = load i32, i32* %i
-	%r43 = icmp slt i32 %r42, 1000000
-	%r44 = zext i1 %r43 to i32
-	%r45 = trunc i32 %r44 to i1
-	br i1 %r45, label %L12, label %L13
-
-L13:
-	%r46 = load i32, i32* %result
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r46)
-	store i32 1, i32* %_retval_
+	%phi7 = phi i32 [0, %L10], [%r26, %L11]
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %phi7)
 	br label %L7
 L7:
-	%r25 = load i32, i32* %_retval_
-	ret i32 %r25
+	%phi8 = phi i32 [%r16, %L8], [1, %L12]
+	ret i32 %phi8
 }
 
 declare i8* @malloc(i32)

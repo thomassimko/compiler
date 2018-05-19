@@ -1,11 +1,9 @@
 package ast;
 
+import cfg.Block;
 import llvm.Instruction;
 import llvm.Load;
-import llvm.value.Global;
-import llvm.value.Register;
-import llvm.value.RegisterCounter;
-import llvm.value.Value;
+import llvm.value.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,14 +40,18 @@ public class IdentifierExpression
    }
 
    @Override
-   public Value getCFGValue(List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
-      Register returnReg = RegisterCounter.getNextRegister();
+   public Value getCFGValue(Block block, List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
       Value value;
       if (isLocal) {
+         if (SSA.isSSA) {
+//            System.out.println("reading " + id + " on line " + lineNum + ", found value " + SSA.readVariable(block, id, type).toLLVM());
+            return SSA.readVariable(block, id, type);
+         }
          value = new Register(id);
       } else {
          value = new Global(id);
       }
+      Register returnReg = RegisterCounter.getNextRegister();
       Instruction instruction = new Load(returnReg, this.type.getCFGType(), value);
       instructionList.add(instruction);
       return returnReg;

@@ -4,6 +4,7 @@ import cfg.Block;
 import llvm.*;
 import llvm.value.Register;
 import llvm.value.RegisterCounter;
+import llvm.value.SSA;
 import llvm.value.Value;
 
 import java.util.HashMap;
@@ -46,22 +47,33 @@ public class ReturnStatement
       curNode.addSuccessor(endNode);
       //store i32 %u9, i32* %_retval_
       //br label %LU9
-      Register retLoc = new Register("_retval_");
-      Value val = expression.getCFGValue(curNode.getInstructionList(), structTable);
-      Store store = new Store(this.returnType.getCFGType(), retLoc, val);
+      Value val = expression.getCFGValue(curNode, curNode.getLLVM(), structTable);
+      //System.err.println("5 branching to " + endNode.getLlvmLabel() + " from " + curNode.getLlvmLabel());
+
       UnconditionalBranch retBranch = new UnconditionalBranch(endNode.getLlvmLabel());
 
-      curNode.addInstructionToLLVM(store);
-      curNode.addInstructionToLLVM(retBranch);
 
-      Register r1 = RegisterCounter.getNextRegister();
-      Instruction loadRet = new Load(r1, returnType.getCFGType(), retLoc);
-      Instruction ret = new ReturnValue(this.returnType.getCFGType(), r1);
+      if(SSA.isSSA) {
+         //System.err.println("branching to " + endNode.getLlvmLabel() + " from " + curNode.getLlvmLabel());
+         SSA.writeVariable(curNode, "_retval_", val);
+         curNode.addInstructionToLLVM(retBranch);
 
-      if(!endNode.getHasReturn()) {
-         endNode.addInstructionToLLVM(loadRet);
-         endNode.addInstructionToLLVM(ret);
-         endNode.setHasReturn();
+      } else {
+         Register retLoc = new Register("_retval_");
+         Store store = new Store(this.returnType.getCFGType(), retLoc, val);
+
+         curNode.addInstructionToLLVM(store);
+         curNode.addInstructionToLLVM(retBranch);
+
+         Register r1 = RegisterCounter.getNextRegister();
+         Instruction loadRet = new Load(r1, returnType.getCFGType(), retLoc);
+         Instruction ret = new ReturnValue(this.returnType.getCFGType(), r1);
+
+         if(!endNode.getHasReturn()) {
+            endNode.addInstructionToLLVM(loadRet);
+            endNode.addInstructionToLLVM(ret);
+            endNode.setHasReturn();
+         }
       }
       return curNode;
    }

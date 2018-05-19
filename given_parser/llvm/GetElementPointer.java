@@ -5,10 +5,7 @@ import arm.ArithmeticInstruction;
 import arm.ArmInstruction;
 import arm.ArmValue.ArmImmediate;
 import arm.ArmValue.ArmVirtualRegister;
-import llvm.value.Register;
-import llvm.value.Value;
-import llvm.value.ValueLiteral;
-import llvm.value.ValueToArm;
+import llvm.value.*;
 
 import java.util.HashMap;
 import java.util.List;

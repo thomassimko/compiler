@@ -6,96 +6,82 @@ target triple="i686"
 @peg3 = common global %struct.plate* null, align 8
 @numMoves = common global i32 0, align 8
 
-define void @move(i32 %_P_from, i32 %_P_to)
+define void @move(i32 %from, i32 %to)
 {
 
 L1:
-	%from = alloca i32
-	store i32 %_P_from, i32* %from
-	%to = alloca i32
-	store i32 %_P_to, i32* %to
-	%plateToMove = alloca %struct.plate*
-	%r0 = load i32, i32* %from
-	%r1 = icmp eq i32 %r0, 1
-	%r2 = zext i1 %r1 to i32
-	%r3 = trunc i32 %r2 to i1
-	br i1 %r3, label %L3, label %L4
+	%r0 = icmp eq i32 %from, 1
+	%r1 = zext i1 %r0 to i32
+	%r2 = trunc i32 %r1 to i1
+	br i1 %r2, label %L3, label %L4
 
 L3:
+	%r3 = load %struct.plate*, %struct.plate** @peg1
 	%r4 = load %struct.plate*, %struct.plate** @peg1
-	store %struct.plate* %r4, %struct.plate** %plateToMove
-	%r5 = load %struct.plate*, %struct.plate** @peg1
-	%r6 = getelementptr %struct.plate , %struct.plate* %r5, i1 0, i32 0
-	%r7 = load %struct.plate*, %struct.plate** %r6
-	store %struct.plate* %r7, %struct.plate** @peg1
+	%r5 = getelementptr %struct.plate , %struct.plate* %r4, i1 0, i32 0
+	%r6 = load %struct.plate*, %struct.plate** %r5
+	store %struct.plate* %r6, %struct.plate** @peg1
 	br label %L5
 L4:
-	%r8 = load i32, i32* %from
-	%r9 = icmp eq i32 %r8, 2
-	%r10 = zext i1 %r9 to i32
-	%r11 = trunc i32 %r10 to i1
-	br i1 %r11, label %L6, label %L7
+	%r7 = icmp eq i32 %from, 2
+	%r8 = zext i1 %r7 to i32
+	%r9 = trunc i32 %r8 to i1
+	br i1 %r9, label %L6, label %L7
 
 L5:
-	%r20 = load i32, i32* %to
-	%r21 = icmp eq i32 %r20, 1
-	%r22 = zext i1 %r21 to i32
-	%r23 = trunc i32 %r22 to i1
-	br i1 %r23, label %L9, label %L10
+	%phi0 = phi i32 [%to, %L3], [%phi1, %L8]
+	%phi2 = phi %struct.plate* [%r3, %L3], [%phi3, %L8]
+	%r18 = icmp eq i32 %phi0, 1
+	%r19 = zext i1 %r18 to i32
+	%r20 = trunc i32 %r19 to i1
+	br i1 %r20, label %L9, label %L10
 
 L6:
-	%r12 = load %struct.plate*, %struct.plate** @peg2
-	store %struct.plate* %r12, %struct.plate** %plateToMove
-	%r13 = load %struct.plate*, %struct.plate** @peg2
-	%r14 = getelementptr %struct.plate , %struct.plate* %r13, i1 0, i32 0
-	%r15 = load %struct.plate*, %struct.plate** %r14
-	store %struct.plate* %r15, %struct.plate** @peg2
+	%r10 = load %struct.plate*, %struct.plate** @peg2
+	%r11 = load %struct.plate*, %struct.plate** @peg2
+	%r12 = getelementptr %struct.plate , %struct.plate* %r11, i1 0, i32 0
+	%r13 = load %struct.plate*, %struct.plate** %r12
+	store %struct.plate* %r13, %struct.plate** @peg2
 	br label %L8
 L7:
-	%r16 = load %struct.plate*, %struct.plate** @peg3
-	store %struct.plate* %r16, %struct.plate** %plateToMove
-	%r17 = load %struct.plate*, %struct.plate** @peg3
-	%r18 = getelementptr %struct.plate , %struct.plate* %r17, i1 0, i32 0
-	%r19 = load %struct.plate*, %struct.plate** %r18
-	store %struct.plate* %r19, %struct.plate** @peg3
+	%r14 = load %struct.plate*, %struct.plate** @peg3
+	%r15 = load %struct.plate*, %struct.plate** @peg3
+	%r16 = getelementptr %struct.plate , %struct.plate* %r15, i1 0, i32 0
+	%r17 = load %struct.plate*, %struct.plate** %r16
+	store %struct.plate* %r17, %struct.plate** @peg3
 	br label %L8
 L8:
+	%phi1 = phi i32 [%to, %L6], [%to, %L7]
+	%phi3 = phi %struct.plate* [%r10, %L6], [%r14, %L7]
 	br label %L5
 L9:
-	%r24 = load %struct.plate*, %struct.plate** %plateToMove
-	%r25 = getelementptr %struct.plate , %struct.plate* %r24, i1 0, i32 0
-	%r26 = load %struct.plate*, %struct.plate** @peg1
-	store %struct.plate* %r26, %struct.plate** %r25
-	%r27 = load %struct.plate*, %struct.plate** %plateToMove
-	store %struct.plate* %r27, %struct.plate** @peg1
+	%r21 = load %struct.plate*, %struct.plate** @peg1
+	%r22 = getelementptr %struct.plate , %struct.plate* %phi2, i1 0, i32 0
+	store %struct.plate* %r21, %struct.plate** %r22
+	store %struct.plate* %phi2, %struct.plate** @peg1
 	br label %L11
 L10:
-	%r28 = load i32, i32* %to
-	%r29 = icmp eq i32 %r28, 2
-	%r30 = zext i1 %r29 to i32
-	%r31 = trunc i32 %r30 to i1
-	br i1 %r31, label %L12, label %L13
+	%r23 = icmp eq i32 %phi0, 2
+	%r24 = zext i1 %r23 to i32
+	%r25 = trunc i32 %r24 to i1
+	br i1 %r25, label %L12, label %L13
 
 L11:
-	%r40 = load i32, i32* @numMoves
-	%r41 = add i32 %r40, 1
-	store i32 %r41, i32* @numMoves
+	%r30 = load i32, i32* @numMoves
+	%r31 = add i32 %r30, 1
+	store i32 %r31, i32* @numMoves
 	br label %L2
 L12:
-	%r32 = load %struct.plate*, %struct.plate** %plateToMove
-	%r33 = getelementptr %struct.plate , %struct.plate* %r32, i1 0, i32 0
-	%r34 = load %struct.plate*, %struct.plate** @peg2
-	store %struct.plate* %r34, %struct.plate** %r33
-	%r35 = load %struct.plate*, %struct.plate** %plateToMove
-	store %struct.plate* %r35, %struct.plate** @peg2
+	%r26 = load %struct.plate*, %struct.plate** @peg2
+	%r27 = getelementptr %struct.plate , %struct.plate* %phi2, i1 0, i32 0
+	store %struct.plate* %r26, %struct.plate** %r27
+	store %struct.plate* %phi2, %struct.plate** @peg2
 	br label %L14
 L13:
-	%r36 = load %struct.plate*, %struct.plate** %plateToMove
-	%r37 = getelementptr %struct.plate , %struct.plate* %r36, i1 0, i32 0
-	%r38 = load %struct.plate*, %struct.plate** @peg3
-	store %struct.plate* %r38, %struct.plate** %r37
-	%r39 = load %struct.plate*, %struct.plate** %plateToMove
-	store %struct.plate* %r39, %struct.plate** @peg3
+	%r28 = load %struct.plate*, %struct.plate** @peg3
+	%r29 = getelementptr %struct.plate , %struct.plate* %phi2, i1 0, i32 0
+	store %struct.plate* %r28, %struct.plate** %r29
+	store %struct.plate* %phi2, %struct.plate** @peg3
 	br label %L14
 L14:
 	br label %L11
@@ -103,45 +89,24 @@ L2:
 	ret void
 }
 
-define void @hanoi(i32 %_P_n, i32 %_P_from, i32 %_P_to, i32 %_P_other)
+define void @hanoi(i32 %n, i32 %from, i32 %to, i32 %other)
 {
 
 L16:
-	%n = alloca i32
-	store i32 %_P_n, i32* %n
-	%from = alloca i32
-	store i32 %_P_from, i32* %from
-	%to = alloca i32
-	store i32 %_P_to, i32* %to
-	%other = alloca i32
-	store i32 %_P_other, i32* %other
-	%r42 = load i32, i32* %n
-	%r43 = icmp eq i32 %r42, 1
-	%r44 = zext i1 %r43 to i32
-	%r45 = trunc i32 %r44 to i1
-	br i1 %r45, label %L18, label %L19
+	%r32 = icmp eq i32 %n, 1
+	%r33 = zext i1 %r32 to i32
+	%r34 = trunc i32 %r33 to i1
+	br i1 %r34, label %L18, label %L19
 
 L18:
-	%r46 = load i32, i32* %from
-	%r47 = load i32, i32* %to
-	call void @move(i32 %r46, i32 %r47 )
+	call void @move(i32 %from, i32 %to )
 	br label %L20
 L19:
-	%r48 = load i32, i32* %n
-	%r49 = sub i32 %r48, 1
-	%r50 = load i32, i32* %from
-	%r51 = load i32, i32* %other
-	%r52 = load i32, i32* %to
-	call void @hanoi(i32 %r49, i32 %r50, i32 %r51, i32 %r52 )
-	%r53 = load i32, i32* %from
-	%r54 = load i32, i32* %to
-	call void @move(i32 %r53, i32 %r54 )
-	%r55 = load i32, i32* %n
-	%r56 = sub i32 %r55, 1
-	%r57 = load i32, i32* %other
-	%r58 = load i32, i32* %to
-	%r59 = load i32, i32* %from
-	call void @hanoi(i32 %r56, i32 %r57, i32 %r58, i32 %r59 )
+	%r35 = sub i32 %n, 1
+	call void @hanoi(i32 %r35, i32 %from, i32 %other, i32 %to )
+	call void @move(i32 %from, i32 %to )
+	%r36 = sub i32 %n, 1
+	call void @hanoi(i32 %r36, i32 %other, i32 %to, i32 %from )
 	br label %L20
 L20:
 	br label %L17
@@ -149,35 +114,26 @@ L17:
 	ret void
 }
 
-define void @printPeg(%struct.plate* %_P_peg)
+define void @printPeg(%struct.plate* %peg)
 {
 
 L22:
-	%peg = alloca %struct.plate*
-	store %struct.plate* %_P_peg, %struct.plate** %peg
-	%aPlate = alloca %struct.plate*
-	%r60 = load %struct.plate*, %struct.plate** %peg
-	store %struct.plate* %r60, %struct.plate** %aPlate
-	%r67 = load %struct.plate*, %struct.plate** %aPlate
-	%r68 = icmp ne %struct.plate* %r67, null
-	%r69 = zext i1 %r68 to i32
-	%r70 = trunc i32 %r69 to i1
-	br i1 %r70, label %L24, label %L25
+	%r37 = icmp ne %struct.plate* %peg, null
+	%r38 = zext i1 %r37 to i32
+	%r39 = trunc i32 %r38 to i1
+	br i1 %r39, label %L24, label %L25
 
 L24:
-	%r61 = load %struct.plate*, %struct.plate** %aPlate
-	%r62 = getelementptr %struct.plate , %struct.plate* %r61, i1 0, i32 1
-	%r63 = load i32, i32* %r62
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r63)
-	%r64 = load %struct.plate*, %struct.plate** %aPlate
-	%r65 = getelementptr %struct.plate , %struct.plate* %r64, i1 0, i32 0
-	%r66 = load %struct.plate*, %struct.plate** %r65
-	store %struct.plate* %r66, %struct.plate** %aPlate
-	%r71 = load %struct.plate*, %struct.plate** %aPlate
-	%r72 = icmp ne %struct.plate* %r71, null
-	%r73 = zext i1 %r72 to i32
-	%r74 = trunc i32 %r73 to i1
-	br i1 %r74, label %L24, label %L25
+	%phi4 = phi %struct.plate* [%peg, %L22], [%r43, %L24]
+	%r40 = getelementptr %struct.plate , %struct.plate* %phi4, i1 0, i32 1
+	%r41 = load i32, i32* %r40
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r41)
+	%r42 = getelementptr %struct.plate , %struct.plate* %phi4, i1 0, i32 0
+	%r43 = load %struct.plate*, %struct.plate** %r42
+	%r44 = icmp ne %struct.plate* %r43, null
+	%r45 = zext i1 %r44 to i32
+	%r46 = trunc i32 %r45 to i1
+	br i1 %r46, label %L24, label %L25
 
 L25:
 	br label %L23
@@ -189,108 +145,92 @@ define i32 @main()
 {
 
 L27:
-	%_retval_ = alloca i32
-	%count = alloca i32
-	%numPlates = alloca i32
-	%aPlate = alloca %struct.plate*
 	store %struct.plate* null, %struct.plate** @peg1
 	store %struct.plate* null, %struct.plate** @peg2
 	store %struct.plate* null, %struct.plate** @peg3
 	store i32 0, i32* @numMoves
-	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* %numPlates)
-	%r75 = load i32, i32* %numPlates
-	%r76 = icmp sge i32 %r75, 1
-	%r77 = zext i1 %r76 to i32
-	%r78 = trunc i32 %r77 to i1
-	br i1 %r78, label %L29, label %L30
+	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* @.read_scratch)
+	%r47 = load i32, i32* @.read_scratch
+	%r48 = icmp sge i32 %r47, 1
+	%r49 = zext i1 %r48 to i32
+	%r50 = trunc i32 %r49 to i1
+	br i1 %r50, label %L29, label %L30
 
 L29:
-	%r79 = load i32, i32* %numPlates
-	store i32 %r79, i32* %count
-	%r91 = load i32, i32* %count
-	%r92 = icmp ne i32 %r91, 0
-	%r93 = zext i1 %r92 to i32
-	%r94 = trunc i32 %r93 to i1
-	br i1 %r94, label %L32, label %L33
+	%r51 = icmp ne i32 %r47, 0
+	%r52 = zext i1 %r51 to i32
+	%r53 = trunc i32 %r52 to i1
+	br i1 %r53, label %L32, label %L33
 
 L30:
 	br label %L31
 L31:
-	store i32 0, i32* %_retval_
 	br label %L28
 L32:
-	%r80 = call i8* @malloc(i32 16)
-	%r81 = bitcast i8* %r80 to %struct.plate*
-	store %struct.plate* %r81, %struct.plate** %aPlate
-	%r82 = load %struct.plate*, %struct.plate** %aPlate
-	%r83 = getelementptr %struct.plate , %struct.plate* %r82, i1 0, i32 1
-	%r84 = load i32, i32* %count
-	store i32 %r84, i32* %r83
-	%r85 = load %struct.plate*, %struct.plate** %aPlate
-	%r86 = getelementptr %struct.plate , %struct.plate* %r85, i1 0, i32 0
-	%r87 = load %struct.plate*, %struct.plate** @peg1
-	store %struct.plate* %r87, %struct.plate** %r86
-	%r88 = load %struct.plate*, %struct.plate** %aPlate
-	store %struct.plate* %r88, %struct.plate** @peg1
-	%r89 = load i32, i32* %count
-	%r90 = sub i32 %r89, 1
-	store i32 %r90, i32* %count
-	%r95 = load i32, i32* %count
-	%r96 = icmp ne i32 %r95, 0
-	%r97 = zext i1 %r96 to i32
-	%r98 = trunc i32 %r97 to i1
-	br i1 %r98, label %L32, label %L33
+	%phi5 = phi i32 [%r47, %L29], [%r59, %L32]
+	%phi7 = phi i32 [%r47, %L29], [%phi7, %L32]
+	%r54 = call i8* @malloc(i32 16)
+	%r55 = bitcast i8* %r54 to %struct.plate*
+	%r56 = getelementptr %struct.plate , %struct.plate* %r55, i1 0, i32 1
+	store i32 %phi5, i32* %r56
+	%r57 = load %struct.plate*, %struct.plate** @peg1
+	%r58 = getelementptr %struct.plate , %struct.plate* %r55, i1 0, i32 0
+	store %struct.plate* %r57, %struct.plate** %r58
+	store %struct.plate* %r55, %struct.plate** @peg1
+	%r59 = sub i32 %phi5, 1
+	%r60 = icmp ne i32 %r59, 0
+	%r61 = zext i1 %r60 to i32
+	%r62 = trunc i32 %r61 to i1
+	br i1 %r62, label %L32, label %L33
 
 L33:
+	%phi6 = phi i32 [%r47, %L29], [%phi7, %L32]
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 1)
-	%r99 = load %struct.plate*, %struct.plate** @peg1
-	call void @printPeg(%struct.plate* %r99 )
+	%r63 = load %struct.plate*, %struct.plate** @peg1
+	call void @printPeg(%struct.plate* %r63 )
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 2)
-	%r100 = load %struct.plate*, %struct.plate** @peg2
-	call void @printPeg(%struct.plate* %r100 )
+	%r64 = load %struct.plate*, %struct.plate** @peg2
+	call void @printPeg(%struct.plate* %r64 )
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 3)
-	%r101 = load %struct.plate*, %struct.plate** @peg3
-	call void @printPeg(%struct.plate* %r101 )
-	%r102 = load i32, i32* %numPlates
-	call void @hanoi(i32 %r102, i32 1, i32 3, i32 2 )
+	%r65 = load %struct.plate*, %struct.plate** @peg3
+	call void @printPeg(%struct.plate* %r65 )
+	call void @hanoi(i32 %phi6, i32 1, i32 3, i32 2 )
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 1)
-	%r103 = load %struct.plate*, %struct.plate** @peg1
-	call void @printPeg(%struct.plate* %r103 )
+	%r66 = load %struct.plate*, %struct.plate** @peg1
+	call void @printPeg(%struct.plate* %r66 )
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 2)
-	%r104 = load %struct.plate*, %struct.plate** @peg2
-	call void @printPeg(%struct.plate* %r104 )
+	%r67 = load %struct.plate*, %struct.plate** @peg2
+	call void @printPeg(%struct.plate* %r67 )
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 3)
-	%r105 = load %struct.plate*, %struct.plate** @peg3
-	call void @printPeg(%struct.plate* %r105 )
-	%r106 = load i32, i32* @numMoves
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r106)
-	%r113 = load %struct.plate*, %struct.plate** @peg3
-	%r114 = icmp ne %struct.plate* %r113, null
-	%r115 = zext i1 %r114 to i32
-	%r116 = trunc i32 %r115 to i1
-	br i1 %r116, label %L34, label %L35
+	%r68 = load %struct.plate*, %struct.plate** @peg3
+	call void @printPeg(%struct.plate* %r68 )
+	%r69 = load i32, i32* @numMoves
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r69)
+	%r70 = load %struct.plate*, %struct.plate** @peg3
+	%r71 = icmp ne %struct.plate* %r70, null
+	%r72 = zext i1 %r71 to i32
+	%r73 = trunc i32 %r72 to i1
+	br i1 %r73, label %L34, label %L35
 
 L34:
-	%r107 = load %struct.plate*, %struct.plate** @peg3
-	store %struct.plate* %r107, %struct.plate** %aPlate
-	%r108 = load %struct.plate*, %struct.plate** @peg3
-	%r109 = getelementptr %struct.plate , %struct.plate* %r108, i1 0, i32 0
-	%r110 = load %struct.plate*, %struct.plate** %r109
-	store %struct.plate* %r110, %struct.plate** @peg3
-	%r112 = load %struct.plate*, %struct.plate** %aPlate
-	%r111 = bitcast %struct.plate* %r112 to i8*
-	call void @free(i8* %r111 )
-	%r117 = load %struct.plate*, %struct.plate** @peg3
-	%r118 = icmp ne %struct.plate* %r117, null
-	%r119 = zext i1 %r118 to i32
-	%r120 = trunc i32 %r119 to i1
-	br i1 %r120, label %L34, label %L35
+	%r74 = load %struct.plate*, %struct.plate** @peg3
+	%r75 = load %struct.plate*, %struct.plate** @peg3
+	%r76 = getelementptr %struct.plate , %struct.plate* %r75, i1 0, i32 0
+	%r77 = load %struct.plate*, %struct.plate** %r76
+	store %struct.plate* %r77, %struct.plate** @peg3
+	%r78 = bitcast %struct.plate* %r74 to i8*
+	call void @free(i8* %r78 )
+	%r79 = load %struct.plate*, %struct.plate** @peg3
+	%r80 = icmp ne %struct.plate* %r79, null
+	%r81 = zext i1 %r80 to i32
+	%r82 = trunc i32 %r81 to i1
+	br i1 %r82, label %L34, label %L35
 
 L35:
 	br label %L31
 L28:
-	%r121 = load i32, i32* %_retval_
-	ret i32 %r121
+	%phi8 = phi i32 [0, %L31]
+	ret i32 %phi8
 }
 
 declare i8* @malloc(i32)

@@ -49,6 +49,7 @@ public class Program
 
    public StartBlock[] getCFG(List<Block> blockList, HashMap<String, HashMap<String, Type>> structTable) {
       return funcs.stream().map(func -> func.getCFG(blockList, structTable)).toArray(StartBlock[]::new);
+
    }
 
    public Instruction[] getDeclarationFunctions() {

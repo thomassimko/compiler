@@ -1,5 +1,6 @@
 package ast;
 
+import cfg.Block;
 import llvm.ArithmeticBool.ExclusiveOr;
 import llvm.ArithmeticBool.Subtract;
 import llvm.Instruction;
@@ -62,8 +63,8 @@ public class UnaryExpression
    }
 
    @Override
-   public Value getCFGValue(List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
-      Value stored = operand.getCFGValue(instructionList, structTable);
+   public Value getCFGValue(Block block, List<Instruction> instructionList, HashMap<String, HashMap<String, Type>> structTable) {
+      Value stored = operand.getCFGValue(block, instructionList, structTable);
       Register finalReg = RegisterCounter.getNextRegister();
       if (operator == Operator.NOT) {
          ExclusiveOr xor = new ExclusiveOr(stored, new ValueLiteral("1"), finalReg);

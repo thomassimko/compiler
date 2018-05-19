@@ -2,14 +2,13 @@ package ast;
 
 import cfg.BasicBlock;
 import cfg.Block;
-import cfg.EndBlock;
 import cfg.FakeBlock;
 import llvm.Branch;
-import llvm.Comparison;
 import llvm.Truncate;
 import llvm.UnconditionalBranch;
 import llvm.value.Register;
 import llvm.value.RegisterCounter;
+import llvm.value.SSA;
 import llvm.value.Value;
 
 import java.util.HashMap;
@@ -20,6 +19,7 @@ public class ConditionalStatement extends AbstractStatement
    private final Expression guard;
    private final Statement thenBlock;
    private final Statement elseBlock;
+   private boolean thenReturns, elseReturns;
 
    public ConditionalStatement(int lineNum, Expression guard,
       Statement thenBlock, Statement elseBlock)
@@ -28,15 +28,17 @@ public class ConditionalStatement extends AbstractStatement
       this.guard = guard;
       this.thenBlock = thenBlock;
       this.elseBlock = elseBlock;
+      this.elseReturns = false;
+      this.thenReturns = false;
    }
 
    @Override
    public boolean checkTypes(HashMap<String, Type> globalTable, HashMap<String, HashMap<String, Type>> structTable, String currentFunctionName) {
       assert guard.getType(globalTable, structTable, currentFunctionName) instanceof BoolType : "Guard is not of type boolean : line " + lineNum;
 
-      boolean thenCheck = thenBlock.checkTypes(globalTable, structTable, currentFunctionName);
-      boolean elseCheck = elseBlock.checkTypes(globalTable, structTable, currentFunctionName);
-      return thenCheck && elseCheck;
+      thenReturns = thenBlock.checkTypes(globalTable, structTable, currentFunctionName);
+      elseReturns = elseBlock.checkTypes(globalTable, structTable, currentFunctionName);
+      return thenReturns && elseReturns;
 
    }
 
@@ -53,36 +55,35 @@ public class ConditionalStatement extends AbstractStatement
       blockList.add(joinBlock);
 
 
-      Value val = guard.getCFGValue(curNode.getInstructionList(), structTable);
+      Value val = guard.getCFGValue(curNode, curNode.getLLVM(), structTable);
       Register reg1 = RegisterCounter.getNextRegister();
       Truncate trunc = new Truncate(val, reg1);
       Branch branch = new Branch(reg1, thenBasicBlock.getLlvmLabel(), elseBasicBlock.getLlvmLabel());
       curNode.addInstructionToLLVM(trunc);
       curNode.addInstructionToLLVM(branch);
 
-
       Block thenRetBlock = thenBlock.getCFG(thenBasicBlock, endNode, blockList, structTable);
 
-      if (thenRetBlock.hasEndBlockSuccessor()) {
-         //System.out.println("fake then");
-         Block newFakeBlock = new FakeBlock("fakeThenBlock" + this.lineNum);
-         blockList.add(newFakeBlock);
-         newFakeBlock.addSuccessor(joinBlock);
-      } else {
+      if (!thenReturns) {
          thenRetBlock.addSuccessor(joinBlock);
+         //System.err.println("2 branching to " + joinBlock.getLlvmLabel() + " from " + thenRetBlock.getLlvmLabel());
+
          thenRetBlock.addInstructionToLLVM(new UnconditionalBranch(joinBlock.getLlvmLabel()));
       }
 
+
       Block elseRetBlock = elseBlock.getCFG(elseBasicBlock, endNode, blockList, structTable);
 
-      if (elseRetBlock.hasEndBlockSuccessor()) {
-         //System.out.println("fake else");
-         Block newFakeBlock = new FakeBlock("fakeElseBlock" + this.lineNum);
-         blockList.add(newFakeBlock);
-         newFakeBlock.addSuccessor(joinBlock);
-      } else {
+      if (!elseReturns) {
          elseRetBlock.addSuccessor(joinBlock);
+         //System.err.println("3 branching to " + joinBlock.getLlvmLabel() + " from " + elseRetBlock.getLlvmLabel());
+
          elseRetBlock.addInstructionToLLVM(new UnconditionalBranch(joinBlock.getLlvmLabel()));
+      }
+
+      if(elseReturns && thenReturns) {
+         blockList.remove(joinBlock);
+         return endNode;
       }
 
       return joinBlock;
