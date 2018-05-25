@@ -8,7 +8,7 @@ cd ..
 
 for d in benchmarks/* ;do
    cd given_parser
-   java -ea MiniCompiler ../${d}/`basename ${d}`.mini
+   java -ea MiniCompiler ../${d}/`basename ${d}`.mini -o
    cp ../output.ll ../${d}/`basename ${d}`.ll
    cp ../output.s ../${d}/`basename ${d}`.s
    cd ..

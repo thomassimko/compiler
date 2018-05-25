@@ -1,13 +1,20 @@
 package llvm;
 
 import arm.ArmInstruction;
+import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeValue;
 import llvm.value.Register;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class ReturnVoid implements Instruction {
+public class ReturnVoid extends AbstactInstruction {
+
+    public ReturnVoid() {
+        super();
+        this.setUseful(true);
+    }
+
     @Override
     public String toLLVM() {
         return "ret void";

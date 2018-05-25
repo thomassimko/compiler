@@ -15,4 +15,6 @@ public interface Instruction {
     Register[] getUsedRegisters();
     Register getTarget();
     void replaceRegisterWithLattice(HashMap<Register, LatticeValue> lattice);
+    boolean isUseful();
+    void setUseful(boolean useful);
 }

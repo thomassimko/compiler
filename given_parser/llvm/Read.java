@@ -7,6 +7,7 @@ import arm.ArmValue.ArmVirtualRegister;
 import arm.ArmValue.FinalRegisters.ArmFinalRegister;
 import arm.ArmValue.FinalRegisters.StackPointer;
 import arm.Branch;
+import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeBottom;
 import llvm.lattice.LatticeValue;
 import llvm.value.*;
@@ -14,11 +15,12 @@ import llvm.value.*;
 import java.util.HashMap;
 import java.util.List;
 
-public class Read implements Instruction {
+public class Read extends AbstactInstruction {
 
     private Value target;
 
     public Read(Value target) {
+        super();
         this.target = target;
         this.addInstructionToRegisters();
 

@@ -5,6 +5,7 @@ import arm.ArmValue.FinalRegisters.ArmFinalRegister;
 import arm.ArmValue.ArmVirtualRegister;
 import arm.Move;
 import arm.MoveType;
+import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeInteger;
 import llvm.lattice.LatticeValue;
 import llvm.value.Register;
@@ -14,12 +15,13 @@ import llvm.value.ValueLiteral;
 import java.util.HashMap;
 import java.util.List;
 
-public class ReturnValue implements Instruction {
+public class ReturnValue extends AbstactInstruction {
 
     private String type;
     private Value value;
 
     public ReturnValue(String type, Value value) {
+        super();
         this.type = type;
         this.value = value;
         this.addInstructionToRegisters();

@@ -8,7 +8,6 @@ import arm.Branch;
 import arm.BranchType;
 import llvm.Instruction;
 import llvm.Phi;
-import llvm.lattice.LatticeValue;
 import llvm.value.Register;
 import llvm.value.Value;
 
@@ -99,7 +98,7 @@ public abstract class Block {
 //        return finalList;
     }
 
-    public List<Instruction> getFinalLLVM() {
+    public List<Instruction> getLLVMWithPhis() {
         List<Instruction> finalList = new ArrayList<>();
         finalList.addAll(this.completedPhis);
         finalList.addAll(llvmCode);
@@ -322,11 +321,21 @@ public abstract class Block {
     public Set<Register> getRegisters() {
         Set<Register> registers = new HashSet<>();
 
-        for(Instruction inst: this.getFinalLLVM()) {
+        for(Instruction inst: this.getLLVMWithPhis()) {
             for(Register reg: inst.getUsedRegisters()) {
                 registers.add(reg);
             }
         }
         return registers;
+    }
+
+    public List<Instruction> getFinalLLVM() {
+        List<Instruction> usefulInstructions = new ArrayList<>();
+        for(Instruction inst: this.getLLVMWithPhis()) {
+            if(inst.isUseful()) {
+                usefulInstructions.add(inst);
+            }
+        }
+        return usefulInstructions;
     }
 }

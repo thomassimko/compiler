@@ -7,6 +7,7 @@ import arm.Move;
 import arm.MoveType;
 import ast.Type;
 import cfg.Block;
+import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeInteger;
 import llvm.lattice.LatticeTop;
 import llvm.lattice.LatticeValue;
@@ -18,7 +19,7 @@ import llvm.value.ValueLiteral;
 
 import java.util.*;
 
-public class Phi implements Instruction {
+public class Phi extends AbstactInstruction {
 
     private Register target;
     private Block block;
@@ -30,7 +31,7 @@ public class Phi implements Instruction {
     private Set<Register> usedRegisters;
 
     public Phi(Block block, String name, Type type) {
-
+        super();
         this.block = block;
         this.name = name;
         this.type = type;

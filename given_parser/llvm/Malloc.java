@@ -5,6 +5,7 @@ import arm.ArmValue.ArmImmediate;
 import arm.ArmValue.ArmVirtualRegister;
 import arm.ArmValue.FinalRegisters.ArmFinalRegister;
 import arm.Branch;
+import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeBottom;
 import llvm.lattice.LatticeValue;
 import llvm.value.Register;
@@ -12,12 +13,13 @@ import llvm.value.Register;
 import java.util.HashMap;
 import java.util.List;
 
-public class Malloc implements Instruction {
+public class Malloc extends AbstactInstruction {
 
     private Register storedReg;
     private int bytes;
 
     public Malloc(Register storedReg, int bytes) {
+        super();
         this.storedReg = storedReg;
         this.bytes = bytes;
         this.addInstructionToRegisters();

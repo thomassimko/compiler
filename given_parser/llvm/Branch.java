@@ -5,6 +5,7 @@ import arm.ArmInstruction;
 import arm.ArmValue.ArmImmediate;
 import arm.ArmValue.ArmVirtualRegister;
 import arm.BranchType;
+import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeInteger;
 import llvm.lattice.LatticeTop;
 import llvm.lattice.LatticeValue;
@@ -15,13 +16,14 @@ import llvm.value.ValueLiteral;
 import java.util.HashMap;
 import java.util.List;
 
-public class Branch implements Instruction {
+public class Branch extends AbstactInstruction {
 
     private Value check;
     private String trueLabel;
     private String falseLabel;
 
     public Branch(Value check, String trueLabel, String falseLabel) {
+        super();
         this.check = check;
         this.trueLabel = trueLabel;
         this.falseLabel = falseLabel;
@@ -57,6 +59,8 @@ public class Branch implements Instruction {
 
     @Override
     public Register[] getUsedRegisters() {
+        if(check instanceof Register)
+            return new Register[]{(Register) check};
         return new Register[0];
     }
 

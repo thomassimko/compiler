@@ -12,12 +12,13 @@ import llvm.value.SSA;
 import java.util.HashMap;
 import java.util.List;
 
-public class ParameterDeclaration implements Instruction {
+public class ParameterDeclaration extends AbstactInstruction {
     private String name;
     private String type;
     private Register reg;
 
     public ParameterDeclaration(String name, String type) {
+        super();
         this.name = name;
         this.type = type;
         this.reg = new Register(name);

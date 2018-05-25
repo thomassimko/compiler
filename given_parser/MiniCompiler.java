@@ -5,10 +5,8 @@ import cfg.Block;
 import cfg.EndBlock;
 import cfg.FakeBlock;
 import cfg.StartBlock;
-import llvm.FunctionDefine;
-import llvm.FunctionEnd;
-import llvm.Instruction;
-import llvm.Phi;
+import llvm.*;
+import llvm.Branch;
 import llvm.declarations.ParameterDeclaration;
 import llvm.lattice.LatticeBottom;
 import llvm.lattice.LatticeInteger;
@@ -17,7 +15,6 @@ import llvm.lattice.LatticeValue;
 import llvm.value.Register;
 import llvm.value.SSA;
 import llvm.value.Value;
-import llvm.value.ValueToArm;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
@@ -51,7 +48,11 @@ public class MiniCompiler
 
          StartBlock[] cfg = program.getCFG(blockList, structTable);
 
-         constantPropagation(blockList, cfg);
+         if (constProp)
+            constantPropagation(blockList, cfg);
+
+         if(uselessRemoval)
+            UselessCodeElimination(blockList);
 
          convertToArm(blockList, program);
 
@@ -63,6 +64,8 @@ public class MiniCompiler
 
    private static String _inputFile = null;
    private static boolean stack = false;
+   private static boolean constProp = false;
+   public static boolean uselessRemoval = false;
 
    private static void parseParameters(String [] args)
    {
@@ -74,6 +77,16 @@ public class MiniCompiler
                case "-stack":
                   stack = true;
                   SSA.isSSA = false;
+                  break;
+               case "-u":
+                  uselessRemoval = true;
+                  break;
+               case "-c":
+                  constProp= true;
+                  break;
+               case "-o":
+                  uselessRemoval = true;
+                  constProp = true;
                   break;
                default:
                   System.err.println("unexpected option: " + args[i]);
@@ -154,7 +167,7 @@ public class MiniCompiler
             if (!(block instanceof StartBlock) && !(block instanceof FakeBlock))
                writer.write(block.getLlvmLabel() + ":\n");
 
-            for(Instruction instruction: block.getFinalLLVM()) {
+            for(Instruction instruction: uselessRemoval ? block.getFinalLLVM() : block.getLLVMWithPhis()) {
                if(!(instruction instanceof FunctionDefine) && !(instruction instanceof FunctionEnd)) {
                   writer.write('\t');
                }
@@ -263,7 +276,7 @@ public class MiniCompiler
          if (!(block instanceof StartBlock) && !(block instanceof FakeBlock))
             blockArmInstructions.add(new ArmLabel(block.getLlvmLabel()));
 
-         for(Instruction instruction: block.getFinalLLVM()) {
+         for(Instruction instruction: uselessRemoval ? block.getFinalLLVM() : block.getLLVMWithPhis()) {
 
             if (instruction instanceof FunctionEnd) {
                blockArmInstructions.add(new ArmStackAllocation(true, armOffsets.size()));
@@ -280,7 +293,7 @@ public class MiniCompiler
 
       }
       for (Block block : blockList) {
-         for(Instruction instruction: block.getFinalLLVM()) {
+         for(Instruction instruction: uselessRemoval ? block.getFinalLLVM() : block.getLLVMWithPhis()) {
             if(instruction instanceof Phi) {
                Phi phi = (Phi) instruction;
                List<Value> operands = phi.getOperands();
@@ -451,7 +464,7 @@ public class MiniCompiler
             StartBlock start = (StartBlock) block;
             lattice = start.getLattice();
          }
-         List<Instruction> instructions = block.getFinalLLVM();
+         List<Instruction> instructions = block.getLLVMWithPhis();
          List<Instruction> newInstructions = new ArrayList<>();
          for(Instruction instruction:instructions) {
             instruction.replaceRegisterWithLattice(lattice);
@@ -460,5 +473,51 @@ public class MiniCompiler
             }
          }
       }
+   }
+
+
+   private static void UselessCodeElimination(List<Block> blocks) {
+      List<Instruction> workList = new ArrayList<>();
+      for(Block block:blocks) {
+         for(Instruction inst: block.getLLVMWithPhis()) {
+            if(inst instanceof Branch
+                    || inst instanceof ReturnValue
+                    || inst instanceof Read
+                    || inst instanceof Print
+                    || inst instanceof Store
+                    || inst instanceof InvocationCall) {
+               inst.setUseful(true);
+               //System.out.println("checking inst " + inst.toLLVM());
+               for(Register reg: inst.getUsedRegisters()) {
+                  if(reg != null && reg != inst.getTarget()) {
+                     if(reg.getDef() != null) {
+                        workList.add(reg.getDef());
+                        //System.out.println("added " + reg.getDef().toLLVM());
+                     }
+//                     else {
+//                        System.out.println("couldnt add def for " + reg.toLLVM());
+//                     }
+                  }
+               }
+            }
+         }
+      }
+
+      while(!workList.isEmpty()) {
+         Instruction inst = workList.get(0);
+         //System.out.println("marking inst " + inst.toLLVM());
+         inst.setUseful(true);
+         for (Register reg : inst.getUsedRegisters()) {
+            if (reg != inst.getTarget()) {
+               Instruction def = reg.getDef();
+               if (def != null && !def.isUseful()) {
+                  workList.add(def);
+               }
+            }
+         }
+         workList.remove(0);
+      }
+
+
    }
 }

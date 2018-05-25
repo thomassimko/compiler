@@ -4,6 +4,7 @@ import arm.ArmInstruction;
 import arm.ArmValue.ArmVirtualRegister;
 import arm.Move;
 import arm.MoveType;
+import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeInteger;
 import llvm.lattice.LatticeValue;
 import llvm.value.Register;
@@ -13,12 +14,13 @@ import llvm.value.ValueLiteral;
 import java.util.HashMap;
 import java.util.List;
 
-public class ZExtend implements Instruction {
+public class ZExtend extends AbstactInstruction {
 
     private Value source;
     private Register target;
 
     public ZExtend(Value source, Register target) {
+        super();
         this.source = source;
         this.target = target;
         this.addInstructionToRegisters();

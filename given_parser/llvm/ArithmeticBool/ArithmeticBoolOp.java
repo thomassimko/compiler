@@ -5,6 +5,7 @@ import arm.ArithmeticInstruction;
 import arm.ArmInstruction;
 import arm.ArmValue.ArmRegister;
 import llvm.Instruction;
+import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeBottom;
 import llvm.lattice.LatticeInteger;
 import llvm.lattice.LatticeValue;
@@ -16,7 +17,7 @@ import llvm.value.ValueLiteral;
 import java.util.HashMap;
 import java.util.List;
 
-public class ArithmeticBoolOp implements Instruction {
+public class ArithmeticBoolOp extends AbstactInstruction {
     protected Value value1;
     protected Value value2;
     protected Register storedRegister;
@@ -24,6 +25,7 @@ public class ArithmeticBoolOp implements Instruction {
 
 
     public ArithmeticBoolOp(Value value1, Value value2, String instruction, Register storedRegister) {
+        super();
         this.value1 = value1;
         this.value2 = value2;
         this.storedRegister = storedRegister;

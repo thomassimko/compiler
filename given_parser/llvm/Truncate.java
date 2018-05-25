@@ -4,6 +4,7 @@ import arm.ArmInstruction;
 import arm.ArmValue.ArmVirtualRegister;
 import arm.Move;
 import arm.MoveType;
+import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeInteger;
 import llvm.lattice.LatticeValue;
 import llvm.value.Register;
@@ -13,12 +14,13 @@ import llvm.value.ValueLiteral;
 import java.util.HashMap;
 import java.util.List;
 
-public class Truncate implements Instruction {
+public class Truncate extends AbstactInstruction {
 
     private Value value;
     private Register saveReg;
 
     public Truncate(Value value, Register saveReg) {
+        super();
         this.value = value;
         this.saveReg = saveReg;
         this.addInstructionToRegisters();

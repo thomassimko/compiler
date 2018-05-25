@@ -4,6 +4,7 @@ import arm.*;
 import arm.ArmValue.FinalRegisters.ArmFinalRegister;
 import arm.ArmValue.ArmImmediate;
 import arm.Branch;
+import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeInteger;
 import llvm.lattice.LatticeValue;
 import llvm.value.Register;
@@ -13,12 +14,13 @@ import llvm.value.ValueLiteral;
 import java.util.HashMap;
 import java.util.List;
 
-public class Print implements Instruction {
+public class Print extends AbstactInstruction {
 
     private Value value;
     private boolean printLine;
 
     public Print(Value value, boolean printLine) {
+        super();
         this.value = value;
         this.printLine = printLine;
         this.addInstructionToRegisters();

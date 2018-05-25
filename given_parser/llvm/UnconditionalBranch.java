@@ -3,18 +3,21 @@ package llvm;
 import arm.ArmInstruction;
 import arm.Branch;
 import arm.BranchType;
+import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeValue;
 import llvm.value.Register;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class UnconditionalBranch implements Instruction{
+public class UnconditionalBranch extends AbstactInstruction {
     private String dest;
 
     public UnconditionalBranch(String dest) {
+        super();
         this.dest = dest;
         this.addInstructionToRegisters();
+        this.setUseful(true);
 
     }
 

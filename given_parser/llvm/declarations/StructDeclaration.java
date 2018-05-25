@@ -8,12 +8,13 @@ import llvm.value.Register;
 import java.util.HashMap;
 import java.util.List;
 
-public class StructDeclaration implements Instruction {
+public class StructDeclaration extends AbstactInstruction {
 
     private String name;
     private String[] typeList;
 
     public StructDeclaration(String name, String[] typeList) {
+        super();
         this.name = name;
         this.typeList = typeList;
     }

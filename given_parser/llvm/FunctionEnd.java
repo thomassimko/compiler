@@ -7,6 +7,7 @@ import arm.ArmValue.ArmVirtualRegister;
 import arm.ArmValue.FinalRegisters.FramePointer;
 import arm.ArmValue.FinalRegisters.ProgramCounter;
 import arm.ArmValue.FinalRegisters.StackPointer;
+import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeValue;
 import llvm.value.Register;
 
@@ -14,13 +15,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class FunctionEnd  implements Instruction {
+public class FunctionEnd  extends AbstactInstruction {
 
     private String name;
 
     public FunctionEnd(String name) {
+        super();
         this.name = name;
         this.addInstructionToRegisters();
+        this.setUseful(true);
 
     }
 

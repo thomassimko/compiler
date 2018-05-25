@@ -9,12 +9,13 @@ import llvm.value.Register;
 import java.util.HashMap;
 import java.util.List;
 
-public class LocalDeclaration implements Instruction {
+public class LocalDeclaration extends AbstactInstruction {
     private String name;
     private String type;
     private Register savedReg;
 
     public LocalDeclaration(String name, String type) {
+        super();
         this.name = name;
         this.type = type;
         savedReg = new Register(name);

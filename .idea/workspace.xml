@@ -2,60 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ac72790-8120-4f98-850c-126db2944bd4" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/lattice/LatticeBottom.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/lattice/LatticeInteger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/lattice/LatticeTop.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/lattice/LatticeTypes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/lattice/LatticeValue.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/given_parser/llvm/lattice/SSCP.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/given_parser/llvm/declarations/AbstactInstruction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/a.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/a.out.dSYM/Contents/Resources/DWARF/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/a.out.dSYM/Contents/Resources/DWARF/a.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/BenchMarkishTopics/BenchMarkishTopics.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/BenchMarkishTopics/BenchMarkishTopics.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/Fibonacci/Fibonacci.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/Fibonacci/Fibonacci.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/GeneralFunctAndOptimize/GeneralFunctAndOptimize.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/GeneralFunctAndOptimize/GeneralFunctAndOptimize.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/OptimizationBenchmark/OptimizationBenchmark.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/OptimizationBenchmark/OptimizationBenchmark.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/OptimizationBenchmark/exe" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/OptimizationBenchmark/exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/OptimizationBenchmark/ourOutput" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/OptimizationBenchmark/ourOutput" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/TicTac/TicTac.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/TicTac/TicTac.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/bert/bert.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/bert/bert.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/biggest/biggest.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/biggest/biggest.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/binaryConverter/binaryConverter.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/binaryConverter/binaryConverter.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/brett/brett.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/brett/brett.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/brett/exe" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/brett/exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/brett/ourOutput" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/brett/ourOutput" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/creativeBenchMarkName/creativeBenchMarkName.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/creativeBenchMarkName/creativeBenchMarkName.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/fact_sum/fact_sum.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/fact_sum/fact_sum.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/hailstone/hailstone.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/hailstone/hailstone.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/hanoi_benchmark/hanoi_benchmark.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/hanoi_benchmark/hanoi_benchmark.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/killerBubbles/killerBubbles.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/killerBubbles/killerBubbles.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/mile1/mile1.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/mile1/mile1.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/mixed/mixed.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/mixed/mixed.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/primes/primes.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/primes/primes.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/programBreaker/programBreaker.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/programBreaker/programBreaker.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/stats/stats.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/stats/stats.ll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarks/wasteOfCycles/wasteOfCycles.ll" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/wasteOfCycles/wasteOfCycles.ll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cfg.gv" beforeDir="false" afterPath="$PROJECT_DIR$/cfg.gv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cfg.png" beforeDir="false" afterPath="$PROJECT_DIR$/cfg.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/GraphColorer.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/GraphColorer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/GraphColorer.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/GraphColorer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/given_parser/MiniCompiler.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/MiniCompiler.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/given_parser/MiniCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/MiniCompiler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/arm/Branch.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/arm/Branch.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/arm/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/arm/Branch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/DeleteStatement.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/DeleteStatement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/Function.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/Function.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/Function.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/Function.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/ast/NewExpression.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/ast/NewExpression.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/given_parser/cfg/Block.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/cfg/Block.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/given_parser/cfg/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/cfg/Block.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/cfg/StartBlock.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/cfg/StartBlock.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/cfg/StartBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/cfg/StartBlock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/given_parser/llvm/Allocation.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/Allocation.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/given_parser/llvm/Allocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/Allocation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/Add.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/Add.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/Add.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/Add.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/ArithmeticBoolOp.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/ArithmeticBoolOp.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/ArithmeticBoolOp.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/ArithmeticBoolOp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/given_parser/llvm/BitCast.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/BitCast.class" afterDir="false" />
@@ -104,19 +60,12 @@
       <change beforePath="$PROJECT_DIR$/given_parser/llvm/declarations/ParameterDeclaration.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/declarations/ParameterDeclaration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/given_parser/llvm/declarations/StructDeclaration.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/declarations/StructDeclaration.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/given_parser/llvm/declarations/StructDeclaration.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/declarations/StructDeclaration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/llvm/value/Global.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/value/Global.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/llvm/value/Global.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/value/Global.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/llvm/value/Register.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/value/Register.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/llvm/value/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/value/Register.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/llvm/value/SSA.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/value/SSA.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/llvm/value/Value.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/value/Value.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/llvm/value/Value.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/value/Value.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/llvm/value/ValueLiteral.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/value/ValueLiteral.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/given_parser/llvm/value/ValueLiteral.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/value/ValueLiteral.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/lattice/SSCP.class" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/lattice/SSCP.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/given_parser/llvm/lattice/SSCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/given_parser/llvm/lattice/SSCP.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interference.gv" beforeDir="false" afterPath="$PROJECT_DIR$/interference.gv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/output.ll" beforeDir="false" afterPath="$PROJECT_DIR$/output.ll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/output.s" beforeDir="false" afterPath="$PROJECT_DIR$/output.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testFiles/simpleFile.mini.txt" beforeDir="false" afterPath="$PROJECT_DIR$/testFiles/simpleFile.mini.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runBenchmarksArm-SSA.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runBenchmarksArm-SSA.sh" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -128,11 +77,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MiniCompiler.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MiniCompiler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/given_parser/MiniCompiler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="415" column="47" selection-start-line="412" selection-start-column="26" selection-end-line="415" selection-end-column="47" />
+            <state relative-caret-position="-3994">
+              <caret line="78" column="36" lean-forward="true" selection-start-line="78" selection-start-column="36" selection-end-line="78" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -143,8 +92,8 @@
       <file leaf-file-name="Branch.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/given_parser/llvm/Branch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="317">
-              <caret line="70" column="29" selection-start-line="70" selection-start-column="29" selection-end-line="70" selection-end-column="29" />
+            <state relative-caret-position="162">
+              <caret line="59" column="13" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -152,60 +101,62 @@
       <file leaf-file-name="Store.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/given_parser/llvm/Store.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="720">
-              <caret line="60" selection-start-line="60" selection-end-line="60" />
-              <folding>
-                <element signature="e#1743#1744#0" expanded="true" />
-                <element signature="e#1770#1771#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="207">
+              <caret line="74" selection-start-line="74" selection-end-line="74" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ValueLiteral.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/given_parser/llvm/value/ValueLiteral.java">
+      <file leaf-file-name="FunctionDefine.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/given_parser/llvm/FunctionDefine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="35" column="13" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
+            <state relative-caret-position="255">
+              <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Phi.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/given_parser/llvm/Phi.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1455">
-              <caret line="111" column="82" selection-start-line="111" selection-start-column="82" selection-end-line="111" selection-end-column="82" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Truncate.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/given_parser/llvm/Truncate.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="37">
-              <caret line="50" column="10" selection-start-line="50" selection-start-column="10" selection-end-line="50" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ArithmeticBoolOp.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/ArithmeticBoolOp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="804">
-              <caret line="86" column="10" selection-start-line="85" selection-start-column="10" selection-end-line="86" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Value.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/given_parser/llvm/value/Value.java">
+      <file leaf-file-name="FunctionEnd.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/given_parser/llvm/FunctionEnd.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
-              <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+              <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GetElementPointer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/given_parser/llvm/GetElementPointer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="219">
+              <caret line="66" selection-start-line="66" selection-end-line="66" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ArithmeticBoolOp.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/ArithmeticBoolOp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1176">
+              <caret line="154" column="9" selection-start-line="154" selection-start-column="9" selection-end-line="154" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UnconditionalBranch.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/given_parser/llvm/UnconditionalBranch.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="268">
+              <caret line="30" column="5" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Block.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/given_parser/cfg/Block.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="329" column="5" selection-start-line="329" selection-start-column="5" selection-end-line="329" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -213,23 +164,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Register.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/given_parser/llvm/value/Register.java">
+      <file leaf-file-name="ReturnVoid.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/given_parser/llvm/ReturnVoid.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="53" selection-start-line="53" selection-end-line="53" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Comparison.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/given_parser/llvm/Comparison.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-246">
-              <caret line="130" column="34" selection-start-line="130" selection-start-column="34" selection-end-line="130" selection-end-column="34" />
+            <state relative-caret-position="105">
+              <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -247,9 +186,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>stackAlloc</find>
-      <find>Syst</find>
-      <find>target</find>
       <find>printSta</find>
       <find>addPhi</find>
       <find>appendOp</find>
@@ -277,6 +213,9 @@
       <find>lattice</find>
       <find>r73</find>
       <find>r72</find>
+      <find>r25</find>
+      <find>r25</find>
+      <find>getLLvmWithP</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/given_parser/ast</dir>
@@ -288,7 +227,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/given_parser/arm/Move.java" />
         <option value="$PROJECT_DIR$/given_parser/llvm/value/ValueToArm.java" />
         <option value="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/Divide.java" />
         <option value="$PROJECT_DIR$/given_parser/arm/ArmValue/ArmGlobalDeclaration.java" />
@@ -310,35 +248,36 @@
         <option value="$PROJECT_DIR$/given_parser/llvm/value/Value.java" />
         <option value="$PROJECT_DIR$/given_parser/cfg/StartBlock.java" />
         <option value="$PROJECT_DIR$/given_parser/llvm/value/SSA.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/value/Register.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/value/ValueLiteral.java" />
         <option value="$PROJECT_DIR$/given_parser/llvm/Instruction.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/BitCast.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/declarations/AbstactInstruction.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/ArithmeticBoolOp.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/declarations/LocalDeclaration.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/declarations/GlobalDeclaration.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/declarations/ParameterDeclaration.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/declarations/StructDeclaration.java" />
         <option value="$PROJECT_DIR$/given_parser/llvm/Allocation.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/BitCast.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/Comparison.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/InvocationCall.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/Load.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/Malloc.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/Phi.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/Print.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/Read.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/ReturnValue.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/Truncate.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/ZExtend.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/ReturnVoid.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/UnconditionalBranch.java" />
+        <option value="$PROJECT_DIR$/given_parser/cfg/Block.java" />
+        <option value="$PROJECT_DIR$/given_parser/llvm/Branch.java" />
         <option value="$PROJECT_DIR$/given_parser/llvm/FunctionDefine.java" />
         <option value="$PROJECT_DIR$/given_parser/llvm/FunctionEnd.java" />
         <option value="$PROJECT_DIR$/given_parser/llvm/GetElementPointer.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/Load.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/Malloc.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/InvocationCall.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/Print.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/ReturnValue.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/ReturnVoid.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/ZExtend.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/declarations/GlobalDeclaration.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/declarations/LocalDeclaration.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/declarations/StructDeclaration.java" />
-        <option value="$PROJECT_DIR$/given_parser/cfg/Block.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/UnconditionalBranch.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/declarations/ParameterDeclaration.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/Read.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/value/Register.java" />
         <option value="$PROJECT_DIR$/given_parser/llvm/Store.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/value/ValueLiteral.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/Phi.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/Branch.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/Comparison.java" />
         <option value="$PROJECT_DIR$/given_parser/MiniCompiler.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/Truncate.java" />
-        <option value="$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/ArithmeticBoolOp.java" />
       </list>
     </option>
   </component>
@@ -386,13 +325,6 @@
               <item name="given_parser" type="cbb8eebc:String" user="given_parser" />
               <item name="llvm" type="cbb8eebc:String" user="llvm" />
               <item name="ArithmeticBool" type="cbb8eebc:String" user="ArithmeticBool" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="CSC 431" type="cbb8eebc:String" user="CSC 431" />
-              <item name="given_parser" type="cbb8eebc:String" user="given_parser" />
-              <item name="llvm" type="cbb8eebc:String" user="llvm" />
-              <item name="value" type="cbb8eebc:String" user="value" />
             </path>
           </expand>
           <select />
@@ -450,7 +382,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Bash.SSA - Bert">
+  <component name="RunManager" selected="Bash.sscp">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
     </configuration>
@@ -885,12 +817,12 @@
       <workItem from="1526929722355" duration="7390000" />
       <workItem from="1527005633557" duration="6775000" />
       <workItem from="1527102568309" duration="20225000" />
-      <workItem from="1527275045190" duration="1596000" />
+      <workItem from="1527275045190" duration="8756000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="323798000" />
+    <option name="totallyTimeSpent" value="330958000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -948,13 +880,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/given_parser/arm/ArmStore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="22" column="25" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/given_parser/arm/Branch.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1020">
@@ -1034,6 +959,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="302">
           <caret line="62" column="46" lean-forward="true" selection-start-line="62" selection-start-column="46" selection-end-line="62" selection-end-column="46" />
+          <folding>
+            <element signature="e#1972#1994#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1062,121 +990,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="159">
           <caret line="86" selection-start-line="86" selection-end-line="86" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Instruction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="13" column="33" lean-forward="true" selection-start-line="13" selection-start-column="33" selection-end-line="13" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/BitCast.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="70" column="4" selection-start-line="70" selection-start-column="4" selection-end-line="78" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Allocation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="57" selection-start-line="57" selection-end-line="57" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/FunctionDefine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="103" selection-start-line="103" selection-end-line="103" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/FunctionEnd.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="83" selection-start-line="83" selection-end-line="83" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/GetElementPointer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="70" selection-start-line="70" selection-end-line="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/InvocationCall.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="133" column="32" lean-forward="true" selection-start-line="133" selection-start-column="32" selection-end-line="133" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Load.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="81" selection-start-line="81" selection-end-line="81" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Malloc.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="75" selection-start-line="75" selection-end-line="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Print.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="80" column="8" lean-forward="true" selection-start-line="80" selection-start-column="8" selection-end-line="85" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/ReturnValue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="67" column="25" lean-forward="true" selection-start-line="67" selection-start-column="25" selection-end-line="67" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/ReturnVoid.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="43" selection-start-line="43" selection-end-line="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/ZExtend.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="69" column="32" selection-start-line="69" selection-start-column="32" selection-end-line="69" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/declarations/GlobalDeclaration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="56" selection-start-line="56" selection-end-line="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/declarations/LocalDeclaration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="58" selection-start-line="58" selection-end-line="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/declarations/StructDeclaration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="52" selection-start-line="52" selection-end-line="52" />
         </state>
       </provider>
     </entry>
@@ -1184,37 +1000,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
           <caret line="900" selection-start-line="900" selection-end-line="900" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/cfg/Block.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="331" selection-start-line="331" selection-end-line="331" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/UnconditionalBranch.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="52" selection-start-line="52" selection-end-line="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/declarations/ParameterDeclaration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Read.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="123" selection-start-line="123" selection-end-line="123" />
         </state>
       </provider>
     </entry>
@@ -1255,17 +1040,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Store.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="60" selection-start-line="60" selection-end-line="60" />
-          <folding>
-            <element signature="e#1743#1744#0" expanded="true" />
-            <element signature="e#1770#1771#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/given_parser/llvm/value/ValueLiteral.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
@@ -1273,10 +1047,167 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/declarations/AbstactInstruction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="e#188#189#0" expanded="true" />
+            <element signature="e#219#220#0" expanded="true" />
+            <element signature="e#279#280#0" expanded="true" />
+            <element signature="e#312#313#0" expanded="true" />
+            <element signature="e#359#360#0" expanded="true" />
+            <element signature="e#390#391#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/declarations/GlobalDeclaration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="381">
+          <caret line="59" column="4" selection-start-line="59" selection-start-column="4" selection-end-line="59" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/declarations/LocalDeclaration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="17" column="16" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/declarations/ParameterDeclaration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/declarations/StructDeclaration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Allocation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="11" column="23" lean-forward="true" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/BitCast.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="23" column="14" lean-forward="true" selection-start-line="23" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Comparison.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="29" column="16" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Instruction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="16" column="35" lean-forward="true" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/InvocationCall.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="29" column="16" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Load.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Malloc.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="21" column="16" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/given_parser/llvm/Phi.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1455">
-          <caret line="111" column="82" selection-start-line="111" selection-start-column="82" selection-end-line="111" selection-end-column="82" />
+        <state relative-caret-position="231">
+          <caret line="33" column="16" selection-start-line="33" selection-start-column="16" selection-end-line="33" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Print.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Read.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/ReturnValue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Truncate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/ZExtend.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/ReturnVoid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/UnconditionalBranch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="30" column="5" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/cfg/Block.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="329" column="5" selection-start-line="329" selection-start-column="5" selection-end-line="329" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1285,39 +1216,53 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/given_parser/llvm/Branch.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="70" column="29" selection-start-line="70" selection-start-column="29" selection-end-line="70" selection-end-column="29" />
+        <state relative-caret-position="162">
+          <caret line="59" column="13" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Comparison.java">
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/FunctionDefine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-246">
-          <caret line="130" column="34" selection-start-line="130" selection-start-column="34" selection-end-line="130" selection-end-column="34" />
+        <state relative-caret-position="255">
+          <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/MiniCompiler.java">
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/FunctionEnd.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="415" column="47" selection-start-line="412" selection-start-column="26" selection-end-line="415" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="135">
+          <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Truncate.java">
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/GetElementPointer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="37">
-          <caret line="50" column="10" selection-start-line="50" selection-start-column="10" selection-end-line="50" selection-end-column="10" />
+        <state relative-caret-position="219">
+          <caret line="66" selection-start-line="66" selection-end-line="66" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/given_parser/llvm/ArithmeticBool/ArithmeticBoolOp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="804">
-          <caret line="86" column="10" selection-start-line="85" selection-start-column="10" selection-end-line="86" selection-end-column="10" />
+        <state relative-caret-position="1176">
+          <caret line="154" column="9" selection-start-line="154" selection-start-column="9" selection-end-line="154" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/llvm/Store.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="74" selection-start-line="74" selection-end-line="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/given_parser/MiniCompiler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3994">
+          <caret line="78" column="36" lean-forward="true" selection-start-line="78" selection-start-column="36" selection-end-line="78" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

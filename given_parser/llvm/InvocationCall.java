@@ -6,6 +6,7 @@ import arm.ArmValue.ArmRegister;
 import arm.ArmValue.FinalRegisters.ArmFinalRegister;
 import arm.ArmValue.FinalRegisters.StackPointer;
 import arm.Branch;
+import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeBottom;
 import llvm.lattice.LatticeInteger;
 import llvm.lattice.LatticeValue;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class InvocationCall implements Instruction {
+public class InvocationCall extends AbstactInstruction {
 
     private Register storedRegister;
     private String retType;
@@ -26,6 +27,7 @@ public class InvocationCall implements Instruction {
     private String[] types;
 
     public InvocationCall(Register storedRegister, String retType, String functionName, Value[] args, String[] types) {
+        super();
         this.storedRegister = storedRegister;
         this.retType = retType;
         this.functionName = functionName;

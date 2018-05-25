@@ -4,6 +4,7 @@ import arm.ArmInstruction;
 import arm.ArmValue.ArmVirtualRegister;
 import arm.Move;
 import arm.MoveType;
+import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeBottom;
 import llvm.lattice.LatticeInteger;
 import llvm.lattice.LatticeValue;
@@ -12,7 +13,7 @@ import llvm.value.*;
 import java.util.HashMap;
 import java.util.List;
 
-public class BitCast implements Instruction {
+public class BitCast extends AbstactInstruction {
 
     private Register storedRegister;
     private Value sourceRegister;
@@ -20,6 +21,7 @@ public class BitCast implements Instruction {
     private String targetType;
 
     public BitCast(Register storedRegister, Value sourceRegister, String sourceType, String targetType) {
+        super();
         this.sourceRegister = sourceRegister;
         this.storedRegister = storedRegister;
         this.sourceType = sourceType;

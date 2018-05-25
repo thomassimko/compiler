@@ -5,6 +5,7 @@ import arm.ArmLoad;
 import arm.ArmValue.ArmImmediate;
 import arm.ArmValue.ArmVirtualRegister;
 import arm.ArmValue.FinalRegisters.StackPointer;
+import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeBottom;
 import llvm.lattice.LatticeValue;
 import llvm.value.Register;
@@ -13,13 +14,14 @@ import llvm.value.Value;
 import java.util.HashMap;
 import java.util.List;
 
-public class Load implements Instruction {
+public class Load extends AbstactInstruction {
 
     private Register storedRegister;
     private String type;
     private Value value;
 
     public Load(Register storedRegister, String type, Value value) {
+        super();
         this.storedRegister = storedRegister;
         this.type = type;
         this.value = value;

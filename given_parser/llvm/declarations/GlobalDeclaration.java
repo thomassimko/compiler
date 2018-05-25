@@ -12,11 +12,12 @@ import llvm.value.Register;
 import java.util.HashMap;
 import java.util.List;
 
-public class GlobalDeclaration implements Instruction {
+public class GlobalDeclaration extends AbstactInstruction {
     private String name;
     private Type type;
 
     public GlobalDeclaration(String name, Type type) {
+        super();
         this.name = name;
         this.type = type;
     }
@@ -56,4 +57,5 @@ public class GlobalDeclaration implements Instruction {
     public void replaceRegisterWithLattice(HashMap<Register, LatticeValue> lattice) {
 
     }
+
 }

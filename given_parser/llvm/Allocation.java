@@ -1,6 +1,7 @@
 package llvm;
 
 import arm.ArmInstruction;
+import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeTop;
 import llvm.lattice.LatticeValue;
 import llvm.value.Register;
@@ -8,12 +9,13 @@ import llvm.value.Register;
 import java.util.HashMap;
 import java.util.List;
 
-public class Allocation implements Instruction {
+public class Allocation extends AbstactInstruction {
 
     private String type;
     private Register retValue;
 
     public Allocation(String type, Register retValue) {
+        super();
         this.type = type;
         this.retValue = retValue;
         this.addInstructionToRegisters();

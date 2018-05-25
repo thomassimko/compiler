@@ -37,7 +37,7 @@ public class SSCP {
 
     public static void propagate(List<Block> blockList) {
         for(Block block:blockList) {
-            for(Instruction inst: block.getFinalLLVM()) {
+            for(Instruction inst: block.getLLVMWithPhis()) {
 
             }
         }

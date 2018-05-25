@@ -5,20 +5,23 @@ import arm.ArmStore;
 import arm.ArmValue.ArmImmediate;
 import arm.ArmValue.ArmVirtualRegister;
 import arm.ArmValue.FinalRegisters.StackPointer;
+import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeValue;
 import llvm.value.Register;
 import llvm.value.Value;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Store implements Instruction {
+public class Store extends AbstactInstruction {
 
     private String type;
     private Value targetPtr;
     private Value source;
 
     public Store(String type, Value targetPtr, Value source) {
+        super();
         this.targetPtr = targetPtr;
         this.source = source;
         this.type = type;
@@ -47,7 +50,7 @@ public class Store implements Instruction {
     @Override
     public void addInstructionToRegisters() {
         if(targetPtr instanceof Register) {
-            ((Register)targetPtr).setDef(this);
+            ((Register)targetPtr).addUse(this);
         }
         if(source instanceof Register) {
             ((Register)source).addUse(this);
@@ -61,12 +64,22 @@ public class Store implements Instruction {
 
     @Override
     public Register[] getUsedRegisters() {
-        //shouldnt matter
-        return new Register[0];
+        List<Register> registers = new ArrayList<>();
+        if(targetPtr instanceof Register) {
+            registers.add((Register) targetPtr);
+        }
+        if(source instanceof Register) {
+            registers.add((Register) source);
+        }
+        Register[] regArray = new Register[registers.size()];
+        return registers.toArray(regArray);
     }
 
     @Override
     public Register getTarget() {
+//        if(targetPtr instanceof Register) {
+//            return (Register) targetPtr;
+//        }
         return null;
     }
 

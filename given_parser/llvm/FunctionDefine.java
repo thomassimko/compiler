@@ -6,6 +6,7 @@ import arm.ArmValue.FinalRegisters.ArmFinalRegister;
 import arm.ArmValue.FinalRegisters.FramePointer;
 import arm.ArmValue.FinalRegisters.LinkVirtualRegister;
 import arm.ArmValue.FinalRegisters.StackPointer;
+import llvm.declarations.AbstactInstruction;
 import llvm.declarations.ParameterDeclaration;
 import llvm.lattice.LatticeValue;
 import llvm.value.Register;
@@ -15,17 +16,19 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class FunctionDefine implements Instruction {
+public class FunctionDefine extends AbstactInstruction {
 
     private String functionName;
     private List<ParameterDeclaration> parameters;
     private String retType;
 
     public FunctionDefine(String name, List<ParameterDeclaration> parameters, String retType) {
+        super();
         this.functionName = name;
         this.parameters = parameters;
         this.retType = retType;
         this.addInstructionToRegisters();
+        this.setUseful(true);
     }
     @Override
     public String toLLVM() {

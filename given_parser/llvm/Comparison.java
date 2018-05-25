@@ -8,6 +8,7 @@ import arm.ArmValue.ArmVirtualRegister;
 import arm.Move;
 import arm.MoveType;
 import ast.Type;
+import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeInteger;
 import llvm.lattice.LatticeTop;
 import llvm.lattice.LatticeValue;
@@ -17,7 +18,7 @@ import llvm.value.*;
 import java.util.HashMap;
 import java.util.List;
 
-public class Comparison implements Instruction {
+public class Comparison extends AbstactInstruction {
 
     private Value value1;
     private Value value2;
@@ -26,6 +27,7 @@ public class Comparison implements Instruction {
     private Type type;
 
     public Comparison(Value value1, Value value2, String compareOp, Register storedRegister, Type type) {
+        super();
         this.value1 = value1;
         this.value2 = value2;
         this.storedRegister = storedRegister;

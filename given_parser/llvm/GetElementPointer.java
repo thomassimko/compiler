@@ -5,6 +5,7 @@ import arm.ArithmeticInstruction;
 import arm.ArmInstruction;
 import arm.ArmValue.ArmImmediate;
 import arm.ArmValue.ArmVirtualRegister;
+import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeBottom;
 import llvm.lattice.LatticeValue;
 import llvm.value.*;
@@ -12,7 +13,7 @@ import llvm.value.*;
 import java.util.HashMap;
 import java.util.List;
 
-public class GetElementPointer implements Instruction {
+public class GetElementPointer extends AbstactInstruction {
 
     private Register storedRegister;
     private String type;
@@ -20,6 +21,7 @@ public class GetElementPointer implements Instruction {
     private int arrLoc;
 
     public GetElementPointer(Register storedRegister, String type, Value source, int arrLoc) {
+        super();
         this.storedRegister = storedRegister;
         this.type = type;
         this.source = source;
@@ -57,7 +59,9 @@ public class GetElementPointer implements Instruction {
 
     @Override
     public Register[] getUsedRegisters() {
-        //todo: dont use source, prob not neccessary on this tho
+        if (source instanceof Register) {
+            return new Register[]{storedRegister, (Register) source};
+        }
         return new Register[]{storedRegister};
     }
 
