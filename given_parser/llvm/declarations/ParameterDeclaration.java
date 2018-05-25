@@ -4,6 +4,8 @@ import arm.ArmInstruction;
 import llvm.Allocation;
 import llvm.Instruction;
 import llvm.Store;
+import llvm.lattice.LatticeBottom;
+import llvm.lattice.LatticeValue;
 import llvm.value.Register;
 import llvm.value.SSA;
 
@@ -13,10 +15,13 @@ import java.util.List;
 public class ParameterDeclaration implements Instruction {
     private String name;
     private String type;
+    private Register reg;
 
     public ParameterDeclaration(String name, String type) {
         this.name = name;
         this.type = type;
+        this.reg = new Register(name);
+        reg.setDef(this);
     }
 
     @Override
@@ -28,11 +33,11 @@ public class ParameterDeclaration implements Instruction {
     }
 
     public Instruction getAllocation() {
-        return new Allocation(type, new Register(name));
+        return new Allocation(type, reg);
     }
 
     public Instruction getStore() {
-        return new Store(type, new Register(name), new Register("_P_" + name));
+        return new Store(type, reg, new Register("_P_" + name));
     }
 
     @Override
@@ -45,5 +50,30 @@ public class ParameterDeclaration implements Instruction {
             return "%" + name;
         }
         return "%_P_" + name;
+    }
+
+    @Override
+    public void addInstructionToRegisters() {
+        //do nothing
+    }
+
+    @Override
+    public Register[] getUsedRegisters() {
+        return new Register[]{reg};
+    }
+
+    @Override
+    public LatticeValue getLatticeValue(HashMap<Register, LatticeValue> lattice) {
+        return new LatticeBottom();
+    }
+
+    @Override
+    public Register getTarget() {
+        return reg;
+    }
+
+    @Override
+    public void replaceRegisterWithLattice(HashMap<Register, LatticeValue> lattice) {
+
     }
 }

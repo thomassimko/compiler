@@ -7,6 +7,8 @@ import arm.ArmValue.ArmVirtualRegister;
 import arm.ArmValue.FinalRegisters.ArmFinalRegister;
 import arm.ArmValue.FinalRegisters.StackPointer;
 import arm.Branch;
+import llvm.lattice.LatticeBottom;
+import llvm.lattice.LatticeValue;
 import llvm.value.*;
 
 import java.util.HashMap;
@@ -18,6 +20,8 @@ public class Read implements Instruction {
 
     public Read(Value target) {
         this.target = target;
+        this.addInstructionToRegisters();
+
     }
     @Override
     public String toLLVM() {
@@ -84,5 +88,38 @@ public class Read implements Instruction {
 
         ArmStore store = new ArmStore(tempArmReg, storeLoc, immediate);
         instructions.add(store);
+    }
+
+    @Override
+    public void addInstructionToRegisters() {
+        if(target instanceof Register) {
+            ((Register)target).setDef(this);
+        }
+    }
+
+    @Override
+    public LatticeValue getLatticeValue(HashMap<Register, LatticeValue> lattice) {
+        return new LatticeBottom();
+    }
+
+    @Override
+    public Register[] getUsedRegisters() {
+        if(target instanceof Register) {
+            return new Register[]{((Register) target)};
+        }
+        return new Register[0];
+    }
+
+    @Override
+    public Register getTarget() {
+        if(target instanceof Register) {
+            return (Register) target;
+
+        }
+        return null;
+    }
+
+    @Override
+    public void replaceRegisterWithLattice(HashMap<Register, LatticeValue> lattice) {
     }
 }

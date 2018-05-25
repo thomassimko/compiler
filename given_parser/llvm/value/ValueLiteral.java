@@ -1,12 +1,12 @@
 package llvm.value;
 
 import arm.ArmInstruction;
-import arm.ArmValue.ArmImmediate;
-import arm.ArmValue.ArmRegister;
-import arm.ArmValue.ArmValue;
 import arm.ArmValue.ArmVirtualRegister;
-import llvm.value.Value;
+import llvm.lattice.LatticeBottom;
+import llvm.lattice.LatticeInteger;
+import llvm.lattice.LatticeValue;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class ValueLiteral implements Value {
@@ -29,5 +29,15 @@ public class ValueLiteral implements Value {
             register = ValueToArm.convertValueToArm(this, instructions);
         }
         return register;
+    }
+
+    @Override
+    public LatticeValue getLatticeValue(HashMap<Register, LatticeValue> lattice) {
+        try {
+            return new LatticeInteger(Integer.parseInt(value));
+        } catch(Exception ex) {
+            //System.out.println("Literal with value " + value);
+            return new LatticeBottom();
+        }
     }
 }

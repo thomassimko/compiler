@@ -12,75 +12,75 @@ L1:
 	br i1 %r2, label %L3, label %L4
 
 L3:
-	%phi0 = phi i32 [1, %L1], [%r3, %L3]
-	%phi1 = phi i32 [3, %L1], [%r4, %L3]
-	%phi2 = phi i32 [%a, %L1], [%phi2, %L3]
-	%r3 = add i32 %phi0, %phi1
-	%r4 = add i32 %phi1, 2
-	%r5 = icmp sle i32 %r3, %phi2
-	%r6 = zext i1 %r5 to i32
-	%r7 = trunc i32 %r6 to i1
-	br i1 %r7, label %L3, label %L4
+	%r3 = phi i32 [1, %L1], [%r5, %L3]
+	%r4 = phi i32 [3, %L1], [%r6, %L3]
+	%r7 = phi i32 [%a, %L1], [%r7, %L3]
+	%r5 = add i32 %r3, %r4
+	%r6 = add i32 %r4, 2
+	%r8 = icmp sle i32 %r5, %r7
+	%r9 = zext i1 %r8 to i32
+	%r10 = trunc i32 %r9 to i1
+	br i1 %r10, label %L3, label %L4
 
 L4:
-	%phi3 = phi i32 [3, %L1], [%r4, %L3]
-	%r8 = sdiv i32 %phi3, 2
-	%r9 = sub i32 %r8, 1
+	%r11 = phi i32 [3, %L1], [%r6, %L3]
+	%r12 = sdiv i32 %r11, 2
+	%r13 = sub i32 %r12, 1
 	br label %L2
 L2:
-	%phi4 = phi i32 [%r9, %L4]
-	ret i32 %phi4
+	%r14 = phi i32 [%r13, %L4]
+	ret i32 %r14
 }
 
 define i32 @prime(i32 %a)
 {
 
 L6:
-	%r10 = icmp slt i32 %a, 2
-	%r11 = zext i1 %r10 to i32
-	%r12 = trunc i32 %r11 to i1
-	br i1 %r12, label %L8, label %L9
-
-L8:
-	%r13 = zext i1 0 to i32
-	br label %L7
-L9:
-	%r14 = call i32 @isqrt(i32 %a )
-	%r15 = icmp sle i32 2, %r14
+	%r15 = icmp slt i32 %a, 2
 	%r16 = zext i1 %r15 to i32
 	%r17 = trunc i32 %r16 to i1
-	br i1 %r17, label %L11, label %L12
+	br i1 %r17, label %L8, label %L9
+
+L8:
+	%r18 = zext i1 0 to i32
+	br label %L7
+L9:
+	%r19 = call i32 @isqrt(i32 %a )
+	%r20 = icmp sle i32 2, %r19
+	%r21 = zext i1 %r20 to i32
+	%r22 = trunc i32 %r21 to i1
+	br i1 %r22, label %L11, label %L12
 
 L11:
-	%phi5 = phi i32 [%a, %L9], [%phi5, %L15]
-	%phi6 = phi i32 [2, %L9], [%r25, %L15]
-	%phi7 = phi i32 [%r14, %L9], [%phi7, %L15]
-	%r18 = sdiv i32 %phi5, %phi6
-	%r19 = mul i32 %r18, %phi6
-	%r20 = sub i32 %phi5, %r19
-	%r21 = icmp eq i32 %r20, 0
-	%r22 = zext i1 %r21 to i32
-	%r23 = trunc i32 %r22 to i1
-	br i1 %r23, label %L13, label %L14
+	%r23 = phi i32 [%a, %L9], [%r23, %L15]
+	%r24 = phi i32 [2, %L9], [%r32, %L15]
+	%r33 = phi i32 [%r19, %L9], [%r33, %L15]
+	%r25 = sdiv i32 %r23, %r24
+	%r26 = mul i32 %r25, %r24
+	%r27 = sub i32 %r23, %r26
+	%r28 = icmp eq i32 %r27, 0
+	%r29 = zext i1 %r28 to i32
+	%r30 = trunc i32 %r29 to i1
+	br i1 %r30, label %L13, label %L14
 
 L13:
-	%r24 = zext i1 0 to i32
+	%r31 = zext i1 0 to i32
 	br label %L7
 L14:
 	br label %L15
 L15:
-	%r25 = add i32 %phi6, 1
-	%r26 = icmp sle i32 %r25, %phi7
-	%r27 = zext i1 %r26 to i32
-	%r28 = trunc i32 %r27 to i1
-	br i1 %r28, label %L11, label %L12
+	%r32 = add i32 %r24, 1
+	%r34 = icmp sle i32 %r32, %r33
+	%r35 = zext i1 %r34 to i32
+	%r36 = trunc i32 %r35 to i1
+	br i1 %r36, label %L11, label %L12
 
 L12:
-	%r29 = zext i1 1 to i32
+	%r37 = zext i1 1 to i32
 	br label %L7
 L7:
-	%phi8 = phi i32 [%r13, %L8], [%r24, %L13], [%r29, %L12]
-	ret i32 %phi8
+	%r38 = phi i32 [%r18, %L8], [%r31, %L13], [%r37, %L12]
+	ret i32 %r38
 }
 
 define i32 @main()
@@ -88,38 +88,38 @@ define i32 @main()
 
 L17:
 	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* @.read_scratch)
-	%r30 = load i32, i32* @.read_scratch
-	%r31 = icmp sle i32 0, %r30
-	%r32 = zext i1 %r31 to i32
-	%r33 = trunc i32 %r32 to i1
-	br i1 %r33, label %L19, label %L20
+	%r39 = load i32, i32* @.read_scratch
+	%r40 = icmp sle i32 0, %r39
+	%r41 = zext i1 %r40 to i32
+	%r42 = trunc i32 %r41 to i1
+	br i1 %r42, label %L19, label %L20
 
 L19:
-	%phi9 = phi i32 [0, %L17], [%r36, %L23]
-	%phi12 = phi i32 [%r30, %L17], [%phi11, %L23]
-	%r34 = call i32 @prime(i32 %phi9 )
-	%r35 = trunc i32 %r34 to i1
-	br i1 %r35, label %L21, label %L22
+	%r43 = phi i32 [0, %L17], [%r47, %L23]
+	%r49 = phi i32 [%r39, %L17], [%r48, %L23]
+	%r44 = call i32 @prime(i32 %r43 )
+	%r45 = trunc i32 %r44 to i1
+	br i1 %r45, label %L21, label %L22
 
 L21:
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %phi9)
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r43)
 	br label %L23
 L22:
 	br label %L23
 L23:
-	%phi10 = phi i32 [%phi9, %L21], [%phi9, %L22]
-	%phi11 = phi i32 [%phi12, %L21], [%phi12, %L22]
-	%r36 = add i32 %phi10, 1
-	%r37 = icmp sle i32 %r36, %phi11
-	%r38 = zext i1 %r37 to i32
-	%r39 = trunc i32 %r38 to i1
-	br i1 %r39, label %L19, label %L20
+	%r46 = phi i32 [%r43, %L21], [%r43, %L22]
+	%r48 = phi i32 [%r49, %L21], [%r49, %L22]
+	%r47 = add i32 %r46, 1
+	%r50 = icmp sle i32 %r47, %r48
+	%r51 = zext i1 %r50 to i32
+	%r52 = trunc i32 %r51 to i1
+	br i1 %r52, label %L19, label %L20
 
 L20:
 	br label %L18
 L18:
-	%phi13 = phi i32 [0, %L20]
-	ret i32 %phi13
+	%r53 = phi i32 [0, %L20]
+	ret i32 %r53
 }
 
 declare i8* @malloc(i32)

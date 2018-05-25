@@ -23,25 +23,25 @@ L5:
 	br i1 %r6, label %L6, label %L7
 
 L6:
-	%phi0 = phi i32 [0, %L5], [%r8, %L6]
-	%phi1 = phi i32 [%n, %L5], [%phi1, %L6]
-	%r7 = add i32 %phi0, %phi1
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.print, i32 0, i32 0), i32 %r7)
-	%r8 = add i32 %phi0, 1
-	%r9 = mul i32 %phi1, %phi1
-	%r10 = icmp slt i32 %r8, %r9
-	%r11 = zext i1 %r10 to i32
-	%r12 = trunc i32 %r11 to i1
-	br i1 %r12, label %L6, label %L7
+	%r7 = phi i32 [0, %L5], [%r10, %L6]
+	%r8 = phi i32 [%n, %L5], [%r8, %L6]
+	%r9 = add i32 %r7, %r8
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.print, i32 0, i32 0), i32 %r9)
+	%r10 = add i32 %r7, 1
+	%r11 = mul i32 %r8, %r8
+	%r12 = icmp slt i32 %r10, %r11
+	%r13 = zext i1 %r12 to i32
+	%r14 = trunc i32 %r13 to i1
+	br i1 %r14, label %L6, label %L7
 
 L7:
-	%phi2 = phi i32 [%n, %L5], [%phi1, %L6]
-	%r13 = sub i32 %phi2, 1
-	%r14 = call i32 @function(i32 %r13 )
+	%r15 = phi i32 [%n, %L5], [%r8, %L6]
+	%r16 = sub i32 %r15, 1
+	%r17 = call i32 @function(i32 %r16 )
 	br label %L2
 L2:
-	%phi3 = phi i32 [0, %L3], [%r14, %L7]
-	ret i32 %phi3
+	%r18 = phi i32 [0, %L3], [%r17, %L7]
+	ret i32 %r18
 }
 
 define i32 @main()
@@ -49,13 +49,13 @@ define i32 @main()
 
 L9:
 	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* @.read_scratch)
-	%r15 = load i32, i32* @.read_scratch
-	call i32 @function(i32 %r15 )
+	%r19 = load i32, i32* @.read_scratch
+	call i32 @function(i32 %r19 )
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 0)
 	br label %L10
 L10:
-	%phi4 = phi i32 [0, %L9]
-	ret i32 %phi4
+	%r20 = phi i32 [0, %L9]
+	ret i32 %r20
 }
 
 declare i8* @malloc(i32)

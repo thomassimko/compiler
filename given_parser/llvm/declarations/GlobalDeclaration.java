@@ -5,6 +5,9 @@ import arm.ArmValue.ArmGlobalDeclaration;
 import ast.StructType;
 import ast.Type;
 import llvm.Instruction;
+import llvm.lattice.LatticeBottom;
+import llvm.lattice.LatticeValue;
+import llvm.value.Register;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,5 +30,30 @@ public class GlobalDeclaration implements Instruction {
     @Override
     public void toArm(List<ArmInstruction> instructions, HashMap<String, Integer> offsets) {
         instructions.add(new ArmGlobalDeclaration(name));
+    }
+
+    @Override
+    public void addInstructionToRegisters() {
+        //do nothing
+    }
+
+    @Override
+    public LatticeValue getLatticeValue(HashMap<Register, LatticeValue> lattice) {
+        return new LatticeBottom();
+    }
+
+    @Override
+    public Register[] getUsedRegisters() {
+        return new Register[0];
+    }
+
+    @Override
+    public Register getTarget() {
+        return null;
+    }
+
+    @Override
+    public void replaceRegisterWithLattice(HashMap<Register, LatticeValue> lattice) {
+
     }
 }

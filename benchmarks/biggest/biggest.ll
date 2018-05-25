@@ -30,75 +30,75 @@ L4:
 	store %struct.IntList* %r10, %struct.IntList** %r11
 	br label %L2
 L2:
-	%phi0 = phi %struct.IntList* [%r1, %L3], [%r1, %L4]
-	ret %struct.IntList* %phi0
+	%r12 = phi %struct.IntList* [%r1, %L3], [%r1, %L4]
+	ret %struct.IntList* %r12
 }
 
 define i32 @biggest(i32 %num1, i32 %num2)
 {
 
 L7:
-	%r12 = icmp sgt i32 %num1, %num2
-	%r13 = zext i1 %r12 to i32
-	%r14 = trunc i32 %r13 to i1
-	br i1 %r14, label %L9, label %L10
+	%r13 = icmp sgt i32 %num1, %num2
+	%r14 = zext i1 %r13 to i32
+	%r15 = trunc i32 %r14 to i1
+	br i1 %r15, label %L9, label %L10
 
 L9:
 	br label %L8
 L10:
 	br label %L8
 L8:
-	%phi1 = phi i32 [%num1, %L9], [%num2, %L10]
-	ret i32 %phi1
+	%r16 = phi i32 [%num1, %L9], [%num2, %L10]
+	ret i32 %r16
 }
 
 define i32 @biggestInList(%struct.IntList* %list)
 {
 
 L13:
-	%r15 = getelementptr %struct.IntList , %struct.IntList* %list, i1 0, i32 0
-	%r16 = load i32, i32* %r15
-	%r17 = getelementptr %struct.IntList , %struct.IntList* %list, i1 0, i32 1
-	%r18 = load %struct.IntList*, %struct.IntList** %r17
-	%r19 = icmp ne %struct.IntList* %r18, null
-	%r20 = zext i1 %r19 to i32
-	%r21 = trunc i32 %r20 to i1
-	br i1 %r21, label %L15, label %L16
+	%r17 = getelementptr %struct.IntList , %struct.IntList* %list, i1 0, i32 0
+	%r18 = load i32, i32* %r17
+	%r19 = getelementptr %struct.IntList , %struct.IntList* %list, i1 0, i32 1
+	%r20 = load %struct.IntList*, %struct.IntList** %r19
+	%r21 = icmp ne %struct.IntList* %r20, null
+	%r22 = zext i1 %r21 to i32
+	%r23 = trunc i32 %r22 to i1
+	br i1 %r23, label %L15, label %L16
 
 L15:
-	%phi2 = phi i32 [%r16, %L13], [%r24, %L15]
-	%phi3 = phi %struct.IntList* [%list, %L13], [%r26, %L15]
-	%r22 = getelementptr %struct.IntList , %struct.IntList* %phi3, i1 0, i32 0
-	%r23 = load i32, i32* %r22
-	%r24 = call i32 @biggest(i32 %phi2, i32 %r23 )
-	%r25 = getelementptr %struct.IntList , %struct.IntList* %phi3, i1 0, i32 1
-	%r26 = load %struct.IntList*, %struct.IntList** %r25
-	%r27 = getelementptr %struct.IntList , %struct.IntList* %r26, i1 0, i32 1
-	%r28 = load %struct.IntList*, %struct.IntList** %r27
-	%r29 = icmp ne %struct.IntList* %r28, null
-	%r30 = zext i1 %r29 to i32
-	%r31 = trunc i32 %r30 to i1
-	br i1 %r31, label %L15, label %L16
+	%r24 = phi i32 [%r18, %L13], [%r28, %L15]
+	%r25 = phi %struct.IntList* [%list, %L13], [%r30, %L15]
+	%r26 = getelementptr %struct.IntList , %struct.IntList* %r25, i1 0, i32 0
+	%r27 = load i32, i32* %r26
+	%r28 = call i32 @biggest(i32 %r24, i32 %r27 )
+	%r29 = getelementptr %struct.IntList , %struct.IntList* %r25, i1 0, i32 1
+	%r30 = load %struct.IntList*, %struct.IntList** %r29
+	%r31 = getelementptr %struct.IntList , %struct.IntList* %r30, i1 0, i32 1
+	%r32 = load %struct.IntList*, %struct.IntList** %r31
+	%r33 = icmp ne %struct.IntList* %r32, null
+	%r34 = zext i1 %r33 to i32
+	%r35 = trunc i32 %r34 to i1
+	br i1 %r35, label %L15, label %L16
 
 L16:
-	%phi4 = phi i32 [%r16, %L13], [%r24, %L15]
+	%r36 = phi i32 [%r18, %L13], [%r28, %L15]
 	br label %L14
 L14:
-	%phi5 = phi i32 [%phi4, %L16]
-	ret i32 %phi5
+	%r37 = phi i32 [%r36, %L16]
+	ret i32 %r37
 }
 
 define i32 @main()
 {
 
 L18:
-	%r32 = call %struct.IntList* @getIntList()
-	%r33 = call i32 @biggestInList(%struct.IntList* %r32 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r33)
+	%r38 = call %struct.IntList* @getIntList()
+	%r39 = call i32 @biggestInList(%struct.IntList* %r38 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r39)
 	br label %L19
 L19:
-	%phi6 = phi i32 [0, %L18]
-	ret i32 %phi6
+	%r40 = phi i32 [0, %L18]
+	ret i32 %r40
 }
 
 declare i8* @malloc(i32)

@@ -5,9 +5,10 @@ import arm.ArmLoad;
 import arm.ArmValue.ArmImmediate;
 import arm.ArmValue.ArmVirtualRegister;
 import arm.ArmValue.FinalRegisters.StackPointer;
+import llvm.lattice.LatticeBottom;
+import llvm.lattice.LatticeValue;
 import llvm.value.Register;
 import llvm.value.Value;
-import llvm.value.ValueToArm;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +23,8 @@ public class Load implements Instruction {
         this.storedRegister = storedRegister;
         this.type = type;
         this.value = value;
+        this.addInstructionToRegisters();
+
     }
 
     @Override
@@ -44,6 +47,38 @@ public class Load implements Instruction {
             load = new ArmLoad(store, valueReg);
         }
         instructions.add(load);
+
+    }
+
+    @Override
+    public void addInstructionToRegisters() {
+        storedRegister.setDef(this);
+        if(value instanceof Register) {
+            ((Register)value).addUse(this);
+        }
+    }
+
+    @Override
+    public LatticeValue getLatticeValue(HashMap<Register, LatticeValue> lattice) {
+        return new LatticeBottom();
+    }
+
+    @Override
+    public Register[] getUsedRegisters() {
+        if(value instanceof Register) {
+            return new Register[]{((Register)value), storedRegister};
+        }
+        return new Register[]{storedRegister};
+
+    }
+
+    @Override
+    public Register getTarget() {
+        return storedRegister;
+    }
+
+    @Override
+    public void replaceRegisterWithLattice(HashMap<Register, LatticeValue> lattice) {
 
     }
 }

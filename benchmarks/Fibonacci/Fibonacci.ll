@@ -29,8 +29,8 @@ L7:
 	%r10 = add i32 %r7, %r9
 	br label %L2
 L2:
-	%phi0 = phi i32 [0, %L3], [1, %L6], [%r10, %L7]
-	ret i32 %phi0
+	%r11 = phi i32 [0, %L3], [1, %L6], [%r10, %L7]
+	ret i32 %r11
 }
 
 define i32 @main()
@@ -38,13 +38,13 @@ define i32 @main()
 
 L10:
 	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* @.read_scratch)
-	%r11 = load i32, i32* @.read_scratch
-	%r12 = call i32 @computeFib(i32 %r11 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r12)
+	%r12 = load i32, i32* @.read_scratch
+	%r13 = call i32 @computeFib(i32 %r12 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r13)
 	br label %L11
 L11:
-	%phi1 = phi i32 [0, %L10]
-	ret i32 %phi1
+	%r14 = phi i32 [0, %L10]
+	ret i32 %r14
 }
 
 declare i8* @malloc(i32)

@@ -8,6 +8,8 @@ import arm.Branch;
 import arm.BranchType;
 import llvm.Instruction;
 import llvm.Phi;
+import llvm.lattice.LatticeValue;
+import llvm.value.Register;
 import llvm.value.Value;
 
 import java.util.*;
@@ -28,6 +30,8 @@ public abstract class Block {
     private boolean sealed;
     private List<Phi> incompletePhis;
     private List<Phi> completedPhis;
+    private List<Block> allSuccessors;
+    private boolean touchedSuccessor;
 
 
     public Block(String label) {
@@ -313,5 +317,16 @@ public abstract class Block {
         if(!set) {
             this.armCode.addAll(0, inst);
         }
+    }
+
+    public Set<Register> getRegisters() {
+        Set<Register> registers = new HashSet<>();
+
+        for(Instruction inst: this.getFinalLLVM()) {
+            for(Register reg: inst.getUsedRegisters()) {
+                registers.add(reg);
+            }
+        }
+        return registers;
     }
 }

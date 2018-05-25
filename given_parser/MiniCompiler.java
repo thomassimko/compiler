@@ -9,6 +9,12 @@ import llvm.FunctionDefine;
 import llvm.FunctionEnd;
 import llvm.Instruction;
 import llvm.Phi;
+import llvm.declarations.ParameterDeclaration;
+import llvm.lattice.LatticeBottom;
+import llvm.lattice.LatticeInteger;
+import llvm.lattice.LatticeTop;
+import llvm.lattice.LatticeValue;
+import llvm.value.Register;
 import llvm.value.SSA;
 import llvm.value.Value;
 import llvm.value.ValueToArm;
@@ -43,7 +49,9 @@ public class MiniCompiler
 
          List<Block> blockList = new ArrayList<Block>();
 
-         Block[] cfg = program.getCFG(blockList, structTable);
+         StartBlock[] cfg = program.getCFG(blockList, structTable);
+
+         constantPropagation(blockList, cfg);
 
          convertToArm(blockList, program);
 
@@ -327,5 +335,130 @@ public class MiniCompiler
       }
       printArm(program, armInstructions);
 
+   }
+
+   private static void constantPropagation(List<Block> allBlocks, StartBlock[] cfg) {
+      HashMap<Register, LatticeValue> lattice = new HashMap<>();
+      List<Register> workList = new ArrayList<>();
+      for (Block block : allBlocks) {
+         //initialize registers
+         if (block instanceof StartBlock) {
+            StartBlock start = (StartBlock) block;
+            lattice = start.getLattice();
+            workList = start.getWorkingSet();
+            for (ParameterDeclaration param : start.getParams()) {
+               Register paramReg = param.getUsedRegisters()[0];
+               workList.add(paramReg);
+               lattice.put(paramReg, new LatticeBottom());
+            }
+         }
+         for (Register curReg : block.getRegisters()) {
+            //System.out.println("added " + curReg.toLLVM() + " as top");
+            lattice.put(curReg, new LatticeTop());
+         }
+//         System.out.println(block.getLlvmLabel());
+//         System.out.println(String.join(", ", lattice.keySet().stream().map(register -> register.toLLVM()).toArray(String[]::new)));
+//         System.out.println();
+      }
+
+      for(StartBlock start:cfg) {
+
+         lattice = start.getLattice();
+//         System.out.println(start.getLlvmLabel());
+//         System.out.println();
+         workList = start.getWorkingSet();
+
+         //update lattice values
+         for(Register curReg: lattice.keySet()) {
+//            System.out.print(curReg.toLLVM() + " - ");
+//            System.out.println(curReg.getDef());
+            LatticeValue value;
+            try {
+               value = curReg.getDef().getLatticeValue(lattice);
+               //System.out.println(curReg.getDef().toLLVM());
+            } catch (NullPointerException e) {
+               //System.out.println(e);
+               value = new LatticeBottom();
+               //System.err.println("value not found for " + curReg.toLLVM());
+            }
+            if(!(value instanceof LatticeTop)) {
+               //System.out.println("Adding " + curReg.toLLVM() + " to worklist");
+               workList.add(curReg);
+            }
+//            System.out.print("saving " + curReg.toLLVM());
+//            System.out.println(" as " + value);
+//            System.out.println();
+            lattice.put(curReg, value);
+         }
+
+
+
+         //go through the working list
+         while(!workList.isEmpty()) {
+            Register curReg = workList.get(0);
+            workList.remove(curReg);
+            for(Instruction inst: curReg.getUses()) {
+               Register savedReg = inst.getTarget();
+               if(savedReg != null) {
+                  LatticeValue tempValue = savedReg.getLatticeValue(lattice);
+
+                  //System.out.println(String.join(", ", lattice.keySet().stream().map(register -> register.toLLVM()).toArray(String[]::new)));
+                  //System.out.println("save reg " + savedReg.toLLVM());
+                  //System.out.println(tempValue);
+                  //System.out.println();
+                  //if it is not already at bottom
+                  if (!(tempValue instanceof LatticeBottom)) {
+                     LatticeValue newVal = inst.getLatticeValue(lattice);
+                     if(newVal != null) {
+//                        System.out.println(newVal);
+//                        System.out.println(tempValue);
+//                        System.out.println(inst.toLLVM());
+//                        System.out.println();
+                        lattice.put(savedReg, newVal);
+                        if ((tempValue instanceof LatticeInteger) && (newVal instanceof LatticeInteger) && ((LatticeInteger) newVal).getValue() != ((LatticeInteger) tempValue).getValue()) {
+                           workList.add(savedReg);
+                           //System.out.println("adding " + savedReg.toLLVM() + " to working");
+                        } else if (tempValue == null || tempValue.getClass() != newVal.getClass()) {
+                           workList.add(savedReg);
+                        }
+                     }
+                  }
+               }
+               else {
+                  //System.err.println("target not found for inst : " + inst.toLLVM());
+               }
+            }
+         }
+
+         for(Register curReg: lattice.keySet()) {
+            LatticeValue value = lattice.get(curReg);
+            if(value instanceof LatticeInteger) {
+               LatticeInteger latInt = (LatticeInteger) value;
+               for(Instruction inst:curReg.getUses()) {
+                  inst.replaceRegisterWithLattice(lattice);
+               }
+            }
+         }
+
+         //System.out.println(lattice.values());
+
+
+      }
+
+      for (Block block : allBlocks) {
+         //initialize registers
+         if (block instanceof StartBlock) {
+            StartBlock start = (StartBlock) block;
+            lattice = start.getLattice();
+         }
+         List<Instruction> instructions = block.getFinalLLVM();
+         List<Instruction> newInstructions = new ArrayList<>();
+         for(Instruction instruction:instructions) {
+            instruction.replaceRegisterWithLattice(lattice);
+            if(!(lattice.get(instruction.getTarget()) instanceof LatticeInteger)) {
+               newInstructions.add(instruction);
+            }
+         }
+      }
    }
 }

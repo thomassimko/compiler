@@ -4,9 +4,11 @@ import arm.ArmInstruction;
 import arm.ArmValue.ArmVirtualRegister;
 import arm.Move;
 import arm.MoveType;
+import llvm.lattice.LatticeInteger;
+import llvm.lattice.LatticeValue;
 import llvm.value.Register;
 import llvm.value.Value;
-import llvm.value.ValueToArm;
+import llvm.value.ValueLiteral;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +21,8 @@ public class Truncate implements Instruction {
     public Truncate(Value value, Register saveReg) {
         this.value = value;
         this.saveReg = saveReg;
+        this.addInstructionToRegisters();
+
     }
 
     @Override
@@ -32,5 +36,42 @@ public class Truncate implements Instruction {
         ArmVirtualRegister r2 = value.toArmRegister(instructions);
         ArmInstruction move = new Move(MoveType.DEFAULT, r1, r2, 0, false);
         instructions.add(move);
+    }
+
+    @Override
+    public void addInstructionToRegisters() {
+        saveReg.setDef(this);
+        if(value instanceof Register) {
+            ((Register)value).addUse(this);
+        }
+    }
+
+    @Override
+    public LatticeValue getLatticeValue(HashMap<Register, LatticeValue> lattice) {
+        //System.out.println(value.toLLVM() + " " + value.getLatticeValue(lattice));
+        return value.getLatticeValue(lattice);
+    }
+
+    @Override
+    public Register[] getUsedRegisters() {
+        if(value instanceof Register) {
+            return new Register[]{saveReg, ((Register)value)};
+        }
+        return new Register[]{saveReg};
+    }
+
+    @Override
+    public Register getTarget() {
+        return saveReg;
+    }
+
+    @Override
+    public void replaceRegisterWithLattice(HashMap<Register, LatticeValue> lattice) {
+        if (value instanceof Register) {
+            LatticeValue latvalue = value.getLatticeValue(lattice);
+            if (latvalue instanceof LatticeInteger) {
+                value = new ValueLiteral(((LatticeInteger) latvalue).getValue() + "");
+            }
+        }
     }
 }

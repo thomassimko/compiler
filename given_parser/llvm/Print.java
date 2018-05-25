@@ -4,8 +4,11 @@ import arm.*;
 import arm.ArmValue.FinalRegisters.ArmFinalRegister;
 import arm.ArmValue.ArmImmediate;
 import arm.Branch;
+import llvm.lattice.LatticeInteger;
+import llvm.lattice.LatticeValue;
+import llvm.value.Register;
 import llvm.value.Value;
-import llvm.value.ValueToArm;
+import llvm.value.ValueLiteral;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +21,8 @@ public class Print implements Instruction {
     public Print(Value value, boolean printLine) {
         this.value = value;
         this.printLine = printLine;
+        this.addInstructionToRegisters();
+
     }
     @Override
     public String toLLVM() {
@@ -43,5 +48,41 @@ public class Print implements Instruction {
         instructions.add(movw);
         instructions.add(movt);
         instructions.add(branch);
+    }
+
+    @Override
+    public void addInstructionToRegisters() {
+        if(value instanceof Register) {
+            ((Register) value).addUse(this);
+        }
+    }
+
+    @Override
+    public LatticeValue getLatticeValue(HashMap<Register, LatticeValue> lattice) {
+        System.err.println("print lattice called");
+        return null;
+    }
+
+    @Override
+    public Register[] getUsedRegisters() {
+        if(value instanceof Register) {
+            return new Register[]{((Register) value)};
+        }
+        return new Register[0];
+    }
+
+    @Override
+    public Register getTarget() {
+        return null;
+    }
+
+    @Override
+    public void replaceRegisterWithLattice(HashMap<Register, LatticeValue> lattice) {
+        if(value instanceof Register) {
+            LatticeValue latvalue = lattice.get(value);
+            if(latvalue instanceof LatticeInteger) {
+                value = new ValueLiteral(((LatticeInteger) latvalue).getValue() + "");
+            }
+        }
     }
 }

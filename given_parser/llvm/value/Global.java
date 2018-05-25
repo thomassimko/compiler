@@ -1,11 +1,12 @@
 package llvm.value;
 
 import arm.ArmInstruction;
-import arm.ArmValue.ArmGlobalDeclaration;
 import arm.ArmValue.ArmImmediate;
-import arm.ArmValue.ArmRegister;
 import arm.ArmValue.ArmVirtualRegister;
+import llvm.lattice.LatticeBottom;
+import llvm.lattice.LatticeValue;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Global implements Value {
@@ -32,5 +33,10 @@ public class Global implements Value {
             register = ValueToArm.convertValueToArm(this, instructions);
         }
         return register;
+    }
+
+    @Override
+    public LatticeValue getLatticeValue(HashMap<Register, LatticeValue> lattice) {
+        return new LatticeBottom();
     }
 }

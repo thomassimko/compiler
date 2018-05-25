@@ -72,7 +72,7 @@ public class Branch extends AbstractArmInstruction {
         if(this.branchType == BranchType.L) {
             for (int i = 0; i < paramCount; i++) {
                 if(i > 4) {
-                    throw new RuntimeException("spill");
+                    //throw new RuntimeException("spill");
                 }
                 else {
                     sources[i] = new ArmFinalRegister("r" + i);

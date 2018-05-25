@@ -23,64 +23,64 @@ L5:
 	%r6 = add i32 1, %r5
 	br label %L2
 L2:
-	%phi0 = phi i32 [0, %L3], [%r6, %L5]
-	ret i32 %phi0
+	%r7 = phi i32 [0, %L3], [%r6, %L5]
+	ret i32 %r7
 }
 
 define %struct.intList* @addToFront(%struct.intList* %list, i32 %element)
 {
 
 L7:
-	%r7 = icmp eq %struct.intList* %list, null
-	%r8 = zext i1 %r7 to i32
-	%r9 = trunc i32 %r8 to i1
-	br i1 %r9, label %L9, label %L10
+	%r8 = icmp eq %struct.intList* %list, null
+	%r9 = zext i1 %r8 to i32
+	%r10 = trunc i32 %r9 to i1
+	br i1 %r10, label %L9, label %L10
 
 L9:
-	%r10 = call i8* @malloc(i32 16)
-	%r11 = bitcast i8* %r10 to %struct.intList*
-	%r12 = getelementptr %struct.intList , %struct.intList* %r11, i1 0, i32 0
-	store i32 %element, i32* %r12
-	%r13 = getelementptr %struct.intList , %struct.intList* %r11, i1 0, i32 1
-	store %struct.intList* null, %struct.intList** %r13
+	%r11 = call i8* @malloc(i32 16)
+	%r12 = bitcast i8* %r11 to %struct.intList*
+	%r13 = getelementptr %struct.intList , %struct.intList* %r12, i1 0, i32 0
+	store i32 %element, i32* %r13
+	%r14 = getelementptr %struct.intList , %struct.intList* %r12, i1 0, i32 1
+	store %struct.intList* null, %struct.intList** %r14
 	br label %L8
 L10:
 	br label %L11
 L11:
-	%r14 = call i8* @malloc(i32 16)
-	%r15 = bitcast i8* %r14 to %struct.intList*
-	%r16 = getelementptr %struct.intList , %struct.intList* %r15, i1 0, i32 0
-	store i32 %element, i32* %r16
-	%r17 = getelementptr %struct.intList , %struct.intList* %r15, i1 0, i32 1
-	store %struct.intList* %list, %struct.intList** %r17
+	%r15 = call i8* @malloc(i32 16)
+	%r16 = bitcast i8* %r15 to %struct.intList*
+	%r17 = getelementptr %struct.intList , %struct.intList* %r16, i1 0, i32 0
+	store i32 %element, i32* %r17
+	%r18 = getelementptr %struct.intList , %struct.intList* %r16, i1 0, i32 1
+	store %struct.intList* %list, %struct.intList** %r18
 	br label %L8
 L8:
-	%phi1 = phi %struct.intList* [%r11, %L9], [%r15, %L11]
-	ret %struct.intList* %phi1
+	%r19 = phi %struct.intList* [%r12, %L9], [%r16, %L11]
+	ret %struct.intList* %r19
 }
 
 define %struct.intList* @deleteFirst(%struct.intList* %list)
 {
 
 L13:
-	%r18 = icmp eq %struct.intList* %list, null
-	%r19 = zext i1 %r18 to i32
-	%r20 = trunc i32 %r19 to i1
-	br i1 %r20, label %L15, label %L16
+	%r20 = icmp eq %struct.intList* %list, null
+	%r21 = zext i1 %r20 to i32
+	%r22 = trunc i32 %r21 to i1
+	br i1 %r22, label %L15, label %L16
 
 L15:
 	br label %L14
 L16:
 	br label %L17
 L17:
-	%r21 = getelementptr %struct.intList , %struct.intList* %list, i1 0, i32 1
-	%r22 = load %struct.intList*, %struct.intList** %r21
-	%r23 = bitcast %struct.intList* %list to i8*
-	call void @free(i8* %r23 )
+	%r23 = getelementptr %struct.intList , %struct.intList* %list, i1 0, i32 1
+	%r24 = load %struct.intList*, %struct.intList** %r23
+	%r25 = bitcast %struct.intList* %list to i8*
+	call void @free(i8* %r25 )
 	br label %L14
 L14:
-	%phi2 = phi %struct.intList* [null, %L15], [%r22, %L17]
-	ret %struct.intList* %phi2
+	%r26 = phi %struct.intList* [null, %L15], [%r24, %L17]
+	ret %struct.intList* %r26
 }
 
 define i32 @main()
@@ -88,64 +88,64 @@ define i32 @main()
 
 L19:
 	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* @.read_scratch)
-	%r24 = load i32, i32* @.read_scratch
-	store i32 %r24, i32* @intList
-	%r25 = load i32, i32* @intList
-	%r26 = icmp sgt i32 %r25, 0
-	%r27 = zext i1 %r26 to i32
-	%r28 = trunc i32 %r27 to i1
-	br i1 %r28, label %L21, label %L22
+	%r27 = load i32, i32* @.read_scratch
+	store i32 %r27, i32* @intList
+	%r28 = load i32, i32* @intList
+	%r29 = icmp sgt i32 %r28, 0
+	%r30 = zext i1 %r29 to i32
+	%r31 = trunc i32 %r30 to i1
+	br i1 %r31, label %L21, label %L22
 
 L21:
-	%phi3 = phi %struct.intList* [null, %L19], [%r30, %L21]
-	%phi8 = phi i32 [0, %L19], [%phi8, %L21]
-	%r29 = load i32, i32* @intList
-	%r30 = call %struct.intList* @addToFront(%struct.intList* %phi3, i32 %r29 )
-	%r31 = getelementptr %struct.intList , %struct.intList* %r30, i1 0, i32 0
-	%r32 = load i32, i32* %r31
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.print, i32 0, i32 0), i32 %r32)
+	%r32 = phi %struct.intList* [null, %L19], [%r34, %L21]
+	%r61 = phi i32 [0, %L19], [%r61, %L21]
 	%r33 = load i32, i32* @intList
-	%r34 = sub i32 %r33, 1
-	store i32 %r34, i32* @intList
-	%r35 = load i32, i32* @intList
-	%r36 = icmp sgt i32 %r35, 0
-	%r37 = zext i1 %r36 to i32
-	%r38 = trunc i32 %r37 to i1
-	br i1 %r38, label %L21, label %L22
+	%r34 = call %struct.intList* @addToFront(%struct.intList* %r32, i32 %r33 )
+	%r35 = getelementptr %struct.intList , %struct.intList* %r34, i1 0, i32 0
+	%r36 = load i32, i32* %r35
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.print, i32 0, i32 0), i32 %r36)
+	%r37 = load i32, i32* @intList
+	%r38 = sub i32 %r37, 1
+	store i32 %r38, i32* @intList
+	%r39 = load i32, i32* @intList
+	%r40 = icmp sgt i32 %r39, 0
+	%r41 = zext i1 %r40 to i32
+	%r42 = trunc i32 %r41 to i1
+	br i1 %r42, label %L21, label %L22
 
 L22:
-	%phi4 = phi %struct.intList* [null, %L19], [%r30, %L21]
-	%phi7 = phi i32 [0, %L19], [%phi8, %L21]
-	%r39 = call i32 @length(%struct.intList* %phi4 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.print, i32 0, i32 0), i32 %r39)
-	%r40 = call i32 @length(%struct.intList* %phi4 )
-	%r41 = icmp sgt i32 %r40, 0
-	%r42 = zext i1 %r41 to i32
-	%r43 = trunc i32 %r42 to i1
-	br i1 %r43, label %L23, label %L24
+	%r43 = phi %struct.intList* [null, %L19], [%r34, %L21]
+	%r60 = phi i32 [0, %L19], [%r61, %L21]
+	%r44 = call i32 @length(%struct.intList* %r43 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.print, i32 0, i32 0), i32 %r44)
+	%r45 = call i32 @length(%struct.intList* %r43 )
+	%r46 = icmp sgt i32 %r45, 0
+	%r47 = zext i1 %r46 to i32
+	%r48 = trunc i32 %r47 to i1
+	br i1 %r48, label %L23, label %L24
 
 L23:
-	%phi5 = phi i32 [%phi7, %L22], [%r46, %L23]
-	%phi6 = phi %struct.intList* [%phi4, %L22], [%r48, %L23]
-	%r44 = getelementptr %struct.intList , %struct.intList* %phi6, i1 0, i32 0
-	%r45 = load i32, i32* %r44
-	%r46 = add i32 %phi5, %r45
-	%r47 = call i32 @length(%struct.intList* %phi6 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.print, i32 0, i32 0), i32 %r47)
-	%r48 = call %struct.intList* @deleteFirst(%struct.intList* %phi6 )
-	%r49 = call i32 @length(%struct.intList* %r48 )
-	%r50 = icmp sgt i32 %r49, 0
-	%r51 = zext i1 %r50 to i32
-	%r52 = trunc i32 %r51 to i1
-	br i1 %r52, label %L23, label %L24
+	%r49 = phi i32 [%r60, %L22], [%r53, %L23]
+	%r50 = phi %struct.intList* [%r43, %L22], [%r55, %L23]
+	%r51 = getelementptr %struct.intList , %struct.intList* %r50, i1 0, i32 0
+	%r52 = load i32, i32* %r51
+	%r53 = add i32 %r49, %r52
+	%r54 = call i32 @length(%struct.intList* %r50 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.print, i32 0, i32 0), i32 %r54)
+	%r55 = call %struct.intList* @deleteFirst(%struct.intList* %r50 )
+	%r56 = call i32 @length(%struct.intList* %r55 )
+	%r57 = icmp sgt i32 %r56, 0
+	%r58 = zext i1 %r57 to i32
+	%r59 = trunc i32 %r58 to i1
+	br i1 %r59, label %L23, label %L24
 
 L24:
-	%phi9 = phi i32 [%phi7, %L22], [%r46, %L23]
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %phi9)
+	%r62 = phi i32 [%r60, %L22], [%r53, %L23]
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r62)
 	br label %L20
 L20:
-	%phi10 = phi i32 [0, %L24]
-	ret i32 %phi10
+	%r63 = phi i32 [0, %L24]
+	ret i32 %r63
 }
 
 declare i8* @malloc(i32)

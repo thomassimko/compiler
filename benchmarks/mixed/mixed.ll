@@ -32,89 +32,89 @@ L7:
 	%r4 = add i32 %x, %y
 	br label %L8
 L8:
-	%phi0 = phi i32 [%r4, %L7]
-	ret i32 %phi0
+	%r5 = phi i32 [%r4, %L7]
+	ret i32 %r5
 }
 
 define void @domath(i32 %num)
 {
 
 L10:
-	%r5 = call i8* @malloc(i32 24)
-	%r6 = bitcast i8* %r5 to %struct.foo*
-	%r7 = call i8* @malloc(i32 8)
-	%r8 = bitcast i8* %r7 to %struct.simple*
-	%r9 = getelementptr %struct.foo , %struct.foo* %r6, i1 0, i32 2
-	store %struct.simple* %r8, %struct.simple** %r9
-	%r10 = call i8* @malloc(i32 24)
-	%r11 = bitcast i8* %r10 to %struct.foo*
-	%r12 = call i8* @malloc(i32 8)
-	%r13 = bitcast i8* %r12 to %struct.simple*
-	%r14 = getelementptr %struct.foo , %struct.foo* %r11, i1 0, i32 2
-	store %struct.simple* %r13, %struct.simple** %r14
-	%r15 = getelementptr %struct.foo , %struct.foo* %r6, i1 0, i32 0
-	store i32 %num, i32* %r15
-	%r16 = getelementptr %struct.foo , %struct.foo* %r11, i1 0, i32 0
-	store i32 3, i32* %r16
-	%r17 = getelementptr %struct.foo , %struct.foo* %r6, i1 0, i32 0
-	%r18 = load i32, i32* %r17
-	%r19 = getelementptr %struct.foo , %struct.foo* %r6, i1 0, i32 2
-	%r20 = load %struct.simple*, %struct.simple** %r19
-	%r21 = getelementptr %struct.simple , %struct.simple* %r20, i1 0, i32 0
-	store i32 %r18, i32* %r21
-	%r22 = getelementptr %struct.foo , %struct.foo* %r11, i1 0, i32 0
-	%r23 = load i32, i32* %r22
-	%r24 = getelementptr %struct.foo , %struct.foo* %r11, i1 0, i32 2
-	%r25 = load %struct.simple*, %struct.simple** %r24
-	%r26 = getelementptr %struct.simple , %struct.simple* %r25, i1 0, i32 0
-	store i32 %r23, i32* %r26
-	%r27 = icmp sgt i32 %num, 0
-	%r28 = zext i1 %r27 to i32
-	%r29 = trunc i32 %r28 to i1
-	br i1 %r29, label %L12, label %L13
+	%r6 = call i8* @malloc(i32 24)
+	%r7 = bitcast i8* %r6 to %struct.foo*
+	%r8 = call i8* @malloc(i32 8)
+	%r9 = bitcast i8* %r8 to %struct.simple*
+	%r10 = getelementptr %struct.foo , %struct.foo* %r7, i1 0, i32 2
+	store %struct.simple* %r9, %struct.simple** %r10
+	%r11 = call i8* @malloc(i32 24)
+	%r12 = bitcast i8* %r11 to %struct.foo*
+	%r13 = call i8* @malloc(i32 8)
+	%r14 = bitcast i8* %r13 to %struct.simple*
+	%r15 = getelementptr %struct.foo , %struct.foo* %r12, i1 0, i32 2
+	store %struct.simple* %r14, %struct.simple** %r15
+	%r16 = getelementptr %struct.foo , %struct.foo* %r7, i1 0, i32 0
+	store i32 %num, i32* %r16
+	%r17 = getelementptr %struct.foo , %struct.foo* %r12, i1 0, i32 0
+	store i32 3, i32* %r17
+	%r18 = getelementptr %struct.foo , %struct.foo* %r7, i1 0, i32 0
+	%r19 = load i32, i32* %r18
+	%r20 = getelementptr %struct.foo , %struct.foo* %r7, i1 0, i32 2
+	%r21 = load %struct.simple*, %struct.simple** %r20
+	%r22 = getelementptr %struct.simple , %struct.simple* %r21, i1 0, i32 0
+	store i32 %r19, i32* %r22
+	%r23 = getelementptr %struct.foo , %struct.foo* %r12, i1 0, i32 0
+	%r24 = load i32, i32* %r23
+	%r25 = getelementptr %struct.foo , %struct.foo* %r12, i1 0, i32 2
+	%r26 = load %struct.simple*, %struct.simple** %r25
+	%r27 = getelementptr %struct.simple , %struct.simple* %r26, i1 0, i32 0
+	store i32 %r24, i32* %r27
+	%r28 = icmp sgt i32 %num, 0
+	%r29 = zext i1 %r28 to i32
+	%r30 = trunc i32 %r29 to i1
+	br i1 %r30, label %L12, label %L13
 
 L12:
-	%phi1 = phi %struct.foo* [%r6, %L10], [%phi1, %L12]
-	%phi2 = phi %struct.foo* [%r11, %L10], [%phi2, %L12]
-	%phi3 = phi i32 [%num, %L10], [%r55, %L12]
-	%r30 = getelementptr %struct.foo , %struct.foo* %phi1, i1 0, i32 0
-	%r31 = load i32, i32* %r30
-	%r32 = getelementptr %struct.foo , %struct.foo* %phi2, i1 0, i32 0
+	%r31 = phi %struct.foo* [%r7, %L10], [%r31, %L12]
+	%r34 = phi %struct.foo* [%r12, %L10], [%r34, %L12]
+	%r58 = phi i32 [%num, %L10], [%r59, %L12]
+	%r32 = getelementptr %struct.foo , %struct.foo* %r31, i1 0, i32 0
 	%r33 = load i32, i32* %r32
-	%r34 = mul i32 %r31, %r33
-	%r35 = getelementptr %struct.foo , %struct.foo* %phi1, i1 0, i32 2
-	%r36 = load %struct.simple*, %struct.simple** %r35
-	%r37 = getelementptr %struct.simple , %struct.simple* %r36, i1 0, i32 0
-	%r38 = load i32, i32* %r37
-	%r39 = mul i32 %r34, %r38
-	%r40 = getelementptr %struct.foo , %struct.foo* %phi2, i1 0, i32 0
+	%r35 = getelementptr %struct.foo , %struct.foo* %r34, i1 0, i32 0
+	%r36 = load i32, i32* %r35
+	%r37 = mul i32 %r33, %r36
+	%r38 = getelementptr %struct.foo , %struct.foo* %r31, i1 0, i32 2
+	%r39 = load %struct.simple*, %struct.simple** %r38
+	%r40 = getelementptr %struct.simple , %struct.simple* %r39, i1 0, i32 0
 	%r41 = load i32, i32* %r40
-	%r42 = sdiv i32 %r39, %r41
-	%r43 = getelementptr %struct.foo , %struct.foo* %phi2, i1 0, i32 2
-	%r44 = load %struct.simple*, %struct.simple** %r43
-	%r45 = getelementptr %struct.simple , %struct.simple* %r44, i1 0, i32 0
-	%r46 = load i32, i32* %r45
-	%r47 = getelementptr %struct.foo , %struct.foo* %phi1, i1 0, i32 0
-	%r48 = load i32, i32* %r47
-	%r49 = call i32 @add(i32 %r46, i32 %r48 )
-	%r50 = getelementptr %struct.foo , %struct.foo* %phi2, i1 0, i32 0
+	%r42 = mul i32 %r37, %r41
+	%r43 = getelementptr %struct.foo , %struct.foo* %r34, i1 0, i32 0
+	%r44 = load i32, i32* %r43
+	%r45 = sdiv i32 %r42, %r44
+	%r46 = getelementptr %struct.foo , %struct.foo* %r34, i1 0, i32 2
+	%r47 = load %struct.simple*, %struct.simple** %r46
+	%r48 = getelementptr %struct.simple , %struct.simple* %r47, i1 0, i32 0
+	%r49 = load i32, i32* %r48
+	%r50 = getelementptr %struct.foo , %struct.foo* %r31, i1 0, i32 0
 	%r51 = load i32, i32* %r50
-	%r52 = getelementptr %struct.foo , %struct.foo* %phi1, i1 0, i32 0
-	%r53 = load i32, i32* %r52
-	%r54 = sub i32 %r51, %r53
-	%r55 = sub i32 %phi3, 1
-	%r56 = icmp sgt i32 %r55, 0
-	%r57 = zext i1 %r56 to i32
-	%r58 = trunc i32 %r57 to i1
-	br i1 %r58, label %L12, label %L13
+	%r52 = call i32 @add(i32 %r49, i32 %r51 )
+	%r53 = getelementptr %struct.foo , %struct.foo* %r34, i1 0, i32 0
+	%r54 = load i32, i32* %r53
+	%r55 = getelementptr %struct.foo , %struct.foo* %r31, i1 0, i32 0
+	%r56 = load i32, i32* %r55
+	%r57 = sub i32 %r54, %r56
+	%r59 = sub i32 %r58, 1
+	%r60 = icmp sgt i32 %r59, 0
+	%r61 = zext i1 %r60 to i32
+	%r62 = trunc i32 %r61 to i1
+	br i1 %r62, label %L12, label %L13
 
 L13:
-	%phi4 = phi %struct.foo* [%r6, %L10], [%phi1, %L12]
-	%phi5 = phi %struct.foo* [%r11, %L10], [%phi2, %L12]
-	%r59 = bitcast %struct.foo* %phi4 to i8*
-	call void @free(i8* %r59 )
-	%r60 = bitcast %struct.foo* %phi5 to i8*
-	call void @free(i8* %r60 )
+	%r64 = phi %struct.foo* [%r7, %L10], [%r31, %L12]
+	%r66 = phi %struct.foo* [%r12, %L10], [%r34, %L12]
+	%r63 = bitcast %struct.foo* %r64 to i8*
+	call void @free(i8* %r63 )
+	%r65 = bitcast %struct.foo* %r66 to i8*
+	call void @free(i8* %r65 )
 	br label %L11
 L11:
 	ret void
@@ -124,22 +124,22 @@ define void @objinstantiation(i32 %num)
 {
 
 L15:
-	%r61 = icmp sgt i32 %num, 0
-	%r62 = zext i1 %r61 to i32
-	%r63 = trunc i32 %r62 to i1
-	br i1 %r63, label %L17, label %L18
+	%r67 = icmp sgt i32 %num, 0
+	%r68 = zext i1 %r67 to i32
+	%r69 = trunc i32 %r68 to i1
+	br i1 %r69, label %L17, label %L18
 
 L17:
-	%phi6 = phi i32 [%num, %L15], [%r67, %L17]
-	%r64 = call i8* @malloc(i32 24)
-	%r65 = bitcast i8* %r64 to %struct.foo*
-	%r66 = bitcast %struct.foo* %r65 to i8*
-	call void @free(i8* %r66 )
-	%r67 = sub i32 %phi6, 1
-	%r68 = icmp sgt i32 %r67, 0
-	%r69 = zext i1 %r68 to i32
-	%r70 = trunc i32 %r69 to i1
-	br i1 %r70, label %L17, label %L18
+	%r73 = phi i32 [%num, %L15], [%r74, %L17]
+	%r70 = call i8* @malloc(i32 24)
+	%r71 = bitcast i8* %r70 to %struct.foo*
+	%r72 = bitcast %struct.foo* %r71 to i8*
+	call void @free(i8* %r72 )
+	%r74 = sub i32 %r73, 1
+	%r75 = icmp sgt i32 %r74, 0
+	%r76 = zext i1 %r75 to i32
+	%r77 = trunc i32 %r76 to i1
+	br i1 %r77, label %L17, label %L18
 
 L18:
 	br label %L16
@@ -151,35 +151,35 @@ define i32 @ackermann(i32 %m, i32 %n)
 {
 
 L20:
-	%r71 = icmp eq i32 %m, 0
-	%r72 = zext i1 %r71 to i32
-	%r73 = trunc i32 %r72 to i1
-	br i1 %r73, label %L22, label %L23
+	%r78 = icmp eq i32 %m, 0
+	%r79 = zext i1 %r78 to i32
+	%r80 = trunc i32 %r79 to i1
+	br i1 %r80, label %L22, label %L23
 
 L22:
-	%r74 = add i32 %n, 1
+	%r81 = add i32 %n, 1
 	br label %L21
 L23:
 	br label %L24
 L24:
-	%r75 = icmp eq i32 %n, 0
-	%r76 = zext i1 %r75 to i32
-	%r77 = trunc i32 %r76 to i1
-	br i1 %r77, label %L25, label %L26
+	%r82 = icmp eq i32 %n, 0
+	%r83 = zext i1 %r82 to i32
+	%r84 = trunc i32 %r83 to i1
+	br i1 %r84, label %L25, label %L26
 
 L25:
-	%r78 = sub i32 %m, 1
-	%r79 = call i32 @ackermann(i32 %r78, i32 1 )
+	%r85 = sub i32 %m, 1
+	%r86 = call i32 @ackermann(i32 %r85, i32 1 )
 	br label %L21
 L26:
-	%r80 = sub i32 %m, 1
-	%r81 = sub i32 %n, 1
-	%r82 = call i32 @ackermann(i32 %m, i32 %r81 )
-	%r83 = call i32 @ackermann(i32 %r80, i32 %r82 )
+	%r87 = sub i32 %m, 1
+	%r88 = sub i32 %n, 1
+	%r89 = call i32 @ackermann(i32 %m, i32 %r88 )
+	%r90 = call i32 @ackermann(i32 %r87, i32 %r89 )
 	br label %L21
 L21:
-	%phi7 = phi i32 [%r74, %L22], [%r79, %L25], [%r83, %L26]
-	ret i32 %phi7
+	%r91 = phi i32 [%r81, %L22], [%r86, %L25], [%r90, %L26]
+	ret i32 %r91
 }
 
 define i32 @main()
@@ -187,27 +187,27 @@ define i32 @main()
 
 L29:
 	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* @.read_scratch)
-	%r84 = load i32, i32* @.read_scratch
+	%r92 = load i32, i32* @.read_scratch
 	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* @.read_scratch)
-	%r85 = load i32, i32* @.read_scratch
+	%r93 = load i32, i32* @.read_scratch
 	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* @.read_scratch)
-	%r86 = load i32, i32* @.read_scratch
+	%r94 = load i32, i32* @.read_scratch
 	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* @.read_scratch)
-	%r87 = load i32, i32* @.read_scratch
+	%r95 = load i32, i32* @.read_scratch
 	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* @.read_scratch)
-	%r88 = load i32, i32* @.read_scratch
-	call void @tailrecursive(i32 %r84 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r84)
-	call void @domath(i32 %r85 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r85)
-	call void @objinstantiation(i32 %r86 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r86)
-	%r89 = call i32 @ackermann(i32 %r87, i32 %r88 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r89)
+	%r96 = load i32, i32* @.read_scratch
+	call void @tailrecursive(i32 %r92 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r92)
+	call void @domath(i32 %r93 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r93)
+	call void @objinstantiation(i32 %r94 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r94)
+	%r97 = call i32 @ackermann(i32 %r95, i32 %r96 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r97)
 	br label %L30
 L30:
-	%phi8 = phi i32 [0, %L29]
-	ret i32 %phi8
+	%r98 = phi i32 [0, %L29]
+	ret i32 %r98
 }
 
 declare i8* @malloc(i32)

@@ -6,8 +6,9 @@ import arm.ArmValue.FinalRegisters.ArmFinalRegister;
 import arm.ArmValue.FinalRegisters.FramePointer;
 import arm.ArmValue.FinalRegisters.LinkVirtualRegister;
 import arm.ArmValue.FinalRegisters.StackPointer;
-import cfg.StartBlock;
 import llvm.declarations.ParameterDeclaration;
+import llvm.lattice.LatticeValue;
+import llvm.value.Register;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +25,7 @@ public class FunctionDefine implements Instruction {
         this.functionName = name;
         this.parameters = parameters;
         this.retType = retType;
+        this.addInstructionToRegisters();
     }
     @Override
     public String toLLVM() {
@@ -41,38 +43,63 @@ public class FunctionDefine implements Instruction {
         pushFrameLink.add(LinkVirtualRegister.getInstance());
         instructions.add(new PushPop(PushPopType.PUSH, pushFrameLink));
 
+        //push {r4,r5,r6,r8,r9,r10,r11}
+        List<ArmRegister> pushRegisters = new ArrayList<>();
+        pushRegisters.add(new ArmFinalRegister("r4"));
+        pushRegisters.add(new ArmFinalRegister("r5"));
+        pushRegisters.add(new ArmFinalRegister("r6"));
+        pushRegisters.add(new ArmFinalRegister("r7"));
+        pushRegisters.add(new ArmFinalRegister("r8"));
+        pushRegisters.add(new ArmFinalRegister("r9"));
+        pushRegisters.add(new ArmFinalRegister("r10"));
+        instructions.add(new PushPop(PushPopType.PUSH, pushRegisters));
+
         //add fp,sp,#4
         instructions.add(new ArithmeticInstruction(ArithInstructionType.ADD, FramePointer.getInstance(), StackPointer.getInstance(), new ArmImmediate("4")));
 
-        //push {r4,r5,r6,r8,r9,r10,r11}
-        List<ArmRegister> pushRegisters = new ArrayList<>();
-//        pushRegisters.add(new ArmVirtualRegister("r0"));
-//        pushRegisters.add(new ArmVirtualRegister("r1"));
-//        pushRegisters.add(new ArmVirtualRegister("r2"));
-//        pushRegisters.add(new ArmVirtualRegister("r3"));
-        pushRegisters.add(new ArmVirtualRegister("r4"));
-        pushRegisters.add(new ArmVirtualRegister("r5"));
-        pushRegisters.add(new ArmVirtualRegister("r6"));
-        pushRegisters.add(new ArmVirtualRegister("r7"));
-        pushRegisters.add(new ArmVirtualRegister("r8"));
-        pushRegisters.add(new ArmVirtualRegister("r9"));
-        pushRegisters.add(new ArmVirtualRegister("r10"));
-        instructions.add(new PushPop(PushPopType.PUSH, pushRegisters));
-
-        for (int i = 0; i < parameters.size(); i++) {
+        int frameOffset = 32;
+        for (int i = 0 ; i < parameters.size(); i++) {
+            String paramName = parameters.get(i).getName();
             if (i < 4) {
                 instructions.add(
                         new Move(
                                 MoveType.DEFAULT,
-                                new ArmVirtualRegister(parameters.get(i).getName()),
+                                new ArmVirtualRegister(paramName),
                                 new ArmFinalRegister("r" + i),
                                 0,
                                 false
                         ));
             }
             else {
-                //todo: spill
+                ArmLoad load = new ArmLoad(new ArmVirtualRegister(paramName), FramePointer.getInstance(), new ArmImmediate(frameOffset + ""));
+                instructions.add(load);
+                frameOffset += 4;
             }
         }
+    }
+
+    @Override
+    public void addInstructionToRegisters() {
+        //todo: figure out what to do here
+    }
+
+    @Override
+    public LatticeValue getLatticeValue(HashMap<Register, LatticeValue> lattice) {
+        System.err.println("Shouldnt be called");
+        return null;
+    }
+
+    @Override
+    public Register[] getUsedRegisters() {
+        return new Register[0];
+    }
+
+    @Override
+    public Register getTarget() {
+        return null;
+    }
+
+    @Override
+    public void replaceRegisterWithLattice(HashMap<Register, LatticeValue> lattice) {
     }
 }

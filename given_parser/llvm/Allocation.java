@@ -1,8 +1,9 @@
 package llvm;
 
 import arm.ArmInstruction;
+import llvm.lattice.LatticeTop;
+import llvm.lattice.LatticeValue;
 import llvm.value.Register;
-import llvm.value.SSA;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +16,7 @@ public class Allocation implements Instruction {
     public Allocation(String type, Register retValue) {
         this.type = type;
         this.retValue = retValue;
+        this.addInstructionToRegisters();
     }
 
     @Override
@@ -29,5 +31,29 @@ public class Allocation implements Instruction {
             int offset = offsets.size() * 4;
             offsets.put(retValue.toLLVM().replace("%", ""), offset);
         }
+    }
+
+    @Override
+    public void addInstructionToRegisters() {
+        retValue.setDef(this);
+    }
+
+    @Override
+    public LatticeValue getLatticeValue(HashMap<Register, LatticeValue> lattice) {
+        return new LatticeTop();
+    }
+
+    @Override
+    public Register[] getUsedRegisters() {
+        return new Register[]{retValue};
+    }
+
+    @Override
+    public Register getTarget() {
+        return retValue;
+    }
+
+    @Override
+    public void replaceRegisterWithLattice(HashMap<Register, LatticeValue> lattice) {
     }
 }

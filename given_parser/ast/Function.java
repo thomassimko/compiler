@@ -57,7 +57,13 @@ public class Function /*implements Type*/
    }
 
    public StartBlock getCFG(List<Block> blockList, HashMap<String, HashMap<String, Type>> structTable) {
-      StartBlock start = new StartBlock(this.name);
+
+      List<ParameterDeclaration> paramInstr = new ArrayList<ParameterDeclaration>();
+      for(Declaration decl: params) {
+         paramInstr.add(decl.getParamCFGValue());
+      }
+
+      StartBlock start = new StartBlock(this.name, paramInstr);
       BasicBlock block = new BasicBlock(this.name + "Block1");
       EndBlock end = new EndBlock(this.name);
 
@@ -67,10 +73,6 @@ public class Function /*implements Type*/
       blockList.add(start);
       blockList.add(block);
 
-      List<ParameterDeclaration> paramInstr = new ArrayList<ParameterDeclaration>();
-      for(Declaration decl: params) {
-         paramInstr.add(decl.getParamCFGValue());
-      }
       start.addInstructionToLLVM(new FunctionDefine(this.name, paramInstr, this.retType.getCFGType()));
 
       if (!(this.retType instanceof VoidType))

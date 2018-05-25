@@ -5,8 +5,12 @@ import arm.ArmInstruction;
 import arm.ArmValue.ArmImmediate;
 import arm.ArmValue.ArmVirtualRegister;
 import arm.BranchType;
+import llvm.lattice.LatticeInteger;
+import llvm.lattice.LatticeTop;
+import llvm.lattice.LatticeValue;
+import llvm.value.Register;
 import llvm.value.Value;
-import llvm.value.ValueToArm;
+import llvm.value.ValueLiteral;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +25,8 @@ public class Branch implements Instruction {
         this.check = check;
         this.trueLabel = trueLabel;
         this.falseLabel = falseLabel;
+        this.addInstructionToRegisters();
+
     }
 
     public String toLLVM() {
@@ -37,5 +43,35 @@ public class Branch implements Instruction {
         instructions.add(compare);
         instructions.add(branchTrue);
         instructions.add(branchFalse);
+    }
+
+    @Override
+    public void addInstructionToRegisters() {
+        //Do nothing
+    }
+
+    @Override
+    public LatticeValue getLatticeValue(HashMap<Register, LatticeValue> lattice) {
+        return new LatticeTop();
+    }
+
+    @Override
+    public Register[] getUsedRegisters() {
+        return new Register[0];
+    }
+
+    @Override
+    public Register getTarget() {
+        return null;
+    }
+
+    @Override
+    public void replaceRegisterWithLattice(HashMap<Register, LatticeValue> lattice) {
+        if (check instanceof Register) {
+            LatticeValue value = check.getLatticeValue(lattice);
+            if(value instanceof LatticeInteger) {
+                check = new ValueLiteral(((LatticeInteger) value).getValue() + "");
+            }
+        }
     }
 }

@@ -2,24 +2,26 @@ package llvm;
 
 import arm.*;
 import arm.ArmValue.ArmImmediate;
-import arm.ArmValue.ArmValue;
 import arm.ArmValue.ArmVirtualRegister;
 import arm.ArmValue.FinalRegisters.ArmFinalRegister;
 import arm.Branch;
-import llvm.value.Value;
-import llvm.value.ValueToArm;
+import llvm.lattice.LatticeBottom;
+import llvm.lattice.LatticeValue;
+import llvm.value.Register;
 
 import java.util.HashMap;
 import java.util.List;
 
 public class Malloc implements Instruction {
 
-    private Value storedReg;
+    private Register storedReg;
     private int bytes;
 
-    public Malloc(Value storedReg, int bytes) {
+    public Malloc(Register storedReg, int bytes) {
         this.storedReg = storedReg;
         this.bytes = bytes;
+        this.addInstructionToRegisters();
+
     }
 
     @Override
@@ -47,5 +49,29 @@ public class Malloc implements Instruction {
         instructions.add(new Branch(BranchType.L, "malloc", 0));
         ArmInstruction move = new Move(MoveType.DEFAULT, target, new ArmFinalRegister("r0"), 0, false);
         instructions.add(move);
+    }
+
+    @Override
+    public void addInstructionToRegisters() {
+        storedReg.setDef(this);
+    }
+
+    @Override
+    public LatticeValue getLatticeValue(HashMap<Register, LatticeValue> lattice) {
+        return new LatticeBottom();
+    }
+
+    @Override
+    public Register[] getUsedRegisters() {
+        return new Register[]{storedReg};
+    }
+
+    @Override
+    public Register getTarget() {
+        return storedReg;
+    }
+
+    @Override
+    public void replaceRegisterWithLattice(HashMap<Register, LatticeValue> lattice) {
     }
 }

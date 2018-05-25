@@ -2,6 +2,9 @@ package llvm.declarations;
 
 import arm.ArmInstruction;
 import llvm.Instruction;
+import llvm.lattice.LatticeBottom;
+import llvm.lattice.LatticeValue;
+import llvm.value.Register;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,15 +12,18 @@ import java.util.List;
 public class LocalDeclaration implements Instruction {
     private String name;
     private String type;
+    private Register savedReg;
 
     public LocalDeclaration(String name, String type) {
         this.name = name;
         this.type = type;
+        savedReg = new Register(name);
+        savedReg.setDef(this);
     }
 
     @Override
     public String toLLVM() {
-        return "%" + name + " = alloca " + type;
+        return savedReg.toLLVM() + " = alloca " + type;
     }
 
     @Override
@@ -26,5 +32,30 @@ public class LocalDeclaration implements Instruction {
             int offset = offsets.size() * 4;
             offsets.put(name, offset);
         }
+    }
+
+    @Override
+    public void addInstructionToRegisters() {
+        //do nothing
+    }
+
+    @Override
+    public Register[] getUsedRegisters() {
+        return new Register[]{savedReg};
+    }
+
+    @Override
+    public LatticeValue getLatticeValue(HashMap<Register, LatticeValue> lattice) {
+        return new LatticeBottom();
+    }
+
+    @Override
+    public Register getTarget() {
+        return savedReg;
+    }
+
+    @Override
+    public void replaceRegisterWithLattice(HashMap<Register, LatticeValue> lattice) {
+
     }
 }

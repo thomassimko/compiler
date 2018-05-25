@@ -1,6 +1,9 @@
 package llvm.ArithmeticBool;
 
+import llvm.lattice.LatticeValue;
 import llvm.value.*;
+
+import java.util.HashMap;
 
 public class Add extends ArithmeticBoolOp {
 
