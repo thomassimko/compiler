@@ -6,53 +6,52 @@
 	.global calcPower
 calcPower:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r0, r0
-	mov r1, r1
-	sub sp, sp, #16
+	add fp, sp, #4
+	mov r3, r0
+	mov r2, r1
+	sub sp, sp, #0
 .L1:
-	str r0, [sp, #4]
-	str r1, [sp, #8]
-	mov r0, #1
-	str r0, [sp, #12]
-	ldr r0, [sp, #8]
-	mov r1, #0
-	cmp r0, #0
-	movgt r1, #1
-	mov r0, r1
-	mov r0, r0
-	cmp r0, #1
-	beq .L3
-	b .L4
-.L3:
-	ldr r1, [sp, #12]
-	ldr r0, [sp, #4]
-	mul r0, r1, r0
-	str r0, [sp, #12]
-	ldr r0, [sp, #8]
-	mov r1, #1
-	sub r0, r0, r1
-	str r0, [sp, #8]
-	ldr r1, [sp, #8]
 	mov r0, #0
-	cmp r1, #0
+	cmp r2, #0
 	movgt r0, #1
 	mov r0, r0
 	mov r0, r0
 	cmp r0, #1
+	mov r1, #1
+	mov r0, r1
+	mov r3, r3
+	mov r2, r2
+	mov r1, r1
+	beq .L3
+	b .L4
+.L3:
+	mov r0, r0
+	mov r3, r3
+	mov r2, r2
+	mul r1, r0, r3
+	mov r0, #1
+	sub r2, r2, r0
+	mov r0, #0
+	cmp r2, #0
+	movgt r0, #1
+	mov r0, r0
+	mov r0, r0
+	cmp r0, #1
+	mov r0, r1
+	mov r3, r3
+	mov r2, r2
+	mov r1, r1
 	beq .L3
 	b .L4
 .L4:
-	ldr r0, [sp, #12]
-	str r0, [sp, #0]
+	mov r0, r1
 	b .L2
 .L2:
-	ldr r0, [sp, #0]
 	mov r0, r0
-	add sp, sp, #16
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size calcPower, .-calcPower
 
@@ -61,18 +60,14 @@ calcPower:
 	.global main
 main:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	sub sp, sp, #24
+	add fp, sp, #4
+	sub sp, sp, #0
 .L6:
-	mov r0, #0
-	str r0, [sp, #12]
-	movw r0, #:lower16:8
-	movt r0, #:upper16:8
+	mov r0, #8
 	bl malloc
 	mov r0, r0
-	mov r0, r0
-	str r0, [sp, #4]
+	mov r4, r0
 	movw r1, #:lower16:.read_scratch
 	movt r1, #:upper16:.read_scratch
 	movw r0, #:lower16:.READ_FMT
@@ -81,93 +76,94 @@ main:
 	movw r0, #:lower16:.read_scratch
 	movt r0, #:upper16:.read_scratch
 	ldr r0, [r0]
-	str r0, [sp, #8]
-	ldr r0, [sp, #4]
-	add r0, r0, #0
-	ldr r1, [sp, #8]
-	str r1, [r0]
+	movw r1, #:lower16:.read_scratch
+	movt r1, #:upper16:.read_scratch
+	str r0, [r1, #0]
+	ldr r0, [r1]
+	add r1, r4, #0
+	str r0, [r1]
 	movw r1, #:lower16:.read_scratch
 	movt r1, #:upper16:.read_scratch
 	movw r0, #:lower16:.READ_FMT
 	movt r0, #:upper16:.READ_FMT
 	bl scanf
+	movw r3, #:lower16:.read_scratch
+	movt r3, #:upper16:.read_scratch
+	ldr r3, [r3]
 	movw r2, #:lower16:.read_scratch
 	movt r2, #:upper16:.read_scratch
+	str r3, [r2, #0]
 	ldr r2, [r2]
-	str r2, [sp, #8]
-	ldr r2, [sp, #8]
 	mov r3, #0
 	cmp r2, #0
 	movlt r3, #1
-	mov r2, r3
-	mov r2, r2
-	cmp r2, #1
+	mov r3, r3
+	mov r3, r3
+	cmp r3, #1
 	beq .L8
 	b .L9
 .L8:
-	mov r0, #0
-	mov r1, #1
-	sub r0, r0, r1
-	str r0, [sp, #0]
+	mov r1, #0
+	mov r0, #1
+	sub r0, r1, r0
+	mov r0, #-1
+	mov r0, r0
 	b .L7
 .L9:
 	b .L10
 .L10:
-	ldr r2, [sp, #4]
-	add r3, r2, #4
-	ldr r2, [sp, #8]
+	add r3, r4, #4
 	str r2, [r3]
-	mov r2, #0
-	str r2, [sp, #20]
-	ldr r3, [sp, #20]
-	mov r2, #0
-	cmp r3, #1000000
-	movlt r2, #1
-	mov r2, r2
-	mov r2, r2
+	mov r2, #1
 	cmp r2, #1
-	beq .L12
-	b .L13
-.L12:
-	ldr r2, [sp, #20]
+	mov r2, #0
+	mov r3, r2
+	mov r4, r4
+	mov r2, #0
+	mov r2, r2
+	beq .L11
+	b .L12
+.L11:
+	mov r2, r3
+	mov r4, r4
 	mov r3, #1
-	add r2, r2, r3
-	str r2, [sp, #20]
-	ldr r2, [sp, #4]
-	add r2, r2, #0
+	add r5, r2, r3
+	add r2, r4, #0
 	ldr r2, [r2]
-	ldr r3, [sp, #4]
-	add r3, r3, #4
+	add r3, r4, #4
 	ldr r3, [r3]
 	mov r0, r2
 	mov r1, r3
 	bl calcPower
 	mov r2, r0
-	str r2, [sp, #12]
-	ldr r3, [sp, #20]
-	mov r2, #0
-	cmp r3, #1000000
-	movlt r2, #1
+	movw r3, #:lower16:1000000
+	movt r3, #:upper16:1000000
+	mov r6, #0
+	cmp r5, r3
+	movlt r6, #1
+	mov r3, r6
+	mov r3, r3
+	cmp r3, #1
+	mov r3, r5
+	mov r4, r4
 	mov r2, r2
-	mov r2, r2
-	cmp r2, #1
-	beq .L12
-	b .L13
-.L13:
-	ldr r0, [sp, #12]
+	beq .L11
+	b .L12
+.L12:
+	mov r0, r2
 	mov r1, r0
 	movw r0, #:lower16:.PRINTLN_FMT
 	movt r0, #:upper16:.PRINTLN_FMT
 	bl printf
 	mov r0, #1
-	str r0, [sp, #0]
+	mov r0, r0
 	b .L7
 .L7:
-	ldr r0, [sp, #0]
 	mov r0, r0
-	add sp, sp, #24
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	mov r0, r0
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size main, .-main
 

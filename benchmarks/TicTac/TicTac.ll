@@ -2,69 +2,6 @@ target triple="i686"
 
 %struct.gameBoard = type {i32, i32, i32, i32, i32, i32, i32, i32, i32}
 
-define void @cleanBoard(%struct.gameBoard* %board)
-{
-
-L1:
-	%r0 = getelementptr %struct.gameBoard , %struct.gameBoard* %board, i1 0, i32 0
-	store i32 0, i32* %r0
-	%r1 = getelementptr %struct.gameBoard , %struct.gameBoard* %board, i1 0, i32 1
-	store i32 0, i32* %r1
-	%r2 = getelementptr %struct.gameBoard , %struct.gameBoard* %board, i1 0, i32 2
-	store i32 0, i32* %r2
-	%r3 = getelementptr %struct.gameBoard , %struct.gameBoard* %board, i1 0, i32 3
-	store i32 0, i32* %r3
-	%r4 = getelementptr %struct.gameBoard , %struct.gameBoard* %board, i1 0, i32 4
-	store i32 0, i32* %r4
-	%r5 = getelementptr %struct.gameBoard , %struct.gameBoard* %board, i1 0, i32 5
-	store i32 0, i32* %r5
-	%r6 = getelementptr %struct.gameBoard , %struct.gameBoard* %board, i1 0, i32 6
-	store i32 0, i32* %r6
-	%r7 = getelementptr %struct.gameBoard , %struct.gameBoard* %board, i1 0, i32 7
-	store i32 0, i32* %r7
-	%r8 = getelementptr %struct.gameBoard , %struct.gameBoard* %board, i1 0, i32 8
-	store i32 0, i32* %r8
-	br label %L2
-L2:
-	ret void
-}
-
-define void @printBoard(%struct.gameBoard* %board)
-{
-
-L4:
-	%r9 = getelementptr %struct.gameBoard , %struct.gameBoard* %board, i1 0, i32 0
-	%r10 = load i32, i32* %r9
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.print, i32 0, i32 0), i32 %r10)
-	%r11 = getelementptr %struct.gameBoard , %struct.gameBoard* %board, i1 0, i32 1
-	%r12 = load i32, i32* %r11
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.print, i32 0, i32 0), i32 %r12)
-	%r13 = getelementptr %struct.gameBoard , %struct.gameBoard* %board, i1 0, i32 2
-	%r14 = load i32, i32* %r13
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r14)
-	%r15 = getelementptr %struct.gameBoard , %struct.gameBoard* %board, i1 0, i32 3
-	%r16 = load i32, i32* %r15
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.print, i32 0, i32 0), i32 %r16)
-	%r17 = getelementptr %struct.gameBoard , %struct.gameBoard* %board, i1 0, i32 4
-	%r18 = load i32, i32* %r17
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.print, i32 0, i32 0), i32 %r18)
-	%r19 = getelementptr %struct.gameBoard , %struct.gameBoard* %board, i1 0, i32 5
-	%r20 = load i32, i32* %r19
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r20)
-	%r21 = getelementptr %struct.gameBoard , %struct.gameBoard* %board, i1 0, i32 6
-	%r22 = load i32, i32* %r21
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.print, i32 0, i32 0), i32 %r22)
-	%r23 = getelementptr %struct.gameBoard , %struct.gameBoard* %board, i1 0, i32 7
-	%r24 = load i32, i32* %r23
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.print, i32 0, i32 0), i32 %r24)
-	%r25 = getelementptr %struct.gameBoard , %struct.gameBoard* %board, i1 0, i32 8
-	%r26 = load i32, i32* %r25
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r26)
-	br label %L5
-L5:
-	ret void
-}
-
 define void @printMoveBoard()
 {
 
@@ -655,7 +592,7 @@ L148:
 L149:
 	br label %L146
 L41:
-	%r266 = phi i32 [0, %L48], [1, %L57], [0, %L66], [1, %L75], [0, %L84], [1, %L93], [0, %L102], [1, %L111], [0, %L120], [1, %L129], [0, %L138], [1, %L147], [%r265, %L143]
+	%r266 = phi i32 [0, %L48], [1, %L57], [0, %L66], [1, %L75], [0, %L84], [1, %L93], [0, %L102], [1, %L111], [0, %L120], [1, %L129], [0, %L138], [1, %L147], [-1, %L143]
 	ret i32 %r266
 }
 
@@ -666,20 +603,57 @@ L151:
 	%r267 = sub i32 0, 1
 	%r268 = call i8* @malloc(i32 72)
 	%r269 = bitcast i8* %r268 to %struct.gameBoard*
-	call void @cleanBoard(%struct.gameBoard* %r269 )
-	%r270 = icmp slt i32 %r267, 0
-	%r271 = zext i1 %r270 to i32
-	%r272 = icmp ne i32 0, 8
-	%r273 = zext i1 %r272 to i32
-	%r274 = and i32 %r271, %r273
-	%r275 = trunc i32 %r274 to i1
-	br i1 %r275, label %L153, label %L154
+	%r0 = getelementptr %struct.gameBoard , %struct.gameBoard* %r269, i1 0, i32 0
+	store i32 0, i32* %r0
+	%r1 = getelementptr %struct.gameBoard , %struct.gameBoard* %r269, i1 0, i32 1
+	store i32 0, i32* %r1
+	%r2 = getelementptr %struct.gameBoard , %struct.gameBoard* %r269, i1 0, i32 2
+	store i32 0, i32* %r2
+	%r3 = getelementptr %struct.gameBoard , %struct.gameBoard* %r269, i1 0, i32 3
+	store i32 0, i32* %r3
+	%r4 = getelementptr %struct.gameBoard , %struct.gameBoard* %r269, i1 0, i32 4
+	store i32 0, i32* %r4
+	%r5 = getelementptr %struct.gameBoard , %struct.gameBoard* %r269, i1 0, i32 5
+	store i32 0, i32* %r5
+	%r6 = getelementptr %struct.gameBoard , %struct.gameBoard* %r269, i1 0, i32 6
+	store i32 0, i32* %r6
+	%r7 = getelementptr %struct.gameBoard , %struct.gameBoard* %r269, i1 0, i32 7
+	store i32 0, i32* %r7
+	%r8 = getelementptr %struct.gameBoard , %struct.gameBoard* %r269, i1 0, i32 8
+	store i32 0, i32* %r8
+	br i1 1, label %L153, label %L154
 
 L153:
 	%r276 = phi %struct.gameBoard* [%r269, %L151], [%r285, %L157]
 	%r277 = phi i32 [0, %L151], [%r296, %L157]
 	%r288 = phi i32 [0, %L151], [%r289, %L157]
-	call void @printBoard(%struct.gameBoard* %r276 )
+	%r9 = getelementptr %struct.gameBoard , %struct.gameBoard* %r276, i1 0, i32 0
+	%r10 = load i32, i32* %r9
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.print, i32 0, i32 0), i32 %r10)
+	%r11 = getelementptr %struct.gameBoard , %struct.gameBoard* %r276, i1 0, i32 1
+	%r12 = load i32, i32* %r11
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.print, i32 0, i32 0), i32 %r12)
+	%r13 = getelementptr %struct.gameBoard , %struct.gameBoard* %r276, i1 0, i32 2
+	%r14 = load i32, i32* %r13
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r14)
+	%r15 = getelementptr %struct.gameBoard , %struct.gameBoard* %r276, i1 0, i32 3
+	%r16 = load i32, i32* %r15
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.print, i32 0, i32 0), i32 %r16)
+	%r17 = getelementptr %struct.gameBoard , %struct.gameBoard* %r276, i1 0, i32 4
+	%r18 = load i32, i32* %r17
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.print, i32 0, i32 0), i32 %r18)
+	%r19 = getelementptr %struct.gameBoard , %struct.gameBoard* %r276, i1 0, i32 5
+	%r20 = load i32, i32* %r19
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r20)
+	%r21 = getelementptr %struct.gameBoard , %struct.gameBoard* %r276, i1 0, i32 6
+	%r22 = load i32, i32* %r21
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.print, i32 0, i32 0), i32 %r22)
+	%r23 = getelementptr %struct.gameBoard , %struct.gameBoard* %r276, i1 0, i32 7
+	%r24 = load i32, i32* %r23
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.print, i32 0, i32 0), i32 %r24)
+	%r25 = getelementptr %struct.gameBoard , %struct.gameBoard* %r276, i1 0, i32 8
+	%r26 = load i32, i32* %r25
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r26)
 	%r278 = icmp eq i32 %r277, 0
 	%r279 = zext i1 %r278 to i32
 	%r280 = trunc i32 %r279 to i1
@@ -712,13 +686,12 @@ L157:
 	br i1 %r295, label %L153, label %L154
 
 L154:
-	%r297 = phi i32 [%r267, %L151], [%r286, %L157]
+	%r297 = phi i32 [-1, %L151], [%r286, %L157]
 	%r298 = add i32 %r297, 1
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r298)
 	br label %L152
 L152:
-	%r299 = phi i32 [0, %L154]
-	ret i32 %r299
+	ret i32 0
 }
 
 declare i8* @malloc(i32)

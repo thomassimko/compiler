@@ -5,7 +5,6 @@ import arm.ArmValue.FinalRegisters.ArmFinalRegister;
 import arm.ArmValue.ArmVirtualRegister;
 import arm.Move;
 import arm.MoveType;
-import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeInteger;
 import llvm.lattice.LatticeValue;
 import llvm.value.Register;
@@ -73,5 +72,32 @@ public class ReturnValue extends AbstactInstruction {
                 value = new ValueLiteral(((LatticeInteger) latvalue).getValue() + "");
             }
         }
+    }
+
+    @Override
+    public Value[] getSources() {
+        return new Value[]{value};
+    }
+
+    @Override
+    public void replaceSource(HashMap<Value, Value> newValueMappings) {
+        if(newValueMappings.containsKey(value)) {
+
+            if(newValueMappings.containsKey(value)) {
+
+                if(value instanceof Register) {
+                    ((Register) value).removeUse(this);
+                }
+                value = newValueMappings.get(value);
+
+                if(value instanceof Register) {
+                    ((Register) value).addUse(this);
+                }
+            }
+        }
+    }
+
+    public Value getValue() {
+        return value;
     }
 }

@@ -1,100 +1,32 @@
 digraph G {
-size ="8.5,11";fooStartBlock -> fooBlock1
-fooBlock1 -> fooEndBlock
-fooBlock1 -> fooStartBlock [style=dashed]
-fooEndBlock -> fooBlock1 [style=dashed]
-barStartBlock -> barBlock1
-barBlock1 -> thenBlock39
-barBlock1 -> elseBlock39
-barBlock1 -> barStartBlock [style=dashed]
-thenBlock39 -> joinBlock39
-thenBlock39 -> barBlock1 [style=dashed]
-elseBlock39 -> joinBlock39
-elseBlock39 -> barBlock1 [style=dashed]
-joinBlock39 -> barEndBlock
-joinBlock39 -> thenBlock39 [style=dashed]
-joinBlock39 -> elseBlock39 [style=dashed]
-barEndBlock -> joinBlock39 [style=dashed]
-bazStartBlock -> bazBlock1
-bazBlock1 -> thenBlock57
-bazBlock1 -> elseBlock57
-bazBlock1 -> bazStartBlock [style=dashed]
-thenBlock57 -> joinBlock57
-thenBlock57 -> bazBlock1 [style=dashed]
-elseBlock57 -> joinBlock57
-elseBlock57 -> bazBlock1 [style=dashed]
-joinBlock57 -> thenBlock66
-joinBlock57 -> elseBlock66
-joinBlock57 -> thenBlock57 [style=dashed]
-joinBlock57 -> elseBlock57 [style=dashed]
-thenBlock66 -> joinBlock66
-thenBlock66 -> joinBlock57 [style=dashed]
-elseBlock66 -> joinBlock66
-elseBlock66 -> joinBlock57 [style=dashed]
-joinBlock66 -> thenBlock75
-joinBlock66 -> elseBlock75
-joinBlock66 -> thenBlock66 [style=dashed]
-joinBlock66 -> elseBlock66 [style=dashed]
-thenBlock75 -> joinBlock75
-thenBlock75 -> joinBlock66 [style=dashed]
-elseBlock75 -> joinBlock75
-elseBlock75 -> joinBlock66 [style=dashed]
-joinBlock75 -> bazEndBlock
-joinBlock75 -> thenBlock75 [style=dashed]
-joinBlock75 -> elseBlock75 [style=dashed]
-bazEndBlock -> joinBlock75 [style=dashed]
-fboolStartBlock -> fboolBlock1
-fboolBlock1 -> fboolEndBlock
-fboolBlock1 -> fboolStartBlock [style=dashed]
-fboolEndBlock -> fboolBlock1 [style=dashed]
-quuxStartBlock -> quuxBlock1
-quuxBlock1 -> thenBlock98
-quuxBlock1 -> elseBlock98
-quuxBlock1 -> quuxStartBlock [style=dashed]
-thenBlock98 -> joinBlock98
-thenBlock98 -> quuxBlock1 [style=dashed]
-elseBlock98 -> joinBlock98
-elseBlock98 -> quuxBlock1 [style=dashed]
-joinBlock98 -> quuxEndBlock
-joinBlock98 -> thenBlock98 [style=dashed]
-joinBlock98 -> elseBlock98 [style=dashed]
-quuxEndBlock -> joinBlock98 [style=dashed]
-quux2StartBlock -> quux2Block1
-quux2Block1 -> thenBlock126
-quux2Block1 -> elseBlock126
-quux2Block1 -> quux2StartBlock [style=dashed]
-thenBlock126 -> joinBlock126
-thenBlock126 -> quux2Block1 [style=dashed]
-elseBlock126 -> joinBlock126
-elseBlock126 -> quux2Block1 [style=dashed]
-joinBlock126 -> quux2EndBlock
-joinBlock126 -> thenBlock126 [style=dashed]
-joinBlock126 -> elseBlock126 [style=dashed]
-quux2EndBlock -> joinBlock126 [style=dashed]
-flrgrlStartBlock -> flrgrlBlock1
-flrgrlBlock1 -> thenBlock153
-flrgrlBlock1 -> elseBlock153
-flrgrlBlock1 -> flrgrlStartBlock [style=dashed]
-thenBlock153 -> joinBlock153
-thenBlock153 -> flrgrlBlock1 [style=dashed]
-elseBlock153 -> joinBlock153
-elseBlock153 -> flrgrlBlock1 [style=dashed]
-joinBlock153 -> flrgrlEndBlock
-joinBlock153 -> thenBlock153 [style=dashed]
-joinBlock153 -> elseBlock153 [style=dashed]
-flrgrlEndBlock -> joinBlock153 [style=dashed]
-blerghStartBlock -> blerghBlock1
-blerghBlock1 -> thenBlock173
-blerghBlock1 -> elseBlock173
-blerghBlock1 -> blerghStartBlock [style=dashed]
-thenBlock173 -> joinBlock173
-thenBlock173 -> blerghBlock1 [style=dashed]
-elseBlock173 -> joinBlock173
-elseBlock173 -> blerghBlock1 [style=dashed]
-joinBlock173 -> blerghEndBlock
-joinBlock173 -> thenBlock173 [style=dashed]
-joinBlock173 -> elseBlock173 [style=dashed]
-blerghEndBlock -> joinBlock173 [style=dashed]
+size ="8.5,11";hailstoneStartBlock -> hailstoneBlock1
+hailstoneBlock1 -> whileBlock10
+hailstoneBlock1 -> whileExitBlock10
+hailstoneBlock1 -> hailstoneStartBlock [style=dashed]
+whileBlock10 -> thenBlock13
+whileBlock10 -> elseBlock13
+whileBlock10 -> hailstoneBlock1 [style=dashed]
+whileBlock10 -> joinBlock21 [style=dashed]
+thenBlock13 -> joinBlock13
+thenBlock13 -> whileBlock10 [style=dashed]
+elseBlock13 -> joinBlock13
+elseBlock13 -> whileBlock10 [style=dashed]
+joinBlock13 -> thenBlock21
+joinBlock13 -> elseBlock21
+joinBlock13 -> thenBlock13 [style=dashed]
+joinBlock13 -> elseBlock13 [style=dashed]
+thenBlock21 -> hailstoneEndBlock
+thenBlock21 -> joinBlock13 [style=dashed]
+elseBlock21 -> joinBlock21
+elseBlock21 -> joinBlock13 [style=dashed]
+joinBlock21 -> whileBlock10
+joinBlock21 -> whileExitBlock10
+joinBlock21 -> elseBlock21 [style=dashed]
+whileExitBlock10 -> hailstoneEndBlock
+whileExitBlock10 -> hailstoneBlock1 [style=dashed]
+whileExitBlock10 -> joinBlock21 [style=dashed]
+hailstoneEndBlock -> thenBlock21 [style=dashed]
+hailstoneEndBlock -> whileExitBlock10 [style=dashed]
 mainStartBlock -> mainBlock1
 mainBlock1 -> mainEndBlock
 mainBlock1 -> mainStartBlock [style=dashed]

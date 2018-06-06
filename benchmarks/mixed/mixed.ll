@@ -25,17 +25,6 @@ L2:
 	ret void
 }
 
-define i32 @add(i32 %x, i32 %y)
-{
-
-L7:
-	%r4 = add i32 %x, %y
-	br label %L8
-L8:
-	%r5 = phi i32 [%r4, %L7]
-	ret i32 %r5
-}
-
 define void @domath(i32 %num)
 {
 
@@ -77,31 +66,6 @@ L12:
 	%r31 = phi %struct.foo* [%r7, %L10], [%r31, %L12]
 	%r34 = phi %struct.foo* [%r12, %L10], [%r34, %L12]
 	%r58 = phi i32 [%num, %L10], [%r59, %L12]
-	%r32 = getelementptr %struct.foo , %struct.foo* %r31, i1 0, i32 0
-	%r33 = load i32, i32* %r32
-	%r35 = getelementptr %struct.foo , %struct.foo* %r34, i1 0, i32 0
-	%r36 = load i32, i32* %r35
-	%r37 = mul i32 %r33, %r36
-	%r38 = getelementptr %struct.foo , %struct.foo* %r31, i1 0, i32 2
-	%r39 = load %struct.simple*, %struct.simple** %r38
-	%r40 = getelementptr %struct.simple , %struct.simple* %r39, i1 0, i32 0
-	%r41 = load i32, i32* %r40
-	%r42 = mul i32 %r37, %r41
-	%r43 = getelementptr %struct.foo , %struct.foo* %r34, i1 0, i32 0
-	%r44 = load i32, i32* %r43
-	%r45 = sdiv i32 %r42, %r44
-	%r46 = getelementptr %struct.foo , %struct.foo* %r34, i1 0, i32 2
-	%r47 = load %struct.simple*, %struct.simple** %r46
-	%r48 = getelementptr %struct.simple , %struct.simple* %r47, i1 0, i32 0
-	%r49 = load i32, i32* %r48
-	%r50 = getelementptr %struct.foo , %struct.foo* %r31, i1 0, i32 0
-	%r51 = load i32, i32* %r50
-	%r52 = call i32 @add(i32 %r49, i32 %r51 )
-	%r53 = getelementptr %struct.foo , %struct.foo* %r34, i1 0, i32 0
-	%r54 = load i32, i32* %r53
-	%r55 = getelementptr %struct.foo , %struct.foo* %r31, i1 0, i32 0
-	%r56 = load i32, i32* %r55
-	%r57 = sub i32 %r54, %r56
 	%r59 = sub i32 %r58, 1
 	%r60 = icmp sgt i32 %r59, 0
 	%r61 = zext i1 %r60 to i32
@@ -206,8 +170,7 @@ L29:
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r97)
 	br label %L30
 L30:
-	%r98 = phi i32 [0, %L29]
-	ret i32 %r98
+	ret i32 0
 }
 
 declare i8* @malloc(i32)

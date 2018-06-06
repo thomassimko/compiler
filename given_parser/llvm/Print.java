@@ -4,7 +4,6 @@ import arm.*;
 import arm.ArmValue.FinalRegisters.ArmFinalRegister;
 import arm.ArmValue.ArmImmediate;
 import arm.Branch;
-import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeInteger;
 import llvm.lattice.LatticeValue;
 import llvm.value.Register;
@@ -55,6 +54,7 @@ public class Print extends AbstactInstruction {
     @Override
     public void addInstructionToRegisters() {
         if(value instanceof Register) {
+            //System.out.println("adding use " + value.toLLVM());
             ((Register) value).addUse(this);
         }
     }
@@ -84,6 +84,29 @@ public class Print extends AbstactInstruction {
             LatticeValue latvalue = lattice.get(value);
             if(latvalue instanceof LatticeInteger) {
                 value = new ValueLiteral(((LatticeInteger) latvalue).getValue() + "");
+            }
+        }
+    }
+
+    @Override
+    public Value[] getSources() {
+        return new Value[]{value};
+    }
+
+    @Override
+    public void replaceSource(HashMap<Value, Value> newValueMappings) {
+        if(newValueMappings.containsKey(value)) {
+
+            if(newValueMappings.containsKey(value)) {
+
+                if(value instanceof Register) {
+                    ((Register) value).removeUse(this);
+                }
+                value = newValueMappings.get(value);
+
+                if(value instanceof Register) {
+                    ((Register) value).addUse(this);
+                }
             }
         }
     }

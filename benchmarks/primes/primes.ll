@@ -28,8 +28,7 @@ L4:
 	%r13 = sub i32 %r12, 1
 	br label %L2
 L2:
-	%r14 = phi i32 [%r13, %L4]
-	ret i32 %r14
+	ret i32 %r13
 }
 
 define i32 @prime(i32 %a)
@@ -79,7 +78,7 @@ L12:
 	%r37 = zext i1 1 to i32
 	br label %L7
 L7:
-	%r38 = phi i32 [%r18, %L8], [%r31, %L13], [%r37, %L12]
+	%r38 = phi i32 [0, %L8], [0, %L13], [1, %L12]
 	ret i32 %r38
 }
 
@@ -118,8 +117,7 @@ L23:
 L20:
 	br label %L18
 L18:
-	%r53 = phi i32 [0, %L20]
-	ret i32 %r53
+	ret i32 0
 }
 
 declare i8* @malloc(i32)

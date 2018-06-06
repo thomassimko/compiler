@@ -11,13 +11,15 @@ public class StartBlock extends Block {
     private List<ParameterDeclaration> params;
     private HashMap<Register, LatticeValue> lattice;
     private List<Register> workingSet;
+    private String functionName;
 
     public StartBlock(String funcName, List<ParameterDeclaration> params) {
-        super(funcName + "StartBlock");
+        super(funcName + "StartBlock", funcName);
         super.sealBlock();
         this.params = params;
         lattice = new HashMap<>();
         workingSet = new ArrayList<>();
+        this.functionName = funcName;
     }
 
     public List<ParameterDeclaration> getParams() {
@@ -30,5 +32,9 @@ public class StartBlock extends Block {
 
     public List<Register> getWorkingSet() {
         return workingSet;
+    }
+
+    public String getFunctionName() {
+        return functionName;
     }
 }

@@ -4,7 +4,7 @@ import arm.ArmInstruction;
 import arm.ArmValue.ArmGlobalDeclaration;
 import ast.StructType;
 import ast.Type;
-import llvm.Instruction;
+import llvm.AbstactInstruction;
 import llvm.lattice.LatticeBottom;
 import llvm.lattice.LatticeValue;
 import llvm.value.Register;

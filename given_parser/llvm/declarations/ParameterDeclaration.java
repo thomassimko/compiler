@@ -1,6 +1,7 @@
 package llvm.declarations;
 
 import arm.ArmInstruction;
+import llvm.AbstactInstruction;
 import llvm.Allocation;
 import llvm.Instruction;
 import llvm.Store;

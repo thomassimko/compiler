@@ -5,7 +5,6 @@ import arm.ArmStore;
 import arm.ArmValue.ArmImmediate;
 import arm.ArmValue.ArmVirtualRegister;
 import arm.ArmValue.FinalRegisters.StackPointer;
-import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeValue;
 import llvm.value.Register;
 import llvm.value.Value;
@@ -85,5 +84,35 @@ public class Store extends AbstactInstruction {
 
     @Override
     public void replaceRegisterWithLattice(HashMap<Register, LatticeValue> lattice) {
+    }
+
+    @Override
+    public Value[] getSources() {
+        return new Value[]{source, targetPtr};
+    }
+
+    @Override
+    public void replaceSource(HashMap<Value, Value> newValueMappings) {
+
+        if(newValueMappings.containsKey(source)) {
+            if(source instanceof Register) {
+                ((Register) source).removeUse(this);
+            }
+            source = newValueMappings.get(source);
+
+            if(source instanceof Register) {
+                ((Register) source).addUse(this);
+            }
+        }
+        if(newValueMappings.containsKey(targetPtr)) {
+            if(targetPtr instanceof Register) {
+                ((Register) targetPtr).removeUse(this);
+            }
+            targetPtr = newValueMappings.get(targetPtr);
+
+            if(targetPtr instanceof Register) {
+                ((Register) targetPtr).addUse(this);
+            }
+        }
     }
 }

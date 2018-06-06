@@ -4,8 +4,7 @@ import arm.ArithInstructionType;
 import arm.ArithmeticInstruction;
 import arm.ArmInstruction;
 import arm.ArmValue.ArmRegister;
-import llvm.Instruction;
-import llvm.declarations.AbstactInstruction;
+import llvm.AbstactInstruction;
 import llvm.lattice.LatticeBottom;
 import llvm.lattice.LatticeInteger;
 import llvm.lattice.LatticeValue;
@@ -157,6 +156,35 @@ public class ArithmeticBoolOp extends AbstactInstruction {
             LatticeValue latvalue = lattice.get(value2);
             if(latvalue instanceof LatticeInteger) {
                 value2 = new ValueLiteral(((LatticeInteger) latvalue).getValue() + "");
+            }
+        }
+    }
+
+    @Override
+    public Value[] getSources() {
+        return new Value[]{value1, value2};
+    }
+
+    @Override
+    public void replaceSource(HashMap<Value, Value> newValueMappings) {
+        if(newValueMappings.containsKey(value1)) {
+            if(value1 instanceof Register) {
+                ((Register) value1).removeUse(this);
+            }
+            value1 = newValueMappings.get(value1);
+
+            if(value1 instanceof Register) {
+                ((Register) value1).addUse(this);
+            }
+        }
+        if(newValueMappings.containsKey(value2)) {
+            if(value2 instanceof Register) {
+                ((Register) value2).removeUse(this);
+            }
+            value2 = newValueMappings.get(value2);
+
+            if(value2 instanceof Register) {
+                ((Register) value2).addUse(this);
             }
         }
     }

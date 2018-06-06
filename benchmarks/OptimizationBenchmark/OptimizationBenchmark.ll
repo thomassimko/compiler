@@ -1,161 +1,332 @@
 target triple="i686"
 
-%struct.IntHolder = type {i32}
-@interval = common global i32 0, align 8
-@end = common global i32 0, align 8
+@global1 = common global i32 0, align 8
+@global2 = common global i32 0, align 8
+@global3 = common global i32 0, align 8
 
-define i32 @multBy4xTimes(%struct.IntHolder* %num, i32 %timesLeft)
+define i32 @sum(i32 %number)
 {
 
-L1:
-	%r0 = icmp sle i32 %timesLeft, 0
-	%r1 = zext i1 %r0 to i32
-	%r2 = trunc i32 %r1 to i1
-	br i1 %r2, label %L3, label %L4
+L10:
+	%r76 = icmp sgt i32 %number, 0
+	%r77 = zext i1 %r76 to i32
+	%r78 = trunc i32 %r77 to i1
+	br i1 %r78, label %L12, label %L13
 
-L3:
-	%r3 = getelementptr %struct.IntHolder , %struct.IntHolder* %num, i1 0, i32 0
-	%r4 = load i32, i32* %r3
-	br label %L2
-L4:
-	br label %L5
-L5:
-	%r5 = getelementptr %struct.IntHolder , %struct.IntHolder* %num, i1 0, i32 0
-	%r6 = load i32, i32* %r5
-	%r7 = mul i32 4, %r6
-	%r8 = getelementptr %struct.IntHolder , %struct.IntHolder* %num, i1 0, i32 0
-	store i32 %r7, i32* %r8
-	%r9 = sub i32 %timesLeft, 1
-	call i32 @multBy4xTimes(%struct.IntHolder* %num, i32 %r9 )
-	%r10 = getelementptr %struct.IntHolder , %struct.IntHolder* %num, i1 0, i32 0
-	%r11 = load i32, i32* %r10
-	br label %L2
-L2:
-	%r12 = phi i32 [%r4, %L3], [%r11, %L5]
-	ret i32 %r12
+L12:
+	%r79 = phi i32 [0, %L10], [%r81, %L12]
+	%r80 = phi i32 [%number, %L10], [%r82, %L12]
+	%r81 = add i32 %r79, %r80
+	%r82 = sub i32 %r80, 1
+	%r83 = icmp sgt i32 %r82, 0
+	%r84 = zext i1 %r83 to i32
+	%r85 = trunc i32 %r84 to i1
+	br i1 %r85, label %L12, label %L13
+
+L13:
+	%r86 = phi i32 [0, %L10], [%r81, %L12]
+	br label %L11
+L11:
+	ret i32 %r86
 }
 
-define void @divideBy8(%struct.IntHolder* %num)
+define i32 @doesntModifyGlobals()
 {
 
-L7:
-	%r13 = getelementptr %struct.IntHolder , %struct.IntHolder* %num, i1 0, i32 0
-	%r14 = load i32, i32* %r13
-	%r15 = sdiv i32 %r14, 2
-	%r16 = getelementptr %struct.IntHolder , %struct.IntHolder* %num, i1 0, i32 0
-	store i32 %r15, i32* %r16
-	%r17 = getelementptr %struct.IntHolder , %struct.IntHolder* %num, i1 0, i32 0
-	%r18 = load i32, i32* %r17
-	%r19 = sdiv i32 %r18, 2
-	%r20 = getelementptr %struct.IntHolder , %struct.IntHolder* %num, i1 0, i32 0
-	store i32 %r19, i32* %r20
-	%r21 = getelementptr %struct.IntHolder , %struct.IntHolder* %num, i1 0, i32 0
-	%r22 = load i32, i32* %r21
-	%r23 = sdiv i32 %r22, 2
-	%r24 = getelementptr %struct.IntHolder , %struct.IntHolder* %num, i1 0, i32 0
-	store i32 %r23, i32* %r24
-	br label %L8
-L8:
-	ret void
+L15:
+	br label %L16
+L16:
+	ret i32 3
+}
+
+define i32 @interProceduralOptimization()
+{
+
+L18:
+	store i32 1, i32* @global1
+	store i32 0, i32* @global2
+	store i32 0, i32* @global3
+	%r90 = call i32 @sum(i32 100 )
+	%r91 = load i32, i32* @global1
+	%r92 = icmp eq i32 %r91, 1
+	%r93 = zext i1 %r92 to i32
+	%r94 = trunc i32 %r93 to i1
+	br i1 %r94, label %L20, label %L21
+
+L20:
+	%r95 = call i32 @sum(i32 10000 )
+	br label %L22
+L21:
+	%r96 = load i32, i32* @global2
+	%r97 = icmp eq i32 %r96, 2
+	%r98 = zext i1 %r97 to i32
+	%r99 = trunc i32 %r98 to i1
+	br i1 %r99, label %L23, label %L24
+
+L22:
+	%r106 = phi i32 [%r95, %L20], [%r107, %L28]
+	br label %L19
+L23:
+	%r100 = call i32 @sum(i32 20000 )
+	br label %L25
+L24:
+	br label %L25
+L25:
+	%r108 = phi i32 [%r100, %L23], [%r90, %L24]
+	%r101 = load i32, i32* @global3
+	%r102 = icmp eq i32 %r101, 3
+	%r103 = zext i1 %r102 to i32
+	%r104 = trunc i32 %r103 to i1
+	br i1 %r104, label %L26, label %L27
+
+L26:
+	%r105 = call i32 @sum(i32 30000 )
+	br label %L28
+L27:
+	br label %L28
+L28:
+	%r107 = phi i32 [%r105, %L26], [%r108, %L27]
+	br label %L22
+L19:
+	ret i32 %r106
+}
+
+define i32 @hoisting()
+{
+
+L33:
+	br i1 1, label %L35, label %L36
+
+L35:
+	%r246 = phi i32 [0, %L33], [%r247, %L35]
+	%r247 = add i32 %r246, 1
+	%r248 = icmp slt i32 %r247, 1000000
+	%r249 = zext i1 %r248 to i32
+	%r250 = trunc i32 %r249 to i1
+	br i1 %r250, label %L35, label %L36
+
+L36:
+	br label %L34
+L34:
+	ret i32 2
+}
+
+define i32 @doubleIf()
+{
+
+L38:
+	br i1 1, label %L40, label %L41
+
+L40:
+	br i1 1, label %L43, label %L44
+
+L41:
+	br label %L42
+L42:
+	%r259 = phi i32 [50, %L45], [0, %L41]
+	br label %L39
+L43:
+	br label %L45
+L44:
+	br label %L45
+L45:
+	br label %L42
+L39:
+	ret i32 %r259
+}
+
+define i32 @tailRecursionHelper(i32 %value, i32 %sum)
+{
+
+L53:
+	%r281 = icmp eq i32 %value, 0
+	%r282 = zext i1 %r281 to i32
+	%r283 = trunc i32 %r282 to i1
+	br i1 %r283, label %L55, label %L56
+
+L55:
+	br label %L54
+L56:
+	%r284 = sub i32 %value, 1
+	%r285 = add i32 %sum, %value
+	%r286 = call i32 @tailRecursionHelper(i32 %r284, i32 %r285 )
+	br label %L54
+L54:
+	%r287 = phi i32 [%sum, %L55], [%r286, %L56]
+	ret i32 %r287
+}
+
+define i32 @unswitching()
+{
+
+L62:
+	br i1 1, label %L64, label %L65
+
+L64:
+	%r297 = phi i32 [1, %L62], [%r300, %L68]
+	br i1 1, label %L66, label %L67
+
+L66:
+	%r298 = add i32 %r297, 1
+	br label %L68
+L67:
+	%r299 = add i32 %r297, 2
+	br label %L68
+L68:
+	%r300 = phi i32 [%r298, %L66], [%r299, %L67]
+	%r301 = icmp slt i32 %r300, 1000000
+	%r302 = zext i1 %r301 to i32
+	%r303 = trunc i32 %r302 to i1
+	br i1 %r303, label %L64, label %L65
+
+L65:
+	%r305 = phi i32 [1, %L62], [%r300, %L68]
+	br label %L63
+L63:
+	ret i32 %r305
+}
+
+define i32 @randomCalculation(i32 %number)
+{
+
+L70:
+	%r307 = icmp slt i32 0, %number
+	%r308 = zext i1 %r307 to i32
+	%r309 = trunc i32 %r308 to i1
+	br i1 %r309, label %L72, label %L73
+
+L72:
+	%r312 = phi i32 [0, %L70], [%r313, %L72]
+	%r314 = phi i32 [0, %L70], [%r321, %L72]
+	%r322 = phi i32 [%number, %L70], [%r322, %L72]
+	%r313 = add i32 %r312, 19
+	%r315 = mul i32 %r314, 2
+	%r316 = sdiv i32 %r315, 2
+	%r317 = mul i32 3, %r316
+	%r318 = sdiv i32 %r317, 3
+	%r319 = mul i32 %r318, 4
+	%r320 = sdiv i32 %r319, 4
+	%r321 = add i32 %r320, 1
+	%r323 = icmp slt i32 %r321, %r322
+	%r324 = zext i1 %r323 to i32
+	%r325 = trunc i32 %r324 to i1
+	br i1 %r325, label %L72, label %L73
+
+L73:
+	%r326 = phi i32 [0, %L70], [%r313, %L72]
+	br label %L71
+L71:
+	ret i32 %r326
+}
+
+define i32 @iterativeFibonacci(i32 %number)
+{
+
+L75:
+	%r328 = sub i32 0, 1
+	%r329 = icmp slt i32 0, %number
+	%r330 = zext i1 %r329 to i32
+	%r331 = trunc i32 %r330 to i1
+	br i1 %r331, label %L77, label %L78
+
+L77:
+	%r332 = phi i32 [1, %L75], [%r334, %L77]
+	%r333 = phi i32 [-1, %L75], [%r332, %L77]
+	%r335 = phi i32 [0, %L75], [%r336, %L77]
+	%r337 = phi i32 [%number, %L75], [%r337, %L77]
+	%r334 = add i32 %r332, %r333
+	%r336 = add i32 %r335, 1
+	%r338 = icmp slt i32 %r336, %r337
+	%r339 = zext i1 %r338 to i32
+	%r340 = trunc i32 %r339 to i1
+	br i1 %r340, label %L77, label %L78
+
+L78:
+	%r341 = phi i32 [1, %L75], [%r334, %L77]
+	br label %L76
+L76:
+	ret i32 %r341
+}
+
+define i32 @recursiveFibonacci(i32 %number)
+{
+
+L80:
+	%r343 = icmp sle i32 %number, 0
+	%r344 = zext i1 %r343 to i32
+	%r345 = icmp eq i32 %number, 1
+	%r346 = zext i1 %r345 to i32
+	%r347 = or i32 %r344, %r346
+	%r348 = trunc i32 %r347 to i1
+	br i1 %r348, label %L82, label %L83
+
+L82:
+	br label %L81
+L83:
+	%r349 = sub i32 %number, 1
+	%r350 = call i32 @recursiveFibonacci(i32 %r349 )
+	%r351 = sub i32 %number, 2
+	%r352 = call i32 @recursiveFibonacci(i32 %r351 )
+	%r353 = add i32 %r350, %r352
+	br label %L81
+L81:
+	%r354 = phi i32 [%number, %L82], [%r353, %L83]
+	ret i32 %r354
 }
 
 define i32 @main()
 {
 
-L10:
-	%r25 = call i8* @malloc(i32 8)
-	%r26 = bitcast i8* %r25 to %struct.IntHolder*
-	store i32 1000000, i32* @end
+L86:
 	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* @.read_scratch)
-	%r27 = load i32, i32* @.read_scratch
-	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* @.read_scratch)
-	%r28 = load i32, i32* @.read_scratch
-	store i32 %r28, i32* @interval
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r27)
-	%r29 = load i32, i32* @interval
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r29)
-	%r30 = icmp slt i32 0, 50
-	%r31 = zext i1 %r30 to i32
-	%r32 = trunc i32 %r31 to i1
-	br i1 %r32, label %L12, label %L13
+	%r355 = load i32, i32* @.read_scratch
+	%r356 = icmp slt i32 1, %r355
+	%r357 = zext i1 %r356 to i32
+	%r358 = trunc i32 %r357 to i1
+	br i1 %r358, label %L88, label %L89
 
-L12:
-	%r67 = phi %struct.IntHolder* [%r26, %L10], [%r77, %L15]
-	%r70 = phi i32 [0, %L10], [%r73, %L15]
-	%r82 = phi i32 [0, %L10], [%r81, %L15]
-	%r33 = load i32, i32* @end
-	%r34 = icmp sle i32 0, %r33
-	%r35 = zext i1 %r34 to i32
-	%r36 = trunc i32 %r35 to i1
-	br i1 %r36, label %L14, label %L15
+L88:
+	%r368 = phi i32 [%r355, %L86], [%r368, %L88]
+	%r377 = phi i32 [1, %L86], [%r378, %L88]
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 226)
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -25457889)
+	store i32 11, i32* @global1
+	store i32 5, i32* @global1
+	store i32 9, i32* @global1
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 38)
+	%r362 = call i32 @interProceduralOptimization()
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r362)
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -48796)
+	%r364 = call i32 @hoisting()
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r364)
+	%r365 = call i32 @doubleIf()
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r365)
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 736)
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 10)
+	%r369 = sdiv i32 %r368, 1000
+	%r288 = call i32 @tailRecursionHelper(i32 %r369, i32 0 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r288)
+	%r371 = call i32 @unswitching()
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r371)
+	%r372 = call i32 @randomCalculation(i32 %r368 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r372)
+	%r373 = sdiv i32 %r368, 5
+	%r374 = call i32 @iterativeFibonacci(i32 %r373 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r374)
+	%r375 = sdiv i32 %r368, 1000
+	%r376 = call i32 @recursiveFibonacci(i32 %r375 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r376)
+	%r378 = add i32 %r377, 1
+	%r379 = icmp slt i32 %r378, %r368
+	%r380 = zext i1 %r379 to i32
+	%r381 = trunc i32 %r380 to i1
+	br i1 %r381, label %L88, label %L89
 
-L14:
-	%r47 = phi i32 [0, %L12], [%r62, %L18]
-	%r49 = phi %struct.IntHolder* [%r67, %L12], [%r68, %L18]
-	%r72 = phi i32 [%r70, %L12], [%r71, %L18]
-	%r37 = mul i32 1, 2
-	%r38 = mul i32 %r37, 3
-	%r39 = mul i32 %r38, 4
-	%r40 = mul i32 %r39, 5
-	%r41 = mul i32 %r40, 6
-	%r42 = mul i32 %r41, 7
-	%r43 = mul i32 %r42, 8
-	%r44 = mul i32 %r43, 9
-	%r45 = mul i32 %r44, 10
-	%r46 = mul i32 %r45, 11
-	%r48 = add i32 %r47, 1
-	%r50 = getelementptr %struct.IntHolder , %struct.IntHolder* %r49, i1 0, i32 0
-	store i32 %r48, i32* %r50
-	%r51 = getelementptr %struct.IntHolder , %struct.IntHolder* %r49, i1 0, i32 0
-	%r52 = load i32, i32* %r51
-	call i32 @multBy4xTimes(%struct.IntHolder* %r49, i32 2 )
-	call void @divideBy8(%struct.IntHolder* %r49 )
-	%r53 = load i32, i32* @interval
-	%r54 = sub i32 %r53, 1
-	%r55 = icmp sle i32 %r54, 0
-	%r56 = zext i1 %r55 to i32
-	%r57 = icmp sle i32 %r54, 0
-	%r58 = zext i1 %r57 to i32
-	%r59 = trunc i32 %r58 to i1
-	br i1 %r59, label %L16, label %L17
-
-L16:
-	br label %L18
-L17:
-	br label %L18
-L18:
-	%r60 = phi i32 [%r48, %L16], [%r48, %L17]
-	%r61 = phi i32 [1, %L16], [%r54, %L17]
-	%r68 = phi %struct.IntHolder* [%r49, %L16], [%r49, %L17]
-	%r71 = phi i32 [%r72, %L16], [%r72, %L17]
-	%r83 = phi i32 [%r46, %L16], [%r46, %L17]
-	%r62 = add i32 %r60, %r61
-	%r63 = load i32, i32* @end
-	%r64 = icmp sle i32 %r62, %r63
-	%r65 = zext i1 %r64 to i32
-	%r66 = trunc i32 %r65 to i1
-	br i1 %r66, label %L14, label %L15
-
-L15:
-	%r69 = phi i32 [%r70, %L12], [%r71, %L18]
-	%r77 = phi %struct.IntHolder* [%r67, %L12], [%r68, %L18]
-	%r79 = phi i32 [0, %L12], [%r62, %L18]
-	%r81 = phi i32 [%r82, %L12], [%r83, %L18]
-	%r73 = add i32 %r69, 1
-	%r74 = icmp slt i32 %r73, 50
-	%r75 = zext i1 %r74 to i32
-	%r76 = trunc i32 %r75 to i1
-	br i1 %r76, label %L12, label %L13
-
-L13:
-	%r78 = phi i32 [0, %L10], [%r79, %L15]
-	%r80 = phi i32 [0, %L10], [%r81, %L15]
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r78)
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r80)
-	br label %L11
-L11:
-	%r84 = phi i32 [0, %L13]
-	ret i32 %r84
+L89:
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 9999)
+	br label %L87
+L87:
+	ret i32 0
 }
 
 declare i8* @malloc(i32)

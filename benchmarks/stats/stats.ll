@@ -45,8 +45,7 @@ L4:
 	%r26 = phi %struct.linkedNums* [null, %L1], [%r17, %L3]
 	br label %L2
 L2:
-	%r27 = phi %struct.linkedNums* [%r26, %L4]
-	ret %struct.linkedNums* %r27
+	ret %struct.linkedNums* %r26
 }
 
 define i32 @calcMean(%struct.linkedNums* %nums)
@@ -62,7 +61,7 @@ L8:
 	%r31 = phi i32 [0, %L6], [%r32, %L8]
 	%r33 = phi i32 [0, %L6], [%r37, %L8]
 	%r34 = phi %struct.linkedNums* [%nums, %L6], [%r39, %L8]
-	%r51 = phi i32 [0, %L6], [%r51, %L8]
+	%r51 = phi i32 [0, %L6], [0, %L8]
 	%r32 = add i32 %r31, 1
 	%r35 = getelementptr %struct.linkedNums , %struct.linkedNums* %r34, i1 0, i32 1
 	%r36 = load i32, i32* %r35
@@ -77,7 +76,7 @@ L8:
 L9:
 	%r43 = phi i32 [0, %L6], [%r32, %L8]
 	%r47 = phi i32 [0, %L6], [%r37, %L8]
-	%r50 = phi i32 [0, %L6], [%r51, %L8]
+	%r50 = phi i32 [0, %L6], [0, %L8]
 	%r44 = icmp ne i32 %r43, 0
 	%r45 = zext i1 %r44 to i32
 	%r46 = trunc i32 %r45 to i1
@@ -89,11 +88,10 @@ L10:
 L11:
 	br label %L12
 L12:
-	%r49 = phi i32 [%r48, %L10], [%r50, %L11]
+	%r49 = phi i32 [%r48, %L10], [0, %L11]
 	br label %L7
 L7:
-	%r52 = phi i32 [%r49, %L12]
-	ret i32 %r52
+	ret i32 %r49
 }
 
 define i32 @approxSqrt(i32 %num)
@@ -119,8 +117,7 @@ L17:
 	%r63 = phi i32 [1, %L14], [%r56, %L16]
 	br label %L15
 L15:
-	%r64 = phi i32 [%r63, %L17]
-	ret i32 %r64
+	ret i32 %r63
 }
 
 define void @approxSqrtAll(%struct.linkedNums* %nums)
@@ -162,7 +159,7 @@ L24:
 	br i1 %r80, label %L26, label %L27
 
 L26:
-	%r81 = phi i32 [%r77, %L24], [%r113, %L30]
+	%r81 = phi i32 [1, %L24], [%r113, %L30]
 	%r83 = phi %struct.linkedNums* [%nums, %L24], [%r109, %L30]
 	%r91 = phi i32 [0, %L24], [%r116, %L30]
 	%r99 = phi i32 [0, %L24], [%r119, %L30]
@@ -186,7 +183,7 @@ L29:
 
 L30:
 	%r105 = phi %struct.linkedNums* [%r83, %L28], [%r106, %L33]
-	%r113 = phi i32 [%r88, %L28], [%r114, %L33]
+	%r113 = phi i32 [0, %L28], [%r114, %L33]
 	%r116 = phi i32 [%r85, %L28], [%r117, %L33]
 	%r119 = phi i32 [%r87, %L28], [%r120, %L33]
 	%r108 = getelementptr %struct.linkedNums , %struct.linkedNums* %r105, i1 0, i32 0
@@ -251,8 +248,7 @@ L38:
 	call void @approxSqrtAll(%struct.linkedNums* %r126 )
 	br label %L39
 L39:
-	%r128 = phi i32 [0, %L38]
-	ret i32 %r128
+	ret i32 0
 }
 
 declare i8* @malloc(i32)

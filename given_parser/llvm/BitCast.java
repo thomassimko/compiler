@@ -4,7 +4,6 @@ import arm.ArmInstruction;
 import arm.ArmValue.ArmVirtualRegister;
 import arm.Move;
 import arm.MoveType;
-import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeBottom;
 import llvm.lattice.LatticeInteger;
 import llvm.lattice.LatticeValue;
@@ -76,6 +75,27 @@ public class BitCast extends AbstactInstruction {
             LatticeValue value = lattice.get(storedRegister);
             if(value instanceof LatticeInteger) {
                 sourceRegister = new ValueLiteral(((LatticeInteger) value).getValue() + "");
+            }
+        }
+    }
+
+    @Override
+    public Value[] getSources() {
+        return new Value[]{sourceRegister};
+    }
+
+    @Override
+    public void replaceSource(HashMap<Value, Value> newValueMappings) {
+        if(newValueMappings.containsKey(sourceRegister)) {
+
+            if(sourceRegister instanceof Register) {
+                ((Register) sourceRegister).removeUse(this);
+            }
+
+            sourceRegister = newValueMappings.get(sourceRegister);
+
+            if(sourceRegister instanceof Register) {
+                ((Register) sourceRegister).addUse(this);
             }
         }
     }

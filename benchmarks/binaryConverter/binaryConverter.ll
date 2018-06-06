@@ -22,8 +22,7 @@ L3:
 L4:
 	br label %L2
 L2:
-	%r8 = phi i32 [0, %L4]
-	ret i32 %r8
+	ret i32 0
 }
 
 define i32 @power(i32 %base, i32 %exponent)
@@ -50,8 +49,7 @@ L9:
 	%r20 = phi i32 [1, %L6], [%r14, %L8]
 	br label %L7
 L7:
-	%r21 = phi i32 [%r20, %L9]
-	ret i32 %r21
+	ret i32 %r20
 }
 
 define i32 @recursiveDecimalSum(i32 %binaryNum, i32 %decimalSum, i32 %recursiveDepth)
@@ -95,25 +93,14 @@ L12:
 	ret i32 %r39
 }
 
-define i32 @convertToDecimal(i32 %binaryNum)
-{
-
-L20:
-	%r40 = call i32 @recursiveDecimalSum(i32 %binaryNum, i32 0, i32 0 )
-	br label %L21
-L21:
-	%r41 = phi i32 [%r40, %L20]
-	ret i32 %r41
-}
-
 define i32 @main()
 {
 
 L23:
 	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* @.read_scratch)
 	%r42 = load i32, i32* @.read_scratch
-	%r43 = call i32 @convertToDecimal(i32 %r42 )
-	%r44 = mul i32 %r43, %r43
+	%r40 = call i32 @recursiveDecimalSum(i32 %r42, i32 0, i32 0 )
+	%r44 = mul i32 %r40, %r40
 	%r45 = icmp sgt i32 %r44, 0
 	%r46 = zext i1 %r45 to i32
 	%r47 = trunc i32 %r46 to i1
@@ -121,7 +108,7 @@ L23:
 
 L25:
 	%r48 = phi i32 [%r44, %L23], [%r49, %L25]
-	%r54 = phi i32 [%r43, %L23], [%r54, %L25]
+	%r54 = phi i32 [%r40, %L23], [%r54, %L25]
 	call i32 @wait(i32 %r48 )
 	%r49 = sub i32 %r48, 1
 	%r50 = icmp sgt i32 %r49, 0
@@ -130,12 +117,11 @@ L25:
 	br i1 %r52, label %L25, label %L26
 
 L26:
-	%r53 = phi i32 [%r43, %L23], [%r54, %L25]
+	%r53 = phi i32 [%r40, %L23], [%r54, %L25]
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r53)
 	br label %L24
 L24:
-	%r55 = phi i32 [0, %L26]
-	ret i32 %r55
+	ret i32 0
 }
 
 declare i8* @malloc(i32)

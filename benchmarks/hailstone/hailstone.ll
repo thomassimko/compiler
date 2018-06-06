@@ -2,32 +2,19 @@ target triple="i686"
 
 
 
-define i32 @mod(i32 %a, i32 %b)
-{
-
-L1:
-	%r0 = sdiv i32 %a, %b
-	%r1 = mul i32 %r0, %b
-	%r2 = sub i32 %a, %r1
-	br label %L2
-L2:
-	%r3 = phi i32 [%r2, %L1]
-	ret i32 %r3
-}
-
 define void @hailstone(i32 %n)
 {
 
 L4:
-	%r4 = zext i1 1 to i32
-	%r5 = trunc i32 %r4 to i1
-	br i1 %r5, label %L6, label %L7
+	br i1 1, label %L6, label %L7
 
 L6:
 	%r6 = phi i32 [%n, %L4], [%r14, %L13]
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.print, i32 0, i32 0), i32 %r6)
-	%r7 = call i32 @mod(i32 %r6, i32 2 )
-	%r8 = icmp eq i32 %r7, 1
+	%r0 = sdiv i32 %r6, 2
+	%r1 = mul i32 %r0, 2
+	%r2 = sub i32 %r6, %r1
+	%r8 = icmp eq i32 %r2, 1
 	%r9 = zext i1 %r8 to i32
 	%r10 = trunc i32 %r9 to i1
 	br i1 %r10, label %L8, label %L9
@@ -52,9 +39,7 @@ L11:
 L12:
 	br label %L13
 L13:
-	%r18 = zext i1 1 to i32
-	%r19 = trunc i32 %r18 to i1
-	br i1 %r19, label %L6, label %L7
+	br i1 1, label %L6, label %L7
 
 L7:
 	br label %L5
@@ -71,8 +56,7 @@ L15:
 	call void @hailstone(i32 %r20 )
 	br label %L16
 L16:
-	%r21 = phi i32 [0, %L15]
-	ret i32 %r21
+	ret i32 0
 }
 
 declare i8* @malloc(i32)

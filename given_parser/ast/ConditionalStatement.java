@@ -45,11 +45,11 @@ public class ConditionalStatement extends AbstractStatement
    @Override
    public Block getCFG(Block curNode, Block endNode, List<Block> blockList, HashMap<String, HashMap<String, Type>> structTable) {
 
-      Block thenBasicBlock = new BasicBlock("thenBlock" + this.lineNum);
-      Block elseBasicBlock = new BasicBlock("elseBlock" + this.lineNum);
+      Block thenBasicBlock = new BasicBlock("thenBlock" + this.lineNum, curNode.getFunction());
+      Block elseBasicBlock = new BasicBlock("elseBlock" + this.lineNum, curNode.getFunction());
       curNode.addSuccessor(thenBasicBlock);
       curNode.addSuccessor(elseBasicBlock);
-      Block joinBlock = new BasicBlock("joinBlock" + this.lineNum);
+      Block joinBlock = new BasicBlock("joinBlock" + this.lineNum, curNode.getFunction());
       blockList.add(thenBasicBlock);
       blockList.add(elseBasicBlock);
       blockList.add(joinBlock);

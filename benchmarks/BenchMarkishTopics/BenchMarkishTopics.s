@@ -7,45 +7,42 @@
 	.global length
 length:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r2, r0
-	sub sp, sp, #8
+	add fp, sp, #4
+	mov r4, r0
+	sub sp, sp, #0
 .L1:
-	str r2, [sp, #4]
-	ldr r1, [sp, #4]
 	mov r2, #0
-	mov r3, #0
-	cmp r1, r2
-	moveq r3, #1
-	mov r1, r3
+	mov r1, #0
+	cmp r4, r2
+	moveq r1, #1
+	mov r1, r1
 	mov r1, r1
 	cmp r1, #1
 	beq .L3
 	b .L4
 .L3:
 	mov r0, #0
-	str r0, [sp, #0]
+	mov r0, r0
 	b .L2
 .L4:
 	b .L5
 .L5:
-	ldr r1, [sp, #4]
-	add r1, r1, #4
+	add r1, r4, #4
 	ldr r1, [r1]
 	mov r0, r1
 	bl length
 	mov r1, r0
 	mov r0, #1
 	add r0, r0, r1
-	str r0, [sp, #0]
+	mov r0, r0
 	b .L2
 .L2:
-	ldr r0, [sp, #0]
 	mov r0, r0
-	add sp, sp, #8
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	mov r0, r0
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size length, .-length
 
@@ -54,68 +51,52 @@ length:
 	.global addToFront
 addToFront:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r2, r0
-	mov r0, r1
-	sub sp, sp, #16
-.L8:
-	str r2, [sp, #4]
-	str r0, [sp, #8]
-	ldr r0, [sp, #4]
+	add fp, sp, #4
+	mov r4, r0
+	mov r5, r1
+	sub sp, sp, #0
+.L7:
 	mov r1, #0
-	mov r2, #0
-	cmp r0, r1
-	moveq r2, #1
-	mov r0, r2
+	mov r0, #0
+	cmp r4, r1
+	moveq r0, #1
+	mov r0, r0
 	mov r0, r0
 	cmp r0, #1
-	beq .L10
-	b .L11
-.L10:
-	movw r0, #:lower16:8
-	movt r0, #:upper16:8
-	bl malloc
-	mov r0, r0
-	mov r0, r0
-	str r0, [sp, #4]
-	ldr r0, [sp, #4]
-	add r1, r0, #0
-	ldr r0, [sp, #8]
-	str r0, [r1]
-	ldr r0, [sp, #4]
-	add r0, r0, #4
-	mov r1, #0
-	str r1, [r0]
-	ldr r0, [sp, #4]
-	str r0, [sp, #0]
-	b .L9
-.L11:
-	b .L12
-.L12:
-	movw r0, #:lower16:8
-	movt r0, #:upper16:8
-	bl malloc
-	mov r0, r0
-	mov r0, r0
-	str r0, [sp, #12]
-	ldr r0, [sp, #12]
-	add r0, r0, #0
-	ldr r1, [sp, #8]
-	str r1, [r0]
-	ldr r0, [sp, #12]
-	add r1, r0, #4
-	ldr r0, [sp, #4]
-	str r0, [r1]
-	ldr r0, [sp, #12]
-	str r0, [sp, #0]
-	b .L9
+	beq .L9
+	b .L10
 .L9:
-	ldr r0, [sp, #0]
+	mov r0, #8
+	bl malloc
 	mov r0, r0
-	add sp, sp, #16
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	mov r0, r0
+	add r1, r0, #0
+	str r5, [r1]
+	add r2, r0, #4
+	mov r1, #0
+	str r1, [r2]
+	mov r0, r0
+	b .L8
+.L10:
+	b .L11
+.L11:
+	mov r0, #8
+	bl malloc
+	mov r0, r0
+	mov r0, r0
+	add r1, r0, #0
+	str r5, [r1]
+	add r1, r0, #4
+	str r4, [r1]
+	mov r0, r0
+	b .L8
+.L8:
+	mov r0, r0
+	mov r0, r0
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size addToFront, .-addToFront
 
@@ -124,50 +105,40 @@ addToFront:
 	.global deleteFirst
 deleteFirst:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r2, r0
-	sub sp, sp, #12
-.L15:
-	str r2, [sp, #4]
-	ldr r3, [sp, #4]
-	mov r1, #0
+	add fp, sp, #4
+	mov r4, r0
+	sub sp, sp, #0
+.L13:
 	mov r2, #0
-	cmp r3, r1
-	moveq r2, #1
-	mov r1, r2
+	mov r1, #0
+	cmp r4, r2
+	moveq r1, #1
+	mov r1, r1
 	mov r1, r1
 	cmp r1, #1
-	beq .L17
-	b .L18
-.L17:
-	mov r0, #0
-	str r0, [sp, #0]
+	beq .L15
 	b .L16
-.L18:
-	b .L19
-.L19:
-	ldr r1, [sp, #4]
-	str r1, [sp, #8]
-	ldr r1, [sp, #4]
-	add r1, r1, #4
-	ldr r1, [r1]
-	str r1, [sp, #4]
-	ldr r1, [sp, #8]
-	mov r1, r1
+.L15:
+	mov r0, #0
+	mov r0, r0
+	b .L14
+.L16:
+	b .L17
+.L17:
+	add r1, r4, #4
+	ldr r5, [r1]
+	mov r1, r4
 	mov r0, r1
 	bl free
-	mov r1, #0
-	mov r1, r0
-	ldr r0, [sp, #4]
-	str r0, [sp, #0]
-	b .L16
-.L16:
-	ldr r0, [sp, #0]
+	mov r0, r5
+	b .L14
+.L14:
 	mov r0, r0
-	add sp, sp, #12
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	mov r0, r0
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size deleteFirst, .-deleteFirst
 
@@ -176,10 +147,10 @@ deleteFirst:
 	.global main
 main:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	sub sp, sp, #12
-.L22:
+	add fp, sp, #4
+	sub sp, sp, #0
+.L19:
 	movw r1, #:lower16:.read_scratch
 	movt r1, #:upper16:.read_scratch
 	movw r0, #:lower16:.READ_FMT
@@ -188,44 +159,10 @@ main:
 	movw r2, #:lower16:.read_scratch
 	movt r2, #:upper16:.read_scratch
 	ldr r2, [r2]
-	str r2, [sp, #0]
-	mov r2, #0
-	str r2, [sp, #8]
-	mov r2, #0
-	str r2, [sp, #4]
-	movw r2, #:lower16:intList
-	movt r2, #:upper16:intList
-	ldr r3, [r2]
-	mov r2, #0
-	cmp r3, #0
-	movgt r2, #1
-	mov r2, r2
-	mov r2, r2
-	cmp r2, #1
-	beq .L24
-	b .L25
-.L24:
-	ldr r2, [sp, #4]
-	movw r3, #:lower16:intList
-	movt r3, #:upper16:intList
-	ldr r3, [r3]
-	mov r0, r2
-	mov r1, r3
-	bl addToFront
-	mov r0, r0
-	str r0, [sp, #4]
-	ldr r0, [sp, #4]
-	add r0, r0, #0
-	ldr r0, [r0]
-	mov r1, r0
-	movw r0, #:lower16:.PRINT_FMT
-	movt r0, #:upper16:.PRINT_FMT
-	bl printf
-	movw r2, #:lower16:intList
-	movt r2, #:upper16:intList
-	ldr r2, [r2]
-	mov r3, #1
-	sub r2, r2, r3
+	movw r3, #:lower16:.read_scratch
+	movt r3, #:upper16:.read_scratch
+	str r2, [r3, #0]
+	ldr r2, [r3]
 	movw r3, #:lower16:intList
 	movt r3, #:upper16:intList
 	str r2, [r3]
@@ -238,19 +175,66 @@ main:
 	mov r2, r3
 	mov r2, r2
 	cmp r2, #1
-	beq .L24
-	b .L25
-.L25:
-	ldr r1, [sp, #4]
-	mov r0, r1
+	mov r4, #0
+	mov r2, r4
+	mov r5, #0
+	mov r3, r5
+	mov r4, r4
+	mov r5, r5
+	beq .L21
+	b .L22
+.L21:
+	mov r2, r2
+	mov r3, r3
+	movw r3, #:lower16:intList
+	movt r3, #:upper16:intList
+	ldr r3, [r3]
+	mov r0, r2
+	mov r1, r3
+	bl addToFront
+	mov r4, r0
+	add r0, r4, #0
+	ldr r0, [r0]
+	mov r1, r0
+	movw r0, #:lower16:.PRINT_FMT
+	movt r0, #:upper16:.PRINT_FMT
+	bl printf
+	movw r2, #:lower16:intList
+	movt r2, #:upper16:intList
+	ldr r3, [r2]
+	mov r2, #1
+	sub r3, r3, r2
+	movw r2, #:lower16:intList
+	movt r2, #:upper16:intList
+	str r3, [r2]
+	movw r2, #:lower16:intList
+	movt r2, #:upper16:intList
+	ldr r2, [r2]
+	mov r3, #0
+	cmp r2, #0
+	movgt r3, #1
+	mov r2, r3
+	mov r2, r2
+	cmp r2, #1
+	mov r2, r4
+	mov r3, #0
+	mov r3, r3
+	mov r4, r4
+	mov r5, #0
+	mov r5, r5
+	beq .L21
+	b .L22
+.L22:
+	mov r4, r4
+	mov r1, r5
+	mov r0, r4
 	bl length
 	mov r0, r0
 	mov r1, r0
 	movw r0, #:lower16:.PRINT_FMT
 	movt r0, #:upper16:.PRINT_FMT
 	bl printf
-	ldr r1, [sp, #4]
-	mov r0, r1
+	mov r0, r4
 	bl length
 	mov r1, r0
 	mov r2, #0
@@ -259,30 +243,30 @@ main:
 	mov r1, r2
 	mov r1, r1
 	cmp r1, #1
-	beq .L26
-	b .L27
-.L26:
-	ldr r1, [sp, #8]
-	ldr r2, [sp, #4]
-	add r2, r2, #0
+	mov r1, #0
+	mov r1, r1
+	mov r2, r4
+	mov r3, #0
+	mov r3, r3
+	beq .L23
+	b .L24
+.L23:
+	mov r1, r1
+	mov r5, r2
+	add r2, r5, #0
 	ldr r2, [r2]
-	add r1, r1, r2
-	str r1, [sp, #8]
-	ldr r1, [sp, #4]
-	mov r0, r1
+	add r4, r1, r2
+	mov r0, r5
 	bl length
 	mov r0, r0
 	mov r1, r0
 	movw r0, #:lower16:.PRINT_FMT
 	movt r0, #:upper16:.PRINT_FMT
 	bl printf
-	ldr r1, [sp, #4]
-	mov r0, r1
+	mov r0, r5
 	bl deleteFirst
-	mov r1, r0
-	str r1, [sp, #4]
-	ldr r1, [sp, #4]
-	mov r0, r1
+	mov r5, r0
+	mov r0, r5
 	bl length
 	mov r2, r0
 	mov r1, #0
@@ -291,23 +275,24 @@ main:
 	mov r1, r1
 	mov r1, r1
 	cmp r1, #1
-	beq .L26
-	b .L27
-.L27:
-	ldr r0, [sp, #8]
+	mov r1, r4
+	mov r2, r5
+	mov r3, r4
+	beq .L23
+	b .L24
+.L24:
+	mov r0, r3
 	mov r1, r0
 	movw r0, #:lower16:.PRINTLN_FMT
 	movt r0, #:upper16:.PRINTLN_FMT
 	bl printf
+	b .L20
+.L20:
 	mov r0, #0
-	str r0, [sp, #0]
-	b .L23
-.L23:
-	ldr r0, [sp, #0]
 	mov r0, r0
-	add sp, sp, #12
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size main, .-main
 

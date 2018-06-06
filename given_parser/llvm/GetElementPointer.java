@@ -5,7 +5,6 @@ import arm.ArithmeticInstruction;
 import arm.ArmInstruction;
 import arm.ArmValue.ArmImmediate;
 import arm.ArmValue.ArmVirtualRegister;
-import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeBottom;
 import llvm.lattice.LatticeValue;
 import llvm.value.*;
@@ -72,5 +71,17 @@ public class GetElementPointer extends AbstactInstruction {
 
     @Override
     public void replaceRegisterWithLattice(HashMap<Register, LatticeValue> lattice) {
+    }
+
+    @Override
+    public Value[] getSources() {
+        return new Value[]{source};
+    }
+
+    @Override
+    public void replaceSource(HashMap<Value, Value> newValueMappings) {
+        if(newValueMappings.containsKey(source)) {
+            source = newValueMappings.get(source);
+        }
     }
 }

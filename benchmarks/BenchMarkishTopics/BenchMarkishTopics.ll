@@ -98,7 +98,7 @@ L19:
 
 L21:
 	%r32 = phi %struct.intList* [null, %L19], [%r34, %L21]
-	%r61 = phi i32 [0, %L19], [%r61, %L21]
+	%r61 = phi i32 [0, %L19], [0, %L21]
 	%r33 = load i32, i32* @intList
 	%r34 = call %struct.intList* @addToFront(%struct.intList* %r32, i32 %r33 )
 	%r35 = getelementptr %struct.intList , %struct.intList* %r34, i1 0, i32 0
@@ -115,7 +115,7 @@ L21:
 
 L22:
 	%r43 = phi %struct.intList* [null, %L19], [%r34, %L21]
-	%r60 = phi i32 [0, %L19], [%r61, %L21]
+	%r60 = phi i32 [0, %L19], [0, %L21]
 	%r44 = call i32 @length(%struct.intList* %r43 )
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.print, i32 0, i32 0), i32 %r44)
 	%r45 = call i32 @length(%struct.intList* %r43 )
@@ -125,7 +125,7 @@ L22:
 	br i1 %r48, label %L23, label %L24
 
 L23:
-	%r49 = phi i32 [%r60, %L22], [%r53, %L23]
+	%r49 = phi i32 [0, %L22], [%r53, %L23]
 	%r50 = phi %struct.intList* [%r43, %L22], [%r55, %L23]
 	%r51 = getelementptr %struct.intList , %struct.intList* %r50, i1 0, i32 0
 	%r52 = load i32, i32* %r51
@@ -140,12 +140,11 @@ L23:
 	br i1 %r59, label %L23, label %L24
 
 L24:
-	%r62 = phi i32 [%r60, %L22], [%r53, %L23]
+	%r62 = phi i32 [0, %L22], [%r53, %L23]
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r62)
 	br label %L20
 L20:
-	%r63 = phi i32 [0, %L24]
-	ret i32 %r63
+	ret i32 0
 }
 
 declare i8* @malloc(i32)

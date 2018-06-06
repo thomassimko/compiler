@@ -1,6 +1,8 @@
-package llvm.declarations;
+package llvm;
 
-import llvm.Instruction;
+import llvm.value.Value;
+
+import java.util.HashMap;
 
 public abstract class AbstactInstruction  implements Instruction {
     private boolean isUseful;
@@ -17,5 +19,15 @@ public abstract class AbstactInstruction  implements Instruction {
     @Override
     public boolean isUseful() {
         return isUseful;
+    }
+
+    @Override
+    public Value[] getSources() {
+        return new Value[0];
+    }
+
+    @Override
+    public void replaceSource(HashMap<Value, Value> newValueMappings) {
+
     }
 }

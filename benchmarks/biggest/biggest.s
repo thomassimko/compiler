@@ -6,16 +6,14 @@
 	.global getIntList
 getIntList:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	sub sp, sp, #12
+	add fp, sp, #4
+	sub sp, sp, #0
 .L1:
-	movw r0, #:lower16:8
-	movt r0, #:upper16:8
+	mov r0, #8
 	bl malloc
 	mov r0, r0
-	mov r0, r0
-	str r0, [sp, #4]
+	mov r4, r0
 	movw r1, #:lower16:.read_scratch
 	movt r1, #:upper16:.read_scratch
 	movw r0, #:lower16:.READ_FMT
@@ -24,52 +22,41 @@ getIntList:
 	movw r0, #:lower16:.read_scratch
 	movt r0, #:upper16:.read_scratch
 	ldr r0, [r0]
-	str r0, [sp, #8]
-	ldr r0, [sp, #8]
-	mov r2, #0
-	mov r1, #1
-	sub r1, r2, r1
-	mov r2, #0
-	cmp r0, r1
-	moveq r2, #1
-	mov r0, r2
-	mov r0, r0
-	cmp r0, #1
+	movw r1, #:lower16:.read_scratch
+	movt r1, #:upper16:.read_scratch
+	str r0, [r1, #0]
+	ldr r0, [r1]
+	mov r1, #0
+	cmp r0, #-1
+	moveq r1, #1
+	mov r1, r1
+	mov r1, r1
+	cmp r1, #1
 	beq .L3
 	b .L4
 .L3:
-	ldr r0, [sp, #4]
-	add r0, r0, #0
-	ldr r1, [sp, #8]
-	str r1, [r0]
-	ldr r0, [sp, #4]
-	add r0, r0, #4
+	add r1, r4, #0
+	str r0, [r1]
+	add r0, r4, #4
 	mov r1, #0
 	str r1, [r0]
-	ldr r0, [sp, #4]
-	str r0, [sp, #0]
+	mov r0, r4
 	b .L2
 .L4:
-	ldr r0, [sp, #4]
-	add r0, r0, #0
-	ldr r1, [sp, #8]
-	str r1, [r0]
-	ldr r0, [sp, #4]
-	add r4, r0, #4
+	add r1, r4, #0
+	str r0, [r1]
 	bl getIntList
 	mov r0, r0
-	str r0, [r4]
-	ldr r0, [sp, #4]
-	str r0, [sp, #0]
-	b .L2
-.L5:
+	add r1, r4, #4
+	str r0, [r1]
+	mov r0, r4
 	b .L2
 .L2:
-	ldr r0, [sp, #0]
 	mov r0, r0
-	add sp, sp, #12
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	mov r0, r0
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size getIntList, .-getIntList
 
@@ -78,40 +65,32 @@ getIntList:
 	.global biggest
 biggest:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
+	add fp, sp, #4
 	mov r0, r0
 	mov r1, r1
-	sub sp, sp, #12
+	sub sp, sp, #0
+.L7:
+	mov r2, #0
+	cmp r0, r1
+	movgt r2, #1
+	mov r2, r2
+	mov r2, r2
+	cmp r2, #1
+	beq .L9
+	b .L10
 .L9:
-	str r0, [sp, #4]
-	str r1, [sp, #8]
-	ldr r1, [sp, #4]
-	ldr r2, [sp, #8]
-	mov r0, #0
-	cmp r1, r2
-	movgt r0, #1
 	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
-	beq .L11
-	b .L12
-.L11:
-	ldr r0, [sp, #4]
-	str r0, [sp, #0]
-	b .L10
-.L12:
-	ldr r0, [sp, #8]
-	str r0, [sp, #0]
-	b .L10
-.L13:
-	b .L10
+	b .L8
 .L10:
-	ldr r0, [sp, #0]
+	mov r0, r1
+	b .L8
+.L8:
 	mov r0, r0
-	add sp, sp, #12
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	mov r0, r0
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size biggest, .-biggest
 
@@ -120,64 +99,60 @@ biggest:
 	.global biggestInList
 biggestInList:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r2, r0
-	sub sp, sp, #12
-.L17:
-	str r2, [sp, #4]
-	ldr r2, [sp, #4]
-	add r2, r2, #0
+	add fp, sp, #4
+	mov r3, r0
+	sub sp, sp, #0
+.L13:
+	add r2, r3, #0
 	ldr r2, [r2]
-	str r2, [sp, #8]
-	ldr r2, [sp, #4]
-	add r2, r2, #4
-	ldr r2, [r2]
+	add r4, r3, #4
+	ldr r6, [r4]
+	mov r5, #0
 	mov r4, #0
-	mov r3, #0
-	cmp r2, r4
-	movne r3, #1
-	mov r2, r3
+	cmp r6, r5
+	movne r4, #1
+	mov r4, r4
+	mov r4, r4
+	cmp r4, #1
+	mov r4, r2
+	mov r3, r3
 	mov r2, r2
-	cmp r2, #1
-	beq .L19
-	b .L20
-.L19:
-	ldr r2, [sp, #8]
-	ldr r3, [sp, #4]
-	add r3, r3, #0
+	beq .L15
+	b .L16
+.L15:
+	mov r2, r4
+	mov r4, r3
+	add r3, r4, #0
 	ldr r3, [r3]
 	mov r0, r2
 	mov r1, r3
 	bl biggest
 	mov r2, r0
-	str r2, [sp, #8]
-	ldr r2, [sp, #4]
-	add r2, r2, #4
-	ldr r2, [r2]
-	str r2, [sp, #4]
-	ldr r2, [sp, #4]
-	add r2, r2, #4
-	ldr r2, [r2]
+	add r3, r4, #4
+	ldr r3, [r3]
+	add r4, r3, #4
+	ldr r5, [r4]
 	mov r4, #0
-	mov r3, #0
-	cmp r2, r4
-	movne r3, #1
-	mov r2, r3
+	mov r6, #0
+	cmp r5, r4
+	movne r6, #1
+	mov r4, r6
+	mov r4, r4
+	cmp r4, #1
+	mov r4, r2
+	mov r3, r3
 	mov r2, r2
-	cmp r2, #1
-	beq .L19
-	b .L20
-.L20:
-	ldr r0, [sp, #8]
-	str r0, [sp, #0]
-	b .L18
-.L18:
-	ldr r0, [sp, #0]
+	beq .L15
+	b .L16
+.L16:
+	mov r0, r2
+	b .L14
+.L14:
 	mov r0, r0
-	add sp, sp, #12
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size biggestInList, .-biggestInList
 
@@ -186,14 +161,12 @@ biggestInList:
 	.global main
 main:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	sub sp, sp, #8
-.L22:
+	add fp, sp, #4
+	sub sp, sp, #0
+.L18:
 	bl getIntList
 	mov r1, r0
-	str r1, [sp, #4]
-	ldr r1, [sp, #4]
 	mov r0, r1
 	bl biggestInList
 	mov r0, r0
@@ -201,15 +174,13 @@ main:
 	movw r0, #:lower16:.PRINTLN_FMT
 	movt r0, #:upper16:.PRINTLN_FMT
 	bl printf
+	b .L19
+.L19:
 	mov r0, #0
-	str r0, [sp, #0]
-	b .L23
-.L23:
-	ldr r0, [sp, #0]
 	mov r0, r0
-	add sp, sp, #8
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size main, .-main
 

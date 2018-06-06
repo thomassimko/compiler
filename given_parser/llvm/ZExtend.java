@@ -4,7 +4,6 @@ import arm.ArmInstruction;
 import arm.ArmValue.ArmVirtualRegister;
 import arm.Move;
 import arm.MoveType;
-import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeInteger;
 import llvm.lattice.LatticeValue;
 import llvm.value.Register;
@@ -72,6 +71,29 @@ public class ZExtend extends AbstactInstruction {
             LatticeValue latvalue = lattice.get(source);
             if(latvalue instanceof LatticeInteger) {
                 source = new ValueLiteral(((LatticeInteger) latvalue).getValue() + "");
+            }
+        }
+    }
+
+    @Override
+    public Value[] getSources() {
+        return new Value[]{source};
+    }
+
+    @Override
+    public void replaceSource(HashMap<Value, Value> newValueMappings) {
+        if(newValueMappings.containsKey(source)) {
+
+            if(newValueMappings.containsKey(source)) {
+
+                if(source instanceof Register) {
+                    ((Register) source).removeUse(this);
+                }
+                source = newValueMappings.get(source);
+
+                if(source instanceof Register) {
+                    ((Register) source).addUse(this);
+                }
             }
         }
     }

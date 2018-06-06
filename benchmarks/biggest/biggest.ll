@@ -10,8 +10,7 @@ L1:
 	%r1 = bitcast i8* %r0 to %struct.IntList*
 	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* @.read_scratch)
 	%r2 = load i32, i32* @.read_scratch
-	%r3 = sub i32 0, 1
-	%r4 = icmp eq i32 %r2, %r3
+	%r4 = icmp eq i32 %r2, -1
 	%r5 = zext i1 %r4 to i32
 	%r6 = trunc i32 %r5 to i1
 	br i1 %r6, label %L3, label %L4
@@ -84,8 +83,7 @@ L16:
 	%r36 = phi i32 [%r18, %L13], [%r28, %L15]
 	br label %L14
 L14:
-	%r37 = phi i32 [%r36, %L16]
-	ret i32 %r37
+	ret i32 %r36
 }
 
 define i32 @main()
@@ -97,8 +95,7 @@ L18:
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r39)
 	br label %L19
 L19:
-	%r40 = phi i32 [0, %L18]
-	ret i32 %r40
+	ret i32 0
 }
 
 declare i8* @malloc(i32)

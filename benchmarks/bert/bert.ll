@@ -66,8 +66,7 @@ L9:
 	store %struct.node* %list, %struct.node** %r26
 	br label %L10
 L10:
-	%r27 = phi %struct.node* [%r24, %L9]
-	ret %struct.node* %r27
+	ret %struct.node* %r24
 }
 
 define i32 @size(%struct.node* %list)
@@ -128,8 +127,7 @@ L24:
 	%r47 = load %struct.node*, %struct.node** %r46
 	br label %L25
 L25:
-	%r48 = phi %struct.node* [%r47, %L24]
-	ret %struct.node* %r48
+	ret %struct.node* %r47
 }
 
 define void @printList(%struct.node* %list)
@@ -400,31 +398,11 @@ L67:
 	ret %struct.node* %r166
 }
 
-define %struct.node* @quickSortMain(%struct.node* %list)
-{
-
-L77:
-	call void @printList(%struct.node* %list )
-	%r167 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r167)
-	call void @printList(%struct.node* %list )
-	%r168 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r168)
-	call void @printList(%struct.node* %list )
-	%r169 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r169)
-	br label %L78
-L78:
-	%r170 = phi %struct.node* [null, %L77]
-	ret %struct.node* %r170
-}
-
 define i32 @treesearch(%struct.tnode* %root, i32 %target)
 {
 
 L80:
-	%r171 = sub i32 0, 1
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r171)
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -1)
 	%r172 = icmp ne %struct.tnode* %root, null
 	%r173 = zext i1 %r172 to i32
 	%r174 = trunc i32 %r173 to i1
@@ -515,8 +493,7 @@ define i32 @bintreesearch(%struct.tnode* %root, i32 %target)
 {
 
 L101:
-	%r211 = sub i32 0, 1
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r211)
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -1)
 	%r212 = icmp ne %struct.tnode* %root, null
 	%r213 = zext i1 %r212 to i32
 	%r214 = trunc i32 %r213 to i1
@@ -588,90 +565,7 @@ L116:
 	%r246 = phi %struct.tnode* [null, %L113], [%r240, %L115]
 	br label %L114
 L114:
-	%r247 = phi %struct.tnode* [%r246, %L116]
-	ret %struct.tnode* %r247
-}
-
-define void @treeMain(%struct.node* %list)
-{
-
-L118:
-	%r248 = call %struct.tnode* @buildTree(%struct.node* %list )
-	call void @treeprint(%struct.tnode* %r248 )
-	%r249 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r249)
-	%r250 = call %struct.node* @inOrder(%struct.tnode* %r248 )
-	call void @printList(%struct.node* %r250 )
-	%r251 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r251)
-	call void @freeList(%struct.node* %r250 )
-	%r252 = call %struct.node* @postOrder(%struct.tnode* %r248 )
-	call void @printList(%struct.node* %r252 )
-	%r253 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r253)
-	call void @freeList(%struct.node* %r252 )
-	%r254 = call i32 @treesearch(%struct.tnode* %r248, i32 0 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r254)
-	%r255 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r255)
-	%r256 = call i32 @treesearch(%struct.tnode* %r248, i32 10 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r256)
-	%r257 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r257)
-	%r258 = sub i32 0, 2
-	%r259 = call i32 @treesearch(%struct.tnode* %r248, i32 %r258 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r259)
-	%r260 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r260)
-	%r261 = call i32 @treesearch(%struct.tnode* %r248, i32 2 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r261)
-	%r262 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r262)
-	%r263 = call i32 @treesearch(%struct.tnode* %r248, i32 3 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r263)
-	%r264 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r264)
-	%r265 = call i32 @treesearch(%struct.tnode* %r248, i32 9 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r265)
-	%r266 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r266)
-	%r267 = call i32 @treesearch(%struct.tnode* %r248, i32 1 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r267)
-	%r268 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r268)
-	%r269 = call i32 @bintreesearch(%struct.tnode* %r248, i32 0 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r269)
-	%r270 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r270)
-	%r271 = call i32 @bintreesearch(%struct.tnode* %r248, i32 10 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r271)
-	%r272 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r272)
-	%r273 = sub i32 0, 2
-	%r274 = call i32 @bintreesearch(%struct.tnode* %r248, i32 %r273 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r274)
-	%r275 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r275)
-	%r276 = call i32 @bintreesearch(%struct.tnode* %r248, i32 2 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r276)
-	%r277 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r277)
-	%r278 = call i32 @bintreesearch(%struct.tnode* %r248, i32 3 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r278)
-	%r279 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r279)
-	%r280 = call i32 @bintreesearch(%struct.tnode* %r248, i32 9 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r280)
-	%r281 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r281)
-	%r282 = call i32 @bintreesearch(%struct.tnode* %r248, i32 1 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r282)
-	%r283 = sub i32 0, 999
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r283)
-	call void @freeTree(%struct.tnode* %r248 )
-	br label %L119
-L119:
-	ret void
+	ret %struct.tnode* %r246
 }
 
 define %struct.node* @myCopy(%struct.node* %src)
@@ -705,10 +599,7 @@ define i32 @main()
 {
 
 L127:
-	%r295 = icmp slt i32 0, 10
-	%r296 = zext i1 %r295 to i32
-	%r297 = trunc i32 %r296 to i1
-	br i1 %r297, label %L129, label %L130
+	br i1 1, label %L129, label %L130
 
 L129:
 	%r299 = phi %struct.node* [null, %L127], [%r300, %L129]
@@ -718,9 +609,67 @@ L129:
 	%r300 = call %struct.node* @add(%struct.node* %r299, i32 %r298 )
 	%r301 = call %struct.node* @myCopy(%struct.node* %r300 )
 	%r302 = call %struct.node* @myCopy(%struct.node* %r300 )
-	%r303 = call %struct.node* @quickSortMain(%struct.node* %r301 )
-	call void @freeList(%struct.node* %r303 )
-	call void @treeMain(%struct.node* %r302 )
+	call void @printList(%struct.node* %r301 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -999)
+	call void @printList(%struct.node* %r301 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -999)
+	call void @printList(%struct.node* %r301 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -999)
+	call void @freeList(%struct.node* null )
+	%r248 = call %struct.tnode* @buildTree(%struct.node* %r302 )
+	call void @treeprint(%struct.tnode* %r248 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -999)
+	%r250 = call %struct.node* @inOrder(%struct.tnode* %r248 )
+	call void @printList(%struct.node* %r250 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -999)
+	call void @freeList(%struct.node* %r250 )
+	%r252 = call %struct.node* @postOrder(%struct.tnode* %r248 )
+	call void @printList(%struct.node* %r252 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -999)
+	call void @freeList(%struct.node* %r252 )
+	%r254 = call i32 @treesearch(%struct.tnode* %r248, i32 0 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r254)
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -999)
+	%r256 = call i32 @treesearch(%struct.tnode* %r248, i32 10 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r256)
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -999)
+	%r259 = call i32 @treesearch(%struct.tnode* %r248, i32 -2 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r259)
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -999)
+	%r261 = call i32 @treesearch(%struct.tnode* %r248, i32 2 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r261)
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -999)
+	%r263 = call i32 @treesearch(%struct.tnode* %r248, i32 3 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r263)
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -999)
+	%r265 = call i32 @treesearch(%struct.tnode* %r248, i32 9 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r265)
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -999)
+	%r267 = call i32 @treesearch(%struct.tnode* %r248, i32 1 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r267)
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -999)
+	%r269 = call i32 @bintreesearch(%struct.tnode* %r248, i32 0 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r269)
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -999)
+	%r271 = call i32 @bintreesearch(%struct.tnode* %r248, i32 10 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r271)
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -999)
+	%r274 = call i32 @bintreesearch(%struct.tnode* %r248, i32 -2 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r274)
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -999)
+	%r276 = call i32 @bintreesearch(%struct.tnode* %r248, i32 2 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r276)
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -999)
+	%r278 = call i32 @bintreesearch(%struct.tnode* %r248, i32 3 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r278)
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -999)
+	%r280 = call i32 @bintreesearch(%struct.tnode* %r248, i32 9 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r280)
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -999)
+	%r282 = call i32 @bintreesearch(%struct.tnode* %r248, i32 1 )
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r282)
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -999)
+	call void @freeTree(%struct.tnode* %r248 )
 	%r305 = add i32 %r304, 1
 	%r306 = icmp slt i32 %r305, 10
 	%r307 = zext i1 %r306 to i32
@@ -736,8 +685,7 @@ L130:
 	call void @freeList(%struct.node* %r311 )
 	br label %L128
 L128:
-	%r312 = phi i32 [0, %L130]
-	ret i32 %r312
+	ret i32 0
 }
 
 declare i8* @malloc(i32)

@@ -9,76 +9,81 @@
 	.global concatLists
 concatLists:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
+	add fp, sp, #4
 	mov r0, r0
-	mov r1, r1
-	sub sp, sp, #16
+	mov r4, r1
+	sub sp, sp, #0
 .L1:
-	str r0, [sp, #4]
-	str r1, [sp, #8]
-	ldr r0, [sp, #4]
-	str r0, [sp, #12]
-	ldr r0, [sp, #4]
 	mov r1, #0
 	mov r2, #0
 	cmp r0, r1
 	moveq r2, #1
-	mov r0, r2
-	mov r0, r0
-	cmp r0, #1
+	mov r1, r2
+	mov r1, r1
+	cmp r1, #1
 	beq .L3
 	b .L4
 .L3:
-	ldr r0, [sp, #8]
-	str r0, [sp, #0]
+	mov r0, r4
 	b .L2
 .L4:
 	b .L5
 .L5:
-	ldr r0, [sp, #12]
-	add r0, r0, #4
-	ldr r1, [r0]
+	add r1, r0, #4
+	ldr r3, [r1]
+	mov r1, #0
 	mov r2, #0
-	mov r0, #0
-	cmp r1, r2
-	movne r0, #1
-	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
-	beq .L7
-	b .L8
-.L7:
-	ldr r0, [sp, #12]
-	add r0, r0, #4
-	ldr r0, [r0]
-	str r0, [sp, #12]
-	ldr r0, [sp, #12]
-	add r0, r0, #4
-	ldr r1, [r0]
-	mov r0, #0
-	mov r2, #0
-	cmp r1, r0
+	cmp r3, r1
 	movne r2, #1
-	mov r0, r2
+	mov r1, r2
+	mov r1, r1
+	cmp r1, #1
+	mov r3, r0
+	mov r1, r4
+	mov r2, r0
+	mov r4, r4
+	mov r5, r0
 	mov r0, r0
-	cmp r0, #1
-	beq .L7
-	b .L8
-.L8:
-	ldr r0, [sp, #12]
-	add r0, r0, #4
-	ldr r1, [sp, #8]
-	str r1, [r0]
-	ldr r0, [sp, #4]
-	str r0, [sp, #0]
+	beq .L6
+	b .L7
+.L6:
+	mov r3, r3
+	mov r4, r1
+	mov r0, r2
+	add r1, r3, #4
+	ldr r5, [r1]
+	add r1, r5, #4
+	ldr r3, [r1]
+	mov r1, #0
+	mov r2, #0
+	cmp r3, r1
+	movne r2, #1
+	mov r1, r2
+	mov r1, r1
+	cmp r1, #1
+	mov r3, r5
+	mov r1, r4
+	mov r2, r0
+	mov r4, r4
+	mov r5, r5
+	mov r0, r0
+	beq .L6
+	b .L7
+.L7:
+	mov r1, r4
+	mov r2, r5
+	mov r0, r0
+	add r2, r2, #4
+	str r1, [r2]
+	mov r0, r0
 	b .L2
 .L2:
-	ldr r0, [sp, #0]
 	mov r0, r0
-	add sp, sp, #16
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	mov r0, r0
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size concatLists, .-concatLists
 
@@ -87,37 +92,26 @@ concatLists:
 	.global add
 add:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r3, r0
-	mov r2, r1
-	sub sp, sp, #16
-.L10:
-	str r3, [sp, #4]
-	str r2, [sp, #8]
-	movw r0, #:lower16:8
-	movt r0, #:upper16:8
+	add fp, sp, #4
+	mov r6, r0
+	mov r4, r1
+	sub sp, sp, #0
+.L9:
+	mov r0, #8
 	bl malloc
 	mov r0, r0
 	mov r0, r0
-	str r0, [sp, #12]
-	ldr r0, [sp, #12]
-	add r0, r0, #0
-	ldr r1, [sp, #8]
-	str r1, [r0]
-	ldr r0, [sp, #12]
+	add r1, r0, #0
+	str r4, [r1]
 	add r1, r0, #4
-	ldr r0, [sp, #4]
-	str r0, [r1]
-	ldr r0, [sp, #12]
-	str r0, [sp, #0]
-	b .L11
-.L11:
-	ldr r0, [sp, #0]
+	str r6, [r1]
+	b .L10
+.L10:
 	mov r0, r0
-	add sp, sp, #16
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size add, .-add
 
@@ -126,45 +120,42 @@ add:
 	.global size
 size:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r3, r0
-	sub sp, sp, #8
-.L13:
-	str r3, [sp, #4]
-	ldr r1, [sp, #4]
+	add fp, sp, #4
+	mov r6, r0
+	sub sp, sp, #0
+.L12:
+	mov r1, #0
 	mov r2, #0
-	mov r3, #0
-	cmp r1, r2
-	moveq r3, #1
-	mov r1, r3
+	cmp r6, r1
+	moveq r2, #1
+	mov r1, r2
 	mov r1, r1
 	cmp r1, #1
-	beq .L15
-	b .L16
-.L15:
+	beq .L14
+	b .L15
+.L14:
 	mov r0, #0
-	str r0, [sp, #0]
-	b .L14
+	mov r0, r0
+	b .L13
+.L15:
+	b .L16
 .L16:
-	b .L17
-.L17:
-	ldr r1, [sp, #4]
-	add r1, r1, #4
+	add r1, r6, #4
 	ldr r1, [r1]
 	mov r0, r1
 	bl size
-	mov r1, r0
-	mov r0, #1
-	add r0, r0, r1
-	str r0, [sp, #0]
-	b .L14
-.L14:
-	ldr r0, [sp, #0]
 	mov r0, r0
-	add sp, sp, #8
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	mov r1, #1
+	add r0, r1, r0
+	mov r0, r0
+	b .L13
+.L13:
+	mov r0, r0
+	mov r0, r0
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size size, .-size
 
@@ -173,50 +164,44 @@ size:
 	.global get
 get:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r3, r0
+	add fp, sp, #4
+	mov r6, r0
 	mov r2, r1
-	sub sp, sp, #12
-.L20:
-	str r3, [sp, #4]
-	str r2, [sp, #8]
-	ldr r2, [sp, #8]
+	sub sp, sp, #0
+.L18:
 	mov r3, #0
 	cmp r2, #0
 	moveq r3, #1
-	mov r2, r3
-	mov r2, r2
-	cmp r2, #1
-	beq .L22
-	b .L23
-.L22:
-	ldr r0, [sp, #4]
-	add r0, r0, #0
-	ldr r0, [r0]
-	str r0, [sp, #0]
+	mov r3, r3
+	mov r3, r3
+	cmp r3, #1
+	beq .L20
 	b .L21
-.L23:
-	b .L24
-.L24:
-	ldr r2, [sp, #4]
-	add r2, r2, #4
-	ldr r2, [r2]
-	ldr r4, [sp, #8]
-	mov r3, #1
-	sub r3, r4, r3
-	mov r0, r2
-	mov r1, r3
+.L20:
+	add r0, r6, #0
+	ldr r0, [r0]
+	mov r0, r0
+	b .L19
+.L21:
+	b .L22
+.L22:
+	add r3, r6, #4
+	ldr r3, [r3]
+	mov r4, #1
+	sub r2, r2, r4
+	mov r0, r3
+	mov r1, r2
 	bl get
 	mov r0, r0
-	str r0, [sp, #0]
-	b .L21
-.L21:
-	ldr r0, [sp, #0]
 	mov r0, r0
-	add sp, sp, #12
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	b .L19
+.L19:
+	mov r0, r0
+	mov r0, r0
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size get, .-get
 
@@ -225,25 +210,19 @@ get:
 	.global pop
 pop:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r3, r0
-	sub sp, sp, #8
-.L27:
-	str r3, [sp, #4]
-	ldr r0, [sp, #4]
-	add r0, r0, #4
+	add fp, sp, #4
+	mov r6, r0
+	sub sp, sp, #0
+.L24:
+	add r0, r6, #4
 	ldr r0, [r0]
-	str r0, [sp, #4]
-	ldr r0, [sp, #4]
-	str r0, [sp, #0]
-	b .L28
-.L28:
-	ldr r0, [sp, #0]
+	b .L25
+.L25:
 	mov r0, r0
-	add sp, sp, #8
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size pop, .-pop
 
@@ -252,46 +231,40 @@ pop:
 	.global printList
 printList:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r3, r0
-	sub sp, sp, #4
-.L30:
-	str r3, [sp, #0]
-	ldr r2, [sp, #0]
+	add fp, sp, #4
+	mov r6, r0
+	sub sp, sp, #0
+.L27:
 	mov r0, #0
 	mov r1, #0
-	cmp r2, r0
+	cmp r6, r0
 	movne r1, #1
 	mov r0, r1
 	mov r0, r0
 	cmp r0, #1
-	beq .L32
-	b .L33
-.L32:
-	ldr r0, [sp, #0]
-	add r0, r0, #0
+	beq .L29
+	b .L30
+.L29:
+	add r0, r6, #0
 	ldr r0, [r0]
 	mov r1, r0
 	movw r0, #:lower16:.PRINTLN_FMT
 	movt r0, #:upper16:.PRINTLN_FMT
 	bl printf
-	ldr r1, [sp, #0]
-	add r1, r1, #4
+	add r1, r6, #4
 	ldr r1, [r1]
 	mov r0, r1
 	bl printList
-	mov r1, #0
-	mov r1, r0
-	b .L34
-.L33:
-	b .L34
-.L34:
+	b .L31
+.L30:
 	b .L31
 .L31:
-	add sp, sp, #4
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	b .L28
+.L28:
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size printList, .-printList
 
@@ -300,53 +273,44 @@ printList:
 	.global treeprint
 treeprint:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r3, r0
-	sub sp, sp, #4
-.L36:
-	str r3, [sp, #0]
-	ldr r3, [sp, #0]
-	mov r1, #0
+	add fp, sp, #4
+	mov r5, r0
+	sub sp, sp, #0
+.L33:
 	mov r2, #0
-	cmp r3, r1
-	movne r2, #1
-	mov r1, r2
+	mov r1, #0
+	cmp r5, r2
+	movne r1, #1
+	mov r1, r1
 	mov r1, r1
 	cmp r1, #1
-	beq .L38
-	b .L39
-.L38:
-	ldr r1, [sp, #0]
-	add r1, r1, #4
+	beq .L35
+	b .L36
+.L35:
+	add r1, r5, #4
 	ldr r1, [r1]
 	mov r0, r1
 	bl treeprint
-	mov r1, #0
-	mov r1, r0
-	ldr r0, [sp, #0]
-	add r0, r0, #0
+	add r0, r5, #0
 	ldr r0, [r0]
 	mov r1, r0
 	movw r0, #:lower16:.PRINTLN_FMT
 	movt r0, #:upper16:.PRINTLN_FMT
 	bl printf
-	ldr r1, [sp, #0]
-	add r1, r1, #8
+	add r1, r5, #8
 	ldr r1, [r1]
 	mov r0, r1
 	bl treeprint
-	mov r1, #0
-	mov r1, r0
-	b .L40
-.L39:
-	b .L40
-.L40:
+	b .L37
+.L36:
 	b .L37
 .L37:
-	add sp, sp, #4
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	b .L34
+.L34:
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size treeprint, .-treeprint
 
@@ -355,45 +319,37 @@ treeprint:
 	.global freeList
 freeList:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r3, r0
-	sub sp, sp, #4
-.L42:
-	str r3, [sp, #0]
-	ldr r3, [sp, #0]
-	mov r1, #0
+	add fp, sp, #4
+	mov r6, r0
+	sub sp, sp, #0
+.L39:
 	mov r2, #0
-	cmp r3, r1
-	movne r2, #1
-	mov r1, r2
+	mov r1, #0
+	cmp r6, r2
+	movne r1, #1
+	mov r1, r1
 	mov r1, r1
 	cmp r1, #1
-	beq .L44
-	b .L45
-.L44:
-	ldr r1, [sp, #0]
-	add r1, r1, #4
+	beq .L41
+	b .L42
+.L41:
+	add r1, r6, #4
 	ldr r1, [r1]
 	mov r0, r1
 	bl freeList
-	mov r1, #0
-	mov r1, r0
-	ldr r1, [sp, #0]
-	mov r1, r1
+	mov r1, r6
 	mov r0, r1
 	bl free
-	mov r1, #0
-	mov r1, r0
-	b .L46
-.L45:
-	b .L46
-.L46:
+	b .L43
+.L42:
 	b .L43
 .L43:
-	add sp, sp, #4
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	b .L40
+.L40:
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size freeList, .-freeList
 
@@ -402,54 +358,43 @@ freeList:
 	.global freeTree
 freeTree:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r3, r0
-	sub sp, sp, #4
-.L48:
-	str r3, [sp, #0]
-	ldr r1, [sp, #0]
-	mov r3, #0
+	add fp, sp, #4
+	mov r5, r0
+	sub sp, sp, #0
+.L45:
 	mov r2, #0
-	cmp r1, r3
-	moveq r2, #1
-	mov r1, r2
-	mov r2, #1
-	eor r1, r1, r2
+	mov r1, #0
+	cmp r5, r2
+	moveq r1, #1
+	mov r2, r1
+	mov r1, #1
+	eor r1, r2, r1
 	mov r1, r1
 	cmp r1, #1
-	beq .L50
-	b .L51
-.L50:
-	ldr r1, [sp, #0]
-	add r1, r1, #4
+	beq .L47
+	b .L48
+.L47:
+	add r1, r5, #4
 	ldr r1, [r1]
 	mov r0, r1
 	bl freeTree
-	mov r1, #0
-	mov r1, r0
-	ldr r1, [sp, #0]
-	add r1, r1, #8
+	add r1, r5, #8
 	ldr r1, [r1]
 	mov r0, r1
 	bl freeTree
-	mov r1, #0
-	mov r1, r0
-	ldr r1, [sp, #0]
-	mov r1, r1
+	mov r1, r5
 	mov r0, r1
 	bl free
-	mov r1, #0
-	mov r1, r0
-	b .L52
-.L51:
-	b .L52
-.L52:
+	b .L49
+.L48:
 	b .L49
 .L49:
-	add sp, sp, #4
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	b .L46
+.L46:
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size freeTree, .-freeTree
 
@@ -458,74 +403,64 @@ freeTree:
 	.global postOrder
 postOrder:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r3, r0
-	sub sp, sp, #12
-.L54:
-	str r3, [sp, #4]
-	ldr r1, [sp, #4]
+	add fp, sp, #4
+	mov r5, r0
+	sub sp, sp, #0
+.L51:
 	mov r0, #0
-	mov r2, #0
-	cmp r1, r0
-	movne r2, #1
-	mov r0, r2
+	mov r1, #0
+	cmp r5, r0
+	movne r1, #1
+	mov r0, r1
 	mov r0, r0
 	cmp r0, #1
-	beq .L56
-	b .L57
-.L56:
-	movw r0, #:lower16:8
-	movt r0, #:upper16:8
+	beq .L53
+	b .L54
+.L53:
+	mov r0, #8
 	bl malloc
 	mov r1, r0
-	mov r1, r1
-	str r1, [sp, #8]
-	ldr r1, [sp, #8]
-	add r1, r1, #0
-	ldr r2, [sp, #4]
-	add r2, r2, #0
-	ldr r2, [r2]
+	mov r4, r1
+	add r1, r5, #0
+	ldr r2, [r1]
+	add r1, r4, #0
 	str r2, [r1]
-	ldr r1, [sp, #8]
-	add r2, r1, #4
-	mov r1, #0
-	str r1, [r2]
-	ldr r1, [sp, #4]
-	add r1, r1, #4
+	add r1, r4, #4
+	mov r2, #0
+	str r2, [r1]
+	add r1, r5, #4
 	ldr r1, [r1]
 	mov r0, r1
 	bl postOrder
-	mov r4, r0
-	ldr r1, [sp, #4]
-	add r1, r1, #8
+	mov r6, r0
+	add r1, r5, #8
 	ldr r1, [r1]
 	mov r0, r1
 	bl postOrder
 	mov r2, r0
-	mov r0, r4
+	mov r0, r6
 	mov r1, r2
 	bl concatLists
-	mov r3, r0
-	ldr r2, [sp, #8]
-	mov r0, r3
-	mov r1, r2
+	mov r2, r0
+	mov r0, r2
+	mov r1, r4
 	bl concatLists
 	mov r0, r0
-	str r0, [sp, #0]
-	b .L55
-.L57:
-	b .L58
-.L58:
-	mov r0, #0
-	str r0, [sp, #0]
+	mov r0, r0
+	b .L52
+.L54:
 	b .L55
 .L55:
-	ldr r0, [sp, #0]
+	mov r0, #0
 	mov r0, r0
-	add sp, sp, #12
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	b .L52
+.L52:
+	mov r0, r0
+	mov r0, r0
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size postOrder, .-postOrder
 
@@ -534,97 +469,81 @@ postOrder:
 	.global treeadd
 treeadd:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r3, r0
-	mov r2, r1
-	sub sp, sp, #16
-.L61:
-	str r3, [sp, #4]
-	str r2, [sp, #8]
-	ldr r4, [sp, #4]
+	add fp, sp, #4
+	mov r5, r0
+	mov r4, r1
+	sub sp, sp, #0
+.L57:
 	mov r3, #0
 	mov r2, #0
-	cmp r4, r3
+	cmp r5, r3
 	moveq r2, #1
 	mov r2, r2
 	mov r2, r2
 	cmp r2, #1
-	beq .L63
-	b .L64
-.L63:
-	movw r0, #:lower16:12
-	movt r0, #:upper16:12
+	beq .L59
+	b .L60
+.L59:
+	mov r0, #12
 	bl malloc
 	mov r0, r0
 	mov r0, r0
-	str r0, [sp, #12]
-	ldr r0, [sp, #12]
 	add r1, r0, #0
-	ldr r0, [sp, #8]
-	str r0, [r1]
-	ldr r0, [sp, #12]
-	add r0, r0, #4
+	str r4, [r1]
+	add r2, r0, #4
 	mov r1, #0
-	str r1, [r0]
-	ldr r0, [sp, #12]
-	add r1, r0, #8
-	mov r0, #0
-	str r0, [r1]
-	ldr r0, [sp, #12]
-	str r0, [sp, #0]
-	b .L62
-.L64:
-	b .L65
-.L65:
-	ldr r2, [sp, #8]
-	ldr r3, [sp, #4]
-	add r3, r3, #0
-	ldr r3, [r3]
-	mov r4, #0
-	cmp r2, r3
-	movlt r4, #1
-	mov r2, r4
+	str r1, [r2]
+	add r2, r0, #8
+	mov r1, #0
+	str r1, [r2]
+	mov r0, r0
+	b .L58
+.L60:
+	b .L61
+.L61:
+	add r2, r5, #0
+	ldr r3, [r2]
+	mov r2, #0
+	cmp r4, r3
+	movlt r2, #1
+	mov r2, r2
 	mov r2, r2
 	cmp r2, #1
-	beq .L67
-	b .L68
-.L67:
-	ldr r2, [sp, #4]
-	add r4, r2, #4
-	ldr r2, [sp, #4]
-	add r2, r2, #4
-	ldr r2, [r2]
-	ldr r3, [sp, #8]
-	mov r0, r2
-	mov r1, r3
-	bl treeadd
-	mov r0, r0
-	str r0, [r4]
-	b .L69
-.L68:
-	ldr r2, [sp, #4]
-	add r4, r2, #8
-	ldr r2, [sp, #4]
-	add r2, r2, #8
-	ldr r3, [r2]
-	ldr r2, [sp, #8]
-	mov r0, r3
-	mov r1, r2
-	bl treeadd
-	mov r0, r0
-	str r0, [r4]
-	b .L69
-.L69:
-	ldr r0, [sp, #4]
-	str r0, [sp, #0]
-	b .L62
+	beq .L62
+	b .L63
 .L62:
-	ldr r0, [sp, #0]
+	add r2, r5, #4
+	ldr r2, [r2]
+	mov r0, r2
+	mov r1, r4
+	bl treeadd
+	mov r1, r0
+	add r0, r5, #4
+	str r1, [r0]
+	mov r0, r5
+	b .L64
+.L63:
+	add r2, r5, #8
+	ldr r2, [r2]
+	mov r0, r2
+	mov r1, r4
+	bl treeadd
+	mov r1, r0
+	add r0, r5, #8
+	str r1, [r0]
+	mov r0, r5
+	b .L64
+.L64:
 	mov r0, r0
-	add sp, sp, #16
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	mov r0, r0
+	b .L58
+.L58:
+	mov r0, r0
+	mov r0, r0
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size treeadd, .-treeadd
 
@@ -633,49 +552,39 @@ treeadd:
 	.global quickSort
 quickSort:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r3, r0
-	sub sp, sp, #28
-.L71:
-	str r3, [sp, #4]
-	mov r1, #0
-	str r1, [sp, #16]
-	mov r1, #0
-	str r1, [sp, #20]
-	ldr r1, [sp, #4]
-	mov r0, r1
+	add fp, sp, #4
+	mov r6, r0
+	sub sp, sp, #0
+.L66:
+	mov r0, r6
 	bl size
-	mov r3, r0
-	mov r2, #0
-	cmp r3, #1
-	movle r2, #1
-	mov r2, r2
+	mov r2, r0
+	mov r3, #0
+	cmp r2, #1
+	movle r3, #1
+	mov r2, r3
 	mov r2, r2
 	cmp r2, #1
-	beq .L73
-	b .L74
-.L73:
-	ldr r0, [sp, #4]
-	str r0, [sp, #0]
-	b .L72
-.L74:
-	b .L75
-.L75:
-	ldr r2, [sp, #4]
-	mov r0, r2
+	beq .L68
+	b .L69
+.L68:
+	mov r0, r6
+	b .L67
+.L69:
+	b .L70
+.L70:
+	mov r0, r6
 	mov r2, #0
 	mov r1, r2
 	bl get
 	mov r4, r0
-	ldr r5, [sp, #4]
-	ldr r1, [sp, #4]
-	mov r0, r1
+	mov r0, r6
 	bl size
-	mov r2, r0
-	mov r3, #1
-	sub r2, r2, r3
-	mov r0, r5
+	mov r3, r0
+	mov r2, #1
+	sub r2, r3, r2
+	mov r0, r6
 	mov r1, r2
 	bl get
 	mov r0, r0
@@ -685,286 +594,232 @@ quickSort:
 	mov r0, r0
 	bl __aeabi_idiv
 	mov r2, r0
-	str r2, [sp, #8]
-	ldr r2, [sp, #4]
-	str r2, [sp, #24]
-	mov r2, #0
-	str r2, [sp, #12]
-	ldr r3, [sp, #24]
+	mov r3, #0
 	mov r4, #0
+	cmp r6, r3
+	movne r4, #1
+	mov r3, r4
+	mov r3, r3
+	cmp r3, #1
+	mov r9, r6
+	mov r3, #0
+	mov r5, r3
+	mov r4, r2
+	mov r7, #0
+	mov r3, r7
+	mov r8, #0
+	mov r2, r8
+	mov r10, r6
+	mov r6, r6
+	mov r8, r8
+	mov r7, r7
+	beq .L71
+	b .L72
+.L71:
+	mov r6, r9
+	mov r5, r5
+	mov r4, r4
+	mov r7, r3
+	mov r8, r2
+	mov r9, r10
+	mov r0, r6
+	mov r1, r5
+	bl get
+	mov r3, r0
 	mov r2, #0
 	cmp r3, r4
-	movne r2, #1
+	movgt r2, #1
 	mov r2, r2
 	mov r2, r2
 	cmp r2, #1
-	beq .L77
-	b .L81
-.L78:
-	ldr r4, [sp, #20]
-	ldr r2, [sp, #4]
-	ldr r3, [sp, #12]
-	mov r0, r2
-	mov r1, r3
+	beq .L73
+	b .L74
+.L73:
+	mov r0, r6
+	mov r1, r5
 	bl get
 	mov r2, r0
-	mov r0, r4
+	mov r0, r7
 	mov r1, r2
 	bl add
-	mov r1, r0
-	str r1, [sp, #20]
-	b .L80
-.L79:
-	ldr r4, [sp, #16]
-	ldr r3, [sp, #4]
-	ldr r2, [sp, #12]
-	mov r0, r3
-	mov r1, r2
+	mov r7, r0
+	mov r2, r9
+	mov r3, r5
+	mov r5, r6
+	mov r4, r4
+	mov r7, r7
+	mov r8, r8
+	b .L75
+.L74:
+	mov r0, r6
+	mov r1, r5
 	bl get
 	mov r2, r0
-	mov r0, r4
+	mov r0, r8
 	mov r1, r2
 	bl add
-	mov r1, r0
-	str r1, [sp, #16]
-	b .L80
-.L80:
-	ldr r1, [sp, #24]
-	add r1, r1, #4
-	ldr r1, [r1]
-	str r1, [sp, #24]
-	ldr r2, [sp, #12]
-	mov r1, #1
-	add r1, r2, r1
-	str r1, [sp, #12]
-	ldr r1, [sp, #24]
-	mov r2, #0
-	mov r3, #0
-	cmp r1, r2
-	movne r3, #1
-	mov r1, r3
-	mov r1, r1
-	cmp r1, #1
-	beq .L77
-	b .L81
-.L77:
-	ldr r2, [sp, #4]
-	ldr r3, [sp, #12]
-	mov r0, r2
-	mov r1, r3
-	bl get
-	mov r2, r0
-	ldr r4, [sp, #8]
-	mov r3, #0
-	cmp r2, r4
-	movgt r3, #1
-	mov r2, r3
-	mov r2, r2
-	cmp r2, #1
-	beq .L78
-	b .L79
-.L81:
-	ldr r1, [sp, #4]
+	mov r8, r0
+	mov r2, r9
+	mov r3, r5
+	mov r5, r6
+	mov r4, r4
+	mov r7, r7
+	mov r8, r8
+	b .L75
+.L75:
+	mov r9, r2
+	mov r3, r3
+	mov r6, r5
+	mov r2, r4
+	mov r7, r7
+	mov r8, r8
+	add r4, r9, #4
+	ldr r10, [r4]
+	mov r4, #1
+	add r3, r3, r4
+	mov r5, #0
+	mov r4, #0
+	cmp r10, r5
+	movne r4, #1
+	mov r4, r4
+	mov r4, r4
+	cmp r4, #1
+	mov r9, r6
+	mov r5, r3
+	mov r4, r2
+	mov r3, r7
+	mov r2, r8
+	mov r10, r10
+	mov r6, r6
+	mov r8, r8
+	mov r7, r7
+	beq .L71
+	b .L72
+.L72:
+	mov r1, r6
+	mov r4, r8
+	mov r5, r7
 	mov r0, r1
 	bl freeList
-	mov r1, #0
-	mov r1, r0
-	ldr r1, [sp, #16]
-	mov r0, r1
+	mov r0, r4
 	bl quickSort
 	mov r4, r0
-	ldr r1, [sp, #20]
-	mov r0, r1
+	mov r0, r5
 	bl quickSort
 	mov r2, r0
 	mov r0, r4
 	mov r1, r2
 	bl concatLists
 	mov r0, r0
-	str r0, [sp, #0]
-	b .L72
-.L72:
-	ldr r0, [sp, #0]
 	mov r0, r0
-	add sp, sp, #28
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	b .L67
+.L67:
+	mov r0, r0
+	mov r0, r0
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size quickSort, .-quickSort
-
-
-	.align 2
-	.global quickSortMain
-quickSortMain:
-	push {fp, lr}
-	add fp, sp, #4
-	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r3, r0
-	sub sp, sp, #8
-.L83:
-	str r3, [sp, #4]
-	ldr r1, [sp, #4]
-	mov r0, r1
-	bl printList
-	mov r1, #0
-	mov r1, r0
-	mov r1, #0
-	movw r0, #:lower16:999
-	movt r0, #:upper16:999
-	sub r0, r1, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	ldr r1, [sp, #4]
-	mov r0, r1
-	bl printList
-	mov r1, #0
-	mov r1, r0
-	mov r1, #0
-	movw r0, #:lower16:999
-	movt r0, #:upper16:999
-	sub r0, r1, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	ldr r1, [sp, #4]
-	mov r0, r1
-	bl printList
-	mov r1, #0
-	mov r1, r0
-	mov r0, #0
-	movw r1, #:lower16:999
-	movt r1, #:upper16:999
-	sub r0, r0, r1
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	mov r0, #0
-	str r0, [sp, #0]
-	b .L84
-.L84:
-	ldr r0, [sp, #0]
-	mov r0, r0
-	add sp, sp, #8
-	pop {r4, r5, r6, r7, r8, r9, r10}
-	sub fp, sp, #4
-	pop {fp, pc}
-	.size quickSortMain, .-quickSortMain
 
 
 	.align 2
 	.global treesearch
 treesearch:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r3, r0
-	mov r2, r1
-	sub sp, sp, #12
-.L86:
-	str r3, [sp, #4]
-	str r2, [sp, #8]
-	mov r1, #0
-	mov r0, #1
-	sub r0, r1, r0
+	add fp, sp, #4
+	mov r5, r0
+	mov r4, r1
+	sub sp, sp, #0
+.L80:
+	mov r0, #-1
 	mov r1, r0
 	movw r0, #:lower16:.PRINTLN_FMT
 	movt r0, #:upper16:.PRINTLN_FMT
 	bl printf
-	ldr r4, [sp, #4]
 	mov r3, #0
 	mov r2, #0
-	cmp r4, r3
+	cmp r5, r3
 	movne r2, #1
 	mov r2, r2
+	mov r2, r2
+	cmp r2, #1
+	beq .L82
+	b .L83
+.L82:
+	add r2, r5, #0
+	ldr r3, [r2]
+	mov r2, #0
+	cmp r3, r4
+	moveq r2, #1
+	mov r2, r2
+	mov r2, r2
+	cmp r2, #1
+	beq .L85
+	b .L86
+.L83:
+	b .L84
+.L84:
+	mov r0, #0
+	mov r0, r0
+	b .L81
+.L85:
+	mov r0, #1
+	mov r0, r0
+	b .L81
+.L86:
+	b .L87
+.L87:
+	add r2, r5, #4
+	ldr r2, [r2]
+	mov r0, r2
+	mov r1, r4
+	bl treesearch
+	mov r2, r0
+	mov r3, #0
+	cmp r2, #1
+	moveq r3, #1
+	mov r2, r3
 	mov r2, r2
 	cmp r2, #1
 	beq .L88
 	b .L89
 .L88:
-	ldr r2, [sp, #4]
-	add r2, r2, #0
-	ldr r2, [r2]
-	ldr r4, [sp, #8]
-	mov r3, #0
-	cmp r2, r4
-	moveq r3, #1
-	mov r2, r3
-	mov r2, r2
-	cmp r2, #1
-	beq .L91
-	b .L92
+	mov r0, #1
+	mov r0, r0
+	b .L81
 .L89:
 	b .L90
 .L90:
+	add r2, r5, #8
+	ldr r2, [r2]
+	mov r0, r2
+	mov r1, r4
+	bl treesearch
+	mov r1, r0
 	mov r0, #0
-	str r0, [sp, #0]
-	b .L87
+	cmp r1, #1
+	moveq r0, #1
+	mov r0, r0
+	mov r0, r0
+	cmp r0, #1
+	beq .L91
+	b .L92
 .L91:
 	mov r0, #1
-	str r0, [sp, #0]
-	b .L87
+	mov r0, r0
+	b .L81
 .L92:
-	b .L93
-.L93:
-	ldr r2, [sp, #4]
-	add r2, r2, #4
-	ldr r2, [r2]
-	ldr r3, [sp, #8]
-	mov r0, r2
-	mov r1, r3
-	bl treesearch
-	mov r3, r0
-	mov r2, #0
-	cmp r3, #1
-	moveq r2, #1
-	mov r2, r2
-	mov r2, r2
-	cmp r2, #1
-	beq .L95
-	b .L96
-.L95:
-	mov r0, #1
-	str r0, [sp, #0]
-	b .L87
-.L96:
-	b .L97
-.L97:
-	ldr r2, [sp, #4]
-	add r2, r2, #8
-	ldr r3, [r2]
-	ldr r2, [sp, #8]
-	mov r0, r3
-	mov r1, r2
-	bl treesearch
-	mov r0, r0
-	mov r1, #0
-	cmp r0, #1
-	moveq r1, #1
-	mov r0, r1
-	mov r0, r0
-	cmp r0, #1
-	beq .L99
-	b .L100
-.L99:
-	mov r0, #1
-	str r0, [sp, #0]
-	b .L87
-.L100:
 	mov r0, #0
-	str r0, [sp, #0]
-	b .L87
-.L101:
-	b .L90
-.L87:
-	ldr r0, [sp, #0]
 	mov r0, r0
-	add sp, sp, #12
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	b .L81
+.L81:
+	mov r0, r0
+	mov r0, r0
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size treesearch, .-treesearch
 
@@ -973,74 +828,62 @@ treesearch:
 	.global inOrder
 inOrder:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r3, r0
-	sub sp, sp, #12
-.L105:
-	str r3, [sp, #4]
-	ldr r0, [sp, #4]
+	add fp, sp, #4
+	mov r5, r0
+	sub sp, sp, #0
+.L95:
+	mov r0, #0
 	mov r1, #0
-	mov r2, #0
-	cmp r0, r1
-	movne r2, #1
-	mov r0, r2
+	cmp r5, r0
+	movne r1, #1
+	mov r0, r1
 	mov r0, r0
 	cmp r0, #1
-	beq .L107
-	b .L108
-.L107:
-	movw r0, #:lower16:8
-	movt r0, #:upper16:8
+	beq .L97
+	b .L98
+.L97:
+	mov r0, #8
 	bl malloc
 	mov r1, r0
-	mov r1, r1
-	str r1, [sp, #8]
-	ldr r1, [sp, #8]
-	add r1, r1, #0
-	ldr r2, [sp, #4]
-	add r2, r2, #0
-	ldr r2, [r2]
+	mov r4, r1
+	add r1, r5, #0
+	ldr r2, [r1]
+	add r1, r4, #0
 	str r2, [r1]
-	ldr r1, [sp, #8]
-	add r2, r1, #4
-	mov r1, #0
-	str r1, [r2]
-	ldr r1, [sp, #4]
-	add r1, r1, #4
+	add r1, r4, #4
+	mov r2, #0
+	str r2, [r1]
+	add r1, r5, #4
 	ldr r1, [r1]
 	mov r0, r1
 	bl inOrder
-	mov r4, r0
-	ldr r5, [sp, #8]
-	ldr r1, [sp, #4]
-	add r1, r1, #8
+	mov r6, r0
+	add r1, r5, #8
 	ldr r1, [r1]
 	mov r0, r1
 	bl inOrder
-	mov r2, r0
-	mov r0, r5
-	mov r1, r2
-	bl concatLists
 	mov r2, r0
 	mov r0, r4
 	mov r1, r2
 	bl concatLists
+	mov r2, r0
+	mov r0, r6
+	mov r1, r2
+	bl concatLists
 	mov r0, r0
-	str r0, [sp, #0]
-	b .L106
-.L108:
+	mov r0, r0
+	b .L96
+.L98:
 	mov r0, #0
-	str r0, [sp, #0]
-	b .L106
-.L109:
-	b .L106
-.L106:
-	ldr r0, [sp, #0]
 	mov r0, r0
-	add sp, sp, #12
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	b .L96
+.L96:
+	mov r0, r0
+	mov r0, r0
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size inOrder, .-inOrder
 
@@ -1049,99 +892,84 @@ inOrder:
 	.global bintreesearch
 bintreesearch:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r3, r0
-	mov r2, r1
-	sub sp, sp, #12
-.L113:
-	str r3, [sp, #4]
-	str r2, [sp, #8]
-	mov r0, #0
-	mov r1, #1
-	sub r0, r0, r1
+	add fp, sp, #4
+	mov r5, r0
+	mov r4, r1
+	sub sp, sp, #0
+.L101:
+	mov r0, #-1
 	mov r1, r0
 	movw r0, #:lower16:.PRINTLN_FMT
 	movt r0, #:upper16:.PRINTLN_FMT
 	bl printf
-	ldr r4, [sp, #4]
-	mov r2, #0
 	mov r3, #0
-	cmp r4, r2
-	movne r3, #1
-	mov r2, r3
+	mov r2, #0
+	cmp r5, r3
+	movne r2, #1
+	mov r2, r2
 	mov r2, r2
 	cmp r2, #1
-	beq .L115
-	b .L116
-.L115:
-	ldr r2, [sp, #4]
-	add r2, r2, #0
-	ldr r2, [r2]
-	ldr r3, [sp, #8]
-	mov r4, #0
-	cmp r2, r3
-	moveq r4, #1
-	mov r2, r4
+	beq .L103
+	b .L104
+.L103:
+	add r2, r5, #0
+	ldr r3, [r2]
+	mov r2, #0
+	cmp r3, r4
+	moveq r2, #1
+	mov r2, r2
 	mov r2, r2
 	cmp r2, #1
-	beq .L118
-	b .L119
-.L116:
-	b .L117
-.L117:
+	beq .L106
+	b .L107
+.L104:
+	b .L105
+.L105:
 	mov r0, #0
-	str r0, [sp, #0]
-	b .L114
-.L118:
+	mov r0, r0
+	b .L102
+.L106:
 	mov r0, #1
-	str r0, [sp, #0]
-	b .L114
-.L119:
-	b .L120
-.L120:
-	ldr r2, [sp, #8]
-	ldr r3, [sp, #4]
-	add r3, r3, #0
-	ldr r3, [r3]
-	mov r4, #0
-	cmp r2, r3
-	movlt r4, #1
-	mov r2, r4
+	mov r0, r0
+	b .L102
+.L107:
+	b .L108
+.L108:
+	add r2, r5, #0
+	ldr r3, [r2]
+	mov r2, #0
+	cmp r4, r3
+	movlt r2, #1
+	mov r2, r2
 	mov r2, r2
 	cmp r2, #1
-	beq .L122
-	b .L123
-.L122:
-	ldr r2, [sp, #4]
-	add r2, r2, #4
-	ldr r3, [r2]
-	ldr r2, [sp, #8]
-	mov r0, r3
-	mov r1, r2
+	beq .L109
+	b .L110
+.L109:
+	add r2, r5, #4
+	ldr r2, [r2]
+	mov r0, r2
+	mov r1, r4
 	bl bintreesearch
 	mov r0, r0
-	str r0, [sp, #0]
-	b .L114
-.L123:
-	ldr r2, [sp, #4]
-	add r2, r2, #8
-	ldr r3, [r2]
-	ldr r2, [sp, #8]
-	mov r0, r3
-	mov r1, r2
+	mov r0, r0
+	b .L102
+.L110:
+	add r2, r5, #8
+	ldr r2, [r2]
+	mov r0, r2
+	mov r1, r4
 	bl bintreesearch
 	mov r0, r0
-	str r0, [sp, #0]
-	b .L114
-.L124:
-	b .L117
-.L114:
-	ldr r0, [sp, #0]
 	mov r0, r0
-	add sp, sp, #12
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	b .L102
+.L102:
+	mov r0, r0
+	mov r0, r0
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size bintreesearch, .-bintreesearch
 
@@ -1150,470 +978,118 @@ bintreesearch:
 	.global buildTree
 buildTree:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r3, r0
-	sub sp, sp, #16
-.L128:
-	str r3, [sp, #4]
-	mov r1, #0
-	str r1, [sp, #12]
-	mov r1, #0
-	str r1, [sp, #8]
-	ldr r4, [sp, #8]
-	ldr r1, [sp, #4]
-	mov r0, r1
-	bl size
-	mov r2, r0
-	mov r3, #0
-	cmp r4, r2
-	movlt r3, #1
-	mov r2, r3
-	mov r2, r2
-	cmp r2, #1
-	beq .L130
-	b .L131
-.L130:
-	ldr r4, [sp, #12]
-	ldr r2, [sp, #4]
-	ldr r3, [sp, #8]
-	mov r0, r2
-	mov r1, r3
-	bl get
-	mov r2, r0
-	mov r0, r4
-	mov r1, r2
-	bl treeadd
-	mov r1, r0
-	str r1, [sp, #12]
-	ldr r1, [sp, #8]
-	mov r2, #1
-	add r1, r1, r2
-	str r1, [sp, #8]
-	ldr r4, [sp, #8]
-	ldr r1, [sp, #4]
-	mov r0, r1
+	add fp, sp, #4
+	mov r6, r0
+	sub sp, sp, #0
+.L113:
+	mov r0, r6
 	bl size
 	mov r3, r0
+	mov r5, #0
 	mov r2, #0
-	cmp r4, r3
+	cmp r5, r3
 	movlt r2, #1
 	mov r2, r2
 	mov r2, r2
 	cmp r2, #1
-	beq .L130
-	b .L131
-.L131:
-	ldr r0, [sp, #12]
-	str r0, [sp, #0]
-	b .L129
-.L129:
-	ldr r0, [sp, #0]
+	mov r4, #0
+	mov r2, r4
+	mov r3, r6
+	mov r6, r5
+	mov r4, r4
+	beq .L115
+	b .L116
+.L115:
+	mov r5, r2
+	mov r4, r3
+	mov r6, r6
+	mov r0, r4
+	mov r1, r6
+	bl get
+	mov r2, r0
+	mov r0, r5
+	mov r1, r2
+	bl treeadd
+	mov r5, r0
+	mov r1, #1
+	add r6, r6, r1
+	mov r0, r4
+	bl size
+	mov r3, r0
+	mov r2, #0
+	cmp r6, r3
+	movlt r2, #1
+	mov r2, r2
+	mov r2, r2
+	cmp r2, #1
+	mov r2, r5
+	mov r3, r4
+	mov r6, r6
+	mov r4, r5
+	beq .L115
+	b .L116
+.L116:
+	mov r0, r4
+	b .L114
+.L114:
 	mov r0, r0
-	add sp, sp, #16
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size buildTree, .-buildTree
-
-
-	.align 2
-	.global treeMain
-treeMain:
-	push {fp, lr}
-	add fp, sp, #4
-	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r3, r0
-	sub sp, sp, #16
-.L133:
-	str r3, [sp, #0]
-	ldr r1, [sp, #0]
-	mov r0, r1
-	bl buildTree
-	mov r1, r0
-	str r1, [sp, #4]
-	ldr r1, [sp, #4]
-	mov r0, r1
-	bl treeprint
-	mov r1, #0
-	mov r1, r0
-	mov r1, #0
-	movw r0, #:lower16:999
-	movt r0, #:upper16:999
-	sub r0, r1, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	ldr r1, [sp, #4]
-	mov r0, r1
-	bl inOrder
-	mov r1, r0
-	str r1, [sp, #8]
-	ldr r1, [sp, #8]
-	mov r0, r1
-	bl printList
-	mov r1, #0
-	mov r1, r0
-	mov r1, #0
-	movw r0, #:lower16:999
-	movt r0, #:upper16:999
-	sub r0, r1, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	ldr r1, [sp, #8]
-	mov r0, r1
-	bl freeList
-	mov r1, #0
-	mov r1, r0
-	ldr r1, [sp, #4]
-	mov r0, r1
-	bl postOrder
-	mov r1, r0
-	str r1, [sp, #12]
-	ldr r1, [sp, #12]
-	mov r0, r1
-	bl printList
-	mov r1, #0
-	mov r1, r0
-	mov r0, #0
-	movw r1, #:lower16:999
-	movt r1, #:upper16:999
-	sub r0, r0, r1
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	ldr r1, [sp, #12]
-	mov r0, r1
-	bl freeList
-	mov r2, #0
-	mov r2, r0
-	ldr r2, [sp, #4]
-	mov r0, r2
-	mov r2, #0
-	mov r1, r2
-	bl treesearch
-	mov r0, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	mov r0, #0
-	movw r1, #:lower16:999
-	movt r1, #:upper16:999
-	sub r0, r0, r1
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	ldr r2, [sp, #4]
-	mov r0, r2
-	mov r2, #10
-	mov r1, r2
-	bl treesearch
-	mov r0, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	mov r0, #0
-	movw r1, #:lower16:999
-	movt r1, #:upper16:999
-	sub r0, r0, r1
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	ldr r2, [sp, #4]
-	mov r4, #0
-	mov r3, #2
-	sub r3, r4, r3
-	mov r0, r2
-	mov r1, r3
-	bl treesearch
-	mov r0, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	mov r1, #0
-	movw r0, #:lower16:999
-	movt r0, #:upper16:999
-	sub r0, r1, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	ldr r2, [sp, #4]
-	mov r0, r2
-	mov r2, #2
-	mov r1, r2
-	bl treesearch
-	mov r0, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	mov r1, #0
-	movw r0, #:lower16:999
-	movt r0, #:upper16:999
-	sub r0, r1, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	ldr r2, [sp, #4]
-	mov r0, r2
-	mov r2, #3
-	mov r1, r2
-	bl treesearch
-	mov r0, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	mov r1, #0
-	movw r0, #:lower16:999
-	movt r0, #:upper16:999
-	sub r0, r1, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	ldr r2, [sp, #4]
-	mov r0, r2
-	mov r2, #9
-	mov r1, r2
-	bl treesearch
-	mov r0, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	mov r1, #0
-	movw r0, #:lower16:999
-	movt r0, #:upper16:999
-	sub r0, r1, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	ldr r2, [sp, #4]
-	mov r0, r2
-	mov r2, #1
-	mov r1, r2
-	bl treesearch
-	mov r0, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	mov r0, #0
-	movw r1, #:lower16:999
-	movt r1, #:upper16:999
-	sub r0, r0, r1
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	ldr r2, [sp, #4]
-	mov r0, r2
-	mov r2, #0
-	mov r1, r2
-	bl bintreesearch
-	mov r0, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	mov r1, #0
-	movw r0, #:lower16:999
-	movt r0, #:upper16:999
-	sub r0, r1, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	ldr r2, [sp, #4]
-	mov r0, r2
-	mov r2, #10
-	mov r1, r2
-	bl bintreesearch
-	mov r0, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	mov r1, #0
-	movw r0, #:lower16:999
-	movt r0, #:upper16:999
-	sub r0, r1, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	ldr r2, [sp, #4]
-	mov r3, #0
-	mov r4, #2
-	sub r3, r3, r4
-	mov r0, r2
-	mov r1, r3
-	bl bintreesearch
-	mov r0, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	mov r1, #0
-	movw r0, #:lower16:999
-	movt r0, #:upper16:999
-	sub r0, r1, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	ldr r2, [sp, #4]
-	mov r0, r2
-	mov r2, #2
-	mov r1, r2
-	bl bintreesearch
-	mov r0, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	mov r0, #0
-	movw r1, #:lower16:999
-	movt r1, #:upper16:999
-	sub r0, r0, r1
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	ldr r2, [sp, #4]
-	mov r0, r2
-	mov r2, #3
-	mov r1, r2
-	bl bintreesearch
-	mov r0, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	mov r0, #0
-	movw r1, #:lower16:999
-	movt r1, #:upper16:999
-	sub r0, r0, r1
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	ldr r2, [sp, #4]
-	mov r0, r2
-	mov r2, #9
-	mov r1, r2
-	bl bintreesearch
-	mov r0, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	mov r0, #0
-	movw r1, #:lower16:999
-	movt r1, #:upper16:999
-	sub r0, r0, r1
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	ldr r2, [sp, #4]
-	mov r0, r2
-	mov r2, #1
-	mov r1, r2
-	bl bintreesearch
-	mov r0, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	mov r1, #0
-	movw r0, #:lower16:999
-	movt r0, #:upper16:999
-	sub r0, r1, r0
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	ldr r1, [sp, #4]
-	mov r0, r1
-	bl freeTree
-	mov r1, #0
-	mov r1, r0
-	b .L134
-.L134:
-	add sp, sp, #16
-	pop {r4, r5, r6, r7, r8, r9, r10}
-	sub fp, sp, #4
-	pop {fp, pc}
-	.size treeMain, .-treeMain
 
 
 	.align 2
 	.global myCopy
 myCopy:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r2, r0
-	sub sp, sp, #8
-.L136:
-	str r2, [sp, #4]
-	ldr r3, [sp, #4]
-	mov r4, #0
+	add fp, sp, #4
+	mov r4, r0
+	sub sp, sp, #0
+.L121:
+	mov r3, #0
 	mov r2, #0
-	cmp r3, r4
+	cmp r4, r3
 	moveq r2, #1
 	mov r2, r2
 	mov r2, r2
 	cmp r2, #1
-	beq .L138
-	b .L139
-.L138:
+	beq .L123
+	b .L124
+.L123:
 	mov r0, #0
-	str r0, [sp, #0]
-	b .L137
-.L139:
-	b .L140
-.L140:
-	ldr r2, [sp, #4]
-	add r2, r2, #0
+	mov r0, r0
+	b .L122
+.L124:
+	b .L125
+.L125:
+	add r2, r4, #0
 	ldr r2, [r2]
 	mov r3, #0
 	mov r0, r3
 	mov r1, r2
 	bl add
-	mov r4, r0
-	ldr r1, [sp, #4]
-	add r1, r1, #4
+	mov r5, r0
+	add r1, r4, #4
 	ldr r1, [r1]
 	mov r0, r1
 	bl myCopy
 	mov r2, r0
-	mov r0, r4
+	mov r0, r5
 	mov r1, r2
 	bl concatLists
 	mov r0, r0
-	str r0, [sp, #0]
-	b .L137
-.L137:
-	ldr r0, [sp, #0]
 	mov r0, r0
-	add sp, sp, #8
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	b .L122
+.L122:
+	mov r0, r0
+	mov r0, r0
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size myCopy, .-myCopy
 
@@ -1622,107 +1098,356 @@ myCopy:
 	.global main
 main:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	sub sp, sp, #28
-.L143:
-	mov r1, #0
-	str r1, [sp, #12]
-	mov r1, #0
-	str r1, [sp, #16]
-	mov r1, #0
-	str r1, [sp, #20]
-	mov r1, #0
-	str r1, [sp, #4]
-	ldr r1, [sp, #4]
-	mov r2, #0
-	cmp r1, #10
-	movlt r2, #1
-	mov r1, r2
-	mov r1, r1
+	add fp, sp, #4
+	sub sp, sp, #0
+.L127:
+	mov r1, #1
 	cmp r1, #1
-	beq .L145
-	b .L146
-.L145:
+	mov r3, #0
+	mov r2, r3
+	mov r1, #0
+	mov r1, r1
+	mov r3, r3
+	mov r4, #0
+	mov r4, r4
+	mov r5, #0
+	mov r5, r5
+	beq .L129
+	b .L130
+.L129:
+	mov r5, r2
+	mov r4, r1
 	movw r1, #:lower16:.read_scratch
 	movt r1, #:upper16:.read_scratch
 	movw r0, #:lower16:.READ_FMT
 	movt r0, #:upper16:.READ_FMT
 	bl scanf
+	movw r3, #:lower16:.read_scratch
+	movt r3, #:upper16:.read_scratch
+	ldr r3, [r3]
 	movw r2, #:lower16:.read_scratch
 	movt r2, #:upper16:.read_scratch
+	str r3, [r2, #0]
 	ldr r2, [r2]
-	str r2, [sp, #8]
-	ldr r3, [sp, #12]
-	ldr r2, [sp, #8]
-	mov r0, r3
+	mov r0, r5
 	mov r1, r2
 	bl add
-	mov r1, r0
-	str r1, [sp, #12]
-	ldr r1, [sp, #12]
-	mov r0, r1
+	mov r7, r0
+	mov r0, r7
 	bl myCopy
-	mov r1, r0
-	str r1, [sp, #16]
-	ldr r1, [sp, #12]
-	mov r0, r1
+	mov r6, r0
+	mov r0, r7
 	bl myCopy
+	mov r5, r0
+	mov r0, r6
+	bl printList
+	movw r0, #:lower16:-999
+	movt r0, #:upper16:-999
 	mov r1, r0
-	str r1, [sp, #20]
-	ldr r1, [sp, #16]
-	mov r0, r1
-	bl quickSortMain
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	mov r0, r6
+	bl printList
+	movw r0, #:lower16:-999
+	movt r0, #:upper16:-999
 	mov r1, r0
-	str r1, [sp, #24]
-	ldr r1, [sp, #24]
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	mov r0, r6
+	bl printList
+	movw r0, #:lower16:-999
+	movt r0, #:upper16:-999
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	mov r1, #0
 	mov r0, r1
 	bl freeList
-	mov r1, #0
+	mov r0, r5
+	bl buildTree
+	mov r8, r0
+	mov r0, r8
+	bl treeprint
+	movw r0, #:lower16:-999
+	movt r0, #:upper16:-999
 	mov r1, r0
-	ldr r1, [sp, #20]
-	mov r0, r1
-	bl treeMain
-	mov r1, #0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	mov r0, r8
+	bl inOrder
+	mov r9, r0
+	mov r0, r9
+	bl printList
+	movw r0, #:lower16:-999
+	movt r0, #:upper16:-999
 	mov r1, r0
-	ldr r2, [sp, #4]
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	mov r0, r9
+	bl freeList
+	mov r0, r8
+	bl postOrder
+	mov r9, r0
+	mov r0, r9
+	bl printList
+	movw r0, #:lower16:-999
+	movt r0, #:upper16:-999
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	mov r0, r9
+	bl freeList
+	mov r0, r8
+	mov r2, #0
+	mov r1, r2
+	bl treesearch
+	mov r0, r0
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	movw r0, #:lower16:-999
+	movt r0, #:upper16:-999
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	mov r0, r8
+	mov r2, #10
+	mov r1, r2
+	bl treesearch
+	mov r0, r0
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	movw r0, #:lower16:-999
+	movt r0, #:upper16:-999
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	mov r0, r8
+	mov r2, #-2
+	mov r1, r2
+	bl treesearch
+	mov r0, r0
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	movw r0, #:lower16:-999
+	movt r0, #:upper16:-999
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	mov r0, r8
+	mov r2, #2
+	mov r1, r2
+	bl treesearch
+	mov r0, r0
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	movw r0, #:lower16:-999
+	movt r0, #:upper16:-999
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	mov r0, r8
+	mov r2, #3
+	mov r1, r2
+	bl treesearch
+	mov r0, r0
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	movw r0, #:lower16:-999
+	movt r0, #:upper16:-999
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	mov r0, r8
+	mov r2, #9
+	mov r1, r2
+	bl treesearch
+	mov r0, r0
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	movw r0, #:lower16:-999
+	movt r0, #:upper16:-999
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	mov r0, r8
+	mov r2, #1
+	mov r1, r2
+	bl treesearch
+	mov r0, r0
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	movw r0, #:lower16:-999
+	movt r0, #:upper16:-999
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	mov r0, r8
+	mov r2, #0
+	mov r1, r2
+	bl bintreesearch
+	mov r0, r0
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	movw r0, #:lower16:-999
+	movt r0, #:upper16:-999
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	mov r0, r8
+	mov r2, #10
+	mov r1, r2
+	bl bintreesearch
+	mov r0, r0
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	movw r0, #:lower16:-999
+	movt r0, #:upper16:-999
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	mov r0, r8
+	mov r2, #-2
+	mov r1, r2
+	bl bintreesearch
+	mov r0, r0
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	movw r0, #:lower16:-999
+	movt r0, #:upper16:-999
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	mov r0, r8
+	mov r2, #2
+	mov r1, r2
+	bl bintreesearch
+	mov r0, r0
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	movw r0, #:lower16:-999
+	movt r0, #:upper16:-999
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	mov r0, r8
+	mov r2, #3
+	mov r1, r2
+	bl bintreesearch
+	mov r0, r0
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	movw r0, #:lower16:-999
+	movt r0, #:upper16:-999
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	mov r0, r8
+	mov r2, #9
+	mov r1, r2
+	bl bintreesearch
+	mov r0, r0
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	movw r0, #:lower16:-999
+	movt r0, #:upper16:-999
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	mov r0, r8
+	mov r2, #1
+	mov r1, r2
+	bl bintreesearch
+	mov r0, r0
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	movw r0, #:lower16:-999
+	movt r0, #:upper16:-999
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	mov r0, r8
+	bl freeTree
 	mov r1, #1
-	add r1, r2, r1
-	str r1, [sp, #4]
-	ldr r1, [sp, #4]
+	add r1, r4, r1
 	mov r2, #0
 	cmp r1, #10
 	movlt r2, #1
-	mov r1, r2
+	mov r2, r2
+	mov r2, r2
+	cmp r2, #1
+	mov r2, r7
 	mov r1, r1
-	cmp r1, #1
-	beq .L145
-	b .L146
-.L146:
-	ldr r1, [sp, #12]
+	mov r3, r7
+	mov r4, r6
+	mov r5, r5
+	beq .L129
+	b .L130
+.L130:
+	mov r1, r3
+	mov r4, r4
+	mov r5, r5
 	mov r0, r1
 	bl freeList
-	mov r1, #0
-	mov r1, r0
-	ldr r1, [sp, #16]
-	mov r0, r1
+	mov r0, r4
 	bl freeList
-	mov r1, #0
-	mov r1, r0
-	ldr r1, [sp, #20]
-	mov r0, r1
+	mov r0, r5
 	bl freeList
-	mov r1, #0
-	mov r1, r0
+	b .L128
+.L128:
 	mov r0, #0
-	str r0, [sp, #0]
-	b .L144
-.L144:
-	ldr r0, [sp, #0]
 	mov r0, r0
-	add sp, sp, #28
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size main, .-main
 

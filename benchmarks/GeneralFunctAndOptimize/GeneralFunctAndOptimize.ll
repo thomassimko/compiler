@@ -35,30 +35,6 @@ L2:
 	ret i32 %r12
 }
 
-define void @divideBy8(%struct.IntHolder* %num)
-{
-
-L7:
-	%r13 = getelementptr %struct.IntHolder , %struct.IntHolder* %num, i1 0, i32 0
-	%r14 = load i32, i32* %r13
-	%r15 = sdiv i32 %r14, 2
-	%r16 = getelementptr %struct.IntHolder , %struct.IntHolder* %num, i1 0, i32 0
-	store i32 %r15, i32* %r16
-	%r17 = getelementptr %struct.IntHolder , %struct.IntHolder* %num, i1 0, i32 0
-	%r18 = load i32, i32* %r17
-	%r19 = sdiv i32 %r18, 2
-	%r20 = getelementptr %struct.IntHolder , %struct.IntHolder* %num, i1 0, i32 0
-	store i32 %r19, i32* %r20
-	%r21 = getelementptr %struct.IntHolder , %struct.IntHolder* %num, i1 0, i32 0
-	%r22 = load i32, i32* %r21
-	%r23 = sdiv i32 %r22, 2
-	%r24 = getelementptr %struct.IntHolder , %struct.IntHolder* %num, i1 0, i32 0
-	store i32 %r23, i32* %r24
-	br label %L8
-L8:
-	ret void
-}
-
 define i32 @main()
 {
 
@@ -74,10 +50,7 @@ L10:
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r27)
 	%r29 = load i32, i32* @interval
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r29)
-	%r30 = icmp slt i32 0, 50
-	%r31 = zext i1 %r30 to i32
-	%r32 = trunc i32 %r31 to i1
-	br i1 %r32, label %L12, label %L13
+	br i1 1, label %L12, label %L13
 
 L12:
 	%r67 = phi %struct.IntHolder* [%r26, %L10], [%r77, %L15]
@@ -93,27 +66,28 @@ L14:
 	%r47 = phi i32 [0, %L12], [%r62, %L18]
 	%r49 = phi %struct.IntHolder* [%r67, %L12], [%r68, %L18]
 	%r72 = phi i32 [%r70, %L12], [%r71, %L18]
-	%r37 = mul i32 1, 2
-	%r38 = mul i32 %r37, 3
-	%r39 = mul i32 %r38, 4
-	%r40 = mul i32 %r39, 5
-	%r41 = mul i32 %r40, 6
-	%r42 = mul i32 %r41, 7
-	%r43 = mul i32 %r42, 8
-	%r44 = mul i32 %r43, 9
-	%r45 = mul i32 %r44, 10
-	%r46 = mul i32 %r45, 11
+	%r46 = mul i32 3628800, 11
 	%r48 = add i32 %r47, 1
 	%r50 = getelementptr %struct.IntHolder , %struct.IntHolder* %r49, i1 0, i32 0
 	store i32 %r48, i32* %r50
-	%r51 = getelementptr %struct.IntHolder , %struct.IntHolder* %r49, i1 0, i32 0
-	%r52 = load i32, i32* %r51
 	call i32 @multBy4xTimes(%struct.IntHolder* %r49, i32 2 )
-	call void @divideBy8(%struct.IntHolder* %r49 )
+	%r13 = getelementptr %struct.IntHolder , %struct.IntHolder* %r49, i1 0, i32 0
+	%r14 = load i32, i32* %r13
+	%r15 = sdiv i32 %r14, 2
+	%r16 = getelementptr %struct.IntHolder , %struct.IntHolder* %r49, i1 0, i32 0
+	store i32 %r15, i32* %r16
+	%r17 = getelementptr %struct.IntHolder , %struct.IntHolder* %r49, i1 0, i32 0
+	%r18 = load i32, i32* %r17
+	%r19 = sdiv i32 %r18, 2
+	%r20 = getelementptr %struct.IntHolder , %struct.IntHolder* %r49, i1 0, i32 0
+	store i32 %r19, i32* %r20
+	%r21 = getelementptr %struct.IntHolder , %struct.IntHolder* %r49, i1 0, i32 0
+	%r22 = load i32, i32* %r21
+	%r23 = sdiv i32 %r22, 2
+	%r24 = getelementptr %struct.IntHolder , %struct.IntHolder* %r49, i1 0, i32 0
+	store i32 %r23, i32* %r24
 	%r53 = load i32, i32* @interval
 	%r54 = sub i32 %r53, 1
-	%r55 = icmp sle i32 %r54, 0
-	%r56 = zext i1 %r55 to i32
 	%r57 = icmp sle i32 %r54, 0
 	%r58 = zext i1 %r57 to i32
 	%r59 = trunc i32 %r58 to i1
@@ -128,7 +102,7 @@ L18:
 	%r61 = phi i32 [1, %L16], [%r54, %L17]
 	%r68 = phi %struct.IntHolder* [%r49, %L16], [%r49, %L17]
 	%r71 = phi i32 [%r72, %L16], [%r72, %L17]
-	%r83 = phi i32 [%r46, %L16], [%r46, %L17]
+	%r83 = phi i32 [39916800, %L16], [39916800, %L17]
 	%r62 = add i32 %r60, %r61
 	%r63 = load i32, i32* @end
 	%r64 = icmp sle i32 %r62, %r63
@@ -140,7 +114,7 @@ L15:
 	%r69 = phi i32 [%r70, %L12], [%r71, %L18]
 	%r77 = phi %struct.IntHolder* [%r67, %L12], [%r68, %L18]
 	%r79 = phi i32 [0, %L12], [%r62, %L18]
-	%r81 = phi i32 [%r82, %L12], [%r83, %L18]
+	%r81 = phi i32 [%r82, %L12], [39916800, %L18]
 	%r73 = add i32 %r69, 1
 	%r74 = icmp slt i32 %r73, 50
 	%r75 = zext i1 %r74 to i32
@@ -154,8 +128,7 @@ L13:
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r80)
 	br label %L11
 L11:
-	%r84 = phi i32 [0, %L13]
-	ret i32 %r84
+	ret i32 0
 }
 
 declare i8* @malloc(i32)

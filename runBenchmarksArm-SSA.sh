@@ -14,7 +14,8 @@ for d in benchmarks/* ;do
    cd ..
    gcc -g -w -march=armv7-a -o ${d}/`basename ${d}`.out ${d}/`basename ${d}`.s
    ${d}/./`basename ${d}`.out <  ${d}/input > ${d}/ourOutput
-   if cmp -s ${d}/ourOutput ${d}/output; then
+   if diff ${d}/ourOutput ${d}/output ; then
+#   if cmp -s ${d}/ourOutput ${d}/output; then
      echo "RUNNING $d Regular ... PASSED"
    else
      echo "RUNNING $d Regular ... FAILED"

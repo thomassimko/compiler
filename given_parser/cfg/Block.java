@@ -7,6 +7,7 @@ import arm.ArmValue.FinalRegisters.NotInterferingRegister;
 import arm.Branch;
 import arm.BranchType;
 import llvm.Instruction;
+import llvm.InvocationCall;
 import llvm.Phi;
 import llvm.value.Register;
 import llvm.value.Value;
@@ -31,9 +32,10 @@ public abstract class Block {
     private List<Phi> completedPhis;
     private List<Block> allSuccessors;
     private boolean touchedSuccessor;
+    private String function;
 
 
-    public Block(String label) {
+    public Block(String label, String function) {
         this.label = label;
         this.successors = new ArrayList<>();
         this.predecessors = new ArrayList<>();
@@ -46,6 +48,7 @@ public abstract class Block {
         sealed = false;
         incompletePhis = new ArrayList<>();
         completedPhis = new ArrayList<>();
+        this.function = function;
     }
 
     public List<Block> getSuccessors() {
@@ -337,5 +340,18 @@ public abstract class Block {
             }
         }
         return usefulInstructions;
+    }
+
+    public void inlineFunction(InvocationCall call, List<Instruction> instructions) {
+        //remove the branch
+        instructions.remove(instructions.size() - 1);
+
+        int index = this.llvmCode.indexOf(call);
+        this.llvmCode.addAll(index, instructions);
+        this.llvmCode.remove(call);
+    }
+
+    public String getFunction() {
+        return this.function;
     }
 }

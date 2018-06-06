@@ -1,7 +1,7 @@
 package llvm.declarations;
 
 import arm.ArmInstruction;
-import llvm.Instruction;
+import llvm.AbstactInstruction;
 import llvm.lattice.LatticeValue;
 import llvm.value.Register;
 

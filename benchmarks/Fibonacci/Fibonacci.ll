@@ -43,8 +43,7 @@ L10:
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r13)
 	br label %L11
 L11:
-	%r14 = phi i32 [0, %L10]
-	ret i32 %r14
+	ret i32 0
 }
 
 declare i8* @malloc(i32)

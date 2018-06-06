@@ -6,7 +6,6 @@ import arm.ArmValue.ArmRegister;
 import arm.ArmValue.FinalRegisters.ArmFinalRegister;
 import arm.ArmValue.FinalRegisters.StackPointer;
 import arm.Branch;
-import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeBottom;
 import llvm.lattice.LatticeInteger;
 import llvm.lattice.LatticeValue;
@@ -43,6 +42,7 @@ public class InvocationCall extends AbstactInstruction {
         this.functionName = functionName;
         this.args = args;
         this.types = types;
+        this.addInstructionToRegisters();
     }
 
     @Override
@@ -96,7 +96,10 @@ public class InvocationCall extends AbstactInstruction {
 
     @Override
     public void addInstructionToRegisters() {
-        storedRegister.setDef(this);
+        if(storedRegister != null) {
+            storedRegister.setDef(this);
+
+        }
         for(Value val: args) {
             if(val instanceof Register) {
                 ((Register)val).addUse(this);
@@ -138,6 +141,41 @@ public class InvocationCall extends AbstactInstruction {
                 LatticeValue value = lattice.get(val);
                 if(value instanceof LatticeInteger) {
                     args[i] = new ValueLiteral(((LatticeInteger) value).getValue() + "");
+                }
+            }
+        }
+    }
+
+    public String getFunctionName() {
+        return this.functionName;
+    }
+
+    public int getNumArgs() {
+        return args.length;
+    }
+
+    public Value[] getArgs() {
+        return this.args;
+    }
+
+    @Override
+    public Value[] getSources() {
+        return args;
+    }
+
+    @Override
+    public void replaceSource(HashMap<Value, Value> newValueMappings) {
+        for(int i = 0; i < args.length; i++) {
+            Value arg = args[i];
+            if(newValueMappings.containsKey(arg)) {
+
+                if(arg instanceof Register) {
+                    ((Register) arg).removeUse(this);
+                }
+                args[i] = newValueMappings.get(arg);
+
+                if(arg instanceof Register) {
+                    ((Register) arg).addUse(this);
                 }
             }
         }

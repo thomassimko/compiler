@@ -26,8 +26,7 @@ L4:
 	%r11 = phi i32 [1, %L1], [%r5, %L3]
 	br label %L2
 L2:
-	%r12 = phi i32 [%r11, %L4]
-	ret i32 %r12
+	ret i32 %r11
 }
 
 define i32 @main()
@@ -55,10 +54,7 @@ L9:
 L10:
 	%r22 = getelementptr %struct.Power , %struct.Power* %r14, i1 0, i32 1
 	store i32 %r17, i32* %r22
-	%r23 = icmp slt i32 0, 1000000
-	%r24 = zext i1 %r23 to i32
-	%r25 = trunc i32 %r24 to i1
-	br i1 %r25, label %L11, label %L12
+	br i1 1, label %L11, label %L12
 
 L11:
 	%r26 = phi i32 [0, %L10], [%r27, %L11]
@@ -79,7 +75,7 @@ L12:
 	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r37)
 	br label %L7
 L7:
-	%r38 = phi i32 [%r21, %L8], [1, %L12]
+	%r38 = phi i32 [-1, %L8], [1, %L12]
 	ret i32 %r38
 }
 

@@ -5,7 +5,6 @@ import arm.ArmInstruction;
 import arm.ArmValue.ArmImmediate;
 import arm.ArmValue.ArmVirtualRegister;
 import arm.BranchType;
-import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeInteger;
 import llvm.lattice.LatticeTop;
 import llvm.lattice.LatticeValue;
@@ -75,6 +74,27 @@ public class Branch extends AbstactInstruction {
             LatticeValue value = check.getLatticeValue(lattice);
             if(value instanceof LatticeInteger) {
                 check = new ValueLiteral(((LatticeInteger) value).getValue() + "");
+            }
+        }
+    }
+
+    @Override
+    public Value[] getSources() {
+        return new Value[]{check};
+    }
+
+    @Override
+    public void replaceSource(HashMap<Value, Value> newValueMappings) {
+
+        if(newValueMappings.containsKey(check)) {
+
+            if(check instanceof Register) {
+                ((Register) check).removeUse(this);
+            }
+            check = newValueMappings.get(check);
+
+            if(check instanceof Register) {
+                ((Register) check).addUse(this);
             }
         }
     }

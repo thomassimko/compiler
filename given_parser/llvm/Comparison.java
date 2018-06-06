@@ -8,9 +8,7 @@ import arm.ArmValue.ArmVirtualRegister;
 import arm.Move;
 import arm.MoveType;
 import ast.Type;
-import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeInteger;
-import llvm.lattice.LatticeTop;
 import llvm.lattice.LatticeValue;
 import llvm.lattice.SSCP;
 import llvm.value.*;
@@ -165,6 +163,37 @@ public class Comparison extends AbstactInstruction {
             LatticeValue value = value2.getLatticeValue(lattice);
             if(value instanceof LatticeInteger) {
                 value2 = new ValueLiteral(((LatticeInteger) value).getValue() + "");
+            }
+        }
+    }
+
+    @Override
+    public Value[] getSources() {
+        return new Value[]{value1, value2};
+    }
+
+    @Override
+    public void replaceSource(HashMap<Value, Value> newValueMappings) {
+        if(newValueMappings.containsKey(value1)) {
+
+            if(value1 instanceof Register) {
+                ((Register) value1).removeUse(this);
+            }
+            value1 = newValueMappings.get(value1);
+
+            if(value1 instanceof Register) {
+                ((Register) value1).addUse(this);
+            }
+        }
+        if(newValueMappings.containsKey(value2)) {
+
+            if(value2 instanceof Register) {
+                ((Register) value2).removeUse(this);
+            }
+            value2 = newValueMappings.get(value2);
+
+            if(value2 instanceof Register) {
+                ((Register) value2).addUse(this);
             }
         }
     }

@@ -2,17 +2,6 @@ target triple="i686"
 
 
 
-define i32 @sum(i32 %a, i32 %b)
-{
-
-L1:
-	%r0 = add i32 %a, %b
-	br label %L2
-L2:
-	%r1 = phi i32 [%r0, %L1]
-	ret i32 %r1
-}
-
 define i32 @fact(i32 %n)
 {
 
@@ -36,8 +25,7 @@ L8:
 	br i1 %r10, label %L9, label %L10
 
 L9:
-	%r11 = sub i32 0, 1
-	%r12 = mul i32 %r11, %n
+	%r12 = mul i32 -1, %n
 	%r13 = call i32 @fact(i32 %r12 )
 	br label %L5
 L10:
@@ -56,11 +44,7 @@ define i32 @main()
 {
 
 L13:
-	%r18 = sub i32 0, 1
-	%r19 = icmp ne i32 0, %r18
-	%r20 = zext i1 %r19 to i32
-	%r21 = trunc i32 %r20 to i1
-	br i1 %r21, label %L15, label %L16
+	br i1 1, label %L15, label %L16
 
 L15:
 	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* @.read_scratch)
@@ -69,12 +53,11 @@ L15:
 	%r23 = load i32, i32* @.read_scratch
 	%r24 = call i32 @fact(i32 %r22 )
 	%r25 = call i32 @fact(i32 %r23 )
-	%r26 = call i32 @sum(i32 %r24, i32 %r25 )
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r26)
+	%r0 = add i32 %r24, %r25
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r0)
 	call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.read, i32 0, i32 0), i32* @.read_scratch)
 	%r27 = load i32, i32* @.read_scratch
-	%r28 = sub i32 0, 1
-	%r29 = icmp ne i32 %r27, %r28
+	%r29 = icmp ne i32 %r27, -1
 	%r30 = zext i1 %r29 to i32
 	%r31 = trunc i32 %r30 to i1
 	br i1 %r31, label %L15, label %L16
@@ -82,8 +65,7 @@ L15:
 L16:
 	br label %L14
 L14:
-	%r32 = phi i32 [0, %L16]
-	ret i32 %r32
+	ret i32 0
 }
 
 declare i8* @malloc(i32)

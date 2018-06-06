@@ -12,6 +12,7 @@ import llvm.lattice.LatticeBottom;
 import llvm.lattice.LatticeInteger;
 import llvm.lattice.LatticeTop;
 import llvm.lattice.LatticeValue;
+import llvm.value.FunctionInliner;
 import llvm.value.Register;
 import llvm.value.SSA;
 import llvm.value.Value;
@@ -47,9 +48,19 @@ public class MiniCompiler
          List<Block> blockList = new ArrayList<Block>();
 
          StartBlock[] cfg = program.getCFG(blockList, structTable);
+         List<StartBlock> cfgList = Arrays.asList(cfg);
+
+         if(SSA.isSSA) {
+            for (Block block : blockList) {
+               SSA.removeTrivialPhis(block);
+            }
+         }
+
+         if(inlineFunctions)
+            FunctionInliner.inlineFunctions(blockList, cfgList);
 
          if (constProp)
-            constantPropagation(blockList, cfg);
+            constantPropagation(blockList, cfgList);
 
          if(uselessRemoval)
             UselessCodeElimination(blockList);
@@ -65,6 +76,7 @@ public class MiniCompiler
    private static String _inputFile = null;
    private static boolean stack = false;
    private static boolean constProp = false;
+   private static boolean inlineFunctions = false;
    public static boolean uselessRemoval = false;
 
    private static void parseParameters(String [] args)
@@ -81,12 +93,16 @@ public class MiniCompiler
                case "-u":
                   uselessRemoval = true;
                   break;
+               case "-i":
+                  inlineFunctions = true;
+                  break;
                case "-c":
                   constProp= true;
                   break;
                case "-o":
                   uselessRemoval = true;
                   constProp = true;
+                  inlineFunctions = true;
                   break;
                default:
                   System.err.println("unexpected option: " + args[i]);
@@ -350,7 +366,7 @@ public class MiniCompiler
 
    }
 
-   private static void constantPropagation(List<Block> allBlocks, StartBlock[] cfg) {
+   private static void constantPropagation(List<Block> allBlocks, List<StartBlock> cfg) {
       HashMap<Register, LatticeValue> lattice = new HashMap<>();
       List<Register> workList = new ArrayList<>();
       for (Block block : allBlocks) {
@@ -395,7 +411,7 @@ public class MiniCompiler
                //System.err.println("value not found for " + curReg.toLLVM());
             }
             if(!(value instanceof LatticeTop)) {
-               //System.out.println("Adding " + curReg.toLLVM() + " to worklist");
+//               System.out.println("Adding " + curReg.toLLVM() + " to worklist");
                workList.add(curReg);
             }
 //            System.out.print("saving " + curReg.toLLVM());
@@ -409,18 +425,21 @@ public class MiniCompiler
          //go through the working list
          while(!workList.isEmpty()) {
             Register curReg = workList.get(0);
+            //System.out.println("removing " + curReg.toLLVM() + " from working set");
             workList.remove(curReg);
             for(Instruction inst: curReg.getUses()) {
+               //System.out.println("found use of " + curReg.toLLVM() + " : " + inst.toLLVM());
                Register savedReg = inst.getTarget();
                if(savedReg != null) {
                   LatticeValue tempValue = savedReg.getLatticeValue(lattice);
 
                   //System.out.println(String.join(", ", lattice.keySet().stream().map(register -> register.toLLVM()).toArray(String[]::new)));
-                  //System.out.println("save reg " + savedReg.toLLVM());
+                  //System.out.println("save reg " + savedReg.toLLVM() + " is currently at " + tempValue);
                   //System.out.println(tempValue);
                   //System.out.println();
                   //if it is not already at bottom
                   if (!(tempValue instanceof LatticeBottom)) {
+                     //System.out.println(savedReg.toLLVM() + " is not at lattice bottom");
                      LatticeValue newVal = inst.getLatticeValue(lattice);
                      if(newVal != null) {
 //                        System.out.println(newVal);
@@ -445,6 +464,7 @@ public class MiniCompiler
 
          for(Register curReg: lattice.keySet()) {
             LatticeValue value = lattice.get(curReg);
+            //System.out.println(curReg.toLLVM() + " is final lattice of " + value);
             if(value instanceof LatticeInteger) {
                LatticeInteger latInt = (LatticeInteger) value;
                for(Instruction inst:curReg.getUses()) {

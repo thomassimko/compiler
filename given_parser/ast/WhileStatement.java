@@ -36,8 +36,8 @@ public class WhileStatement
    @Override
    public Block getCFG(Block curNode, Block endNode, List<Block> blockList, HashMap<String, HashMap<String, Type>> structTable) {
 
-      Block whileBlock = new WhileBlock("whileBlock" + lineNum);
-      Block exitBlock = new BasicBlock("whileExitBlock" + lineNum);
+      Block whileBlock = new WhileBlock("whileBlock" + lineNum, curNode.getFunction());
+      Block exitBlock = new BasicBlock("whileExitBlock" + lineNum, curNode.getFunction());
 
       evaluateCondition(curNode, structTable, whileBlock.getLlvmLabel(), exitBlock.getLlvmLabel());
       curNode.addSuccessor(whileBlock);

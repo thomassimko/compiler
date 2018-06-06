@@ -229,8 +229,7 @@ L34:
 L35:
 	br label %L31
 L28:
-	%r91 = phi i32 [0, %L31]
-	ret i32 %r91
+	ret i32 0
 }
 
 declare i8* @malloc(i32)

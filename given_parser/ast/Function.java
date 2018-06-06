@@ -64,8 +64,8 @@ public class Function /*implements Type*/
       }
 
       StartBlock start = new StartBlock(this.name, paramInstr);
-      BasicBlock block = new BasicBlock(this.name + "Block1");
-      EndBlock end = new EndBlock(this.name);
+      BasicBlock block = new BasicBlock(this.name + "Block1", this.name);
+      EndBlock end = new EndBlock(this.name, this.name);
 
       start.addSuccessor(block);
 

@@ -7,7 +7,6 @@ import arm.Move;
 import arm.MoveType;
 import ast.Type;
 import cfg.Block;
-import llvm.declarations.AbstactInstruction;
 import llvm.lattice.LatticeInteger;
 import llvm.lattice.LatticeTop;
 import llvm.lattice.LatticeValue;
@@ -134,6 +133,23 @@ public class Phi extends AbstactInstruction {
                     operands.remove(val);
                     operands.add(i, new ValueLiteral(((LatticeInteger) value).getValue() + ""));
                 }
+            }
+        }
+    }
+
+    @Override
+    public Value[] getSources() {
+        return operands.toArray(new Value[operands.size()]);
+    }
+
+    @Override
+    public void replaceSource(HashMap<Value, Value> newValueMappings) {
+        for(int i = 0; i < operands.size(); i++) {
+            Value arg = operands.get(i);
+            if(newValueMappings.containsKey(arg)) {
+
+                operands.remove(i);
+                operands.add(i, newValueMappings.get(arg));
             }
         }
     }

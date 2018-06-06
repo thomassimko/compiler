@@ -3,29 +3,11 @@ target triple="i686"
 %struct.Node = type {%struct.Node*, %struct.Node*, i32}
 @swapped = common global i32 0, align 8
 
-define i32 @compare(%struct.Node* %a, %struct.Node* %b)
-{
-
-L1:
-	%r0 = getelementptr %struct.Node , %struct.Node* %a, i1 0, i32 2
-	%r1 = load i32, i32* %r0
-	%r2 = getelementptr %struct.Node , %struct.Node* %b, i1 0, i32 2
-	%r3 = load i32, i32* %r2
-	%r4 = sub i32 %r1, %r3
-	br label %L2
-L2:
-	%r5 = phi i32 [%r4, %L1]
-	ret i32 %r5
-}
-
 define void @deathSort(%struct.Node* %head)
 {
 
 L4:
-	%r6 = icmp eq i32 1, 1
-	%r7 = zext i1 %r6 to i32
-	%r8 = trunc i32 %r7 to i1
-	br i1 %r8, label %L6, label %L7
+	br i1 1, label %L6, label %L7
 
 L6:
 	%r9 = phi %struct.Node* [%head, %L4], [%r48, %L9]
@@ -42,8 +24,12 @@ L8:
 	%r44 = phi i32 [0, %L6], [%r43, %L12]
 	%r16 = getelementptr %struct.Node , %struct.Node* %r15, i1 0, i32 0
 	%r17 = load %struct.Node*, %struct.Node** %r16
-	%r18 = call i32 @compare(%struct.Node* %r15, %struct.Node* %r17 )
-	%r19 = icmp sgt i32 %r18, 0
+	%r0 = getelementptr %struct.Node , %struct.Node* %r15, i1 0, i32 2
+	%r1 = load i32, i32* %r0
+	%r2 = getelementptr %struct.Node , %struct.Node* %r17, i1 0, i32 2
+	%r3 = load i32, i32* %r2
+	%r4 = sub i32 %r1, %r3
+	%r19 = icmp sgt i32 %r4, 0
 	%r20 = zext i1 %r19 to i32
 	%r21 = trunc i32 %r20 to i1
 	br i1 %r21, label %L10, label %L11
@@ -141,8 +127,7 @@ L19:
 	br i1 %r70, label %L21, label %L22
 
 L21:
-	%r71 = sub i32 0, 1
-	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 %r71)
+	call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.println, i32 0, i32 0), i32 -1)
 	%r72 = sub i32 0, 1
 	br label %L20
 L22:
@@ -189,7 +174,7 @@ L25:
 	call void @printEVILList(%struct.Node* %r96 )
 	br label %L20
 L20:
-	%r97 = phi i32 [%r72, %L21], [0, %L25]
+	%r97 = phi i32 [-1, %L21], [0, %L25]
 	ret i32 %r97
 }
 

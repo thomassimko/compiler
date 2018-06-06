@@ -53,11 +53,20 @@ public class Register implements Value {
     }
 
     public LatticeValue getLatticeValue(HashMap<Register, LatticeValue> lattice) {
-        Register reg = lattice.keySet().stream().filter(register1 -> register1.toLLVM().equals(this.toLLVM())).toArray(Register[]::new)[0];
-        return lattice.get(reg);
+        try {
+            //System.out.println(this.toLLVM());
+            Register reg = lattice.keySet().stream().filter(register1 -> register1.toLLVM().equals(this.toLLVM())).toArray(Register[]::new)[0];
+            return lattice.get(reg);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            return null;
+        }
     }
 
     public List<Instruction> getUses() {
         return this.uses;
+    }
+
+    public void removeUse(Instruction inst) {
+        this.uses.remove(inst);
     }
 }

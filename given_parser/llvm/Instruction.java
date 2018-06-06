@@ -3,6 +3,7 @@ package llvm;
 import arm.ArmInstruction;
 import llvm.lattice.LatticeValue;
 import llvm.value.Register;
+import llvm.value.Value;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,4 +18,6 @@ public interface Instruction {
     void replaceRegisterWithLattice(HashMap<Register, LatticeValue> lattice);
     boolean isUseful();
     void setUseful(boolean useful);
+    Value[] getSources();
+    void replaceSource(HashMap<Value, Value> newValueMappings);
 }

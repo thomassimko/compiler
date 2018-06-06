@@ -6,6 +6,8 @@ import llvm.Instruction;
 import llvm.Phi;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public class SSA {
@@ -85,6 +87,35 @@ public class SSA {
             addPhiOperands(curPhi.getName(), curPhi);
             block.addCompletedPhi(curPhi);
         }
+    }
+
+    public static void removeTrivialPhis(Block block) {
+        List<Phi> phis = block.completedPhis();
+        List<Phi> trivial = new ArrayList<>();
+
+        HashMap<Value, Value> phiMap = new HashMap<>();
+
+        for(Phi phi: phis) {
+            if(phi.getOperands().size() == 1) {
+                trivial.add(phi);
+                Register retVal = phi.getTarget();
+                Value operand = phi.getOperands().get(0);
+
+                for (Instruction inst:retVal.getUses()) {
+                    for(Value source : inst.getSources()) {
+                        if(source.toLLVM().equals(retVal.toLLVM()))
+                            phiMap.put(source, operand);
+                    }
+                }
+
+                List<Instruction> uses = retVal.getUses();
+                for (int i = 0; i < uses.size(); i++) {
+                    uses.get(i).replaceSource(phiMap);
+                }
+            }
+        }
+
+        block.completedPhis().removeAll(trivial);
     }
 
 //    phis = gatherAllPhis(cfg)

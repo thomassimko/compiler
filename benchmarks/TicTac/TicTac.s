@@ -3,148 +3,11 @@
 
 .text
 	.align 2
-	.global cleanBoard
-cleanBoard:
-	push {fp, lr}
-	add fp, sp, #4
-	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r0, r0
-	sub sp, sp, #4
-.L1:
-	str r0, [sp, #0]
-	ldr r0, [sp, #0]
-	add r0, r0, #0
-	mov r1, #0
-	str r1, [r0]
-	ldr r0, [sp, #0]
-	add r0, r0, #4
-	mov r1, #0
-	str r1, [r0]
-	ldr r0, [sp, #0]
-	add r0, r0, #8
-	mov r1, #0
-	str r1, [r0]
-	ldr r0, [sp, #0]
-	add r1, r0, #12
-	mov r0, #0
-	str r0, [r1]
-	ldr r0, [sp, #0]
-	add r0, r0, #16
-	mov r1, #0
-	str r1, [r0]
-	ldr r0, [sp, #0]
-	add r0, r0, #20
-	mov r1, #0
-	str r1, [r0]
-	ldr r0, [sp, #0]
-	add r1, r0, #24
-	mov r0, #0
-	str r0, [r1]
-	ldr r0, [sp, #0]
-	add r1, r0, #28
-	mov r0, #0
-	str r0, [r1]
-	ldr r0, [sp, #0]
-	add r1, r0, #32
-	mov r0, #0
-	str r0, [r1]
-	b .L2
-.L2:
-	add sp, sp, #4
-	pop {r4, r5, r6, r7, r8, r9, r10}
-	sub fp, sp, #4
-	pop {fp, pc}
-	.size cleanBoard, .-cleanBoard
-
-
-	.align 2
-	.global printBoard
-printBoard:
-	push {fp, lr}
-	add fp, sp, #4
-	push {r4, r5, r6, r7, r8, r9, r10}
-	mov r0, r0
-	sub sp, sp, #4
-.L4:
-	str r0, [sp, #0]
-	ldr r0, [sp, #0]
-	add r0, r0, #0
-	ldr r0, [r0]
-	mov r1, r0
-	movw r0, #:lower16:.PRINT_FMT
-	movt r0, #:upper16:.PRINT_FMT
-	bl printf
-	ldr r0, [sp, #0]
-	add r0, r0, #4
-	ldr r0, [r0]
-	mov r1, r0
-	movw r0, #:lower16:.PRINT_FMT
-	movt r0, #:upper16:.PRINT_FMT
-	bl printf
-	ldr r0, [sp, #0]
-	add r0, r0, #8
-	ldr r0, [r0]
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	ldr r0, [sp, #0]
-	add r0, r0, #12
-	ldr r0, [r0]
-	mov r1, r0
-	movw r0, #:lower16:.PRINT_FMT
-	movt r0, #:upper16:.PRINT_FMT
-	bl printf
-	ldr r0, [sp, #0]
-	add r0, r0, #16
-	ldr r0, [r0]
-	mov r1, r0
-	movw r0, #:lower16:.PRINT_FMT
-	movt r0, #:upper16:.PRINT_FMT
-	bl printf
-	ldr r0, [sp, #0]
-	add r0, r0, #20
-	ldr r0, [r0]
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	ldr r0, [sp, #0]
-	add r0, r0, #24
-	ldr r0, [r0]
-	mov r1, r0
-	movw r0, #:lower16:.PRINT_FMT
-	movt r0, #:upper16:.PRINT_FMT
-	bl printf
-	ldr r0, [sp, #0]
-	add r0, r0, #28
-	ldr r0, [r0]
-	mov r1, r0
-	movw r0, #:lower16:.PRINT_FMT
-	movt r0, #:upper16:.PRINT_FMT
-	bl printf
-	ldr r0, [sp, #0]
-	add r0, r0, #32
-	ldr r0, [r0]
-	mov r1, r0
-	movw r0, #:lower16:.PRINTLN_FMT
-	movt r0, #:upper16:.PRINTLN_FMT
-	bl printf
-	b .L5
-.L5:
-	add sp, sp, #4
-	pop {r4, r5, r6, r7, r8, r9, r10}
-	sub fp, sp, #4
-	pop {fp, pc}
-	.size printBoard, .-printBoard
-
-
-	.align 2
 	.global printMoveBoard
 printMoveBoard:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
+	add fp, sp, #4
 	sub sp, sp, #0
 .L7:
 	mov r0, #123
@@ -167,8 +30,8 @@ printMoveBoard:
 	b .L8
 .L8:
 	add sp, sp, #0
-	pop {r4, r5, r6, r7, r8, r9, r10}
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size printMoveBoard, .-printMoveBoard
 
@@ -177,183 +40,153 @@ printMoveBoard:
 	.global placePiece
 placePiece:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
+	add fp, sp, #4
 	mov r0, r0
 	mov r1, r1
 	mov r2, r2
-	sub sp, sp, #12
+	sub sp, sp, #0
 .L10:
-	str r0, [sp, #0]
-	str r1, [sp, #4]
-	str r2, [sp, #8]
-	ldr r1, [sp, #8]
-	mov r0, #0
-	cmp r1, #1
-	moveq r0, #1
-	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
+	mov r3, #0
+	cmp r2, #1
+	moveq r3, #1
+	mov r3, r3
+	mov r3, r3
+	cmp r3, #1
 	beq .L12
 	b .L13
 .L12:
-	ldr r0, [sp, #0]
 	add r0, r0, #0
-	ldr r1, [sp, #4]
 	str r1, [r0]
 	b .L14
 .L13:
-	ldr r1, [sp, #8]
-	mov r0, #0
-	cmp r1, #2
-	moveq r0, #1
-	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
+	mov r3, #0
+	cmp r2, #2
+	moveq r3, #1
+	mov r3, r3
+	mov r3, r3
+	cmp r3, #1
 	beq .L15
 	b .L16
 .L14:
 	b .L11
 .L15:
-	ldr r0, [sp, #0]
 	add r0, r0, #4
-	ldr r1, [sp, #4]
 	str r1, [r0]
 	b .L17
 .L16:
-	ldr r0, [sp, #8]
-	mov r1, #0
-	cmp r0, #3
-	moveq r1, #1
-	mov r0, r1
-	mov r0, r0
-	cmp r0, #1
+	mov r3, #0
+	cmp r2, #3
+	moveq r3, #1
+	mov r3, r3
+	mov r3, r3
+	cmp r3, #1
 	beq .L18
 	b .L19
 .L17:
 	b .L14
 .L18:
-	ldr r0, [sp, #0]
-	add r1, r0, #8
-	ldr r0, [sp, #4]
-	str r0, [r1]
+	add r0, r0, #8
+	str r1, [r0]
 	b .L20
 .L19:
-	ldr r1, [sp, #8]
-	mov r0, #0
-	cmp r1, #4
-	moveq r0, #1
-	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
+	mov r3, #0
+	cmp r2, #4
+	moveq r3, #1
+	mov r3, r3
+	mov r3, r3
+	cmp r3, #1
 	beq .L21
 	b .L22
 .L20:
 	b .L17
 .L21:
-	ldr r0, [sp, #0]
 	add r0, r0, #12
-	ldr r1, [sp, #4]
 	str r1, [r0]
 	b .L23
 .L22:
-	ldr r1, [sp, #8]
-	mov r0, #0
-	cmp r1, #5
-	moveq r0, #1
-	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
+	mov r3, #0
+	cmp r2, #5
+	moveq r3, #1
+	mov r3, r3
+	mov r3, r3
+	cmp r3, #1
 	beq .L24
 	b .L25
 .L23:
 	b .L20
 .L24:
-	ldr r0, [sp, #0]
-	add r1, r0, #16
-	ldr r0, [sp, #4]
-	str r0, [r1]
+	add r0, r0, #16
+	str r1, [r0]
 	b .L26
 .L25:
-	ldr r1, [sp, #8]
-	mov r0, #0
-	cmp r1, #6
-	moveq r0, #1
-	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
+	mov r3, #0
+	cmp r2, #6
+	moveq r3, #1
+	mov r3, r3
+	mov r3, r3
+	cmp r3, #1
 	beq .L27
 	b .L28
 .L26:
 	b .L23
 .L27:
-	ldr r0, [sp, #0]
 	add r0, r0, #20
-	ldr r1, [sp, #4]
 	str r1, [r0]
 	b .L29
 .L28:
-	ldr r0, [sp, #8]
-	mov r1, #0
-	cmp r0, #7
-	moveq r1, #1
-	mov r0, r1
-	mov r0, r0
-	cmp r0, #1
+	mov r3, #0
+	cmp r2, #7
+	moveq r3, #1
+	mov r3, r3
+	mov r3, r3
+	cmp r3, #1
 	beq .L30
 	b .L31
 .L29:
 	b .L26
 .L30:
-	ldr r0, [sp, #0]
-	add r1, r0, #24
-	ldr r0, [sp, #4]
-	str r0, [r1]
+	add r0, r0, #24
+	str r1, [r0]
 	b .L32
 .L31:
-	ldr r1, [sp, #8]
-	mov r0, #0
-	cmp r1, #8
-	moveq r0, #1
-	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
+	mov r3, #0
+	cmp r2, #8
+	moveq r3, #1
+	mov r3, r3
+	mov r3, r3
+	cmp r3, #1
 	beq .L33
 	b .L34
 .L32:
 	b .L29
 .L33:
-	ldr r0, [sp, #0]
-	add r1, r0, #28
-	ldr r0, [sp, #4]
-	str r0, [r1]
+	add r0, r0, #28
+	str r1, [r0]
 	b .L35
 .L34:
-	ldr r1, [sp, #8]
-	mov r0, #0
-	cmp r1, #9
-	moveq r0, #1
-	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
+	mov r3, #0
+	cmp r2, #9
+	moveq r3, #1
+	mov r2, r3
+	mov r2, r2
+	cmp r2, #1
 	beq .L36
 	b .L37
 .L35:
 	b .L32
 .L36:
-	ldr r0, [sp, #0]
-	add r1, r0, #32
-	ldr r0, [sp, #4]
-	str r0, [r1]
+	add r0, r0, #32
+	str r1, [r0]
 	b .L38
 .L37:
 	b .L38
 .L38:
 	b .L35
 .L11:
-	add sp, sp, #12
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size placePiece, .-placePiece
 
@@ -362,595 +195,625 @@ placePiece:
 	.global checkWinner
 checkWinner:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
+	add fp, sp, #4
 	mov r0, r0
-	sub sp, sp, #8
+	sub sp, sp, #0
 .L40:
-	str r0, [sp, #4]
-	ldr r0, [sp, #4]
-	add r0, r0, #0
-	ldr r1, [r0]
-	mov r0, #0
+	add r1, r0, #0
+	ldr r2, [r1]
+	mov r1, #0
+	cmp r2, #1
+	moveq r1, #1
+	mov r1, r1
+	mov r1, r1
 	cmp r1, #1
-	moveq r0, #1
-	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
 	beq .L42
 	b .L43
 .L42:
-	ldr r0, [sp, #4]
-	add r0, r0, #4
-	ldr r0, [r0]
-	mov r1, #0
-	cmp r0, #1
-	moveq r1, #1
-	mov r0, r1
-	mov r0, r0
-	cmp r0, #1
+	add r1, r0, #4
+	ldr r1, [r1]
+	mov r2, #0
+	cmp r1, #1
+	moveq r2, #1
+	mov r1, r2
+	mov r1, r1
+	cmp r1, #1
 	beq .L45
 	b .L46
 .L43:
+	mov r0, r0
 	b .L44
 .L44:
-	ldr r0, [sp, #4]
-	add r0, r0, #0
-	ldr r0, [r0]
-	mov r1, #0
-	cmp r0, #2
-	moveq r1, #1
-	mov r0, r1
 	mov r0, r0
-	cmp r0, #1
-	beq .L52
-	b .L53
+	add r1, r0, #0
+	ldr r2, [r1]
+	mov r1, #0
+	cmp r2, #2
+	moveq r1, #1
+	mov r1, r1
+	mov r1, r1
+	cmp r1, #1
+	beq .L51
+	b .L52
 .L45:
-	ldr r0, [sp, #4]
-	add r0, r0, #8
-	ldr r0, [r0]
+	add r1, r0, #8
+	ldr r2, [r1]
 	mov r1, #0
-	cmp r0, #1
+	cmp r2, #1
 	moveq r1, #1
-	mov r0, r1
-	mov r0, r0
-	cmp r0, #1
+	mov r1, r1
+	mov r1, r1
+	cmp r1, #1
 	beq .L48
 	b .L49
 .L46:
+	mov r0, r0
 	b .L47
 .L47:
+	mov r0, r0
+	mov r0, r0
 	b .L44
 .L48:
 	mov r0, #0
-	str r0, [sp, #0]
+	mov r0, r0
 	b .L41
 .L49:
 	b .L50
 .L50:
+	mov r0, r0
 	b .L47
-.L52:
-	ldr r0, [sp, #4]
-	add r0, r0, #4
-	ldr r1, [r0]
-	mov r0, #0
-	cmp r1, #2
-	moveq r0, #1
-	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
-	beq .L55
-	b .L56
-.L53:
-	b .L54
-.L54:
-	ldr r0, [sp, #4]
-	add r0, r0, #12
-	ldr r1, [r0]
-	mov r0, #0
-	cmp r1, #1
-	moveq r0, #1
-	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
-	beq .L62
-	b .L63
-.L55:
-	ldr r0, [sp, #4]
-	add r0, r0, #8
-	ldr r1, [r0]
-	mov r0, #0
-	cmp r1, #2
-	moveq r0, #1
-	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
-	beq .L58
-	b .L59
-.L56:
-	b .L57
-.L57:
-	b .L54
-.L58:
-	mov r0, #1
-	str r0, [sp, #0]
-	b .L41
-.L59:
-	b .L60
-.L60:
-	b .L57
-.L62:
-	ldr r0, [sp, #4]
-	add r0, r0, #16
-	ldr r1, [r0]
-	mov r0, #0
-	cmp r1, #1
-	moveq r0, #1
-	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
-	beq .L65
-	b .L66
-.L63:
-	b .L64
-.L64:
-	ldr r0, [sp, #4]
-	add r0, r0, #12
-	ldr r0, [r0]
+.L51:
+	add r1, r0, #4
+	ldr r2, [r1]
 	mov r1, #0
-	cmp r0, #2
+	cmp r2, #2
 	moveq r1, #1
-	mov r0, r1
+	mov r1, r1
+	mov r1, r1
+	cmp r1, #1
+	beq .L54
+	b .L55
+.L52:
 	mov r0, r0
-	cmp r0, #1
+	b .L53
+.L53:
+	mov r0, r0
+	add r1, r0, #12
+	ldr r2, [r1]
+	mov r1, #0
+	cmp r2, #1
+	moveq r1, #1
+	mov r1, r1
+	mov r1, r1
+	cmp r1, #1
+	beq .L60
+	b .L61
+.L54:
+	add r1, r0, #8
+	ldr r2, [r1]
+	mov r1, #0
+	cmp r2, #2
+	moveq r1, #1
+	mov r1, r1
+	mov r1, r1
+	cmp r1, #1
+	beq .L57
+	b .L58
+.L55:
+	mov r0, r0
+	b .L56
+.L56:
+	mov r0, r0
+	mov r0, r0
+	b .L53
+.L57:
+	mov r0, #1
+	mov r0, r0
+	b .L41
+.L58:
+	b .L59
+.L59:
+	mov r0, r0
+	b .L56
+.L60:
+	add r1, r0, #16
+	ldr r1, [r1]
+	mov r2, #0
+	cmp r1, #1
+	moveq r2, #1
+	mov r1, r2
+	mov r1, r1
+	cmp r1, #1
+	beq .L63
+	b .L64
+.L61:
+	mov r0, r0
+	b .L62
+.L62:
+	mov r0, r0
+	add r1, r0, #12
+	ldr r1, [r1]
+	mov r2, #0
+	cmp r1, #2
+	moveq r2, #1
+	mov r1, r2
+	mov r1, r1
+	cmp r1, #1
+	beq .L69
+	b .L70
+.L63:
+	add r1, r0, #20
+	ldr r1, [r1]
+	mov r2, #0
+	cmp r1, #1
+	moveq r2, #1
+	mov r1, r2
+	mov r1, r1
+	cmp r1, #1
+	beq .L66
+	b .L67
+.L64:
+	mov r0, r0
+	b .L65
+.L65:
+	mov r0, r0
+	mov r0, r0
+	b .L62
+.L66:
+	mov r0, #0
+	mov r0, r0
+	b .L41
+.L67:
+	b .L68
+.L68:
+	mov r0, r0
+	b .L65
+.L69:
+	add r1, r0, #16
+	ldr r1, [r1]
+	mov r2, #0
+	cmp r1, #2
+	moveq r2, #1
+	mov r1, r2
+	mov r1, r1
+	cmp r1, #1
 	beq .L72
 	b .L73
-.L65:
-	ldr r0, [sp, #4]
-	add r0, r0, #20
-	ldr r1, [r0]
-	mov r0, #0
-	cmp r1, #1
-	moveq r0, #1
-	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
-	beq .L68
-	b .L69
-.L66:
-	b .L67
-.L67:
-	b .L64
-.L68:
-	mov r0, #0
-	str r0, [sp, #0]
-	b .L41
-.L69:
-	b .L70
 .L70:
-	b .L67
-.L72:
-	ldr r0, [sp, #4]
-	add r0, r0, #16
-	ldr r0, [r0]
-	mov r1, #0
-	cmp r0, #2
-	moveq r1, #1
-	mov r0, r1
 	mov r0, r0
-	cmp r0, #1
+	b .L71
+.L71:
+	mov r0, r0
+	add r1, r0, #24
+	ldr r2, [r1]
+	mov r1, #0
+	cmp r2, #1
+	moveq r1, #1
+	mov r1, r1
+	mov r1, r1
+	cmp r1, #1
+	beq .L78
+	b .L79
+.L72:
+	add r1, r0, #20
+	ldr r1, [r1]
+	mov r2, #0
+	cmp r1, #2
+	moveq r2, #1
+	mov r1, r2
+	mov r1, r1
+	cmp r1, #1
 	beq .L75
 	b .L76
 .L73:
+	mov r0, r0
 	b .L74
 .L74:
-	ldr r0, [sp, #4]
-	add r0, r0, #24
-	ldr r0, [r0]
-	mov r1, #0
-	cmp r0, #1
-	moveq r1, #1
-	mov r0, r1
 	mov r0, r0
-	cmp r0, #1
-	beq .L82
-	b .L83
+	mov r0, r0
+	b .L71
 .L75:
-	ldr r0, [sp, #4]
-	add r0, r0, #20
-	ldr r0, [r0]
-	mov r1, #0
-	cmp r0, #2
-	moveq r1, #1
-	mov r0, r1
+	mov r0, #1
 	mov r0, r0
-	cmp r0, #1
-	beq .L78
-	b .L79
+	b .L41
 .L76:
 	b .L77
 .L77:
+	mov r0, r0
 	b .L74
 .L78:
-	mov r0, #1
-	str r0, [sp, #0]
-	b .L41
+	add r1, r0, #28
+	ldr r2, [r1]
+	mov r1, #0
+	cmp r2, #1
+	moveq r1, #1
+	mov r1, r1
+	mov r1, r1
+	cmp r1, #1
+	beq .L81
+	b .L82
 .L79:
+	mov r0, r0
 	b .L80
 .L80:
-	b .L77
+	mov r0, r0
+	add r1, r0, #24
+	ldr r2, [r1]
+	mov r1, #0
+	cmp r2, #2
+	moveq r1, #1
+	mov r1, r1
+	mov r1, r1
+	cmp r1, #1
+	beq .L87
+	b .L88
+.L81:
+	add r1, r0, #32
+	ldr r1, [r1]
+	mov r2, #0
+	cmp r1, #1
+	moveq r2, #1
+	mov r1, r2
+	mov r1, r1
+	cmp r1, #1
+	beq .L84
+	b .L85
 .L82:
-	ldr r0, [sp, #4]
-	add r0, r0, #28
-	ldr r0, [r0]
-	mov r1, #0
-	cmp r0, #1
-	moveq r1, #1
-	mov r0, r1
 	mov r0, r0
-	cmp r0, #1
-	beq .L85
-	b .L86
+	b .L83
 .L83:
-	b .L84
+	mov r0, r0
+	mov r0, r0
+	b .L80
 .L84:
-	ldr r0, [sp, #4]
-	add r0, r0, #24
-	ldr r1, [r0]
 	mov r0, #0
-	cmp r1, #2
-	moveq r0, #1
 	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
-	beq .L92
-	b .L93
+	b .L41
 .L85:
-	ldr r0, [sp, #4]
-	add r0, r0, #32
-	ldr r0, [r0]
-	mov r1, #0
-	cmp r0, #1
-	moveq r1, #1
-	mov r0, r1
-	mov r0, r0
-	cmp r0, #1
-	beq .L88
-	b .L89
+	b .L86
 .L86:
-	b .L87
+	mov r0, r0
+	b .L83
 .L87:
-	b .L84
+	add r1, r0, #28
+	ldr r1, [r1]
+	mov r2, #0
+	cmp r1, #2
+	moveq r2, #1
+	mov r1, r2
+	mov r1, r1
+	cmp r1, #1
+	beq .L90
+	b .L91
 .L88:
-	mov r0, #0
-	str r0, [sp, #0]
-	b .L41
+	mov r0, r0
+	b .L89
 .L89:
-	b .L90
+	mov r0, r0
+	add r1, r0, #0
+	ldr r2, [r1]
+	mov r1, #0
+	cmp r2, #1
+	moveq r1, #1
+	mov r1, r1
+	mov r1, r1
+	cmp r1, #1
+	beq .L96
+	b .L97
 .L90:
-	b .L87
+	add r1, r0, #32
+	ldr r2, [r1]
+	mov r1, #0
+	cmp r2, #2
+	moveq r1, #1
+	mov r1, r1
+	mov r1, r1
+	cmp r1, #1
+	beq .L93
+	b .L94
+.L91:
+	mov r0, r0
+	b .L92
 .L92:
-	ldr r0, [sp, #4]
-	add r0, r0, #28
-	ldr r1, [r0]
-	mov r0, #0
-	cmp r1, #2
-	moveq r0, #1
 	mov r0, r0
 	mov r0, r0
-	cmp r0, #1
-	beq .L95
-	b .L96
+	b .L89
 .L93:
-	b .L94
-.L94:
-	ldr r0, [sp, #4]
-	add r0, r0, #0
-	ldr r1, [r0]
-	mov r0, #0
-	cmp r1, #1
-	moveq r0, #1
-	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
-	beq .L102
-	b .L103
-.L95:
-	ldr r0, [sp, #4]
-	add r0, r0, #32
-	ldr r1, [r0]
-	mov r0, #0
-	cmp r1, #2
-	moveq r0, #1
-	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
-	beq .L98
-	b .L99
-.L96:
-	b .L97
-.L97:
-	b .L94
-.L98:
 	mov r0, #1
-	str r0, [sp, #0]
+	mov r0, r0
 	b .L41
-.L99:
-	b .L100
-.L100:
-	b .L97
-.L102:
-	ldr r0, [sp, #4]
-	add r0, r0, #12
-	ldr r1, [r0]
-	mov r0, #0
+.L94:
+	b .L95
+.L95:
+	mov r0, r0
+	b .L92
+.L96:
+	add r1, r0, #12
+	ldr r1, [r1]
+	mov r2, #0
 	cmp r1, #1
-	moveq r0, #1
+	moveq r2, #1
+	mov r1, r2
+	mov r1, r1
+	cmp r1, #1
+	beq .L99
+	b .L100
+.L97:
 	mov r0, r0
+	b .L98
+.L98:
 	mov r0, r0
-	cmp r0, #1
+	add r1, r0, #0
+	ldr r1, [r1]
+	mov r2, #0
+	cmp r1, #2
+	moveq r2, #1
+	mov r1, r2
+	mov r1, r1
+	cmp r1, #1
 	beq .L105
 	b .L106
+.L99:
+	add r1, r0, #24
+	ldr r2, [r1]
+	mov r1, #0
+	cmp r2, #1
+	moveq r1, #1
+	mov r1, r1
+	mov r1, r1
+	cmp r1, #1
+	beq .L102
+	b .L103
+.L100:
+	mov r0, r0
+	b .L101
+.L101:
+	mov r0, r0
+	mov r0, r0
+	b .L98
+.L102:
+	mov r0, #0
+	mov r0, r0
+	b .L41
 .L103:
 	b .L104
 .L104:
-	ldr r0, [sp, #4]
-	add r0, r0, #0
-	ldr r1, [r0]
-	mov r0, #0
-	cmp r1, #2
-	moveq r0, #1
 	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
-	beq .L112
-	b .L113
+	b .L101
 .L105:
-	ldr r0, [sp, #4]
-	add r0, r0, #24
-	ldr r0, [r0]
-	mov r1, #0
-	cmp r0, #1
-	moveq r1, #1
-	mov r0, r1
-	mov r0, r0
-	cmp r0, #1
+	add r1, r0, #12
+	ldr r1, [r1]
+	mov r2, #0
+	cmp r1, #2
+	moveq r2, #1
+	mov r1, r2
+	mov r1, r1
+	cmp r1, #1
 	beq .L108
 	b .L109
 .L106:
+	mov r0, r0
 	b .L107
 .L107:
-	b .L104
+	mov r0, r0
+	add r1, r0, #4
+	ldr r2, [r1]
+	mov r1, #0
+	cmp r2, #1
+	moveq r1, #1
+	mov r1, r1
+	mov r1, r1
+	cmp r1, #1
+	beq .L114
+	b .L115
 .L108:
-	mov r0, #0
-	str r0, [sp, #0]
-	b .L41
+	add r1, r0, #24
+	ldr r2, [r1]
+	mov r1, #0
+	cmp r2, #2
+	moveq r1, #1
+	mov r1, r1
+	mov r1, r1
+	cmp r1, #1
+	beq .L111
+	b .L112
 .L109:
+	mov r0, r0
 	b .L110
 .L110:
+	mov r0, r0
+	mov r0, r0
 	b .L107
-.L112:
-	ldr r0, [sp, #4]
-	add r0, r0, #12
-	ldr r1, [r0]
-	mov r0, #0
-	cmp r1, #2
-	moveq r0, #1
-	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
-	beq .L115
-	b .L116
-.L113:
-	b .L114
-.L114:
-	ldr r0, [sp, #4]
-	add r0, r0, #4
-	ldr r1, [r0]
-	mov r0, #0
-	cmp r1, #1
-	moveq r0, #1
-	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
-	beq .L122
-	b .L123
-.L115:
-	ldr r0, [sp, #4]
-	add r0, r0, #24
-	ldr r0, [r0]
-	mov r1, #0
-	cmp r0, #2
-	moveq r1, #1
-	mov r0, r1
-	mov r0, r0
-	cmp r0, #1
-	beq .L118
-	b .L119
-.L116:
-	b .L117
-.L117:
-	b .L114
-.L118:
+.L111:
 	mov r0, #1
-	str r0, [sp, #0]
+	mov r0, r0
 	b .L41
-.L119:
-	b .L120
-.L120:
-	b .L117
-.L122:
-	ldr r0, [sp, #4]
-	add r0, r0, #16
-	ldr r1, [r0]
-	mov r0, #0
+.L112:
+	b .L113
+.L113:
+	mov r0, r0
+	b .L110
+.L114:
+	add r1, r0, #16
+	ldr r2, [r1]
+	mov r1, #0
+	cmp r2, #1
+	moveq r1, #1
+	mov r1, r1
+	mov r1, r1
 	cmp r1, #1
-	moveq r0, #1
+	beq .L117
+	b .L118
+.L115:
 	mov r0, r0
+	b .L116
+.L116:
 	mov r0, r0
-	cmp r0, #1
-	beq .L125
-	b .L126
-.L123:
-	b .L124
-.L124:
-	ldr r0, [sp, #4]
-	add r0, r0, #4
-	ldr r1, [r0]
-	mov r0, #0
+	add r1, r0, #4
+	ldr r1, [r1]
+	mov r2, #0
 	cmp r1, #2
-	moveq r0, #1
+	moveq r2, #1
+	mov r1, r2
+	mov r1, r1
+	cmp r1, #1
+	beq .L123
+	b .L124
+.L117:
+	add r1, r0, #28
+	ldr r2, [r1]
+	mov r1, #0
+	cmp r2, #1
+	moveq r1, #1
+	mov r1, r1
+	mov r1, r1
+	cmp r1, #1
+	beq .L120
+	b .L121
+.L118:
+	mov r0, r0
+	b .L119
+.L119:
 	mov r0, r0
 	mov r0, r0
-	cmp r0, #1
+	b .L116
+.L120:
+	mov r0, #0
+	mov r0, r0
+	b .L41
+.L121:
+	b .L122
+.L122:
+	mov r0, r0
+	b .L119
+.L123:
+	add r1, r0, #16
+	ldr r1, [r1]
+	mov r2, #0
+	cmp r1, #2
+	moveq r2, #1
+	mov r1, r2
+	mov r1, r1
+	cmp r1, #1
+	beq .L126
+	b .L127
+.L124:
+	mov r0, r0
+	b .L125
+.L125:
+	mov r0, r0
+	add r1, r0, #8
+	ldr r1, [r1]
+	mov r2, #0
+	cmp r1, #1
+	moveq r2, #1
+	mov r1, r2
+	mov r1, r1
+	cmp r1, #1
 	beq .L132
 	b .L133
-.L125:
-	ldr r0, [sp, #4]
-	add r0, r0, #28
-	ldr r1, [r0]
-	mov r0, #0
-	cmp r1, #1
-	moveq r0, #1
-	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
-	beq .L128
-	b .L129
 .L126:
-	b .L127
-.L127:
-	b .L124
-.L128:
-	mov r0, #0
-	str r0, [sp, #0]
-	b .L41
-.L129:
-	b .L130
-.L130:
-	b .L127
-.L132:
-	ldr r0, [sp, #4]
-	add r0, r0, #16
-	ldr r1, [r0]
-	mov r0, #0
+	add r1, r0, #28
+	ldr r1, [r1]
+	mov r2, #0
 	cmp r1, #2
-	moveq r0, #1
+	moveq r2, #1
+	mov r1, r2
+	mov r1, r1
+	cmp r1, #1
+	beq .L129
+	b .L130
+.L127:
+	mov r0, r0
+	b .L128
+.L128:
 	mov r0, r0
 	mov r0, r0
-	cmp r0, #1
+	b .L125
+.L129:
+	mov r0, #1
+	mov r0, r0
+	b .L41
+.L130:
+	b .L131
+.L131:
+	mov r0, r0
+	b .L128
+.L132:
+	add r1, r0, #20
+	ldr r2, [r1]
+	mov r1, #0
+	cmp r2, #1
+	moveq r1, #1
+	mov r1, r1
+	mov r1, r1
+	cmp r1, #1
 	beq .L135
 	b .L136
 .L133:
+	mov r0, r0
 	b .L134
 .L134:
-	ldr r0, [sp, #4]
-	add r0, r0, #8
-	ldr r1, [r0]
-	mov r0, #0
-	cmp r1, #1
-	moveq r0, #1
 	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
-	beq .L142
-	b .L143
-.L135:
-	ldr r0, [sp, #4]
-	add r0, r0, #28
-	ldr r1, [r0]
-	mov r0, #0
+	add r1, r0, #8
+	ldr r1, [r1]
+	mov r2, #0
 	cmp r1, #2
-	moveq r0, #1
-	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
+	moveq r2, #1
+	mov r1, r2
+	mov r1, r1
+	cmp r1, #1
+	beq .L141
+	b .L142
+.L135:
+	add r1, r0, #32
+	ldr r1, [r1]
+	mov r2, #0
+	cmp r1, #1
+	moveq r2, #1
+	mov r1, r2
+	mov r1, r1
+	cmp r1, #1
 	beq .L138
 	b .L139
 .L136:
+	mov r0, r0
 	b .L137
 .L137:
+	mov r0, r0
+	mov r0, r0
 	b .L134
 .L138:
-	mov r0, #1
-	str r0, [sp, #0]
+	mov r0, #0
+	mov r0, r0
 	b .L41
 .L139:
 	b .L140
 .L140:
+	mov r0, r0
 	b .L137
-.L142:
-	ldr r0, [sp, #4]
-	add r0, r0, #20
-	ldr r1, [r0]
-	mov r0, #0
+.L141:
+	add r1, r0, #20
+	ldr r1, [r1]
+	mov r2, #0
+	cmp r1, #2
+	moveq r2, #1
+	mov r1, r2
+	mov r1, r1
 	cmp r1, #1
-	moveq r0, #1
-	mov r0, r0
-	mov r0, r0
-	cmp r0, #1
-	beq .L145
-	b .L146
+	beq .L144
+	b .L145
+.L142:
+	b .L143
 .L143:
-	b .L144
-.L144:
-	ldr r0, [sp, #4]
-	add r0, r0, #8
-	ldr r0, [r0]
-	mov r1, #0
-	cmp r0, #2
-	moveq r1, #1
-	mov r0, r1
-	mov r0, r0
-	cmp r0, #1
-	beq .L152
-	b .L153
-.L145:
-	ldr r0, [sp, #4]
-	add r0, r0, #32
-	ldr r0, [r0]
-	mov r1, #0
-	cmp r0, #1
-	moveq r1, #1
-	mov r0, r1
-	mov r0, r0
-	cmp r0, #1
-	beq .L148
-	b .L149
-.L146:
-	b .L147
-.L147:
-	b .L144
-.L148:
 	mov r0, #0
-	str r0, [sp, #0]
-	b .L41
-.L149:
-	b .L150
-.L150:
-	b .L147
-.L152:
-	ldr r0, [sp, #4]
-	add r0, r0, #20
-	ldr r0, [r0]
-	mov r1, #0
-	cmp r0, #2
-	moveq r1, #1
-	mov r0, r1
+	mov r1, #1
+	sub r0, r0, r1
+	mov r0, #-1
 	mov r0, r0
-	cmp r0, #1
-	beq .L155
-	b .L156
-.L153:
-	b .L154
-.L154:
-	mov r1, #0
-	mov r0, #1
-	sub r0, r1, r0
-	str r0, [sp, #0]
 	b .L41
-.L155:
-	ldr r0, [sp, #4]
+.L144:
 	add r0, r0, #32
 	ldr r1, [r0]
 	mov r0, #0
@@ -959,26 +822,26 @@ checkWinner:
 	mov r0, r0
 	mov r0, r0
 	cmp r0, #1
-	beq .L158
-	b .L159
-.L156:
-	b .L157
-.L157:
-	b .L154
-.L158:
+	beq .L147
+	b .L148
+.L145:
+	b .L146
+.L146:
+	b .L143
+.L147:
 	mov r0, #1
-	str r0, [sp, #0]
-	b .L41
-.L159:
-	b .L160
-.L160:
-	b .L157
-.L41:
-	ldr r0, [sp, #0]
 	mov r0, r0
-	add sp, sp, #8
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	b .L41
+.L148:
+	b .L149
+.L149:
+	b .L146
+.L41:
+	mov r0, r0
+	mov r0, r0
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size checkWinner, .-checkWinner
 
@@ -987,153 +850,210 @@ checkWinner:
 	.global main
 main:
 	push {fp, lr}
-	add fp, sp, #4
 	push {r4, r5, r6, r7, r8, r9, r10}
-	sub sp, sp, #28
-.L163:
-	mov r0, #0
-	str r0, [sp, #20]
-	mov r0, #0
-	str r0, [sp, #4]
-	mov r0, #0
-	str r0, [sp, #8]
-	mov r0, #0
-	str r0, [sp, #12]
-	mov r0, #0
-	mov r1, #1
-	sub r0, r0, r1
-	str r0, [sp, #16]
-	movw r0, #:lower16:36
-	movt r0, #:upper16:36
+	add fp, sp, #4
+	sub sp, sp, #0
+.L151:
+	mov r1, #0
+	mov r0, #1
+	sub r0, r1, r0
+	mov r0, #36
 	bl malloc
 	mov r1, r0
 	mov r1, r1
-	str r1, [sp, #24]
-	ldr r1, [sp, #24]
-	mov r0, r1
-	bl cleanBoard
-	mov r1, #0
-	mov r1, r0
-	ldr r2, [sp, #16]
-	mov r1, #0
-	cmp r2, #0
-	movlt r1, #1
-	mov r1, r1
-	ldr r3, [sp, #20]
+	add r2, r1, #0
+	mov r3, #0
+	str r3, [r2]
+	add r3, r1, #4
 	mov r2, #0
-	cmp r3, #8
-	movne r2, #1
-	mov r2, r2
-	and r1, r1, r2
-	mov r1, r1
-	cmp r1, #1
-	beq .L165
-	b .L169
-.L166:
-	ldr r0, [sp, #4]
-	mov r1, #1
-	add r0, r0, r1
-	str r0, [sp, #4]
-	movw r1, #:lower16:.read_scratch
-	movt r1, #:upper16:.read_scratch
-	movw r0, #:lower16:.READ_FMT
-	movt r0, #:upper16:.READ_FMT
-	bl scanf
-	movw r3, #:lower16:.read_scratch
-	movt r3, #:upper16:.read_scratch
-	ldr r3, [r3]
-	str r3, [sp, #8]
-	ldr r4, [sp, #24]
-	ldr r3, [sp, #8]
-	mov r0, r4
-	mov r4, #1
-	mov r1, r4
-	mov r2, r3
-	bl placePiece
-	mov r1, #0
-	mov r1, r0
-	b .L168
-.L167:
-	ldr r0, [sp, #4]
-	mov r1, #1
-	sub r0, r0, r1
-	str r0, [sp, #4]
-	movw r1, #:lower16:.read_scratch
-	movt r1, #:upper16:.read_scratch
-	movw r0, #:lower16:.READ_FMT
-	movt r0, #:upper16:.READ_FMT
-	bl scanf
-	movw r3, #:lower16:.read_scratch
-	movt r3, #:upper16:.read_scratch
-	ldr r3, [r3]
-	str r3, [sp, #12]
-	ldr r4, [sp, #24]
-	ldr r3, [sp, #12]
-	mov r0, r4
-	mov r4, #2
-	mov r1, r4
-	mov r2, r3
-	bl placePiece
-	mov r1, #0
-	mov r1, r0
-	b .L168
-.L168:
-	ldr r1, [sp, #24]
-	mov r0, r1
-	bl checkWinner
-	mov r0, r0
-	str r0, [sp, #16]
-	ldr r1, [sp, #20]
-	mov r0, #1
-	add r0, r1, r0
-	str r0, [sp, #20]
-	ldr r0, [sp, #16]
-	mov r1, #0
-	cmp r0, #0
-	movlt r1, #1
-	mov r0, r1
-	ldr r1, [sp, #20]
+	str r2, [r3]
+	add r3, r1, #8
 	mov r2, #0
-	cmp r1, #8
-	movne r2, #1
-	mov r1, r2
-	and r0, r0, r1
-	mov r0, r0
-	cmp r0, #1
-	beq .L165
-	b .L169
-.L165:
-	ldr r1, [sp, #24]
-	mov r0, r1
-	bl printBoard
+	str r2, [r3]
+	add r3, r1, #12
+	mov r2, #0
+	str r2, [r3]
+	add r2, r1, #16
+	mov r3, #0
+	str r3, [r2]
+	add r3, r1, #20
+	mov r2, #0
+	str r2, [r3]
+	add r2, r1, #24
+	mov r3, #0
+	str r3, [r2]
+	add r2, r1, #28
+	mov r3, #0
+	str r3, [r2]
+	add r3, r1, #32
+	mov r2, #0
+	str r2, [r3]
+	mov r2, #1
+	cmp r2, #1
+	mov r3, r1
 	mov r1, #0
+	mov r5, r1
+	mov r1, #0
+	mov r2, r1
+	mov r1, #-1
+	mov r1, r1
+	beq .L153
+	b .L154
+.L153:
+	mov r4, r3
+	mov r6, r5
+	mov r5, r2
+	add r0, r4, #0
+	ldr r0, [r0]
 	mov r1, r0
-	ldr r2, [sp, #4]
+	movw r0, #:lower16:.PRINT_FMT
+	movt r0, #:upper16:.PRINT_FMT
+	bl printf
+	add r0, r4, #4
+	ldr r0, [r0]
+	mov r1, r0
+	movw r0, #:lower16:.PRINT_FMT
+	movt r0, #:upper16:.PRINT_FMT
+	bl printf
+	add r0, r4, #8
+	ldr r0, [r0]
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	add r0, r4, #12
+	ldr r0, [r0]
+	mov r1, r0
+	movw r0, #:lower16:.PRINT_FMT
+	movt r0, #:upper16:.PRINT_FMT
+	bl printf
+	add r0, r4, #16
+	ldr r0, [r0]
+	mov r1, r0
+	movw r0, #:lower16:.PRINT_FMT
+	movt r0, #:upper16:.PRINT_FMT
+	bl printf
+	add r0, r4, #20
+	ldr r0, [r0]
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
+	add r0, r4, #24
+	ldr r0, [r0]
+	mov r1, r0
+	movw r0, #:lower16:.PRINT_FMT
+	movt r0, #:upper16:.PRINT_FMT
+	bl printf
+	add r0, r4, #28
+	ldr r0, [r0]
+	mov r1, r0
+	movw r0, #:lower16:.PRINT_FMT
+	movt r0, #:upper16:.PRINT_FMT
+	bl printf
+	add r0, r4, #32
+	ldr r0, [r0]
+	mov r1, r0
+	movw r0, #:lower16:.PRINTLN_FMT
+	movt r0, #:upper16:.PRINTLN_FMT
+	bl printf
 	mov r1, #0
-	cmp r2, #0
+	cmp r6, #0
 	moveq r1, #1
 	mov r1, r1
 	mov r1, r1
 	cmp r1, #1
-	beq .L166
-	b .L167
-.L169:
-	ldr r1, [sp, #16]
+	beq .L155
+	b .L156
+.L155:
+	mov r0, #1
+	add r6, r6, r0
+	movw r1, #:lower16:.read_scratch
+	movt r1, #:upper16:.read_scratch
+	movw r0, #:lower16:.READ_FMT
+	movt r0, #:upper16:.READ_FMT
+	bl scanf
+	movw r3, #:lower16:.read_scratch
+	movt r3, #:upper16:.read_scratch
+	ldr r3, [r3]
+	movw r7, #:lower16:.read_scratch
+	movt r7, #:upper16:.read_scratch
+	str r3, [r7, #0]
+	ldr r7, [r7]
+	mov r0, r4
+	mov r3, #1
+	mov r1, r3
+	mov r2, r7
+	bl placePiece
+	mov r2, r4
+	mov r1, r5
+	mov r3, r6
+	b .L157
+.L156:
+	mov r0, #1
+	sub r6, r6, r0
+	movw r1, #:lower16:.read_scratch
+	movt r1, #:upper16:.read_scratch
+	movw r0, #:lower16:.READ_FMT
+	movt r0, #:upper16:.READ_FMT
+	bl scanf
+	movw r3, #:lower16:.read_scratch
+	movt r3, #:upper16:.read_scratch
+	ldr r3, [r3]
+	movw r7, #:lower16:.read_scratch
+	movt r7, #:upper16:.read_scratch
+	str r3, [r7, #0]
+	ldr r3, [r7]
+	mov r0, r4
+	mov r7, #2
+	mov r1, r7
+	mov r2, r3
+	bl placePiece
+	mov r2, r4
+	mov r1, r5
+	mov r3, r6
+	b .L157
+.L157:
+	mov r5, r2
+	mov r6, r1
+	mov r4, r3
+	mov r0, r5
+	bl checkWinner
+	mov r1, r0
+	mov r2, #1
+	add r2, r6, r2
+	mov r3, #0
+	cmp r1, #0
+	movlt r3, #1
+	mov r3, r3
+	mov r6, #0
+	cmp r2, #8
+	movne r6, #1
+	mov r6, r6
+	and r3, r3, r6
+	mov r3, r3
+	cmp r3, #1
+	mov r3, r5
+	mov r5, r4
+	mov r2, r2
+	mov r1, r1
+	beq .L153
+	b .L154
+.L154:
+	mov r1, r1
 	mov r0, #1
 	add r0, r1, r0
 	mov r1, r0
 	movw r0, #:lower16:.PRINTLN_FMT
 	movt r0, #:upper16:.PRINTLN_FMT
 	bl printf
+	b .L152
+.L152:
 	mov r0, #0
-	str r0, [sp, #0]
-	b .L164
-.L164:
-	ldr r0, [sp, #0]
 	mov r0, r0
-	add sp, sp, #28
-	pop {r4, r5, r6, r7, r8, r9, r10}
+	add sp, sp, #0
 	sub fp, sp, #4
+	pop {r4, r5, r6, r7, r8, r9, r10}
 	pop {fp, pc}
 	.size main, .-main
 
