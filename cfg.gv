@@ -1,5 +1,9 @@
 digraph G {
-size ="8.5,11";hailstoneStartBlock -> hailstoneBlock1
+size ="8.5,11";modStartBlock -> modBlock1
+modBlock1 -> modEndBlock
+modBlock1 -> modStartBlock [style=dashed]
+modEndBlock -> modBlock1 [style=dashed]
+hailstoneStartBlock -> hailstoneBlock1
 hailstoneBlock1 -> whileBlock10
 hailstoneBlock1 -> whileExitBlock10
 hailstoneBlock1 -> hailstoneStartBlock [style=dashed]

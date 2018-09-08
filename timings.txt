@@ -1,0 +1,24 @@
+\rm -rf *generated* MiniBaseVisitor.java MiniLexer.java MiniLexer.tokens Mini.tokens MiniVisitor.java MiniParser.java MiniBaseListener.java MiniListener.java *.class ast/*.class
+java -cp ../lib/antlr-4.7.1-complete.jar:../lib/javax.json-1.0.4.jar:.::/home/akeen/public/antlr4/antlr-4.7.1-complete.jar:/home/akeen/public/javax.json-1.0.4.jar org.antlr.v4.Tool -visitor Mini.g4
+touch antlr.generated
+javac -cp ../lib/antlr-4.7.1-complete.jar:../lib/javax.json-1.0.4.jar:.::/home/akeen/public/antlr4/antlr-4.7.1-complete.jar:/home/akeen/public/javax.json-1.0.4.jar *.java ast/*.java arm/*.java llvm/*.java llvm/value/*.java llvm/ArithmeticBool/*.java
+RUNNING benchmarks/BenchMarkishTopics Regular ... PASSED
+RUNNING benchmarks/bert Regular ... PASSED
+RUNNING benchmarks/biggest Regular ... PASSED
+RUNNING benchmarks/binaryConverter Regular ... PASSED
+RUNNING benchmarks/brett Regular ... PASSED
+RUNNING benchmarks/creativeBenchMarkName Regular ... PASSED
+RUNNING benchmarks/fact_sum Regular ... PASSED
+RUNNING benchmarks/Fibonacci Regular ... PASSED
+RUNNING benchmarks/GeneralFunctAndOptimize Regular ... PASSED
+RUNNING benchmarks/hailstone Regular ... PASSED
+RUNNING benchmarks/hanoi_benchmark Regular ... PASSED
+RUNNING benchmarks/killerBubbles Regular ... PASSED
+RUNNING benchmarks/mile1 Regular ... PASSED
+RUNNING benchmarks/mixed Regular ... PASSED
+RUNNING benchmarks/OptimizationBenchmark Regular ... PASSED
+RUNNING benchmarks/primes Regular ... PASSED
+RUNNING benchmarks/programBreaker Regular ... PASSED
+RUNNING benchmarks/stats Regular ... PASSED
+RUNNING benchmarks/TicTac Regular ... PASSED
+RUNNING benchmarks/wasteOfCycles Regular ... PASSED
